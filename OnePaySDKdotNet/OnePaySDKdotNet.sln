@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnePaySDK", "OnePaySDK\OnePaySDK.csproj", "{0381863D-61D0-4541-B0C5-BE41D02C351C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnePaySDKTest", "OnePaySDKTest\OnePaySDKTest.csproj", "{1854E14D-531B-46A2-8331-6811EF4AA581}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0381863D-61D0-4541-B0C5-BE41D02C351C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0381863D-61D0-4541-B0C5-BE41D02C351C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0381863D-61D0-4541-B0C5-BE41D02C351C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0381863D-61D0-4541-B0C5-BE41D02C351C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1854E14D-531B-46A2-8331-6811EF4AA581}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1854E14D-531B-46A2-8331-6811EF4AA581}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1854E14D-531B-46A2-8331-6811EF4AA581}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1854E14D-531B-46A2-8331-6811EF4AA581}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C139AB20-2E43-42A0-962B-7E2F0E124905}
+	EndGlobalSection
+EndGlobal
