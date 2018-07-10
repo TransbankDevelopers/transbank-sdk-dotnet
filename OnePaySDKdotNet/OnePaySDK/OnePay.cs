@@ -18,17 +18,17 @@ namespace OnePaySDK
             get { return apiKey; }
             set { apiKey = value ?? throw new ArgumentNullException(); }
         }
-        public string AppKey
+        public static string AppKey
         {
             get { return appKey; }
             set { appKey = value ?? throw new ArgumentNullException(); }
         }
-        public string CallbackUrl
+        public static string CallbackUrl
         {
             get { return callbackUrl; }
             set { callbackUrl = value ?? throw new ArgumentNullException(); }
         }
-        public string SharedSecret {
+        public static string SharedSecret {
             get { return sharedSecret; }
             set { sharedSecret = value ?? throw new ArgumentNullException(); }
         }
