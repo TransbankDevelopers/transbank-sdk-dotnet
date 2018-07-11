@@ -9,6 +9,7 @@ namespace OnePaySDK.Model
         private string callbackUrl;
         private string channel;
         private string signature;
+        private readonly bool generateOttQrCode = true;
 
         private long ExternalUniqueNumber { get; set; }
         private long Total { get; set; }
@@ -33,20 +34,6 @@ namespace OnePaySDK.Model
         {
             get => signature;
             set => signature = value ?? throw new ArgumentNullException();
-        }
-
-        public TransactionCreateRequest() { }
-
-        public TransactionCreateRequest(long externalUniqueNumber, long total, int itemsQuantity, long issuedAt, List<Item> items, string callbackUrl, string channel, string signature)
-        {
-            ExternalUniqueNumber = externalUniqueNumber;
-            Total = total;
-            ItemsQuantity = itemsQuantity;
-            IssuedAt = issuedAt;
-            Items = items;
-            CallbackUrl = callbackUrl;
-            Channel = channel;
-            Signature = signature;
         }
     }
 }
