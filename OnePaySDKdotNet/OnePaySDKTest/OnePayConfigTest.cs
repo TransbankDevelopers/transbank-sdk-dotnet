@@ -1,6 +1,7 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OnePaySDK;
+using OnePaySDK.Enums;
 
 namespace OnePaySDKTest
 {
