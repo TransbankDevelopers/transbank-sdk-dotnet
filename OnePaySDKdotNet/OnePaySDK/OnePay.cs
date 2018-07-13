@@ -5,9 +5,10 @@ namespace Transbank
 {
     public abstract class OnePay
     {
+        public static readonly string APP_KEY = "04533c31-fe7e-43ed-bbc4-1c8ab1538afp";
+        public static readonly string FAKE_CALLBACK_URL = "http://nourlcallbackneededhere";
+
         private static string apiKey;
-        private static string appKey;
-        private static string callbackUrl;
         private static string sharedSecret;
 
         public static OnePayIntegrationType IntegrationType { get; set;} = OnePayIntegrationType.TEST;
@@ -17,18 +18,6 @@ namespace Transbank
             get => apiKey;
             set => apiKey = value ?? throw 
                 new ArgumentNullException("ApiKey can't be null");
-        }
-        public static string AppKey
-        {
-            get => appKey;
-            set => appKey = value ?? throw 
-                new ArgumentNullException("AppKey can't be null");
-        }
-        public static string CallbackUrl
-        {
-            get => callbackUrl;
-            set => callbackUrl = value ?? throw 
-                new ArgumentNullException("CallbackUrl can't be null");
         }
         public static string SharedSecret
         {

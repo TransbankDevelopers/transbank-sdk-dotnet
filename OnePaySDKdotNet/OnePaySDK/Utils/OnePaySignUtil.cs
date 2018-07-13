@@ -22,7 +22,7 @@ namespace Transbank.Utils
             data += total.Length + total;
             data += itemsQuantity.Length + itemsQuantity;
             data += issuedAt.Length + issuedAt;
-            data += OnePay.CallbackUrl.Length + OnePay.CallbackUrl;
+            data += OnePay.FAKE_CALLBACK_URL.Length + OnePay.FAKE_CALLBACK_URL;
 
             byte[] crypted = Crypt(data, secret);
             request.Signature = Convert.ToBase64String(crypted);
