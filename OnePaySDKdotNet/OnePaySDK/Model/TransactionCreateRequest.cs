@@ -18,22 +18,34 @@ namespace Transbank.Model
         public List<Item> Items
         {
             get => items;
-            set => items = value ?? throw new ArgumentNullException();
+            set => items = value ?? throw 
+                new ArgumentNullException("Items can't be null");
         }
         public string CallbackUrl
         {
             get => callbackUrl;
-            set => callbackUrl = value ?? throw new ArgumentNullException();
+            set => callbackUrl = value ?? throw 
+                new ArgumentNullException("CallbackUrl can't be null");
         }
         public string Channel
         {
             get => channel;
-            set => channel = value ?? throw new ArgumentNullException();
+            set => channel = value ?? throw 
+                new ArgumentNullException("Channel can't be null");
         }
         public string Signature
         {
             get => signature;
-            set => signature = value ?? throw new ArgumentNullException();
+            set => signature = value ?? throw 
+                new ArgumentNullException("Signature can't be null");
+        }
+
+        public override string ToString()
+        {
+            return $"ExternalUniqueNumber={ExternalUniqueNumber}, Total={Total}" +
+                $", ItemsQuantity={ItemsQuantity}, IssueaAt={IssuedAt}" +
+                $", Items={string.Join<Item>(" , ", Items.ToArray())}" +
+                $", CallbackUrl={CallbackUrl}, Channel={Channel}, Signature={Signature}";
         }
     }
 }
