@@ -11,15 +11,17 @@ namespace OnePayTest
         [TestCleanup]
         public void BaseTestCleanup()
         {
-            OnePay.IntegrationType = IntegrationType.TEST;
+            OnePay.IntegrationType = OnePayIntegrationType.TEST;
         }
 
         [TestMethod]
         public void TestOnePayIntegrationType()
         {
-            Assert.IsTrue(OnePay.IntegrationType.CompareTo(IntegrationType.TEST) == 0);
-            OnePay.IntegrationType = IntegrationType.LIVE;
-            Assert.IsTrue(OnePay.IntegrationType.CompareTo(IntegrationType.LIVE) == 0);
+            Assert.IsTrue(OnePay.IntegrationType.Key.Equals(
+                OnePayIntegrationType.TEST.Key));
+            OnePay.IntegrationType = OnePayIntegrationType.LIVE;
+            Assert.IsTrue(OnePay.IntegrationType.Key.Equals(
+                OnePayIntegrationType.LIVE.Key));
         }
 
         [TestMethod]
@@ -35,7 +37,7 @@ namespace OnePayTest
             OnePay.CallbackUrl = "http://localhost:8080/ewallet-endpoints";
             OnePay.SharedSecret = "P4DCPS55QB2QLT56SQH6#W#LV76IAPYX";
 
-            Assert.AreEqual(IntegrationType.TEST, OnePay.IntegrationType);
+            Assert.AreEqual(OnePayIntegrationType.TEST, OnePay.IntegrationType);
             Assert.AreEqual("mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg", OnePay.ApiKey);
             Assert.AreEqual("04533c31-fe7e-43ed-bbc4-1c8ab1538afp", OnePay.AppKey);
             Assert.AreEqual("http://localhost:8080/ewallet-endpoints", OnePay.CallbackUrl);

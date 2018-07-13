@@ -10,7 +10,7 @@ namespace Transbank
         private static string callbackUrl;
         private static string sharedSecret;
 
-        public static IntegrationType IntegrationType { get; set;} = IntegrationType.TEST;
+        public static OnePayIntegrationType IntegrationType { get; set;} = OnePayIntegrationType.TEST;
 
         public static string ApiKey
         {

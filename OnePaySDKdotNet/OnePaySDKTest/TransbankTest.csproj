@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OnePaySDK\OnePay.csproj" />
+    <ProjectReference Include="..\OnePaySDK\OnePaySDK.csproj" />
   </ItemGroup>
 
 </Project>
