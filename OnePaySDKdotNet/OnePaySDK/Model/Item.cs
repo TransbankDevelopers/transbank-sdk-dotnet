@@ -4,21 +4,34 @@ namespace Transbank.Model
 {
     public class Item
     {
-        private string Description { get; set; }
-        private int Quantity { get; set; }
-        private int Amount { get; set; }
-        private string AdditionalData { get; set; }
-        private long Expire { get; set; }
+        [JsonProperty("description")]
+        public string Description { get; set; }
+        [JsonProperty("quantity")]
+        public int Quantity { get; set; }
+        [JsonProperty("amount")]
+        public int Amount { get; set; }
+        [JsonProperty("additionalData")]
+        public string AdditionalData { get; set; }
+        [JsonProperty("expire")]
+        public long Expire { get; set; }
 
         public Item() { }
 
-        public Item(string description, int quantity, int amount, string additionalData, long expire)
+        public Item(string description,int quantity, int amount, 
+            string additionalData, long expire)
         {
             Description = description;
             Quantity = quantity;
             Amount = amount;
             AdditionalData = additionalData;
             Expire = expire;
+        }
+
+        public override string ToString()
+        {
+            return $"Description={Description} ,Quantity={Quantity}, " +
+                $"Amount={Amount}, AdditionalData={AdditionalData}, " +
+                $"Expire={Expire}".Trim();
         }
     }
 }
