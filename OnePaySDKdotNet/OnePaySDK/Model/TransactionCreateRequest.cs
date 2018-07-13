@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OnePaySDK.Model
+namespace Transbank.Model
 {
     public sealed class TransactionCreateRequest : BaseRequest
     {       

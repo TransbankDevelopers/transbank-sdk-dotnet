@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnePaySDK", "OnePaySDK\OnePaySDK.csproj", "{0381863D-61D0-4541-B0C5-BE41D02C351C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnePay", "OnePaySDK\OnePay.csproj", "{0381863D-61D0-4541-B0C5-BE41D02C351C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnePaySDKTest", "OnePaySDKTest\OnePaySDKTest.csproj", "{3575F64E-4B5D-423B-890F-C267790CD303}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnePayTest", "OnePaySDKTest\OnePayTest.csproj", "{3575F64E-4B5D-423B-890F-C267790CD303}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

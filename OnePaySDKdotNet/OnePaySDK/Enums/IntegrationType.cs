@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
-namespace OnePaySDK.Enums
+namespace OnePay.Enums
 {
     [JsonConverter(typeof(StringEnumConverter))]
      public enum IntegrationType

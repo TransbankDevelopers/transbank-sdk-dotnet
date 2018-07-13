@@ -1,4 +1,6 @@
-﻿namespace OnePaySDK.Model
+﻿using Newtonsoft.Json;
+
+namespace Transbank.Model
 {
     public class Item
     {

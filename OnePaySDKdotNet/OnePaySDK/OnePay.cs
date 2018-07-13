@@ -1,7 +1,7 @@
 ﻿using System;
-using OnePaySDK.Enums;
+using Transbank.Enums;
 
-namespace OnePaySDK
+namespace Transbank
 {
     public abstract class OnePay
     {

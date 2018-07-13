@@ -1,9 +1,9 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OnePaySDK;
-using OnePaySDK.Enums;
+using Transbank;
+using Transbank.Enums;
 
-namespace OnePaySDKTest
+namespace OnePayTest
 {
     [TestClass]
     public class OnePayConfigTest
