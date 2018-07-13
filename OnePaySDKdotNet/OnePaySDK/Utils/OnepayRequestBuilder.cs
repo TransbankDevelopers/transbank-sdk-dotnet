@@ -18,7 +18,7 @@ namespace Transbank.Utils
             SendTransactionRequest request = new SendTransactionRequest(
                 Guid.NewGuid().ToString(), cart.Total, cart.GetItemQuantity(),
                     (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond,
-                        cart.GetItems(), OnePay.CallbackUrl, "WEB");
+                        cart.GetItems(), OnePay.FAKE_CALLBACK_URL, "WEB");
             PrepareRequest(request, options);
             return OnePaySignUtil.GetInstance().sign(request, options.SharedSecret);
         }
@@ -28,7 +28,6 @@ namespace Transbank.Utils
             if (options == null) return Options.getDefaults();
 
             if (options.ApiKey == null) options.ApiKey = OnePay.ApiKey;
-            if (options.AppKey == null) options.AppKey = OnePay.AppKey;
             if (options.SharedSecret == null) options.SharedSecret = OnePay.SharedSecret;
 
             return options;
@@ -37,7 +36,7 @@ namespace Transbank.Utils
         protected void PrepareRequest(BaseRequest request, Options options)
         {
             request.ApiKey = options.ApiKey;
-            request.AppKey = options.AppKey;
+            request.AppKey = OnePay.APP_KEY;
         }
 
         private OnePayRequestBuilder() : base()

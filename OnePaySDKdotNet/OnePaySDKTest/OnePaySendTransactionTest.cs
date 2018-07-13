@@ -19,8 +19,6 @@ namespace OnePayTest
             // Setting comerce data
             Transbank.OnePay.SharedSecret = "P4DCPS55QB2QLT56SQH6#W#LV76IAPYX";
             Transbank.OnePay.ApiKey = "mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg";
-            Transbank.OnePay.AppKey = "04533c31-fe7e-43ed-bbc4-1c8ab1538afp";
-            Transbank.OnePay.CallbackUrl = "http://localhost:8080/ewallet-endpoints";
             //OnePay.OnePay.IntegrationType = OnePay.Enums.IntegrationType.MOCK;
 
             // Setting items to the shopping cart
