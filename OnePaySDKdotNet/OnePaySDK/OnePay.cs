@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using Transbank.Enums;
 
-namespace OnePaySDK
+namespace Transbank
 {
     public abstract class OnePay
     {
@@ -11,26 +10,31 @@ namespace OnePaySDK
         private static string callbackUrl;
         private static string sharedSecret;
 
-        public static IntegrationType IntegrationType { get; set;} = IntegrationType.TEST;
+        public static OnePayIntegrationType IntegrationType { get; set;} = OnePayIntegrationType.TEST;
 
         public static string ApiKey
         {
-            get { return apiKey; }
-            set { apiKey = value ?? throw new ArgumentNullException(); }
+            get => apiKey;
+            set => apiKey = value ?? throw 
+                new ArgumentNullException("ApiKey can't be null");
         }
         public static string AppKey
         {
-            get { return appKey; }
-            set { appKey = value ?? throw new ArgumentNullException(); }
+            get => appKey;
+            set => appKey = value ?? throw 
+                new ArgumentNullException("AppKey can't be null");
         }
         public static string CallbackUrl
         {
-            get { return callbackUrl; }
-            set { callbackUrl = value ?? throw new ArgumentNullException(); }
+            get => callbackUrl;
+            set => callbackUrl = value ?? throw 
+                new ArgumentNullException("CallbackUrl can't be null");
         }
-        public static string SharedSecret {
-            get { return sharedSecret; }
-            set { sharedSecret = value ?? throw new ArgumentNullException(); }
+        public static string SharedSecret
+        {
+            get => sharedSecret;
+            set => sharedSecret = value ?? throw 
+                new ArgumentNullException("SharedSecret can't be null");
         }
     }
 }
