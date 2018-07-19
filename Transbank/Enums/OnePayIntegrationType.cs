@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System.Runtime.Serialization;
-
+﻿
 namespace Transbank.Enums
 {
     public class OnePayIntegrationType
@@ -13,19 +10,19 @@ namespace Transbank.Enums
         public static readonly OnePayIntegrationType MOCK =
             new OnePayIntegrationType("http://onepay.getsandbox.com", "MOCK");
 
-        private readonly string displayValue;
+        private readonly string value;
         private readonly string key;
         private static readonly OnePayIntegrationType[] all = new[] { LIVE, TEST, MOCK };
 
         private OnePayIntegrationType(string displayValue, string key)
         {
-            this.displayValue = displayValue;
+            this.value = displayValue;
             this.key = key;
         }
 
-        public string DisplayValue
+        public string Value
         {
-            get { return displayValue; }
+            get { return value; }
         }
 
         public string Key
