@@ -11,7 +11,7 @@ namespace Transbank.Net
     public class Transaction : Channel
     {
         private static readonly string SERVICE_URI = 
-            $"{OnePay.IntegrationType.DisplayValue}/ewallet-plugin-api-services/services/transactionservice";
+            $"{OnePay.IntegrationType.Value}/ewallet-plugin-api-services/services/transactionservice";
         private static readonly string SEND_TRANSACTION = "sendtransaction";
         private static readonly string COMMIT_TRNSACTION = "gettransactionnumber";
        
