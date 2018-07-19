@@ -1,29 +1,12 @@
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Transbank;
 using Transbank.Enums;
 
-namespace OnePayTest
+namespace TransbankTest
 {
     [TestClass]
     public class OnePayConfigTest
     {
-        [TestCleanup]
-        public void BaseTestCleanup()
-        {
-            OnePay.IntegrationType = OnePayIntegrationType.TEST;
-        }
-
-        [TestMethod]
-        public void TestOnePayIntegrationType()
-        {
-            Assert.IsTrue(OnePay.IntegrationType.Key.Equals(
-                OnePayIntegrationType.TEST.Key));
-            OnePay.IntegrationType = OnePayIntegrationType.LIVE;
-            Assert.IsTrue(OnePay.IntegrationType.Key.Equals(
-                OnePayIntegrationType.LIVE.Key));
-        }
-
         [TestMethod]
         public void TestOnePaySettings()
         {
