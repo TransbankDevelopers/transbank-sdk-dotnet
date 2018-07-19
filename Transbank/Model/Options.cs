@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Transbank.Model
 {
-   public  class Options
+   public class Options
     {
         public Options()
         {
