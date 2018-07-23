@@ -11,7 +11,7 @@ namespace Transbank.Utils
         private static volatile OnePaySignUtil instance;
         private static readonly object padlock = new object();
 
-        public SendTransactionRequest sign(SendTransactionRequest request, string secret)
+        public SendTransactionRequest Sign(SendTransactionRequest request, string secret)
         {
             string extrenalUniqueNumber = request.ExternalUniqueNumber.ToString();
             string total = request.Total.ToString();

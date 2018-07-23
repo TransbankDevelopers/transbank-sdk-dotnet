@@ -12,7 +12,7 @@ namespace Transbank.Utils
         private static volatile OnePayRequestBuilder instance;
         private static readonly object padlock = new object();
 
-        public SendTransactionRequest build(ShoppingCart cart, Options options)
+        public SendTransactionRequest Build(ShoppingCart cart, Options options)
         {
             options = BuildOptions(options);
             SendTransactionRequest request = new SendTransactionRequest(
@@ -20,7 +20,7 @@ namespace Transbank.Utils
                     (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond,
                         cart.GetItems(), OnePay.FAKE_CALLBACK_URL, "WEB");
             PrepareRequest(request, options);
-            return OnePaySignUtil.GetInstance().sign(request, options.SharedSecret);
+            return OnePaySignUtil.GetInstance().Sign(request, options.SharedSecret);
         }
 
         protected Options BuildOptions(Options options)

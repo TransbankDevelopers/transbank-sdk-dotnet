@@ -8,8 +8,8 @@ namespace Transbank.Model
     {
         public Options()
         {
-            ApiKey = Options.getDefaults().ApiKey;
-            SharedSecret = Options.getDefaults().SharedSecret;
+            ApiKey = Options.GetDefaults().ApiKey;
+            SharedSecret = Options.GetDefaults().SharedSecret;
         }
         public Options(string apiKey, string sharedSecret)
         {
@@ -25,7 +25,7 @@ namespace Transbank.Model
             return $"ApiKey={ApiKey}, SharedSecret={SharedSecret}";
         }
 
-        public static Options getDefaults()
+        public static Options GetDefaults()
         {
             return new Options(OnePay.ApiKey, OnePay.SharedSecret);
         }
