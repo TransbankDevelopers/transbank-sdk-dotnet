@@ -42,7 +42,7 @@ namespace Transbank.Utils
                 throw new SignatureException("Secret can't be null");
             string occ = request.Occ;
             string externalUniqueNumber = request.ExternalUniqueNumber;
-            string issuedAt = request. IssuedAt.ToString();
+            string issuedAt = request.IssuedAt.ToString();
 
             string data = occ.Length + occ;
             data += externalUniqueNumber.Length + externalUniqueNumber;
