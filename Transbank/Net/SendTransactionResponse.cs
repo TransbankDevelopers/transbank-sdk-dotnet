@@ -4,7 +4,7 @@ using Transbank.Model;
 
 namespace Transbank.Net
 {
-    class SendTransactionResponse : BaseResponse
+    public class SendTransactionResponse : BaseResponse
     {
         [JsonProperty("result")]
         public TransactionCreateResponse Result { get; set; }

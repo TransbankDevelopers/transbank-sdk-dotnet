@@ -23,7 +23,7 @@ namespace Transbank.Utils
             return OnePaySignUtil.GetInstance().Sign(request, options.SharedSecret);
         }
 
-        protected Options BuildOptions(Options options)
+        public GetTransactionNumberRequest Build(String occ, String externalUniqueNumber, Options options)
         {
             if (options == null) return Options.getDefaults();
 
