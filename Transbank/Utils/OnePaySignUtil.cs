@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using Transbank.Net;
+using Transbank.Exceptions;
 
 namespace Transbank.Utils
 {
@@ -27,6 +28,25 @@ namespace Transbank.Utils
             data += itemsQuantity.Length + itemsQuantity;
             data += issuedAt.Length + issuedAt;
             data += OnePay.FAKE_CALLBACK_URL.Length + OnePay.FAKE_CALLBACK_URL;
+
+            byte[] crypted = Crypt(data, secret);
+            request.Signature = Convert.ToBase64String(crypted);
+            return request;
+        }
+
+        public GetTransactionNumberRequest Sign(GetTransactionNumberRequest request, string secret)
+        {
+            if (request == null)
+                throw new SignatureException("Request can't be null");
+            if (secret == null)
+                throw new SignatureException("Secret can't be null");
+            string occ = request.Occ;
+            string externalUniqueNumber = request.ExternalUniqueNumber;
+            string issuedAt = request. IssuedAt.ToString();
+
+            string data = occ.Length + occ;
+            data += externalUniqueNumber.Length + externalUniqueNumber;
+            data += issuedAt.Length + issuedAt;
 
             byte[] crypted = Crypt(data, secret);
             request.Signature = Convert.ToBase64String(crypted);
