@@ -14,7 +14,6 @@ namespace Transbank.Utils
 
         public SendTransactionRequest Build(ShoppingCart cart, Options options)
         {
-            options = BuildOptions(options);
             SendTransactionRequest request = new SendTransactionRequest(
                 Guid.NewGuid().ToString(), cart.Total, cart.GetItemQuantity(),
                     (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond,

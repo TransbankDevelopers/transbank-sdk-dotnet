@@ -29,5 +29,15 @@ namespace Transbank.Model
         {
             return new Options(OnePay.ApiKey, OnePay.SharedSecret);
         }
+
+        public static Options build(Options options)
+        {
+            if (options == null) return Options.GetDefaults();
+
+            if (options.ApiKey == null) options.ApiKey = OnePay.ApiKey;
+            if (options.SharedSecret == null) options.SharedSecret = OnePay.SharedSecret;
+
+            return options;
+        }
     }
 }
