@@ -13,7 +13,7 @@ namespace Transbank.Net
         private static readonly string SERVICE_URI = 
             $"{OnePay.IntegrationType.Value}/ewallet-plugin-api-services/services/transactionservice";
         private static readonly string SEND_TRANSACTION = "sendtransaction";
-        private static readonly string COMMIT_TRNSACTION = "gettransactionnumber";
+        private static readonly string COMMIT_TRANSACTION = "gettransactionnumber";
        
         public static TransactionCreateResponse Create(ShoppingCart cart)
         {
@@ -67,7 +67,7 @@ namespace Transbank.Net
             GetTransactionNumberRequest request = 
                 OnePayRequestBuilder.Instance.Build(occ, externalUniqueNumber, options);
             string output = JsonConvert.SerializeObject(request);
-            string input = requestAsync($"{SERVICE_URI}/{COMMIT_TRNSACTION}",
+            string input = requestAsync($"{SERVICE_URI}/{COMMIT_TRANSACTION}",
                 HttpMethod.Post, output).Result;
             GetTransactionNumberResponse response = 
                 JsonConvert.DeserializeObject<GetTransactionNumberResponse>(input);
