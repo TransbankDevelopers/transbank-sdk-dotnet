@@ -53,6 +53,29 @@ namespace Transbank.Utils
             return request;
         }
 
+        public NullifyTransactionRequest Sign(NullifyTransactionRequest request, string secret)
+        {
+            if (request == null)
+                throw new SignatureException("Request can't be null");
+            if (secret == null)
+                throw new SignatureException("Secret can't be null");
+            string occ = request.Occ;
+            string externalUniqueNumber = request.ExternalUniqueNumber;
+            string authorizationCode = request.AuthorizationCode;
+            string issueadAt = request.IssuedAt.ToString();
+            string nullifyAmount = request.NullifyAmount.ToString();
+
+            string data = occ.Length + occ;
+            data += externalUniqueNumber.Length + externalUniqueNumber;
+            data += authorizationCode.Length + authorizationCode;
+            data += issueadAt.Length + issueadAt;
+            data += nullifyAmount.Length + nullifyAmount;
+
+            byte[] crypted = Crypt(data, secret);
+            request.Signature = Convert.ToBase64String(crypted);
+            return request;
+        }
+
         public byte[] Crypt(string data, string secret)
         {
             Encoding ascii = Encoding.ASCII;

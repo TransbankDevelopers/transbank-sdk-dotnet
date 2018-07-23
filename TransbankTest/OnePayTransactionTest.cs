@@ -59,7 +59,8 @@ namespace TransbankTest
             var externalUniqueNumber = "f506a955-800c-4185-8818-4ef9fca97aae";
             var authorizationCode = "623245";
 
-            RefundCreateResponse response = Refund.Create(ammount, occ, externalUniqueNumber, authorizationCode);
+            RefundCreateResponse response = Refund.Create(ammount, occ, 
+                externalUniqueNumber, authorizationCode);
             Assert.IsNotNull(response);
 
         }

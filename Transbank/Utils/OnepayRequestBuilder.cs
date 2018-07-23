@@ -21,10 +21,22 @@ namespace Transbank.Utils
             return OnePaySignUtil.GetInstance().Sign(request, options.SharedSecret);
         }
 
-        public GetTransactionNumberRequest Build(String occ, String externalUniqueNumber, Options options)
+        public GetTransactionNumberRequest Build(string occ, 
+            string externalUniqueNumber, Options options)
         {
-            GetTransactionNumberRequest request = new GetTransactionNumberRequest(
-                occ, externalUniqueNumber, (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond);
+            GetTransactionNumberRequest request = 
+                new GetTransactionNumberRequest( occ, externalUniqueNumber, 
+                GetTicksNow());
+            PrepareRequest(request, options);
+            return OnePaySignUtil.GetInstance().Sign(request, options.SharedSecret);
+        }
+
+        public NullifyTransactionRequest Build(long amount, string occ, 
+            string externalUniqueNumber, string authorizationCode, Options options)
+        {
+            NullifyTransactionRequest request =
+                new NullifyTransactionRequest(occ, externalUniqueNumber,
+                authorizationCode, amount, GetTicksNow());
             PrepareRequest(request, options);
             return OnePaySignUtil.GetInstance().Sign(request, options.SharedSecret);
         }
