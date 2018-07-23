@@ -19,25 +19,25 @@ namespace Transbank.Model
         {
             get => items;
             set => items = value ?? throw 
-                new ArgumentNullException("Items can't be null");
+                new ArgumentNullException(nameof(items));
         }
         public string CallbackUrl
         {
             get => callbackUrl;
             set => callbackUrl = value ?? throw 
-                new ArgumentNullException("CallbackUrl can't be null");
+                new ArgumentNullException(nameof(callbackUrl));
         }
         public string Channel
         {
             get => channel;
             set => channel = value ?? throw 
-                new ArgumentNullException("Channel can't be null");
+                new ArgumentNullException(nameof(channel));
         }
         public string Signature
         {
             get => signature;
             set => signature = value ?? throw 
-                new ArgumentNullException("Signature can't be null");
+                new ArgumentNullException(nameof(signature));
         }
 
         public override string ToString()

@@ -26,7 +26,8 @@ namespace Transbank.Net
             Options options)
         {
             if (cart == null)
-                throw new ArgumentNullException("ShoppingCart can't be null");
+                throw new ArgumentNullException(nameof(cart));
+            options = Options.build(options);
             SendTransactionRequest request = 
                 OnePayRequestBuilder.GetInstance().Build(cart, options);
             string output = JsonConvert.SerializeObject(request);
