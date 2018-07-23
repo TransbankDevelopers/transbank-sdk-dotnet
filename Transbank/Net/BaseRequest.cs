@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Transbank.Model
+namespace Transbank.Net
 {
     public abstract class BaseRequest
     {
