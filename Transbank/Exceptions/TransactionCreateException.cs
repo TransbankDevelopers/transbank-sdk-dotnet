@@ -3,18 +3,18 @@
 
 namespace Transbank.Exceptions
 {
-    public class TransactionCreateException : TransbankException
+    public class TransactionCommitException : TransbankException
     {
-        public TransactionCreateException() : base()
+        public TransactionCommitException() : base()
         {
         }
 
-        public TransactionCreateException(int code, string message) 
+        public TransactionCommitException(int code, string message) 
             : base(code, message)
         {
         }
 
-        public TransactionCreateException(int code, string message, 
+        public TransactionCommitException(int code, string message, 
             Exception innerException) : base(code, message, innerException)
         {
         }
