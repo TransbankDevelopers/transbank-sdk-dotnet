@@ -16,8 +16,7 @@ namespace Transbank.Utils
         {
             SendTransactionRequest request = new SendTransactionRequest(
                 Guid.NewGuid().ToString(), cart.Total, cart.GetItemQuantity(),
-                    (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond,
-                        cart.GetItems(), OnePay.FAKE_CALLBACK_URL, "WEB");
+                    GetTicksNow(), cart.GetItems(), OnePay.FAKE_CALLBACK_URL, "WEB");
             PrepareRequest(request, options);
             return OnePaySignUtil.GetInstance().Sign(request, options.SharedSecret);
         }
@@ -38,6 +37,11 @@ namespace Transbank.Utils
 
         private OnePayRequestBuilder() : base()
         {
+        }
+
+        private long GetTicksNow()
+        {
+            return (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
 
         public static OnePayRequestBuilder GetInstance()
