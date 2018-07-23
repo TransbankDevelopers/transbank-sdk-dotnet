@@ -50,5 +50,18 @@ namespace TransbankTest
             TransactionCommitResponse commitResponse = Transaction.Commit(
                 createResponse.Occ, createResponse.ExternalUniqueNumber);
         }
+
+        [TestMethod]
+        public void TestOnePayRefundTransaction()
+        {
+            var ammount = 27500;
+            var occ = "1807983490979289";
+            var externalUniqueNumber = "f506a955-800c-4185-8818-4ef9fca97aae";
+            var authorizationCode = "623245";
+
+            RefundCreateResponse response = Refund.Create(ammount, occ, externalUniqueNumber, authorizationCode);
+            Assert.IsNotNull(response);
+
+        }
     }
 }
