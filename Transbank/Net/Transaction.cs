@@ -27,7 +27,7 @@ namespace Transbank.Net
                 throw new ArgumentNullException(nameof(cart));
             options = Options.build(options);
             SendTransactionRequest request = 
-                OnePayRequestBuilder.GetInstance().Build(cart, options);
+                OnePayRequestBuilder.Instance.Build(cart, options);
             string output = JsonConvert.SerializeObject(request);
             string input = requestAsync($"{SERVICE_URI}/{SEND_TRANSACTION}",
                 HttpMethod.Post, output).Result;
@@ -49,7 +49,8 @@ namespace Transbank.Net
             return response.Result; 
         }
 
-        public static TransactionCommitResponse Commit(string occ, string externalUniqueNumber)
+        public static TransactionCommitResponse Commit(string occ,
+            string externalUniqueNumber)
         {
             return Commit(occ, externalUniqueNumber, null);
         }
@@ -63,7 +64,8 @@ namespace Transbank.Net
                 throw new ArgumentNullException(nameof(externalUniqueNumber));
         
             options = Options.build(options);
-            GetTransactionNumberRequest request = OnePayRequestBuilder.GetInstance().Build(occ, externalUniqueNumber, options);
+            GetTransactionNumberRequest request = 
+                OnePayRequestBuilder.Instance.Build(occ, externalUniqueNumber, options);
             string output = JsonConvert.SerializeObject(request);
             string input = requestAsync($"{SERVICE_URI}/{COMMIT_TRNSACTION}",
                 HttpMethod.Post, output).Result;

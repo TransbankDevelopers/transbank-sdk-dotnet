@@ -19,7 +19,7 @@ namespace Transbank.Utils
                     (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond,
                         cart.GetItems(), OnePay.FAKE_CALLBACK_URL, "WEB");
             PrepareRequest(request, options);
-            return OnePaySignUtil.GetInstance().Sign(request, options.SharedSecret);
+            return OnePaySignUtil.Instance.Sign(request, options.SharedSecret);
         }
 
         public GetTransactionNumberRequest Build(String occ, String externalUniqueNumber, Options options)
@@ -27,7 +27,7 @@ namespace Transbank.Utils
             GetTransactionNumberRequest request = new GetTransactionNumberRequest(
                 occ, externalUniqueNumber, (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond);
             PrepareRequest(request, options);
-            return OnePaySignUtil.GetInstance().Sign(request, options.SharedSecret);
+            return OnePaySignUtil.Instance.Sign(request, options.SharedSecret);
         }
 
         protected void PrepareRequest(BaseRequest request, Options options)
@@ -40,13 +40,16 @@ namespace Transbank.Utils
         {
         }
 
-        public static OnePayRequestBuilder GetInstance()
+        public static OnePayRequestBuilder Instance
         {
-            if (instance == null)
-                lock(padlock)
-                    if (instance == null)
-                        instance = new OnePayRequestBuilder();
-            return instance;
+            get
+            {
+                if (instance == null)
+                    lock (padlock)
+                        if (instance == null)
+                            instance = new OnePayRequestBuilder();
+                return instance;
+            }
         }
         
     }
