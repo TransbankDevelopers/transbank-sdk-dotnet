@@ -25,7 +25,7 @@ namespace Transbank.Model
         {
             long total = Total + (item.Amount * item.Quantity) ;
             if (total < 0)
-                throw new AmountException(-1,"Total amount can't be less than zero");
+                throw new AmountException("Total amount can't be less than zero");
             Total = total;
             Items.Add(item);
         }
@@ -34,7 +34,7 @@ namespace Transbank.Model
         {
             long total = Total - (item.Amount * item.Quantity) ;
             if (total < 0)
-                throw new AmountException(-1, "Total amount can't be less than zero");
+                throw new AmountException("Total amount can't be less than zero");
             Total = total;
             Items.Remove(item);
         }

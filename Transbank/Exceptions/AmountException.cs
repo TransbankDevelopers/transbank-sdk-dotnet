@@ -9,13 +9,13 @@ namespace Transbank.Exceptions
         {
         }
 
-        public AmountException(int code, string message) 
-            : base(code, message)
+        public AmountException(string message) 
+            : base(-1, message)
         {
         }
 
-        public AmountException(int code, string message, Exception innerException) 
-            : base(code, message, innerException)
+        public AmountException(string message, Exception innerException) 
+            : base(-1, message, innerException)
         {
         }
     }
