@@ -24,12 +24,10 @@ namespace Transbank.Utils
 
         public GetTransactionNumberRequest Build(String occ, String externalUniqueNumber, Options options)
         {
-            if (options == null) return Options.getDefaults();
-
-            if (options.ApiKey == null) options.ApiKey = OnePay.ApiKey;
-            if (options.SharedSecret == null) options.SharedSecret = OnePay.SharedSecret;
-
-            return options;
+            GetTransactionNumberRequest request = new GetTransactionNumberRequest(
+                occ, externalUniqueNumber, (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond);
+            PrepareRequest(request, options);
+            return OnePaySignUtil.GetInstance().Sign(request, options.SharedSecret);
         }
 
         protected void PrepareRequest(BaseRequest request, Options options)

@@ -12,6 +12,11 @@ namespace Transbank.Utils
 
         public SendTransactionRequest Sign(SendTransactionRequest request, string secret)
         {
+            if (request == null)
+                throw new SignatureException("Request can't be null");
+            if (secret == null)
+                throw new SignatureException("Secret can't be null");
+            
             string extrenalUniqueNumber = request.ExternalUniqueNumber.ToString();
             string total = request.Total.ToString();
             string itemsQuantity = request.ItemsQuantity.ToString();

@@ -17,8 +17,6 @@ namespace Transbank.Net
        
         public static TransactionCreateResponse Create(ShoppingCart cart)
         {
-            if (cart == null)
-                throw new ArgumentNullException("ShoppingCart can't be null");
             return Create(cart, null);
         }
 
