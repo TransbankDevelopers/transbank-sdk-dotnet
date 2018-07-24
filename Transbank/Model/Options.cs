@@ -30,7 +30,7 @@ namespace Transbank.Model
             get =>  new Options(OnePay.ApiKey, OnePay.SharedSecret);
         }
 
-        public static Options build(Options options)
+        public static Options Build(Options options)
         {
             if (options == null) return Options.Default;
 

@@ -25,7 +25,7 @@ namespace Transbank.Net
         {
             if (cart == null)
                 throw new ArgumentNullException(nameof(cart));
-            options = Options.build(options);
+            options = Options.Build(options);
             SendTransactionRequest request = 
                 OnePayRequestBuilder.Instance.Build(cart, options);
             string output = JsonConvert.SerializeObject(request);
@@ -63,7 +63,7 @@ namespace Transbank.Net
             if (externalUniqueNumber == null)
                 throw new ArgumentNullException(nameof(externalUniqueNumber));
         
-            options = Options.build(options);
+            options = Options.Build(options);
             GetTransactionNumberRequest request = 
                 OnePayRequestBuilder.Instance.Build(occ, externalUniqueNumber, options);
             string output = JsonConvert.SerializeObject(request);
