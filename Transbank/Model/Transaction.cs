@@ -9,10 +9,10 @@ namespace Transbank.Model
 {
     public class Transaction : Channel
     {
-        private static readonly string SERVICE_URI = 
+        private static readonly string ServiceUri = 
             $"{OnePay.IntegrationType.Value}/ewallet-plugin-api-services/services/transactionservice";
-        private static readonly string SEND_TRANSACTION = "sendtransaction";
-        private static readonly string COMMIT_TRNSACTION = "gettransactionnumber";
+        private static readonly string SendTransaction = "sendtransaction";
+        private static readonly string CommitTransaction = "gettransactionnumber";
        
         public static TransactionCreateResponse Create(ShoppingCart cart)
         {
@@ -24,11 +24,11 @@ namespace Transbank.Model
         {
             if (cart == null)
                 throw new ArgumentNullException(nameof(cart));
-            options = Options.build(options);
+            options = Options.Build(options);
             SendTransactionRequest request = 
-                OnePayRequestBuilder.GetInstance().Build(cart, options);
+                OnePayRequestBuilder.Instance.Build(cart, options);
             string output = JsonConvert.SerializeObject(request);
-            string input = requestAsync($"{SERVICE_URI}/{SEND_TRANSACTION}",
+            string input = requestAsync($"{ServiceUri}/{SendTransaction}",
                 HttpMethod.Post, output).Result;
             SendTransactionResponse response = 
                 JsonConvert.DeserializeObject<SendTransactionResponse>(input);
@@ -48,7 +48,8 @@ namespace Transbank.Model
             return response.Result; 
         }
 
-        public static TransactionCommitResponse Commit(string occ, string externalUniqueNumber)
+        public static TransactionCommitResponse Commit(string occ,
+            string externalUniqueNumber)
         {
             return Commit(occ, externalUniqueNumber, null);
         }
@@ -61,10 +62,11 @@ namespace Transbank.Model
             if (externalUniqueNumber == null)
                 throw new ArgumentNullException(nameof(externalUniqueNumber));
         
-            options = Options.build(options);
-            GetTransactionNumberRequest request = OnePayRequestBuilder.GetInstance().Build(occ, externalUniqueNumber, options);
+            options = Options.Build(options);
+            GetTransactionNumberRequest request = 
+                OnePayRequestBuilder.Instance.Build(occ, externalUniqueNumber, options);
             string output = JsonConvert.SerializeObject(request);
-            string input = requestAsync($"{SERVICE_URI}/{COMMIT_TRNSACTION}",
+            string input = requestAsync($"{ServiceUri}/{CommitTransaction}",
                 HttpMethod.Post, output).Result;
             GetTransactionNumberResponse response = 
                 JsonConvert.DeserializeObject<GetTransactionNumberResponse>(input);

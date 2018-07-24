@@ -15,10 +15,10 @@ namespace Transbank.Utils
         public SendTransactionRequest Build(ShoppingCart cart, Options options)
         {
             SendTransactionRequest request = new SendTransactionRequest(
-                Guid.NewGuid().ToString(), cart.Total, cart.GetItemQuantity(),
-                    GetTicksNow(), cart.GetItems(), OnePay.FAKE_CALLBACK_URL, "WEB");
+                Guid.NewGuid().ToString(), cart.Total, cart.ItemQuantity,
+                    GetTicksNow(), cart.Items, OnePay.FAKE_CALLBACK_URL, "WEB");
             PrepareRequest(request, options);
-            return OnePaySignUtil.GetInstance().Sign(request, options.SharedSecret);
+            return OnePaySignUtil.Instance.Sign(request, options.SharedSecret);
         }
 
         public GetTransactionNumberRequest Build(string occ, 
@@ -38,7 +38,7 @@ namespace Transbank.Utils
                 new NullifyTransactionRequest(occ, externalUniqueNumber,
                 authorizationCode, amount, GetTicksNow());
             PrepareRequest(request, options);
-            return OnePaySignUtil.GetInstance().Sign(request, options.SharedSecret);
+            return OnePaySignUtil.Instance.Sign(request, options.SharedSecret);
         }
 
         protected void PrepareRequest(BaseRequest request, Options options)
@@ -56,13 +56,16 @@ namespace Transbank.Utils
             return (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
 
-        public static OnePayRequestBuilder GetInstance()
+        public static OnePayRequestBuilder Instance
         {
-            if (instance == null)
-                lock(padlock)
-                    if (instance == null)
-                        instance = new OnePayRequestBuilder();
-            return instance;
+            get
+            {
+                if (instance == null)
+                    lock (padlock)
+                        if (instance == null)
+                            instance = new OnePayRequestBuilder();
+                return instance;
+            }
         }
         
     }

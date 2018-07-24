@@ -9,9 +9,9 @@ namespace Transbank.Model
 {
     public class Refund : Channel
     {
-        private static readonly string SERVICE_URI =
+        private static readonly string ServiceUri =
            $"{OnePay.IntegrationType.Value}/ewallet-plugin-api-services/services/transactionservice";
-        private static readonly string CREATE_REFUND = "nullifytransaction";
+        private static readonly string CreateRefund = "nullifytransaction";
 
         public static RefundCreateResponse Create(long amount, string occ, 
             string externalUniqueNumber, string authorizationCode)
@@ -27,7 +27,7 @@ namespace Transbank.Model
                 OnePayRequestBuilder.GetInstance().Build(amount, occ,
                 externalUniqueNumber, authorizationCode, options);
             string output = JsonConvert.SerializeObject(request);
-            string input = requestAsync($"{SERVICE_URI}/{CREATE_REFUND}",
+            string input = requestAsync($"{ServiceUri}/{CreateRefund}",
                 HttpMethod.Post, output).Result;
             NullifyTransactionResponse response =
                 JsonConvert.DeserializeObject<NullifyTransactionResponse>(input);

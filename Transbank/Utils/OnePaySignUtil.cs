@@ -83,13 +83,16 @@ namespace Transbank.Utils
             return hmac.ComputeHash(ascii.GetBytes(data));
         }
 
-        public static OnePaySignUtil GetInstance()
+        public static OnePaySignUtil Instance
         {
-            if (instance == null)
-                lock (padlock)
-                    if (instance == null)
-                        instance = new OnePaySignUtil();
-            return instance;
+            get 
+            {
+                if (instance == null)
+                    lock (padlock)
+                        if (instance == null)
+                            instance = new OnePaySignUtil();
+                return instance;
+            }
         }
     }
 }
