@@ -16,16 +16,27 @@ namespace Transbank.Utils
         {
             SendTransactionRequest request = new SendTransactionRequest(
                 Guid.NewGuid().ToString(), cart.Total, cart.ItemQuantity,
-                    (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond,
-                        cart.Items, OnePay.FAKE_CALLBACK_URL, "WEB");
+                    GetTicksNow(), cart.Items, OnePay.FAKE_CALLBACK_URL, "WEB");
             PrepareRequest(request, options);
             return OnePaySignUtil.Instance.Sign(request, options.SharedSecret);
         }
 
-        public GetTransactionNumberRequest Build(String occ, String externalUniqueNumber, Options options)
+        public GetTransactionNumberRequest Build(string occ, 
+            string externalUniqueNumber, Options options)
         {
-            GetTransactionNumberRequest request = new GetTransactionNumberRequest(
-                occ, externalUniqueNumber, (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond);
+            GetTransactionNumberRequest request = 
+                new GetTransactionNumberRequest( occ, externalUniqueNumber, 
+                GetTicksNow());
+            PrepareRequest(request, options);
+            return OnePaySignUtil.Instance.Sign(request, options.SharedSecret);
+        }
+
+        public NullifyTransactionRequest Build(long amount, string occ, 
+            string externalUniqueNumber, string authorizationCode, Options options)
+        {
+            NullifyTransactionRequest request =
+                new NullifyTransactionRequest(occ, externalUniqueNumber,
+                authorizationCode, amount, GetTicksNow());
             PrepareRequest(request, options);
             return OnePaySignUtil.Instance.Sign(request, options.SharedSecret);
         }
@@ -38,6 +49,11 @@ namespace Transbank.Utils
 
         private OnePayRequestBuilder() : base()
         {
+        }
+
+        private long GetTicksNow()
+        {
+            return (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
 
         public static OnePayRequestBuilder Instance

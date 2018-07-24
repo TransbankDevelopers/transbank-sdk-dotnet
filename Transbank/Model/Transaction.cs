@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Net.Http;
-using Transbank.Model;
 using Transbank.Utils;
-using Transbank.Enums;
+using Transbank.Net;
 using Transbank.Exceptions;
 using Newtonsoft.Json;
 
-namespace Transbank.Net
+namespace Transbank.Model
 {
     public class Transaction : Channel
     {
