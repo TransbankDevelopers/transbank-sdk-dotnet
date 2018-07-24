@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Security.Cryptography;
-using System.Collections.Generic;
 using System.Text;
 using Transbank.Net;
+using Transbank.Exceptions;
 
 namespace Transbank.Utils
 {
@@ -11,8 +11,13 @@ namespace Transbank.Utils
         private static volatile OnePaySignUtil instance;
         private static readonly object padlock = new object();
 
-        public SendTransactionRequest sign(SendTransactionRequest request, string secret)
+        public SendTransactionRequest Sign(SendTransactionRequest request, string secret)
         {
+            if (request == null)
+                throw new SignatureException("Request can't be null");
+            if (secret == null)
+                throw new SignatureException("Secret can't be null");
+            
             string extrenalUniqueNumber = request.ExternalUniqueNumber.ToString();
             string total = request.Total.ToString();
             string itemsQuantity = request.ItemsQuantity.ToString();
@@ -29,6 +34,25 @@ namespace Transbank.Utils
             return request;
         }
 
+        public GetTransactionNumberRequest Sign(GetTransactionNumberRequest request, string secret)
+        {
+            if (request == null)
+                throw new SignatureException("Request can't be null");
+            if (secret == null)
+                throw new SignatureException("Secret can't be null");
+            string occ = request.Occ;
+            string externalUniqueNumber = request.ExternalUniqueNumber;
+            string issuedAt = request. IssuedAt.ToString();
+
+            string data = occ.Length + occ;
+            data += externalUniqueNumber.Length + externalUniqueNumber;
+            data += issuedAt.Length + issuedAt;
+
+            byte[] crypted = Crypt(data, secret);
+            request.Signature = Convert.ToBase64String(crypted);
+            return request;
+        }
+
         public byte[] Crypt(string data, string secret)
         {
             Encoding ascii = Encoding.ASCII;
@@ -36,13 +60,16 @@ namespace Transbank.Utils
             return hmac.ComputeHash(ascii.GetBytes(data));
         }
 
-        public static OnePaySignUtil GetInstance()
+        public static OnePaySignUtil Instance
         {
-            if (instance == null)
-                lock (padlock)
-                    if (instance == null)
-                        instance = new OnePaySignUtil();
-            return instance;
+            get 
+            {
+                if (instance == null)
+                    lock (padlock)
+                        if (instance == null)
+                            instance = new OnePaySignUtil();
+                return instance;
+            }
         }
     }
 }

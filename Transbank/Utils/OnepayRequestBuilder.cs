@@ -12,25 +12,22 @@ namespace Transbank.Utils
         private static volatile OnePayRequestBuilder instance;
         private static readonly object padlock = new object();
 
-        public SendTransactionRequest build(ShoppingCart cart, Options options)
+        public SendTransactionRequest Build(ShoppingCart cart, Options options)
         {
-            options = BuildOptions(options);
             SendTransactionRequest request = new SendTransactionRequest(
-                Guid.NewGuid().ToString(), cart.Total, cart.GetItemQuantity(),
+                Guid.NewGuid().ToString(), cart.Total, cart.ItemQuantity,
                     (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond,
-                        cart.GetItems(), OnePay.FAKE_CALLBACK_URL, "WEB");
+                        cart.Items, OnePay.FAKE_CALLBACK_URL, "WEB");
             PrepareRequest(request, options);
-            return OnePaySignUtil.GetInstance().sign(request, options.SharedSecret);
+            return OnePaySignUtil.Instance.Sign(request, options.SharedSecret);
         }
 
-        protected Options BuildOptions(Options options)
+        public GetTransactionNumberRequest Build(String occ, String externalUniqueNumber, Options options)
         {
-            if (options == null) return Options.getDefaults();
-
-            if (options.ApiKey == null) options.ApiKey = OnePay.ApiKey;
-            if (options.SharedSecret == null) options.SharedSecret = OnePay.SharedSecret;
-
-            return options;
+            GetTransactionNumberRequest request = new GetTransactionNumberRequest(
+                occ, externalUniqueNumber, (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond);
+            PrepareRequest(request, options);
+            return OnePaySignUtil.Instance.Sign(request, options.SharedSecret);
         }
 
         protected void PrepareRequest(BaseRequest request, Options options)
@@ -43,13 +40,16 @@ namespace Transbank.Utils
         {
         }
 
-        public static OnePayRequestBuilder GetInstance()
+        public static OnePayRequestBuilder Instance
         {
-            if (instance == null)
-                lock(padlock)
-                    if (instance == null)
-                        instance = new OnePayRequestBuilder();
-            return instance;
+            get
+            {
+                if (instance == null)
+                    lock (padlock)
+                        if (instance == null)
+                            instance = new OnePayRequestBuilder();
+                return instance;
+            }
         }
         
     }

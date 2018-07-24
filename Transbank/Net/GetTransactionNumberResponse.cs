@@ -4,10 +4,10 @@ using Transbank.Model;
 
 namespace Transbank.Net
 {
-    public class SendTransactionResponse : BaseResponse
+    public class GetTransactionNumberResponse : BaseResponse
     {
         [JsonProperty("result")]
-        public TransactionCreateResponse Result { get; set; }
+        public TransactionCommitResponse Result { get; set; }
 
         public override string ToString()
         {

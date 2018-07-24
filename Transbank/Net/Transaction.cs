@@ -10,15 +10,13 @@ namespace Transbank.Net
 {
     public class Transaction : Channel
     {
-        private static readonly string SERVICE_URI = 
+        private static readonly string ServiceUri = 
             $"{OnePay.IntegrationType.Value}/ewallet-plugin-api-services/services/transactionservice";
-        private static readonly string SEND_TRANSACTION = "sendtransaction";
-        private static readonly string COMMIT_TRNSACTION = "gettransactionnumber";
+        private static readonly string SendTransaction = "sendtransaction";
+        private static readonly string CommitTransaction = "gettransactionnumber";
        
         public static TransactionCreateResponse Create(ShoppingCart cart)
         {
-            if (cart == null)
-                throw new ArgumentNullException("ShoppingCart can't be null");
             return Create(cart, null);
         }
 
@@ -26,11 +24,12 @@ namespace Transbank.Net
             Options options)
         {
             if (cart == null)
-                throw new ArgumentNullException("ShoppingCart can't be null");
+                throw new ArgumentNullException(nameof(cart));
+            options = Options.Build(options);
             SendTransactionRequest request = 
-                OnePayRequestBuilder.GetInstance().build(cart, options);
+                OnePayRequestBuilder.Instance.Build(cart, options);
             string output = JsonConvert.SerializeObject(request);
-            string input = requestAsync($"{SERVICE_URI}/{SEND_TRANSACTION}",
+            string input = requestAsync($"{ServiceUri}/{SendTransaction}",
                 HttpMethod.Post, output).Result;
             SendTransactionResponse response = 
                 JsonConvert.DeserializeObject<SendTransactionResponse>(input);
@@ -49,5 +48,43 @@ namespace Transbank.Net
 
             return response.Result; 
         }
+
+        public static TransactionCommitResponse Commit(string occ,
+            string externalUniqueNumber)
+        {
+            return Commit(occ, externalUniqueNumber, null);
+        }
+
+        public static TransactionCommitResponse Commit(string occ, 
+            string externalUniqueNumber, Options options)
+        {
+            if (occ == null)
+                throw new ArgumentNullException(nameof(occ));
+            if (externalUniqueNumber == null)
+                throw new ArgumentNullException(nameof(externalUniqueNumber));
+        
+            options = Options.Build(options);
+            GetTransactionNumberRequest request = 
+                OnePayRequestBuilder.Instance.Build(occ, externalUniqueNumber, options);
+            string output = JsonConvert.SerializeObject(request);
+            string input = requestAsync($"{ServiceUri}/{CommitTransaction}",
+                HttpMethod.Post, output).Result;
+            GetTransactionNumberResponse response = 
+                JsonConvert.DeserializeObject<GetTransactionNumberResponse>(input);
+
+            if (response == null)
+            {
+                throw new TransactionCommitException(-1,
+                    "Could not obtain the service response");
+            }
+            else if (!response.ResponseCode.Equals("ok",
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new TransactionCommitException(-1,
+                        $"{response.ResponseCode} : {response.Description}");
+                }
+            return response.Result;
+        }
+            
     }
 }
