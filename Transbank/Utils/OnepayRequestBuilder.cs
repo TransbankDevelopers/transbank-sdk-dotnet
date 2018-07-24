@@ -15,9 +15,9 @@ namespace Transbank.Utils
         public SendTransactionRequest Build(ShoppingCart cart, Options options)
         {
             SendTransactionRequest request = new SendTransactionRequest(
-                Guid.NewGuid().ToString(), cart.Total, cart.GetItemQuantity(),
+                Guid.NewGuid().ToString(), cart.Total, cart.ItemQuantity,
                     (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond,
-                        cart.GetItems(), OnePay.FAKE_CALLBACK_URL, "WEB");
+                        cart.Items, OnePay.FAKE_CALLBACK_URL, "WEB");
             PrepareRequest(request, options);
             return OnePaySignUtil.Instance.Sign(request, options.SharedSecret);
         }
