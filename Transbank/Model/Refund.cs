@@ -22,9 +22,9 @@ namespace Transbank.Model
         public static RefundCreateResponse Create(long amount, string occ,
             string externalUniqueNumber, string authorizationCode, Options options)
         {
-            options = Options.build(options);
+            options = Options.Build(options);
             NullifyTransactionRequest request =
-                OnePayRequestBuilder.GetInstance().Build(amount, occ,
+                OnePayRequestBuilder.Instance.Build(amount, occ,
                 externalUniqueNumber, authorizationCode, options);
             string output = JsonConvert.SerializeObject(request);
             string input = requestAsync($"{ServiceUri}/{CreateRefund}",

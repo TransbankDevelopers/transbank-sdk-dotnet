@@ -28,7 +28,7 @@ namespace Transbank.Utils
                 new GetTransactionNumberRequest( occ, externalUniqueNumber, 
                 GetTicksNow());
             PrepareRequest(request, options);
-            return OnePaySignUtil.GetInstance().Sign(request, options.SharedSecret);
+            return OnePaySignUtil.Instance.Sign(request, options.SharedSecret);
         }
 
         public NullifyTransactionRequest Build(long amount, string occ, 
