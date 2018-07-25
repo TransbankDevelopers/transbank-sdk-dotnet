@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Transbank.Model
+namespace Transbank.OnePay.Model
 {
     public class RefundCreateResponse
     {

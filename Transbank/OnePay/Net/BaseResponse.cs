@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace Transbank.Net
+namespace Transbank.OnePay.Net
 {
     public class BaseResponse
     {

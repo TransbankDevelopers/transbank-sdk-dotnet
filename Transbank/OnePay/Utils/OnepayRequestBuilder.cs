@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Transbank.Model;
-using Transbank.Net;
-using Transbank.Utils;
+using Transbank.OnePay.Model;
+using Transbank.OnePay.Net;
 
-namespace Transbank.Utils
+namespace Transbank.OnePay.Utils
 {
     public class OnePayRequestBuilder
     {

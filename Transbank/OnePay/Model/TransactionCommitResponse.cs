@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Transbank.Model
+namespace Transbank.OnePay.Model
 {
     public class TransactionCommitResponse
     {

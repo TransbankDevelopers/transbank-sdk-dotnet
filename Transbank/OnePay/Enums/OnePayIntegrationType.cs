@@ -1,5 +1,5 @@
 ﻿
-namespace Transbank.Enums
+namespace Transbank.OnePay.Enums
 {
     public class OnePayIntegrationType
     {

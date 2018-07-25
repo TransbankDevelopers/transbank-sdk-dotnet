@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace Transbank.Exceptions
+namespace Transbank.OnePay.Exceptions
 {
     public class RefundCreateException : TransbankException
     {

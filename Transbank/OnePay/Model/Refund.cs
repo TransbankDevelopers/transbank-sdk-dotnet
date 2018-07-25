@@ -1,11 +1,11 @@
 ﻿using System;
 using Newtonsoft.Json;
 using System.Net.Http;
-using Transbank.Net;
-using Transbank.Utils;
-using Transbank.Exceptions;
+using Transbank.OnePay.Net;
+using Transbank.OnePay.Utils;
+using Transbank.OnePay.Exceptions;
 
-namespace Transbank.Model
+namespace Transbank.OnePay.Model
 {
     public class Refund : Channel
     {

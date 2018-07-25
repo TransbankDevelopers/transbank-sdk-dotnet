@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Transbank;
-using Transbank.Enums;
+using Transbank.OnePay;
+using Transbank.OnePay.Enums;
 
 namespace TransbankTest
 {

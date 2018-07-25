@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Transbank.Net
+namespace Transbank.OnePay.Net
 {
     public abstract class BaseRequest
     {

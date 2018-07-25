@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using Transbank.Net;
-using Transbank.Exceptions;
+using Transbank.OnePay.Net;
+using Transbank.OnePay.Exceptions;
 
-namespace Transbank.Utils
+namespace Transbank.OnePay.Utils
 {
     public class OnePaySignUtil
     {

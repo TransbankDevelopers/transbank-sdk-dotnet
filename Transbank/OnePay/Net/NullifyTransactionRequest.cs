@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Transbank.Net
+namespace Transbank.OnePay.Net
 {
     public class NullifyTransactionRequest : BaseRequest
     {

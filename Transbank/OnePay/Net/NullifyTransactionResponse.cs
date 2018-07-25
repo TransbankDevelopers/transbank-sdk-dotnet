@@ -1,8 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
-using Transbank.Model;
+using Transbank.OnePay.Model;
 
-namespace Transbank.Net
+namespace Transbank.OnePay.Net
 {
     public class NullifyTransactionResponse : BaseResponse
     {
