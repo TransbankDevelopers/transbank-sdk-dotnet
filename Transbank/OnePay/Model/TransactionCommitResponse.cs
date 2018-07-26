@@ -10,7 +10,7 @@ namespace Transbank.OnePay.Model
         public string TransactionDesc { get; set; }
         public string BuyOrder { get; set; }
         public long IssuedAt { get; set; }
-        public long Ammount { get; set; }
+        public long Amount { get; set; }
         public long InstallmentsAmount { get; set; }
         public int InstallmentsNumber { get; set; }
 
@@ -23,7 +23,7 @@ namespace Transbank.OnePay.Model
                        $"TransactionDesc{TransactionDesc}, " +
                        $"BuyOrder{BuyOrder}, " +
                        $"IssuedAt={IssuedAt}, " +
-                       $"Ammount{Ammount}, " +
+                       $"Amount{Amount}, " +
                        $"InstallmentsAmount{InstallmentsAmount}, " +
                        $"InstallmentsNumber{InstallmentsNumber}";
         }

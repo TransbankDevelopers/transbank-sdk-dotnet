@@ -9,7 +9,7 @@ namespace Transbank.OnePay.Net
         private string externalUniqueNumber;
         private string authorizationCode;
 
-        [JsonProperty("nullifyAmmount")]
+        [JsonProperty("nullifyAmount")]
         public long NullifyAmount { get; set; }
 
         [JsonProperty("issuedAt")]
