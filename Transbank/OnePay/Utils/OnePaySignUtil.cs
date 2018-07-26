@@ -1,79 +1,38 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using Transbank.OnePay.Model;
 using Transbank.OnePay.Net;
 using Transbank.OnePay.Exceptions;
 
 namespace Transbank.OnePay.Utils
 {
-    public class OnePaySignUtil
+    public class OnePaySignUtil : ISignUtil
     {
         private static volatile OnePaySignUtil instance;
         private static readonly object padlock = new object();
 
-        public SendTransactionRequest Sign(SendTransactionRequest request, string secret)
+        public void Sign(ISignable signable, string secret)
         {
-            if (request == null)
-                throw new SignatureException("Request can't be null");
+            if (signable == null)
+                throw new SignatureException(nameof(signable));
             if (secret == null)
-                throw new SignatureException("Secret can't be null");
+                throw new SignatureException(nameof(secret));
             
-            string extrenalUniqueNumber = request.ExternalUniqueNumber.ToString();
-            string total = request.Total.ToString();
-            string itemsQuantity = request.ItemsQuantity.ToString();
-            string issuedAt = request.IssuedAt.ToString();
-
-            string data = extrenalUniqueNumber.Length + extrenalUniqueNumber;
-            data += total.Length + total;
-            data += itemsQuantity.Length + itemsQuantity;
-            data += issuedAt.Length + issuedAt;
-            data += OnePay.FAKE_CALLBACK_URL.Length + OnePay.FAKE_CALLBACK_URL;
-
-            byte[] crypted = Crypt(data, secret);
-            request.Signature = Convert.ToBase64String(crypted);
-            return request;
+            byte[] crypted = Crypt(signable.GetDataToSign(), secret);
+            signable.Signature = Convert.ToBase64String(crypted);
         }
 
-        public GetTransactionNumberRequest Sign(GetTransactionNumberRequest request, string secret)
+        public bool Validate(ISignable signable, string secret)
         {
-            if (request == null)
-                throw new SignatureException("Request can't be null");
+            if (signable == null)
+                throw new SignatureException(nameof(signable));
             if (secret == null)
-                throw new SignatureException("Secret can't be null");
-            string occ = request.Occ;
-            string externalUniqueNumber = request.ExternalUniqueNumber;
-            string issuedAt = request.IssuedAt.ToString();
+                throw new SignatureException(nameof(secret));
+            byte[] crypted = Crypt(signable.GetDataToSign(), secret);
+            var sign = Convert.ToBase64String(crypted);
+            return sign.Equals(signable.Signature);
 
-            string data = occ.Length + occ;
-            data += externalUniqueNumber.Length + externalUniqueNumber;
-            data += issuedAt.Length + issuedAt;
-
-            byte[] crypted = Crypt(data, secret);
-            request.Signature = Convert.ToBase64String(crypted);
-            return request;
-        }
-
-        public NullifyTransactionRequest Sign(NullifyTransactionRequest request, string secret)
-        {
-            if (request == null)
-                throw new SignatureException("Request can't be null");
-            if (secret == null)
-                throw new SignatureException("Secret can't be null");
-            string occ = request.Occ;
-            string externalUniqueNumber = request.ExternalUniqueNumber;
-            string authorizationCode = request.AuthorizationCode;
-            string issueadAt = request.IssuedAt.ToString();
-            string nullifyAmount = request.NullifyAmount.ToString();
-
-            string data = occ.Length + occ;
-            data += externalUniqueNumber.Length + externalUniqueNumber;
-            data += authorizationCode.Length + authorizationCode;
-            data += issueadAt.Length + issueadAt;
-            data += nullifyAmount.Length + nullifyAmount;
-
-            byte[] crypted = Crypt(data, secret);
-            request.Signature = Convert.ToBase64String(crypted);
-            return request;
         }
 
         public byte[] Crypt(string data, string secret)

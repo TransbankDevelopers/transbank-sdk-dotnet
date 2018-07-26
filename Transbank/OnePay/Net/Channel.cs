@@ -24,8 +24,10 @@ namespace Transbank.OnePay.Net
             var header = new MediaTypeWithQualityHeaderValue(contenType);
             Client.DefaultRequestHeaders.Accept.Add(header);
 
-            HttpRequestMessage message = new HttpRequestMessage(method, new Uri(uri));
-            message.Content = new StringContent(query, Encoding.UTF8,contenType);
+            HttpRequestMessage message = new HttpRequestMessage(method, new Uri(uri))
+            {
+                Content = new StringContent(query, Encoding.UTF8, contenType)
+            };
             try
             {
                 HttpResponseMessage response;

@@ -26,7 +26,7 @@ namespace Transbank.OnePay.Model
                 throw new ArgumentNullException(nameof(cart));
             options = Options.Build(options);
             SendTransactionRequest request = 
-                OnePayRequestBuilder.Instance.Build(cart, options);
+                OnePayRequestBuilder.Instance.BuildSendTransactionRequest(cart, options);
             string output = JsonConvert.SerializeObject(request);
             string input = RequestAsync($"{ServiceUri}/{SendTransaction}",
                 HttpMethod.Post, output).Result;
@@ -45,7 +45,10 @@ namespace Transbank.OnePay.Model
                     $"{response.ResponseCode} : {response.Description}" );
             }
 
-            return response.Result; 
+            if (!OnePaySignUtil.Instance.Validate(response.Result, options.SharedSecret))
+                throw new SignatureException("The response signature is not valid");
+
+            return response.Result;
         }
 
         public static TransactionCommitResponse Commit(string occ,
@@ -64,7 +67,8 @@ namespace Transbank.OnePay.Model
         
             options = Options.Build(options);
             GetTransactionNumberRequest request = 
-                OnePayRequestBuilder.Instance.Build(occ, externalUniqueNumber, options);
+                OnePayRequestBuilder.Instance.BuildGetTransactionNumberRequest
+                (occ, externalUniqueNumber, options);
             string output = JsonConvert.SerializeObject(request);
             string input = RequestAsync($"{ServiceUri}/{CommitTransaction}",
                 HttpMethod.Post, output).Result;
@@ -82,6 +86,10 @@ namespace Transbank.OnePay.Model
                     throw new TransactionCommitException(-1,
                         $"{response.ResponseCode} : {response.Description}");
                 }
+
+            if (!OnePaySignUtil.Instance.Validate(response.Result, options.SharedSecret))
+                throw new SignatureException("The response signature is not valid");
+
             return response.Result;
         }
             
