@@ -5,8 +5,8 @@ namespace Transbank.OnePay
 {
     public abstract class OnePay
     {
-        public static readonly string APP_KEY = "04533c31-fe7e-43ed-bbc4-1c8ab1538afp";
-        public static readonly string FAKE_CALLBACK_URL = "http://nourlcallbackneededhere";
+        public static readonly string AppKey = "04533c31-fe7e-43ed-bbc4-1c8ab1538afp";
+        public static readonly string FakeCallbackUrl = "http://nourlcallbackneededhere";
 
         private static string apiKey;
         private static string sharedSecret;

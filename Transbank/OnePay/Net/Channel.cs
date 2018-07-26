@@ -8,11 +8,11 @@ namespace Transbank.OnePay.Net
 {
     public abstract class Channel
     {
-        public static async Task<string> requestAsync(string uri, HttpMethod method, string query)
+        public static async Task<string> RequestAsync(string uri, HttpMethod method, string query)
         {
-            return await requestAsync(uri, method, query, null);
+            return await RequestAsync(uri, method, query, null);
         }
-        public static async Task<string> requestAsync(string uri, HttpMethod method,
+        public static async Task<string> RequestAsync(string uri, HttpMethod method,
             string query, string contenType)
         {
             if (method == null)
@@ -30,7 +30,7 @@ namespace Transbank.OnePay.Net
             {
                 HttpResponseMessage response;
                 response = await Client.SendAsync(message);
-                response.EnsureSuccessStatusCode(); //Watch this, because in java we are asking for codes between 200 and 300
+                response.EnsureSuccessStatusCode();
                 string jsonResponse = await response.Content.ReadAsStringAsync();
                 return jsonResponse;
             }
