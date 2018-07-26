@@ -32,7 +32,7 @@ namespace Transbank.OnePay.Model
             NullifyTransactionResponse response =
                 JsonConvert.DeserializeObject<NullifyTransactionResponse>(input);
 
-            if (response == null)
+            if (response == null || response.ResponseCode == null)
             {
                 throw new RefundCreateException("Could not obtain the service response");
             }
