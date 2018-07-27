@@ -7,7 +7,7 @@ using Transbank.OnePay.Model;
 
 namespace Transbank.OnePay.Net
 {
-    public sealed class SendTransactionRequest : BaseRequest
+    public sealed class SendTransactionRequest : BaseRequest, ISignable
     {
         [JsonProperty("externalUniqueNumber")]
         public string ExternalUniqueNumber { get; set; }
@@ -43,6 +43,15 @@ namespace Transbank.OnePay.Net
             Items = items;
             CallbackUrl = callbackUrl;
             Channel = channel;
+        }
+
+        public string GetDataToSign()
+        {
+            return ExternalUniqueNumber.Length + ExternalUniqueNumber
+                + Total.ToString().Length + Total.ToString()
+                + ItemsQuantity.ToString().Length + ItemsQuantity.ToString()
+                + IssuedAt.ToString().Length + IssuedAt.ToString()
+                + OnePay.FakeCallbackUrl.Length + OnePay.FakeCallbackUrl;
         }
 
         public override string ToString()

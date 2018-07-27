@@ -2,7 +2,7 @@
 
 namespace Transbank.OnePay.Model
 {
-    public class TransactionCommitResponse
+    public class TransactionCommitResponse : ISignable
     {
         public string Occ { get; set; }
         public string AuthorizationCode { get; set; }
@@ -10,9 +10,22 @@ namespace Transbank.OnePay.Model
         public string TransactionDesc { get; set; }
         public string BuyOrder { get; set; }
         public long IssuedAt { get; set; }
-        public long Ammount { get; set; }
+        public long Amount { get; set; }
         public long InstallmentsAmount { get; set; }
         public int InstallmentsNumber { get; set; }
+
+        public string GetDataToSign()
+        {
+            string ret = Occ.Length + Occ
+                    + AuthorizationCode.Length + AuthorizationCode
+                    + IssuedAt.ToString().Length + IssuedAt.ToString()
+                    + Amount.ToString().Length + Amount.ToString()
+                    + InstallmentsAmount.ToString().Length + InstallmentsAmount.ToString()
+                    + InstallmentsNumber.ToString().Length + InstallmentsNumber.ToString()
+                    + BuyOrder.Length + BuyOrder;
+            Console.WriteLine(ret);
+            return ret;
+        }
 
         public override string ToString()
         {
@@ -23,7 +36,7 @@ namespace Transbank.OnePay.Model
                        $"TransactionDesc{TransactionDesc}, " +
                        $"BuyOrder{BuyOrder}, " +
                        $"IssuedAt={IssuedAt}, " +
-                       $"Ammount{Ammount}, " +
+                       $"Amount{Amount}, " +
                        $"InstallmentsAmount{InstallmentsAmount}, " +
                        $"InstallmentsNumber{InstallmentsNumber}";
         }

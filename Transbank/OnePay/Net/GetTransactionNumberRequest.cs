@@ -7,7 +7,7 @@ using Transbank.OnePay.Model;
 
 namespace Transbank.OnePay.Net
 {
-    public sealed class GetTransactionNumberRequest : BaseRequest
+    public sealed class GetTransactionNumberRequest : BaseRequest, ISignable
     {
         private string occ;
         private string externalUniqueNumber;
@@ -41,6 +41,13 @@ namespace Transbank.OnePay.Net
         {
             Occ = occ;
             ExternalUniqueNumber = externalUniqueNumber;
+        }
+
+        public string GetDataToSign()
+        {
+            return Occ.Length + Occ
+                + ExternalUniqueNumber.Length + ExternalUniqueNumber
+                + IssuedAt.ToString().Length + IssuedAt.ToString();
         }
 
         public override string ToString()

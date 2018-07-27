@@ -1,15 +1,16 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Transbank.OnePay.Model;
 
 namespace Transbank.OnePay.Net
 {
-    public class NullifyTransactionRequest : BaseRequest
+    public class NullifyTransactionRequest : BaseRequest, ISignable
     {
         private string occ;
         private string externalUniqueNumber;
         private string authorizationCode;
 
-        [JsonProperty("nullifyAmmount")]
+        [JsonProperty("nullifyAmount")]
         public long NullifyAmount { get; set; }
 
         [JsonProperty("issuedAt")]
@@ -51,6 +52,15 @@ namespace Transbank.OnePay.Net
             AuthorizationCode = authorizationCode;
             NullifyAmount = nullifyAmount;
             IssuedAt = issuedAt;
+        }
+
+        public string GetDataToSign()
+        {
+            return Occ.Length + Occ
+                + ExternalUniqueNumber.Length + ExternalUniqueNumber
+                + AuthorizationCode.Length + AuthorizationCode
+                + IssuedAt.ToString().Length + IssuedAt.ToString()
+                + NullifyAmount.ToString().Length + NullifyAmount.ToString();
         }
 
         public override string ToString()

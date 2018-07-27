@@ -24,15 +24,15 @@ namespace Transbank.OnePay.Model
         {
             options = Options.Build(options);
             NullifyTransactionRequest request =
-                OnePayRequestBuilder.Instance.Build(amount, occ,
+                OnePayRequestBuilder.Instance.BuildNullifyTransactionRequest(amount, occ,
                 externalUniqueNumber, authorizationCode, options);
             string output = JsonConvert.SerializeObject(request);
-            string input = requestAsync($"{ServiceUri}/{CreateRefund}",
+            string input = RequestAsync($"{ServiceUri}/{CreateRefund}",
                 HttpMethod.Post, output).Result;
             NullifyTransactionResponse response =
                 JsonConvert.DeserializeObject<NullifyTransactionResponse>(input);
 
-            if (response == null)
+            if (response == null || response.ResponseCode == null)
             {
                 throw new RefundCreateException("Could not obtain the service response");
             }
@@ -42,6 +42,11 @@ namespace Transbank.OnePay.Model
                 throw new RefundCreateException(
                     $"{response.ResponseCode} : {response.Description}");
             }
+
+            if (!OnePaySignUtil.Instance.Validate(
+                response.Result, options.SharedSecret))
+                throw new SignatureException("Response signature is not valid");
+
             return response.Result;
         }
     }
