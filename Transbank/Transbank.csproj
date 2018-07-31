@@ -9,15 +9,18 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>TransbankSDK</PackageId>
     <Description>This is the .Net SDK for Transbank Integration.</Description>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/continuum/transbank-onepay-sdk-dotNet/master/LICENSE?token=AAdOLqu-Hi6w2goUNU6LI8E3XSQPWMLUks5bZIR9wA%3D%3D</PackageLicenseUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/TransbankDevelopers/transbank-sdk-dotnet/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>http://www.transbankdevelopers.cl/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/continuum/transbank-onepay-sdk-dotNet</RepositoryUrl>
+    <RepositoryUrl>https://github.com/TransbankDevelopers/transbank-sdk-dotnet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageTags>payments, cl, chile, transbank</PackageTags>
     <PackageIconUrl>http://www.transbankdevelopers.cl/library/img/favicon/mstile-310x310.png</PackageIconUrl>
     <VersionPrefix>1.0.0</VersionPrefix>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
+    <Product>TransbankSDK</Product>
+    <Copyright>2018 - Transbank</Copyright>
+    <PackageReleaseNotes>First Release</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
