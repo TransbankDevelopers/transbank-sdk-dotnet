@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Transbank.OnePay.Model
+namespace Transbank.Onepay.Model
 {
     public class RefundCreateResponse : ISignable
     {

@@ -1,16 +1,16 @@
 ﻿using System;
 using Newtonsoft.Json;
 using System.Net.Http;
-using Transbank.OnePay.Net;
-using Transbank.OnePay.Utils;
-using Transbank.OnePay.Exceptions;
+using Transbank.Onepay.Net;
+using Transbank.Onepay.Utils;
+using Transbank.Onepay.Exceptions;
 
-namespace Transbank.OnePay.Model
+namespace Transbank.Onepay.Model
 {
     public class Refund : Channel
     {
         private static readonly string ServiceUri =
-           $"{OnePay.IntegrationType.Value}/ewallet-plugin-api-services/services/transactionservice";
+           $"{Onepay.IntegrationType.Value}/ewallet-plugin-api-services/services/transactionservice";
         private static readonly string CreateRefund = "nullifytransaction";
 
         public static RefundCreateResponse Create(long amount, string occ, 
@@ -24,7 +24,7 @@ namespace Transbank.OnePay.Model
         {
             options = Options.Build(options);
             NullifyTransactionRequest request =
-                OnePayRequestBuilder.Instance.BuildNullifyTransactionRequest(amount, occ,
+                OnepayRequestBuilder.Instance.BuildNullifyTransactionRequest(amount, occ,
                 externalUniqueNumber, authorizationCode, options);
             string output = JsonConvert.SerializeObject(request);
             string input = RequestAsync($"{ServiceUri}/{CreateRefund}",
@@ -43,7 +43,7 @@ namespace Transbank.OnePay.Model
                     $"{response.ResponseCode} : {response.Description}");
             }
 
-            if (!OnePaySignUtil.Instance.Validate(
+            if (!OnepaySignUtil.Instance.Validate(
                 response.Result, options.SharedSecret))
                 throw new SignatureException("Response signature is not valid");
 

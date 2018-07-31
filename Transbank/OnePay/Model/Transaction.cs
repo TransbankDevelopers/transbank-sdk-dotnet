@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Net.Http;
-using Transbank.OnePay.Utils;
-using Transbank.OnePay.Net;
-using Transbank.OnePay.Exceptions;
+using Transbank.Onepay.Utils;
+using Transbank.Onepay.Net;
+using Transbank.Onepay.Exceptions;
 using Newtonsoft.Json;
 
-namespace Transbank.OnePay.Model
+namespace Transbank.Onepay.Model
 {
     public class Transaction : Channel
     {
         private static readonly string ServiceUri = 
-            $"{OnePay.IntegrationType.Value}/ewallet-plugin-api-services/services/transactionservice";
+            $"{Onepay.IntegrationType.Value}/ewallet-plugin-api-services/services/transactionservice";
         private static readonly string SendTransaction = "sendtransaction";
         private static readonly string CommitTransaction = "gettransactionnumber";
        
@@ -26,7 +26,7 @@ namespace Transbank.OnePay.Model
                 throw new ArgumentNullException(nameof(cart));
             options = Options.Build(options);
             SendTransactionRequest request = 
-                OnePayRequestBuilder.Instance.BuildSendTransactionRequest(cart, options);
+                OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart, options);
             string output = JsonConvert.SerializeObject(request);
             string input = RequestAsync($"{ServiceUri}/{SendTransaction}",
                 HttpMethod.Post, output).Result;
@@ -45,7 +45,7 @@ namespace Transbank.OnePay.Model
                     $"{response.ResponseCode} : {response.Description}" );
             }
 
-            if (!OnePaySignUtil.Instance.Validate(response.Result, options.SharedSecret))
+            if (!OnepaySignUtil.Instance.Validate(response.Result, options.SharedSecret))
                 throw new SignatureException("The response signature is not valid");
 
             return response.Result;
@@ -67,7 +67,7 @@ namespace Transbank.OnePay.Model
         
             options = Options.Build(options);
             GetTransactionNumberRequest request = 
-                OnePayRequestBuilder.Instance.BuildGetTransactionNumberRequest
+                OnepayRequestBuilder.Instance.BuildGetTransactionNumberRequest
                 (occ, externalUniqueNumber, options);
             string output = JsonConvert.SerializeObject(request);
             string input = RequestAsync($"{ServiceUri}/{CommitTransaction}",
@@ -87,7 +87,7 @@ namespace Transbank.OnePay.Model
                         $"{response.ResponseCode} : {response.Description}");
                 }
 
-            if (!OnePaySignUtil.Instance.Validate(response.Result, options.SharedSecret))
+            if (!OnepaySignUtil.Instance.Validate(response.Result, options.SharedSecret))
                 throw new SignatureException("The response signature is not valid");
 
             return response.Result;

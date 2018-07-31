@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Transbank.OnePay.Net;
+using Transbank.Onepay.Net;
 
 namespace TransbankTest
 {

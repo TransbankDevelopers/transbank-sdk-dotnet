@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
-using Transbank.OnePay.Exceptions;
+using Transbank.Onepay.Exceptions;
 
-namespace Transbank.OnePay.Model
+namespace Transbank.Onepay.Model
 {
     public sealed class ShoppingCart
     {

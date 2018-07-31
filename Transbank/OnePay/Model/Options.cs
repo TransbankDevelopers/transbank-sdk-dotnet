@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Transbank.OnePay.Model
+namespace Transbank.Onepay.Model
 {
    public class Options
     {
@@ -27,15 +27,15 @@ namespace Transbank.OnePay.Model
 
         public static Options Default
         {
-            get =>  new Options(OnePay.ApiKey, OnePay.SharedSecret);
+            get =>  new Options(Onepay.ApiKey, Onepay.SharedSecret);
         }
 
         public static Options Build(Options options)
         {
             if (options == null) return Options.Default;
 
-            if (options.ApiKey == null) options.ApiKey = OnePay.ApiKey;
-            if (options.SharedSecret == null) options.SharedSecret = OnePay.SharedSecret;
+            if (options.ApiKey == null) options.ApiKey = Onepay.ApiKey;
+            if (options.SharedSecret == null) options.SharedSecret = Onepay.SharedSecret;
 
             return options;
         }

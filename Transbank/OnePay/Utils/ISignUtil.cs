@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Transbank.OnePay.Model;
+using Transbank.Onepay.Model;
 
-namespace Transbank.OnePay.Utils
+namespace Transbank.Onepay.Utils
 {
     public interface ISignUtil
     {

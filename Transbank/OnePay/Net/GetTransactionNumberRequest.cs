@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using Newtonsoft.Json;
-using Transbank.OnePay.Model;
+using Transbank.Onepay.Model;
 
-namespace Transbank.OnePay.Net
+namespace Transbank.Onepay.Net
 {
     public sealed class GetTransactionNumberRequest : BaseRequest, ISignable
     {

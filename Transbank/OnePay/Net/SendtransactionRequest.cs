@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using Newtonsoft.Json;
-using Transbank.OnePay.Model;
+using Transbank.Onepay.Model;
 
-namespace Transbank.OnePay.Net
+namespace Transbank.Onepay.Net
 {
     public sealed class SendTransactionRequest : BaseRequest, ISignable
     {
@@ -51,7 +51,7 @@ namespace Transbank.OnePay.Net
                 + Total.ToString().Length + Total.ToString()
                 + ItemsQuantity.ToString().Length + ItemsQuantity.ToString()
                 + IssuedAt.ToString().Length + IssuedAt.ToString()
-                + OnePay.FakeCallbackUrl.Length + OnePay.FakeCallbackUrl;
+                + Onepay.FakeCallbackUrl.Length + Onepay.FakeCallbackUrl;
         }
 
         public override string ToString()

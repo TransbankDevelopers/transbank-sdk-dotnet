@@ -1,9 +1,9 @@
 ﻿using System;
-using Transbank.OnePay.Enums;
+using Transbank.Onepay.Enums;
 
-namespace Transbank.OnePay
+namespace Transbank.Onepay
 {
-    public abstract class OnePay
+    public abstract class Onepay
     {
         public static readonly string AppKey = "04533c31-fe7e-43ed-bbc4-1c8ab1538afp";
         public static readonly string FakeCallbackUrl = "http://nourlcallbackneededhere";
@@ -11,7 +11,7 @@ namespace Transbank.OnePay
         private static string apiKey;
         private static string sharedSecret;
 
-        public static OnePayIntegrationType IntegrationType { get; set;} = OnePayIntegrationType.TEST;
+        public static OnepayIntegrationType IntegrationType { get; set;} = OnepayIntegrationType.TEST;
 
         public static string ApiKey
         {

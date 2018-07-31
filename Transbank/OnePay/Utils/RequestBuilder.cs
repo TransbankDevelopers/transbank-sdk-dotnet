@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Transbank.OnePay.Model;
-using Transbank.OnePay.Net;
+using Transbank.Onepay.Model;
+using Transbank.Onepay.Net;
 
-namespace Transbank.OnePay.Utils
+namespace Transbank.Onepay.Utils
 {
     interface IRequestBuilder
     {

@@ -40,7 +40,7 @@ Desde Visual Studio:
 
 ## Primeros pasos
 
-### OnePay
+### Onepay
 
 #### Configuración del APIKEY y APISECRET
 
@@ -51,19 +51,19 @@ a. En la inicialización de tu proyecto. (Solo una vez, al iniciar)
     Primero es necesario importar el espacio de nombres:
 
     ```csharp
-    using Transbank.OnePay;
+    using Transbank.Onepay;
     ```
 
-    La clase `OnePay` contiene la configuración básica de tu comercio.
+    La clase `Onepay` contiene la configuración básica de tu comercio.
 
     ```csharp
-    OnePay.ApiKey = "[your api key here]";
-    OnePay.SharedSecret = "[your shared secret here]";
+    Onepay.ApiKey = "[your api key here]";
+    Onepay.SharedSecret = "[your shared secret here]";
     ```
 
 b. Pasando el `APIKEY` y `APISECRET` a cada petición
 
-    Utilizando un objeto `Transbank.OnePay.Model.Options`
+    Utilizando un objeto `Transbank.Onepay.Model.Options`
 
     ```csharp
      TransactionCreateResponse response = Transaction.Create(cart, new Options()
@@ -76,25 +76,25 @@ b. Pasando el `APIKEY` y `APISECRET` a cada petición
 #### Ambientes
 Adicionalmente, puedes configurar el SDK para utilizar los servicios del ambiente de `LIVE` (Producción) o un `MOCK` alternativo.
 
-La clase `OnePayIntegrationType` dentro del espacio de nombres `Transbank.OnePay.Enums` contiene la información de los distintos ambientes disponibles.
+La clase `OnepayIntegrationType` dentro del espacio de nombres `Transbank.Onepay.Enums` contiene la información de los distintos ambientes disponibles.
 
 ```csharp
-using Transbank.OnePay;
+using Transbank.Onepay;
 ...
-OnePay.IntegrationType = Transbank.OnePay.Enums.OnePayIntegrationType.LIVE;
+Onepay.IntegrationType = Transbank.Onepay.Enums.OnepayIntegrationType.LIVE;
 ```
 
 El valor por defecto para el tipo de Integración es siempre: `TEST`.
 
 #### Crear una nueva transacción
 
-Para iniciar un proceso de pago mediante la aplicación móvil de OnePay, primero es necesario crear la transacción en Transbank.
-Para esto se debe crear en primera instancia un objeto `Transbank.OnePay.Model.ShoppingCart` el cual se debe llenar con ítems
-`Transbank.OnePay.Model.Items`
+Para iniciar un proceso de pago mediante la aplicación móvil de Onepay, primero es necesario crear la transacción en Transbank.
+Para esto se debe crear en primera instancia un objeto `Transbank.Onepay.Model.ShoppingCart` el cual se debe llenar con ítems
+`Transbank.Onepay.Model.Items`
 
 ```csharp
-using Transbank.OnePay:
-using Transbank.OnePay.Model:
+using Transbank.Onepay:
+using Transbank.Onepay.Model:
 ...
 
             ShoppingCart cart = new ShoppingCart();
@@ -106,13 +106,13 @@ using Transbank.OnePay.Model:
                 expire: 10));
 ```
 El monto en el carro de compras, debe ser positivo, en caso contrario se lanzará una excepción del tipo
-`Transbank.OnePay.Exceptions.AmountException`
+`Transbank.Onepay.Exceptions.AmountException`
 
 Luego que el carro de compras contiene todos los ítems. Se crea la transacción:
 
 ```csharp
-using Transbank.OnePay:
-using Transbank.OnePay.Model:
+using Transbank.Onepay:
+using Transbank.Onepay.Model:
 ...
     TransactionCreateResponse response = Transaction.Create(cart);
 ```
@@ -129,7 +129,7 @@ El resultado entregado contiene la confirmación de la creación de la transacción
 ```
 
 En el caso que no se pueda completar la transacción o la respuesta del servicio sea distinta a `http 200`
-Se lanzara una excepción `Transbank.OnePay.Exceptions.TransactionCreateResponse`
+Se lanzara una excepción `Transbank.Onepay.Exceptions.TransactionCreateResponse`
 
 Posteriormente, se debe presentar al usuario el código QR y el número de OTT para que pueda proceder al pago
 mediante la aplicación móvil.

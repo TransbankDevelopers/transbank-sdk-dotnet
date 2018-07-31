@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Transbank.OnePay.Model
+namespace Transbank.Onepay.Model
 {
     public class Item
     {

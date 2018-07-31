@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using Transbank.OnePay.Model;
-using Transbank.OnePay.Net;
-using Transbank.OnePay.Exceptions;
+using Transbank.Onepay.Model;
+using Transbank.Onepay.Net;
+using Transbank.Onepay.Exceptions;
 
-namespace Transbank.OnePay.Utils
+namespace Transbank.Onepay.Utils
 {
-    public class OnePaySignUtil : ISignUtil
+    public class OnepaySignUtil : ISignUtil
     {
-        private static volatile OnePaySignUtil instance;
+        private static volatile OnepaySignUtil instance;
         private static readonly object padlock = new object();
 
         public void Sign(ISignable signable, string secret)
@@ -42,14 +42,14 @@ namespace Transbank.OnePay.Utils
             return hmac.ComputeHash(ascii.GetBytes(data));
         }
 
-        public static OnePaySignUtil Instance
+        public static OnepaySignUtil Instance
         {
             get 
             {
                 if (instance == null)
                     lock (padlock)
                         if (instance == null)
-                            instance = new OnePaySignUtil();
+                            instance = new OnepaySignUtil();
                 return instance;
             }
         }

@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Transbank.OnePay.Model;
-using Transbank.OnePay.Net;
+using Transbank.Onepay.Model;
+using Transbank.Onepay.Net;
 
-namespace Transbank.OnePay.Utils
+namespace Transbank.Onepay.Utils
 {
-    public class OnePayRequestBuilder : IRequestBuilder
+    public class OnepayRequestBuilder : IRequestBuilder
     {
-        private static OnePaySignUtil onePaySignUtil;
-        private static volatile OnePayRequestBuilder instance;
+        private static OnepaySignUtil onePaySignUtil;
+        private static volatile OnepayRequestBuilder instance;
         private static readonly object padlock = new object();
 
         protected void PrepareRequest(BaseRequest request, Options options)
         {
             request.ApiKey = options.ApiKey;
-            request.AppKey = OnePay.AppKey;
+            request.AppKey = Onepay.AppKey;
         }
 
-        private OnePayRequestBuilder() : base()
+        private OnepayRequestBuilder() : base()
         {
-            onePaySignUtil = OnePaySignUtil.Instance;
+            onePaySignUtil = OnepaySignUtil.Instance;
         }
 
         private long GetTicksNow()
@@ -32,7 +32,7 @@ namespace Transbank.OnePay.Utils
         {
             SendTransactionRequest request = new SendTransactionRequest(
                 Guid.NewGuid().ToString(), cart.Total, cart.ItemQuantity,
-                    GetTicksNow(), cart.Items, OnePay.FakeCallbackUrl, "WEB");
+                    GetTicksNow(), cart.Items, Onepay.FakeCallbackUrl, "WEB");
             PrepareRequest(request, options);
             onePaySignUtil.Sign(request, options.SharedSecret);
             return request;
@@ -58,14 +58,14 @@ namespace Transbank.OnePay.Utils
             return request;
         }
 
-        public static OnePayRequestBuilder Instance
+        public static OnepayRequestBuilder Instance
         {
             get
             {
                 if (instance == null)
                     lock (padlock)
                         if (instance == null)
-                            instance = new OnePayRequestBuilder();
+                            instance = new OnepayRequestBuilder();
                 return instance;
             }
         }

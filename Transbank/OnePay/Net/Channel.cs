@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace Transbank.OnePay.Net
+namespace Transbank.Onepay.Net
 {
     public abstract class Channel
     {

@@ -1,21 +1,21 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Transbank.OnePay;
-using Transbank.OnePay.Model;
-using Transbank.OnePay.Enums;
+using Transbank.Onepay;
+using Transbank.Onepay.Model;
+using Transbank.Onepay.Enums;
 
 namespace TransbankTest
 {
     [TestClass]
-    public class OnePaySendTransactionTest
+    public class OnepaySendTransactionTest
     {
         [TestInitialize]
         public void Setup()
         {
             // Setting comerce data
-            OnePay.SharedSecret = "P4DCPS55QB2QLT56SQH6#W#LV76IAPYX";
-            OnePay.ApiKey = "mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg";
-            OnePay.IntegrationType = OnePayIntegrationType.MOCK;
+            Onepay.SharedSecret = "P4DCPS55QB2QLT56SQH6#W#LV76IAPYX";
+            Onepay.ApiKey = "mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg";
+            Onepay.IntegrationType = OnepayIntegrationType.MOCK;
         }
 
         public ShoppingCart CreateCart()
@@ -28,7 +28,7 @@ namespace TransbankTest
         }
 
         [TestMethod]
-        public void TestOnePaySendtransaction()
+        public void TestOnepaySendtransaction()
         {
             var cart = CreateCart();
             TransactionCreateResponse response = Transaction.Create(cart);
@@ -46,7 +46,7 @@ namespace TransbankTest
         }
 
         [TestMethod]
-        public void TestOnePayCommitTransaction()
+        public void TestOnepayCommitTransaction()
         {
             Options options = new Options(
                 "mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg",
@@ -73,7 +73,7 @@ namespace TransbankTest
         }
 
         [TestMethod]
-        public void TestOnePayRefundTransaction()
+        public void TestOnepayRefundTransaction()
         {
             var amount = 27500;
             var occ = "1807983490979289";

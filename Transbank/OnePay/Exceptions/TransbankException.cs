@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Transbank.OnePay.Exceptions
+namespace Transbank.Onepay.Exceptions
 {
     public class TransbankException : Exception
     {
