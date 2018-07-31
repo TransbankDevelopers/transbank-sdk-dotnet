@@ -13,16 +13,12 @@ namespace TransbankTest
 
             Assert.AreEqual("Test Item", item.Description);
             Assert.AreEqual(4, item.Quantity);
-
             Assert.AreEqual(5000, item.Amount);
-            item.Amount = 10000;
-            Assert.AreEqual(10000, item.Amount);
-
             Assert.AreEqual("Item for test", item.AdditionalData);
             Assert.AreEqual(10, item.Expire);
 
             var result = "Description=Test Item ,Quantity=4, " +
-                "Amount=10000, AdditionalData=Item for test, " +
+                "Amount=5000, AdditionalData=Item for test, " +
                 "Expire=10";
 
             Assert.AreEqual(result, item.ToString());

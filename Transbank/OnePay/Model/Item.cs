@@ -5,15 +5,15 @@ namespace Transbank.OnePay.Model
     public class Item
     {
         [JsonProperty("description")]
-        public string Description { get; set; }
+        public string Description { get; }
         [JsonProperty("quantity")]
-        public int Quantity { get; set; }
+        public int Quantity { get; }
         [JsonProperty("amount")]
-        public int Amount { get; set; }
+        public int Amount { get; }
         [JsonProperty("additionalData")]
-        public string AdditionalData { get; set; }
+        public string AdditionalData { get; }
         [JsonProperty("expire")]
-        public long Expire { get; set; }
+        public long Expire { get; }
 
         public Item() { }
 
