@@ -11,7 +11,7 @@ namespace Transbank.OnePay.Net
     {
         private string occ;
         private string externalUniqueNumber;
-        [JsonProperty("issueadAt")]
+        [JsonProperty("issuedAt")]
         public long IssuedAt { get; set; }
         [JsonProperty("signature")]
         public string Signature { get; set; }
@@ -37,10 +37,11 @@ namespace Transbank.OnePay.Net
         }
 
         public GetTransactionNumberRequest(string occ, 
-                                           string externalUniqueNumber, long issueadAt)
+                                           string externalUniqueNumber, long issuedAt)
         {
             Occ = occ;
             ExternalUniqueNumber = externalUniqueNumber;
+            IssuedAt = issuedAt;
         }
 
         public string GetDataToSign()
@@ -54,7 +55,7 @@ namespace Transbank.OnePay.Net
         {
             return base.ToString() + $"Occ{Occ}, " +
                        $"ExternalUniqueNumber={ExternalUniqueNumber}, " +
-                       $"IssueadAt={IssuedAt}, Signature{Signature}";
+                       $"IssuedAt={IssuedAt}, Signature{Signature}";
         }
     }
 }

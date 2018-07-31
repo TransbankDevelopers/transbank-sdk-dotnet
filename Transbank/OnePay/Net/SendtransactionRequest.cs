@@ -60,7 +60,7 @@ namespace Transbank.OnePay.Net
             Items.CopyTo(itemsArray, 0);
         
             return $"ExternalUniqueNumber={ExternalUniqueNumber}, Total={Total}, " +
-                $"ItemsQuantity={ItemsQuantity}, IssueadAt={IssuedAt}, " +
+                $"ItemsQuantity={ItemsQuantity}, IssuedAt={IssuedAt}, " +
                 $"Items={string.Join<Item>(" , ", itemsArray)}," +
                 $"CallbackUrl={CallbackUrl}, Channel={Channel}," +
                 $"Signature={Signature}, GenerateOttQrCore={GenerateOttQrCode}";

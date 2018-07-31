@@ -24,7 +24,7 @@ namespace Transbank.OnePay.Model
         {
             return base.ToString() + $"Occ={Occ}, " +
                 $"ExternalUniqueNumber={ExternalUniqueNumber}, " +
-                $"ReverseCode={ReverseCode}, IssueadAt={IssuedAt}, " +
+                $"ReverseCode={ReverseCode}, IssuedAt={IssuedAt}, " +
                 $"Signature={Signature}";
         }
     }
