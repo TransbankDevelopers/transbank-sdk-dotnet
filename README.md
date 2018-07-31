@@ -10,7 +10,7 @@ SDK Oficial de Transbank
 
 ## Dependencias
 Al realizar la instalación con NuGet las dependencias
-debieran instalarse automaticamente.
+debieran instalarse automáticamente.
 
 - Newtonsoft 11.0.2
 
@@ -18,7 +18,7 @@ debieran instalarse automaticamente.
 
 ### Instalar con NuGet
 
-Desde una linea de comandos:
+Desde una línea de comandos:
 
 ```bash
 nuget install TransbankSDK
@@ -33,10 +33,10 @@ PM> Install-Package TransbankSDK
 Desde Visual Studio:
 
 1. Abrir el explorador de soluciones.
-2. Click derecho en un proyecto dentro de tu solución.
-3. Click en Administrar paquetes NuGet.
-4. Click en la pestaña Examinar y busque `TransbankSDK`
-5. Click en el paquete `TransbankSDK`, seleccione la versión que desea utilizar y finalmente selecciones instalar.
+2. Clic derecho en un proyecto dentro de tu solución.
+3. Clic en Administrar paquetes NuGet.
+4. Clic en la pestaña Examinar y busque `TransbankSDK`
+5. Clic en el paquete `TransbankSDK`, seleccione la versión que desea utilizar y finalmente selecciones instalar.
 
 ## Primeros pasos
 
@@ -44,7 +44,7 @@ Desde Visual Studio:
 
 #### Configuración del APIKEY y APISECRET
 
-Existen 2 formas de configurar esta información, la cual es unica para cada comercio.
+Existen 2 formas de configurar esta información, la cual es única para cada comercio.
 
 a. En la inicialización de tu proyecto. (Solo una vez, al iniciar)
 
@@ -54,14 +54,14 @@ a. En la inicialización de tu proyecto. (Solo una vez, al iniciar)
     using Transbank.OnePay;
     ```
 
-    La clase `OnePay` contiene la configuración basica de tu comercio.
+    La clase `OnePay` contiene la configuración básica de tu comercio.
 
     ```csharp
     OnePay.ApiKey = "[your api key here]";
     OnePay.SharedSecret = "[your shared secret here]";
     ```
 
-b. Pasardo el `APIKEY` y `APISECRET` a cada peticion
+b. Pasando el `APIKEY` y `APISECRET` a cada petición
 
     Utilizando un objeto `Transbank.OnePay.Model.Options`
 
@@ -76,7 +76,7 @@ b. Pasardo el `APIKEY` y `APISECRET` a cada peticion
 #### Ambientes
 Adicionalmente, puedes configurar el SDK para utilizar los servicios del ambiente de `LIVE` (Producción) o un `MOCK` alternativo.
 
-La clase `OnePayIntegrationType` dentro del espacio de nombres `Transbank.OnePay.Enums` contiene la informacion de los distintos ambientes disponibles.
+La clase `OnePayIntegrationType` dentro del espacio de nombres `Transbank.OnePay.Enums` contiene la información de los distintos ambientes disponibles.
 
 ```csharp
 using Transbank.OnePay;
@@ -88,8 +88,8 @@ El valor por defecto para el tipo de Integración es siempre: `TEST`.
 
 #### Crear una nueva transacción
 
-Para iniciar un proceso de pago mediante la applicación mobil de OnePay, primero es necesario crear la transacción en transbank.
-Para esto se debe crear en primera instancia un objeto `Transbank.OnePay.Model.ShoppingCart` el cual se debe llenar con items
+Para iniciar un proceso de pago mediante la aplicación móvil de OnePay, primero es necesario crear la transacción en Transbank.
+Para esto se debe crear en primera instancia un objeto `Transbank.OnePay.Model.ShoppingCart` el cual se debe llenar con ítems
 `Transbank.OnePay.Model.Items`
 
 ```csharp
@@ -105,10 +105,10 @@ using Transbank.OnePay.Model:
                 additionalData: null,
                 expire: 10));
 ```
-El monto en el carro de compras, debe ser positivo, en caso contrario se lanzara una excepcion del tipo
+El monto en el carro de compras, debe ser positivo, en caso contrario se lanzará una excepción del tipo
 `Transbank.OnePay.Exceptions.AmountException`
 
-Luego que el carro de compras contiene todos los items. Se crea la transacción:
+Luego que el carro de compras contiene todos los ítems. Se crea la transacción:
 
 ```csharp
 using Transbank.OnePay:
@@ -129,15 +129,15 @@ El resultado entregado contiene la confirmación de la creación de la transacción
 ```
 
 En el caso que no se pueda completar la transacción o la respuesta del servicio sea distinta a `http 200`
-Se lanzara una Excepcion `Transbank.OnePay.Exceptions.TransactionCreateResponse`
+Se lanzara una excepción `Transbank.OnePay.Exceptions.TransactionCreateResponse`
 
-Posteriormente, se debe presentar al usuario el codigo QR y el numero de OTT para que pueda proceder al pago
-mediante la applicacion movil.
+Posteriormente, se debe presentar al usuario el código QR y el número de OTT para que pueda proceder al pago
+mediante la aplicación móvil.
 
 #### Confirmar una transacción
 
-Una vez que el usuario realizó el pago mediante la applicación, dispones de 30 segundos
-para realizar la confirmación de la transacción, de lo contrario, se realizara automaticamente
+Una vez que el usuario realizó el pago mediante la aplicación, dispones de 30 segundos
+para realizar la confirmación de la transacción, de lo contrario, se realizará automáticamente
 la reversa de la transacción.
 
 ```csharp
@@ -147,7 +147,7 @@ la reversa de la transacción.
 
 #### Anular una transacción
 
-Cuando una transacción fué creada correctamente, se dispone de un plazo de 30 días para realizar la anulación de esta.
+Cuando una transacción fue creada correctamente, se dispone de un plazo de 30 días para realizar la anulación de esta.
 
 ```csharp
  RefundCreateResponse refundResponse = Refund.Create(commitResponse.Amount,
