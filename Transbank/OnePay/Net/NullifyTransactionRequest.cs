@@ -68,7 +68,7 @@ namespace Transbank.OnePay.Net
             return base.ToString() + $"Occ{Occ}, NullifyAmount{NullifyAmount}" +
                        $"ExternalUniqueNumber={ExternalUniqueNumber}, " +
                        $"AuthorizationCode={AuthorizationCode}, " +
-                       $"IssueadAt={IssuedAt}, Signature{Signature}";
+                       $"IssuedAt={IssuedAt}, Signature{Signature}";
         }
     }
 }
