@@ -48,30 +48,30 @@ Existen 2 formas de configurar esta información, la cual es única para cada co
 
 a. En la inicialización de tu proyecto. (Solo una vez, al iniciar)
 
-    Primero es necesario importar el espacio de nombres:
+Primero es necesario importar el espacio de nombres:
 
-    ```csharp
-    using Transbank.Onepay;
-    ```
+```csharp
+using Transbank.Onepay;
+```
 
-    La clase `Onepay` contiene la configuración básica de tu comercio.
+La clase `Onepay` contiene la configuración básica de tu comercio.
 
-    ```csharp
-    Onepay.ApiKey = "[your api key here]";
-    Onepay.SharedSecret = "[your shared secret here]";
-    ```
+```csharp
+Onepay.ApiKey = "[your api key here]";
+Onepay.SharedSecret = "[your shared secret here]";
+```
 
 b. Pasando el `APIKEY` y `APISECRET` a cada petición
 
-    Utilizando un objeto `Transbank.Onepay.Model.Options`
+Utilizando un objeto `Transbank.Onepay.Model.Options`
 
-    ```csharp
-     TransactionCreateResponse response = Transaction.Create(cart, new Options()
-            {
-                ApiKey = "[your api key here]",
-                SharedSecret = "[your shared secret here]"
-            });
-    ```
+```csharp
+    TransactionCreateResponse response = Transaction.Create(cart, new Options()
+        {
+            ApiKey = "[your api key here]",
+            SharedSecret = "[your shared secret here]"
+        });
+```
 
 #### Ambientes
 Adicionalmente, puedes configurar el SDK para utilizar los servicios del ambiente de `LIVE` (Producción) o un `MOCK` alternativo.
