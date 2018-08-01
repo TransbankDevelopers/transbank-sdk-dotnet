@@ -48,30 +48,30 @@ Existen 2 formas de configurar esta información, la cual es única para cada co
 
 a. En la inicialización de tu proyecto. (Solo una vez, al iniciar)
 
-    Primero es necesario importar el espacio de nombres:
+Primero es necesario importar el espacio de nombres:
 
-    ```csharp
-    using Transbank.Onepay;
-    ```
+```csharp
+using Transbank.Onepay;
+```
 
-    La clase `Onepay` contiene la configuración básica de tu comercio.
+La clase `Onepay` contiene la configuración básica de tu comercio.
 
-    ```csharp
-    Onepay.ApiKey = "[your api key here]";
-    Onepay.SharedSecret = "[your shared secret here]";
-    ```
+```csharp
+Onepay.ApiKey = "[your api key here]";
+Onepay.SharedSecret = "[your shared secret here]";
+```
 
 b. Pasando el `APIKEY` y `APISECRET` a cada petición
 
-    Utilizando un objeto `Transbank.Onepay.Model.Options`
+Utilizando un objeto `Transbank.Onepay.Model.Options`
 
-    ```csharp
-     TransactionCreateResponse response = Transaction.Create(cart, new Options()
-            {
-                ApiKey = "[your api key here]",
-                SharedSecret = "[your shared secret here]"
-            });
-    ```
+```csharp
+    TransactionCreateResponse response = Transaction.Create(cart, new Options()
+        {
+            ApiKey = "[your api key here]",
+            SharedSecret = "[your shared secret here]"
+        });
+```
 
 #### Ambientes
 Adicionalmente, puedes configurar el SDK para utilizar los servicios del ambiente de `LIVE` (Producción) o un `MOCK` alternativo.
@@ -95,15 +95,16 @@ Para esto se debe crear en primera instancia un objeto `Transbank.Onepay.Model.S
 ```csharp
 using Transbank.Onepay:
 using Transbank.Onepay.Model:
-...
 
-            ShoppingCart cart = new ShoppingCart();
-            cart.Add(new Item(
-                description: "Zapatos",
-                quantity: 1,
-                amount: 10000,
-                additionalData: null,
-                expire: 10));
+//...
+
+ShoppingCart cart = new ShoppingCart();
+cart.Add(new Item(
+    description: "Zapatos",
+    quantity: 1,
+    amount: 10000,
+    additionalData: null,
+    expire: 10));
 ```
 El monto en el carro de compras, debe ser positivo, en caso contrario se lanzará una excepción del tipo
 `Transbank.Onepay.Exceptions.AmountException`
@@ -113,8 +114,10 @@ Luego que el carro de compras contiene todos los ítems. Se crea la transacción
 ```csharp
 using Transbank.Onepay:
 using Transbank.Onepay.Model:
-...
-    TransactionCreateResponse response = Transaction.Create(cart);
+
+// ...
+
+TransactionCreateResponse response = Transaction.Create(cart);
 ```
 
 El resultado entregado contiene la confirmación de la creación de la transacción, en la forma de un objeto `TransactionCreateResponse`.
@@ -141,7 +144,7 @@ para realizar la confirmación de la transacción, de lo contrario, se realizar�
 la reversa de la transacción.
 
 ```csharp
- TransactionCommitResponse commitResponse = Transaction.Commit(
+TransactionCommitResponse commitResponse = Transaction.Commit(
                createResponse.Occ, createResponse.ExternalUniqueNumber);
 ```
 
@@ -150,7 +153,7 @@ la reversa de la transacción.
 Cuando una transacción fue creada correctamente, se dispone de un plazo de 30 días para realizar la anulación de esta.
 
 ```csharp
- RefundCreateResponse refundResponse = Refund.Create(commitResponse.Amount,
+RefundCreateResponse refundResponse = Refund.Create(commitResponse.Amount,
                 commitResponse.Occ, response.ExternalUniqueNumber,
                 commitResponse.AuthorizationCode);
 ```
