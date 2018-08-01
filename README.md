@@ -38,6 +38,12 @@ Desde Visual Studio:
 4. Clic en la pestaña Examinar y busque `TransbankSDK`
 5. Clic en el paquete `TransbankSDK`, seleccione la versión que desea utilizar y finalmente selecciones instalar.
 
+Con .Net CLI:
+
+```bash
+dotnet add package TransbankSDK
+```
+
 ## Primeros pasos
 
 ### Onepay
