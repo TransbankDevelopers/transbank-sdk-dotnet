@@ -95,15 +95,16 @@ Para esto se debe crear en primera instancia un objeto `Transbank.Onepay.Model.S
 ```csharp
 using Transbank.Onepay:
 using Transbank.Onepay.Model:
-...
 
-            ShoppingCart cart = new ShoppingCart();
-            cart.Add(new Item(
-                description: "Zapatos",
-                quantity: 1,
-                amount: 10000,
-                additionalData: null,
-                expire: 10));
+//...
+
+ShoppingCart cart = new ShoppingCart();
+cart.Add(new Item(
+    description: "Zapatos",
+    quantity: 1,
+    amount: 10000,
+    additionalData: null,
+    expire: 10));
 ```
 El monto en el carro de compras, debe ser positivo, en caso contrario se lanzará una excepción del tipo
 `Transbank.Onepay.Exceptions.AmountException`
@@ -113,8 +114,10 @@ Luego que el carro de compras contiene todos los ítems. Se crea la transacción
 ```csharp
 using Transbank.Onepay:
 using Transbank.Onepay.Model:
-...
-    TransactionCreateResponse response = Transaction.Create(cart);
+
+// ...
+
+TransactionCreateResponse response = Transaction.Create(cart);
 ```
 
 El resultado entregado contiene la confirmación de la creación de la transacción, en la forma de un objeto `TransactionCreateResponse`.
@@ -141,7 +144,7 @@ para realizar la confirmación de la transacción, de lo contrario, se realizar�
 la reversa de la transacción.
 
 ```csharp
- TransactionCommitResponse commitResponse = Transaction.Commit(
+TransactionCommitResponse commitResponse = Transaction.Commit(
                createResponse.Occ, createResponse.ExternalUniqueNumber);
 ```
 
@@ -150,7 +153,7 @@ la reversa de la transacción.
 Cuando una transacción fue creada correctamente, se dispone de un plazo de 30 días para realizar la anulación de esta.
 
 ```csharp
- RefundCreateResponse refundResponse = Refund.Create(commitResponse.Amount,
+RefundCreateResponse refundResponse = Refund.Create(commitResponse.Amount,
                 commitResponse.Occ, response.ExternalUniqueNumber,
                 commitResponse.AuthorizationCode);
 ```
