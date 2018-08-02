@@ -3,7 +3,7 @@
 
 SDK Oficial de Transbank
 
-## Soporte:
+## Requisitos:
  - .Net Standard 1.3+
  - .Net Core 1.0+
  - .Net Framework 4.6+
@@ -12,7 +12,7 @@ SDK Oficial de Transbank
 Al realizar la instalación con NuGet las dependencias
 debieran instalarse automáticamente.
 
-- Newtonsoft 11.0.2
+- [Newtonsoft 11.0.2](https://www.newtonsoft.com/json)
 
 # Instalación
 
@@ -30,6 +30,12 @@ Desde Package Manager:
 PM> Install-Package TransbankSDK
 ```
 
+Con .Net CLI:
+
+```bash
+dotnet add package TransbankSDK
+```
+
 Desde Visual Studio:
 
 1. Abrir el explorador de soluciones.
@@ -37,12 +43,6 @@ Desde Visual Studio:
 3. Clic en Administrar paquetes NuGet.
 4. Clic en la pestaña Examinar y busque `TransbankSDK`
 5. Clic en el paquete `TransbankSDK`, seleccione la versión que desea utilizar y finalmente selecciones instalar.
-
-Con .Net CLI:
-
-```bash
-dotnet add package TransbankSDK
-```
 
 ## Primeros pasos
 
@@ -79,18 +79,17 @@ Utilizando un objeto `Transbank.Onepay.Model.Options`
         });
 ```
 
-#### Ambientes
-Adicionalmente, puedes configurar el SDK para utilizar los servicios del ambiente de `LIVE` (Producción) o un `MOCK` alternativo.
+#### Ambientes `TEST` y `LIVE`
 
+Por defecto el tipo de Integración del SDK es siempre: `TEST`.
 La clase `OnepayIntegrationType` dentro del espacio de nombres `Transbank.Onepay.Enums` contiene la información de los distintos ambientes disponibles.
 
+Puedes configurar el SDK para utilizar los servicios del ambiente de `LIVE` (Producción) de la suiguiente forma:
 ```csharp
 using Transbank.Onepay;
 ...
 Onepay.IntegrationType = Transbank.Onepay.Enums.OnepayIntegrationType.LIVE;
 ```
-
-El valor por defecto para el tipo de Integración es siempre: `TEST`.
 
 #### Crear una nueva transacción
 
