@@ -28,8 +28,8 @@ namespace Transbank.Onepay.Model
             SendTransactionRequest request = 
                 OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart, options);
             string output = JsonConvert.SerializeObject(request);
-            string input = RequestAsync($"{ServiceUri}/{SendTransaction}",
-                HttpMethod.Post, output).Result;
+            string input = Request($"{ServiceUri}/{SendTransaction}",
+                HttpMethod.Post, output);
             SendTransactionResponse response = 
                 JsonConvert.DeserializeObject<SendTransactionResponse>(input);
 
@@ -70,8 +70,8 @@ namespace Transbank.Onepay.Model
                 OnepayRequestBuilder.Instance.BuildGetTransactionNumberRequest
                 (occ, externalUniqueNumber, options);
             string output = JsonConvert.SerializeObject(request);
-            string input = RequestAsync($"{ServiceUri}/{CommitTransaction}",
-                HttpMethod.Post, output).Result;
+            string input = Request($"{ServiceUri}/{CommitTransaction}",
+                HttpMethod.Post, output);
             GetTransactionNumberResponse response = 
                 JsonConvert.DeserializeObject<GetTransactionNumberResponse>(input);
 
