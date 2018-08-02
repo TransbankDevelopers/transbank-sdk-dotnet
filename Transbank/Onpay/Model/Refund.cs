@@ -27,8 +27,8 @@ namespace Transbank.Onepay.Model
                 OnepayRequestBuilder.Instance.BuildNullifyTransactionRequest(amount, occ,
                 externalUniqueNumber, authorizationCode, options);
             string output = JsonConvert.SerializeObject(request);
-            string input = RequestAsync($"{ServiceUri}/{CreateRefund}",
-                HttpMethod.Post, output).Result;
+            string input = Request($"{ServiceUri}/{CreateRefund}",
+                HttpMethod.Post, output);
             NullifyTransactionResponse response =
                 JsonConvert.DeserializeObject<NullifyTransactionResponse>(input);
 
