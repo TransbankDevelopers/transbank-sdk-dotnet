@@ -3,7 +3,7 @@
 
 SDK Oficial de Transbank
 
-## Soporte:
+## Requisitos:
  - .Net Standard 1.3+
  - .Net Core 1.0+
  - .Net Framework 4.6+
@@ -12,7 +12,7 @@ SDK Oficial de Transbank
 Al realizar la instalación con NuGet las dependencias
 debieran instalarse automáticamente.
 
-- Newtonsoft 11.0.2
+- [Newtonsoft 11.0.2](https://www.newtonsoft.com/json)
 
 # Instalación
 
@@ -30,6 +30,12 @@ Desde Package Manager:
 PM> Install-Package TransbankSDK
 ```
 
+Con .Net CLI:
+
+```bash
+dotnet add package TransbankSDK
+```
+
 Desde Visual Studio:
 
 1. Abrir el explorador de soluciones.
@@ -37,12 +43,6 @@ Desde Visual Studio:
 3. Clic en Administrar paquetes NuGet.
 4. Clic en la pestaña Examinar y busque `TransbankSDK`
 5. Clic en el paquete `TransbankSDK`, seleccione la versión que desea utilizar y finalmente selecciones instalar.
-
-Con .Net CLI:
-
-```bash
-dotnet add package TransbankSDK
-```
 
 ## Primeros pasos
 
@@ -52,7 +52,7 @@ dotnet add package TransbankSDK
 
 Existen 2 formas de configurar esta información, la cual es única para cada comercio.
 
-a. En la inicialización de tu proyecto. (Solo una vez, al iniciar)
+##### 1. En la inicialización de tu proyecto. (Solo una vez, al iniciar)
 
 Primero es necesario importar el espacio de nombres:
 
@@ -67,7 +67,7 @@ Onepay.ApiKey = "[your api key here]";
 Onepay.SharedSecret = "[your shared secret here]";
 ```
 
-b. Pasando el `APIKEY` y `APISECRET` a cada petición
+##### 2. Pasando el APIKEY y APISECRET a cada petición
 
 Utilizando un objeto `Transbank.Onepay.Model.Options`
 
@@ -79,18 +79,17 @@ Utilizando un objeto `Transbank.Onepay.Model.Options`
         });
 ```
 
-#### Ambientes
-Adicionalmente, puedes configurar el SDK para utilizar los servicios del ambiente de `LIVE` (Producción) o un `MOCK` alternativo.
+#### Ambientes TEST y LIVE
 
+Por defecto el tipo de Integración del SDK es siempre: `TEST`.
 La clase `OnepayIntegrationType` dentro del espacio de nombres `Transbank.Onepay.Enums` contiene la información de los distintos ambientes disponibles.
 
+Puedes configurar el SDK para utilizar los servicios del ambiente de `LIVE` (Producción) de la suiguiente forma:
 ```csharp
 using Transbank.Onepay;
 ...
 Onepay.IntegrationType = Transbank.Onepay.Enums.OnepayIntegrationType.LIVE;
 ```
-
-El valor por defecto para el tipo de Integración es siempre: `TEST`.
 
 #### Crear una nueva transacción
 
@@ -137,7 +136,7 @@ El resultado entregado contiene la confirmación de la creación de la transacci
 "qrCodeAsBase64": "QRBASE64STRING"
 ```
 
-En el caso que no se pueda completar la transacción o la respuesta del servicio sea distinta a `http 200`
+En el caso que no se pueda completar la transacción o el `responseCode` en la respuesta del API sea distinta a `ok`
 Se lanzara una excepción `Transbank.Onepay.Exceptions.TransactionCreateResponse`
 
 Posteriormente, se debe presentar al usuario el código QR y el número de OTT para que pueda proceder al pago
@@ -154,6 +153,20 @@ TransactionCommitResponse commitResponse = Transaction.Commit(
                createResponse.Occ, createResponse.ExternalUniqueNumber);
 ```
 
+El resultado entregado contiene la confirmación de la confirmación de la transacción, en la forma de un objeto `TransactionCreateResponse`.
+
+```json
+"occ": "1807983490979289",
+"authorizationCode": "623245",
+"issuedAt": 1532104549,
+"signature": "FfY4Ab89rC8rEf0qnpGcd0L/0mcm8SpzcWhJJMbUBK0=",
+"amount": 27500,
+"transactionDesc": "Venta Normal: Sin cuotas",
+"installmentsAmount": 27500,
+"installmentsNumber": 1,
+"buyOrder": "20180720122456123"
+```
+
 #### Anular una transacción
 
 Cuando una transacción fue creada correctamente, se dispone de un plazo de 30 días para realizar la anulación de esta.
@@ -162,4 +175,14 @@ Cuando una transacción fue creada correctamente, se dispone de un plazo de 30 d
 RefundCreateResponse refundResponse = Refund.Create(commitResponse.Amount,
                 commitResponse.Occ, response.ExternalUniqueNumber,
                 commitResponse.AuthorizationCode);
+```
+
+El resultado entregado contiene la confirmación de la anulación, en la forma de un objeto `RefundCreateResponse`.
+
+```json
+"occ": "1807983490979289",
+"externalUniqueNumber": "f506a955-800c-4185-8818-4ef9fca97aae",
+"reverseCode": "623245",
+"issuedAt": 1532104252,
+"signature": "52NpZBolTEs+ckNOXwGRexDetY9MOaX1QbFYkjPymf4="
 ```
