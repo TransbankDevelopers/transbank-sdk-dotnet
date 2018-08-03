@@ -153,6 +153,20 @@ TransactionCommitResponse commitResponse = Transaction.Commit(
                createResponse.Occ, createResponse.ExternalUniqueNumber);
 ```
 
+El resultado entregado contiene la confirmación de la confirmación de la transacción, en la forma de un objeto `TransactionCreateResponse`.
+
+```json
+"occ": "1807983490979289",
+"authorizationCode": "623245",
+"issuedAt": 1532104549,
+"signature": "FfY4Ab89rC8rEf0qnpGcd0L/0mcm8SpzcWhJJMbUBK0=",
+"amount": 27500,
+"transactionDesc": "Venta Normal: Sin cuotas",
+"installmentsAmount": 27500,
+"installmentsNumber": 1,
+"buyOrder": "20180720122456123"
+```
+
 #### Anular una transacción
 
 Cuando una transacción fue creada correctamente, se dispone de un plazo de 30 días para realizar la anulación de esta.
@@ -161,4 +175,14 @@ Cuando una transacción fue creada correctamente, se dispone de un plazo de 30 d
 RefundCreateResponse refundResponse = Refund.Create(commitResponse.Amount,
                 commitResponse.Occ, response.ExternalUniqueNumber,
                 commitResponse.AuthorizationCode);
+```
+
+El resultado entregado contiene la confirmación de la anulación, en la forma de un objeto `RefundCreateResponse`.
+
+```json
+"occ": "1807983490979289",
+"externalUniqueNumber": "f506a955-800c-4185-8818-4ef9fca97aae",
+"reverseCode": "623245",
+"issuedAt": 1532104252,
+"signature": "52NpZBolTEs+ckNOXwGRexDetY9MOaX1QbFYkjPymf4="
 ```
