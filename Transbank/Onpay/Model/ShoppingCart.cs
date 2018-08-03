@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using Transbank.Onepay.Exceptions;
 
@@ -14,7 +15,7 @@ namespace Transbank.Onepay.Model
 
         public int ItemQuantity
         {
-            get => _items.Count;
+            get => _items.Sum(item => item.Quantity);
         }
 
         public ShoppingCart()
