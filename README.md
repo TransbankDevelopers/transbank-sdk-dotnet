@@ -52,7 +52,7 @@ Desde Visual Studio:
 
 Existen 2 formas de configurar esta información, la cual es única para cada comercio.
 
-#####1. En la inicialización de tu proyecto. (Solo una vez, al iniciar)
+##### 1. En la inicialización de tu proyecto. (Solo una vez, al iniciar)
 
 Primero es necesario importar el espacio de nombres:
 
@@ -67,7 +67,7 @@ Onepay.ApiKey = "[your api key here]";
 Onepay.SharedSecret = "[your shared secret here]";
 ```
 
-#####2. Pasando el APIKEY y APISECRET a cada petición
+##### 2. Pasando el APIKEY y APISECRET a cada petición
 
 Utilizando un objeto `Transbank.Onepay.Model.Options`
 
