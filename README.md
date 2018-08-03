@@ -136,7 +136,7 @@ El resultado entregado contiene la confirmación de la creación de la transacci
 "qrCodeAsBase64": "QRBASE64STRING"
 ```
 
-En el caso que no se pueda completar la transacción o el `responsecode` en la respuesta del API sea distinta a `ok`
+En el caso que no se pueda completar la transacción o el `responseCode` en la respuesta del API sea distinta a `ok`
 Se lanzara una excepción `Transbank.Onepay.Exceptions.TransactionCreateResponse`
 
 Posteriormente, se debe presentar al usuario el código QR y el número de OTT para que pueda proceder al pago
