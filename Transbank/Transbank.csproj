@@ -21,6 +21,7 @@
     <Product>TransbankSDK</Product>
     <Copyright>2018 - Transbank</Copyright>
     <PackageReleaseNotes>First Release</PackageReleaseNotes>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
