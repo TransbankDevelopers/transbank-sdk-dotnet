@@ -49,7 +49,7 @@ Desde Visual Studio:
 
 ### Onepay
 
-#### Configuración del APIKEY y APISECRET
+#### Configuración del ApiKey y SharedSecret
 
 Existen 2 formas de configurar esta información, la cual es única para cada comercio.
 
@@ -96,7 +96,7 @@ Onepay.IntegrationType = Transbank.Onepay.Enums.OnepayIntegrationType.LIVE;
 
 Para iniciar un proceso de pago mediante la aplicación móvil de Onepay, primero es necesario crear la transacción en Transbank.
 Para esto se debe crear en primera instancia un objeto `Transbank.Onepay.Model.ShoppingCart` el cual se debe llenar con ítems
-`Transbank.Onepay.Model.Items`
+`Transbank.Onepay.Model.Item`
 
 ```csharp
 using Transbank.Onepay:
