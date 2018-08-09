@@ -15,7 +15,7 @@ matrix:
         - dotnet test
     - mono: latest
       install:
-        - nuget restore solution-name.sln
+        - nuget restore TransbankSDK.sln
         - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
       script:
         - xbuild /p:Configuration=Release TransbankSDK.sln
