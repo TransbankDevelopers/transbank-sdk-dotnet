@@ -17,3 +17,4 @@ script:
   - dotnet test
   - cd ..
   - sonar-scanner -Dsonar.login=${SONAR_TOKEN}
+  
