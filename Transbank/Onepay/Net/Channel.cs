@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Transbank.Onepay.Net
 {
-      public abstract class Channel
+    public abstract class Channel
     {
         public static string Request(string uri, HttpMethod method, string query)
         {
@@ -38,9 +38,7 @@ namespace Transbank.Onepay.Net
             }            
         }
 
-
         
-
         public static string PostString(string url, string RequestMethod, string Query)
         {
             return "";
