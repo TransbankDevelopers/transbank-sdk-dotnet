@@ -1,7 +1,7 @@
 language: csharp
 solution: TransbankSDK.sln
 mono: none
-dotnet: 2.0.3
+dotnet: 1.0.5
 addons:
   sonarcloud:
     organization: "transbankdevelopers"
