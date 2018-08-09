@@ -1,4 +1,5 @@
-[![Build Status](https://semaphoreci.com/api/v1/projects/93c66958-6ec3-43d1-9dba-805fdba66c5c/2078331/badge.svg)](https://semaphoreci.com/continuum/transbank-onepay-sdk-dotnet)
+[![Build Status](https://travis-ci.org/TransbankDevelopers/transbank-sdk-dotnet.svg?branch=master)](https://travis-ci.org/TransbankDevelopers/transbank-sdk-dotnet)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=dotnetsdk&metric=alert_status)](https://sonarcloud.io/dashboard?id=dotnetsdk)
 [![NuGet version](https://badge.fury.io/nu/TransbankSDK.svg)](https://badge.fury.io/nu/TransbankSDK)
 # Transbank .Net SDK
 
@@ -15,7 +16,7 @@ debieran instalarse automáticamente.
 
 - [Newtonsoft 11.0.2](https://www.newtonsoft.com/json)
 
-# Instalación
+## Instalación
 
 ### Instalar con NuGet
 
