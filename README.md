@@ -15,7 +15,7 @@ debieran instalarse automáticamente.
 
 - [Newtonsoft 11.0.2](https://www.newtonsoft.com/json)
 
-# Instalación
+## Instalación
 
 ### Instalar con NuGet
 
@@ -187,3 +187,19 @@ El resultado entregado contiene la confirmación de la anulación, en la forma d
 "issuedAt": 1532104252,
 "signature": "52NpZBolTEs+ckNOXwGRexDetY9MOaX1QbFYkjPymf4="
 ```
+## Como contribuir
+
+* Visual Studio 2017 version 15.6 o superior https://visualstudio.microsoft.com/downloads/
+    * Como actualizar https://docs.microsoft.com/en-us/visualstudio/install/update-visual-studio
+* SDK .Net Core 2.1 (LINK) o superior https://www.microsoft.com/net/download
+* SonarScanner (SonarCloud) https://sonarcloud.io/dashboard?id=dotnetsdk
+    * Instalar https://www.nuget.org/packages/dotnet-sonarscanner
+        dotnet tool install --global dotnet-sonarscanner --version 4.3.1
+    * Como Usar
+
+
+* Test (Semaphore)
+* Estilo de PR / Commit / Branches
+
+
+* Instalar Sonar Lint como complemento de VS
