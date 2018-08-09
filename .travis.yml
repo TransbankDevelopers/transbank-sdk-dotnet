@@ -1,8 +1,23 @@
 language: csharp
 solution: TransbankSDK.sln
+script:
+ - dotnet restore
+ - dotnet test
 matrix:
   include:
     - dotnet: 1.1.5
       mono: none
       env: DOTNETCORE=1  # optional, can be used to take different code paths in your script
+      script:
+        - dotnet restore
+        - dotnet build
+        - cd TransbankTest
+        - dotnet test
     - mono: latest
+      install:
+        - nuget restore solution-name.sln
+        - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+      script:
+        - xbuild /p:Configuration=Release TransbankSDK.sln
+        - - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./TransbankTest/bin/Release/TransbankTest.dll
+
