@@ -50,11 +50,11 @@ namespace TransbankTest
             Assert.AreEqual(200, cart.Total);
 
             cart.Add(item2);
-            Assert.AreEqual(2, cart.ItemQuantity);
+            Assert.AreEqual(6, cart.ItemQuantity);
             Assert.AreEqual(2700, cart.Total);
 
             cart.Add(item3);
-            Assert.AreEqual(3, cart.ItemQuantity);
+            Assert.AreEqual(8, cart.ItemQuantity);
             Assert.AreEqual(4700, cart.Total);
         }
 
@@ -70,11 +70,11 @@ namespace TransbankTest
             cart.Add(item3);
             cart.Add(item2);
 
-            Assert.AreEqual(3, cart.ItemQuantity);
+            Assert.AreEqual(8, cart.ItemQuantity);
             Assert.AreEqual(4700, cart.Total);
 
             cart.Remove(item1);
-            Assert.AreEqual(2, cart.ItemQuantity);
+            Assert.AreEqual(7, cart.ItemQuantity);
             Assert.AreEqual(4500, cart.Total);
 
             cart.Remove(item2);

@@ -21,6 +21,15 @@
     <Product>TransbankSDK</Product>
     <Copyright>2018 - Transbank</Copyright>
     <PackageReleaseNotes>First Release</PackageReleaseNotes>
+    <Version>1.0.1</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <CodeAnalysisRuleSet>Transbank.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <CodeAnalysisRuleSet>Transbank.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
