@@ -1,4 +1,5 @@
-[![Build Status](https://semaphoreci.com/api/v1/projects/93c66958-6ec3-43d1-9dba-805fdba66c5c/2078331/badge.svg)](https://semaphoreci.com/continuum/transbank-onepay-sdk-dotnet)
+[![Build Status](https://travis-ci.org/TransbankDevelopers/transbank-sdk-dotnet.svg?branch=master)](https://travis-ci.org/TransbankDevelopers/transbank-sdk-dotnet)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=dotnetsdk&metric=alert_status)](https://sonarcloud.io/dashboard?id=dotnetsdk)
 [![NuGet version](https://badge.fury.io/nu/TransbankSDK.svg)](https://badge.fury.io/nu/TransbankSDK)
 # Transbank .Net SDK
 
@@ -187,19 +188,3 @@ El resultado entregado contiene la confirmación de la anulación, en la forma d
 "issuedAt": 1532104252,
 "signature": "52NpZBolTEs+ckNOXwGRexDetY9MOaX1QbFYkjPymf4="
 ```
-## Como contribuir
-
-* Visual Studio 2017 version 15.6 o superior https://visualstudio.microsoft.com/downloads/
-    * Como actualizar https://docs.microsoft.com/en-us/visualstudio/install/update-visual-studio
-* SDK .Net Core 2.1 (LINK) o superior https://www.microsoft.com/net/download
-* SonarScanner (SonarCloud) https://sonarcloud.io/dashboard?id=dotnetsdk
-    * Instalar https://www.nuget.org/packages/dotnet-sonarscanner
-        dotnet tool install --global dotnet-sonarscanner --version 4.3.1
-    * Como Usar
-
-
-* Test (Semaphore)
-* Estilo de PR / Commit / Branches
-
-
-* Instalar Sonar Lint como complemento de VS
