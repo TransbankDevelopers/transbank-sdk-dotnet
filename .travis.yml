@@ -1,7 +1,7 @@
 language: csharp
 solution: TransbankSDK.sln
 mono: none
-dotnet: 1.1.5
+dotnet: 2.0.3
 addons:
   sonarcloud:
     organization: "transbankdevelopers"
@@ -23,7 +23,7 @@ before_install:
 script:
   - pwd
   - dotnet restore
-  - mono tools/sonar/SonarQube.Scanner.MSBuild.exe begin /k:dotnetsdk  /d:sonar.organization="transbankdevelopers" /d:sonar.login=${SONAR_TOKEN} /d:sonar.host.url="https://sonarcloud.io"
+  - mono tools/sonar/SonarQube.Scanner.MSBuild.exe begin /k:dotnetsdk  /d:sonar.organization=transbankdevelopers /d:sonar.login=${SONAR_TOKEN} /d:sonar.host.url=https://sonarcloud.io
   - dotnet build
   - cd TransbankTest
   - dotnet test
