@@ -19,9 +19,7 @@ before_install:
   - unzip -qq sonar.zip -d tools/sonar
   - ls -l tools/sonar
   - chmod +x tools/sonar/sonar-scanner-3.0.3.778/bin/sonar-scanner
-  - pwd
 script:
-  - pwd
   - dotnet restore
   - mono tools/sonar/SonarQube.Scanner.MSBuild.exe begin /k:dotnetsdk  /d:sonar.organization=transbankdevelopers /d:sonar.login=${SONAR_TOKEN} /d:sonar.host.url=https://sonarcloud.io
   - dotnet build
