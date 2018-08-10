@@ -24,4 +24,4 @@ deploy:
     skip_cleanup: true
     on:
       all_branches: true
-      condition: $TRAVIS_EVENT_TYPE =~ "pull_request"
+      condition: $TRAVIS_EVENT_TYPE = "pull_request"
