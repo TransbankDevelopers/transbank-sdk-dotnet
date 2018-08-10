@@ -29,3 +29,4 @@ deploy:
     script: ./scripts/travis-deploy-pr.sh
     on:
       all_branches: true
+      condition: $TRAVIS_EVENT_TYPE =~ "pull_request"
