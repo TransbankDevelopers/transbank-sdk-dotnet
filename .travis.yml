@@ -13,14 +13,15 @@ before_install:
 script:
   - bash ./scripts/travis-build.sh
 deploy:
-  skip_cleanup: true
   - provider: script
+    skip_cleanup: true
     script: ./scripts/travis-deploy.sh
     on:
       all_branches: true
       condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+
   - provider: script
     script: ./scripts/travis-deploy-pr.sh
+    skip_cleanup: true
     on:
       all_branches: true
       condition: $TRAVIS_EVENT_TYPE =~ "pull_request"
