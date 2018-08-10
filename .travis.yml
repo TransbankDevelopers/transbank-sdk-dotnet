@@ -17,4 +17,15 @@ script:
   - dotnet test
   - cd ..
   - sonar-scanner -Dsonar.login=${SONAR_TOKEN}
-  
+
+deploy:
+  skip_cleanup: true
+  - provider: script
+    script: ./scripts/travis-deploy.sh
+    on:
+      all_branches: true
+      condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+
+  - provider: script
+    script: ./scripts/travis-deploy-pr.sh
+    on:
+      all_branches: true
