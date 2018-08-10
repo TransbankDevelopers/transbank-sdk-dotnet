@@ -12,7 +12,8 @@ namespace Transbank.Onepay.Net
         {
             return Request(uri, method, query, null);
         }
-        public static  string Request(string uri, HttpMethod method,
+
+        public static string Request(string uri, HttpMethod method,
             string query, string contenType)
         {
             if (method == null)
@@ -20,31 +21,25 @@ namespace Transbank.Onepay.Net
             if (contenType == null)
                 contenType = "application/json";
 
-            Client = new HttpClient();
-            var header = new MediaTypeWithQualityHeaderValue(contenType);
-            Client.DefaultRequestHeaders.Accept.Add(header);
-
             HttpRequestMessage message = new HttpRequestMessage(method, new Uri(uri))
             {
                 Content = new StringContent(query, Encoding.UTF8, contenType)
             };
-            try
+
+            using (var client = new HttpClient())
             {
-                HttpResponseMessage response;
-                response = Client.SendAsync(message).ConfigureAwait(false).GetAwaiter().GetResult();
-                response.EnsureSuccessStatusCode();
-                string jsonResponse = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
-                return jsonResponse;
-            }
-            finally
-            {
-                Client.Dispose();
-            }
+                    var header = new MediaTypeWithQualityHeaderValue(contenType);                    
+                    client.DefaultRequestHeaders.Accept.Add(header);
+
+                    var response = client.SendAsync(message).ConfigureAwait(false).GetAwaiter().GetResult();
+                    response.EnsureSuccessStatusCode();
+                    var jsonResponse = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+                    return jsonResponse;
+            }            
         }
 
-        internal static HttpClient Client { get; private set; }
-
-        public static string PostString(string url, string RequestMethod, string Query )
+        
+        public static string PostString(string url, string RequestMethod, string Query)
         {
             return "";
         }

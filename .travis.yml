@@ -1,23 +1,17 @@
 language: csharp
+sudo: required
 solution: TransbankSDK.sln
 mono: none
-dotnet: 1.1.5
-env: DOTNETCORE=1
-jdk:
-  - oraclejdk8
+dotnet: 2.0.3
 addons:
   sonarcloud:
     organization: "transbankdevelopers"
     token:
       secure: "a1AzZUoJrWNOcT9NugHPtJJpX7Wx9RscIk0+nBZgy4IPhjJ+qbzEw7PHW4jMd0HduKri0igLQJJDSYLTwcyhYLTT8hGnhRRgxJbbdkUzOoO/oOMW3Nh0EyUtrVGAwUN7RoGVeOsJfsmS5xdp3RJdeVRoV4O3+3zIYXX3qk2bQkUQtXzufQPAAswvDny73NyVcpYmq82tg6JkZYMCKWssR9dlcN7qPdhHiTP5hqTz/lXkuAGapIzUzv/NNdfaFa4GRed6XxGOISUDqQxYUUpdBvT8JGAmF/gkHuypVvXrYTfow0hmahygoMm+6YG9TX8cueiRK0xVvDGTWzWfLEOxKmNmoLn11xo7Km4t68RZVUrE4+8KWEwhRiyE5tZWob1fEnidUqw2TLy0/25adw0J8n9GGCIuQuZ2O6bltRrC8gW8q0thyRcBoHw1JMzjGEE3eLT9iZzX5thclQ76jUFqwhbDh8/TWwH7vyAQ3IqmTJiXsMosZiqSaUYIpbIvaU3X5yczyCI2CU6KRpJwSsVMcIJTU6lJhVnk4t8u3k3hJykq4HT2sG5D2+F2SdWuFdNbT4j9G97DqwaVHxTIKTraQcsJq8dkwAWgE1TVwJ0vCvfd7xHzKZb2s6aobyt4EKLrB9X6Dg+HK+Tk4fQdFoVe3UgEqsPLsGO7V5orRXF9jFQ="
+before_install:
+  - bash ./scripts/travis-before-install.sh
 script:
-  - dotnet restore
-  - dotnet build
-  - cd TransbankTest
-  - dotnet test
-  - cd ..
-  - sonar-scanner -Dsonar.login=${SONAR_TOKEN}
-
+  - bash ./scripts/travis-build.sh
 deploy:
   skip_cleanup: true
   - provider: script
