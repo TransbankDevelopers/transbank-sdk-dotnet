@@ -12,4 +12,11 @@ before_install:
   - bash ./scripts/travis-before-install.sh
 script:
   - bash ./scripts/travis-build.sh
-  
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: ./scripts/travis-deploy.sh
+    on:
+      all_branches: true
+      tags: true
+      condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+
