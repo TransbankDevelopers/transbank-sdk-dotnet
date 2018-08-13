@@ -333,3 +333,5 @@ ASALocalRun/
 .sonarqube
 
 .vscode
+coverage/
+opencover.xml
