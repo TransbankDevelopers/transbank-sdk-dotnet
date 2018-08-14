@@ -4,7 +4,7 @@ using Transbank.Onepay.Enums;
 namespace TransbankTest
 {
     [TestClass]
-    public class TransbankEnumTest
+    public class OnepayEnumsTest
     {
         [TestMethod]
         public void OnepayIntegrationTypeTest()

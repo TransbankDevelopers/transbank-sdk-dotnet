@@ -4,7 +4,7 @@ using Transbank.Onepay.Net;
 namespace TransbankTest
 {
     [TestClass]
-    public class TransbankNetTest
+    public class OnepayNetTest
     {
         [TestMethod]
         public void GetTransactioNumberRequestTest()
