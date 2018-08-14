@@ -14,6 +14,10 @@ namespace Transbank.Onepay.Utils
 
         protected void PrepareRequest(BaseRequest request, Options options)
         {
+            if (request == null)
+                throw new ArgumentNullException(nameof(request));
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
             request.ApiKey = options.ApiKey;
             request.AppKey = Onepay.AppKey;
         }
