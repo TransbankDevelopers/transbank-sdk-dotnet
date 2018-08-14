@@ -23,7 +23,7 @@ namespace Transbank.Onepay.Utils
 
         private long GetTicksNow()
         {
-            return (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+            return DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
 
         public SendTransactionRequest BuildSendTransactionRequest(ShoppingCart cart, Options options)
