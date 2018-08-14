@@ -16,17 +16,27 @@ namespace Transbank.Onepay.Model
        
         public static TransactionCreateResponse Create(ShoppingCart cart)
         {
-            return Create(cart, null);
+            return Create(cart, options: null);
         }
 
-        public static TransactionCreateResponse Create(ShoppingCart cart,
-            Options options)
+        public static TransactionCreateResponse Create(ShoppingCart cart, string externalUniqueNumber)
+        {
+            return Create(cart, externalUniqueNumber, options: null);
+        }
+
+        public static TransactionCreateResponse Create(ShoppingCart cart, Options options)
+        {
+            string externalUniqueNumber = Guid.NewGuid().ToString();
+            return Create (cart, externalUniqueNumber, options);
+        }
+
+        public static TransactionCreateResponse Create(ShoppingCart cart, string externalUniqueNumber, Options options)
         {
             if (cart == null)
                 throw new ArgumentNullException(nameof(cart));
             options = Options.Build(options);
             SendTransactionRequest request = 
-                OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart, options);
+                OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart, externalUniqueNumber, options);
             string output = JsonConvert.SerializeObject(request);
             string input = Request($"{ServiceUri}/{SendTransaction}",
                 HttpMethod.Post, output);

@@ -28,10 +28,15 @@ namespace Transbank.Onepay.Utils
             return (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
 
-        public SendTransactionRequest BuildSendTransactionRequest(ShoppingCart cart, Options options)
+        public SendTransactionRequest BuildSendTransactionRequest(ShoppingCart cart, string externalUniqueNumber, Options options)
         {
-            SendTransactionRequest request = new SendTransactionRequest(
-                Guid.NewGuid().ToString(), cart.Total, cart.ItemQuantity,
+            if (cart == null)
+                throw new ArgumentNullException(nameof(cart));
+            if (externalUniqueNumber == null)
+                throw new ArgumentNullException(nameof(externalUniqueNumber));
+
+            var request = new SendTransactionRequest(
+               externalUniqueNumber, cart.Total, cart.ItemQuantity,
                     GetTicksNow(), cart.Items, Onepay.FakeCallbackUrl, "WEB");
             PrepareRequest(request, options);
             onePaySignUtil.Sign(request, options.SharedSecret);
