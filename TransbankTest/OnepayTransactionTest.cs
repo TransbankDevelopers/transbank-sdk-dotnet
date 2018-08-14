@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Transbank.Onepay;
 using Transbank.Onepay.Model;
 using Transbank.Onepay.Enums;
