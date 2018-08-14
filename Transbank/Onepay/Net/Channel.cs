@@ -21,7 +21,7 @@ namespace Transbank.Onepay.Net
             if (contenType == null)
                 contenType = "application/json";
 
-            HttpRequestMessage message = new HttpRequestMessage(method, new Uri(uri))
+            var message = new HttpRequestMessage(method, new Uri(uri))
             {
                 Content = new StringContent(query, Encoding.UTF8, contenType)
             };

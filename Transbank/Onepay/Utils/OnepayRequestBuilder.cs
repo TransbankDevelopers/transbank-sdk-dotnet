@@ -30,7 +30,7 @@ namespace Transbank.Onepay.Utils
 
         public SendTransactionRequest BuildSendTransactionRequest(ShoppingCart cart, Options options)
         {
-            SendTransactionRequest request = new SendTransactionRequest(
+            var request = new SendTransactionRequest(
                 Guid.NewGuid().ToString(), cart.Total, cart.ItemQuantity,
                     GetTicksNow(), cart.Items, Onepay.FakeCallbackUrl, "WEB");
             PrepareRequest(request, options);
@@ -40,7 +40,7 @@ namespace Transbank.Onepay.Utils
 
         public GetTransactionNumberRequest BuildGetTransactionNumberRequest(string occ, string externalUniqueNumber, Options options)
         {
-            GetTransactionNumberRequest request =
+            var request =
                 new GetTransactionNumberRequest(occ, externalUniqueNumber,
                 GetTicksNow());
             PrepareRequest(request, options);
@@ -50,7 +50,7 @@ namespace Transbank.Onepay.Utils
 
         public NullifyTransactionRequest BuildNullifyTransactionRequest(long amount, string occ, string externalUniqueNumber, string authorizationCode, Options options)
         {
-            NullifyTransactionRequest request =
+            var request =
                new NullifyTransactionRequest(occ, externalUniqueNumber,
                authorizationCode, amount, GetTicksNow());
             PrepareRequest(request, options);

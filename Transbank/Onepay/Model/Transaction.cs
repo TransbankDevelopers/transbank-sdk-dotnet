@@ -25,12 +25,12 @@ namespace Transbank.Onepay.Model
             if (cart == null)
                 throw new ArgumentNullException(nameof(cart));
             options = Options.Build(options);
-            SendTransactionRequest request = 
+            var request = 
                 OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart, options);
             string output = JsonConvert.SerializeObject(request);
             string input = Request($"{ServiceUri}/{SendTransaction}",
                 HttpMethod.Post, output);
-            SendTransactionResponse response = 
+            var response = 
                 JsonConvert.DeserializeObject<SendTransactionResponse>(input);
 
             if (response == null)
@@ -66,13 +66,13 @@ namespace Transbank.Onepay.Model
                 throw new ArgumentNullException(nameof(externalUniqueNumber));
         
             options = Options.Build(options);
-            GetTransactionNumberRequest request = 
+            var request = 
                 OnepayRequestBuilder.Instance.BuildGetTransactionNumberRequest
                 (occ, externalUniqueNumber, options);
             string output = JsonConvert.SerializeObject(request);
             string input = Request($"{ServiceUri}/{CommitTransaction}",
                 HttpMethod.Post, output);
-            GetTransactionNumberResponse response = 
+            var response = 
                 JsonConvert.DeserializeObject<GetTransactionNumberResponse>(input);
 
             if (response == null)

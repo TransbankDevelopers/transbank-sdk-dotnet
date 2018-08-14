@@ -37,8 +37,8 @@ namespace Transbank.Onepay.Utils
 
         public byte[] Crypt(string data, string secret)
         {
-            Encoding ascii = Encoding.ASCII;
-            HMACSHA256 hmac = new HMACSHA256(ascii.GetBytes(secret));
+            var ascii = Encoding.ASCII;
+            var hmac = new HMACSHA256(ascii.GetBytes(secret));
             return hmac.ComputeHash(ascii.GetBytes(data));
         }
 

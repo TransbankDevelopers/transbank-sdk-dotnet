@@ -9,7 +9,7 @@ namespace TransbankTest
         [TestMethod]
         public void GetTransactioNumberRequestTest()
         {
-            GetTransactionNumberRequest request = new GetTransactionNumberRequest(
+            var request = new GetTransactionNumberRequest(
                 occ: "0011", externalUniqueNumber: "ABC123", issuedAt: 20
                 );
 
