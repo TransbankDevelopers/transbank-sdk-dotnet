@@ -21,10 +21,7 @@ namespace Transbank.Onepay.Utils
             onePaySignUtil = OnepaySignUtil.Instance;
         }
 
-        private long GetTicksNow()
-        {
-            return DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
-        }
+        private long GetTicksNow() => DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
 
         public SendTransactionRequest BuildSendTransactionRequest(ShoppingCart cart, Options options)
         {
