@@ -5,7 +5,7 @@ namespace Transbank.Onepay
 {
     public abstract class Onepay
     {
-        public static readonly ChannelType DefaultChannel = ChannelType.Web;
+        public static ChannelType DefaultChannel { get; } = ChannelType.Web;
         public static readonly string DefaultCallback = "http://no.callback.has/been.set";
         public static readonly string AppKey = "04533c31-fe7e-43ed-bbc4-1c8ab1538afp";
         public static readonly string FakeCallbackUrl = "http://nourlcallbackneededhere";
