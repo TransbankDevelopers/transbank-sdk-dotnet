@@ -9,15 +9,15 @@ namespace TransbankTest
         [TestMethod]
         public void OnepayIntegrationTypeTest()
         {
-            var type = OnepayIntegrationType.LIVE;
+            var type = OnepayIntegrationType.Live;
             Assert.AreEqual("LIVE", type.Key);
             Assert.AreEqual("", type.Value);
 
-            type = OnepayIntegrationType.TEST;
+            type = OnepayIntegrationType.Test;
             Assert.AreEqual("TEST", type.Key);
             Assert.AreEqual("https://web2desa.test.transbank.cl",type.Value);
 
-            type = OnepayIntegrationType.MOCK;
+            type = OnepayIntegrationType.Mock;
             Assert.AreEqual("MOCK", type.Key);
             Assert.AreEqual("http://onepay.getsandbox.com", type.Value);
         }

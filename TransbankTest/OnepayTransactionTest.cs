@@ -14,7 +14,7 @@ namespace TransbankTest
             // Setting comerce data
             Onepay.SharedSecret = "P4DCPS55QB2QLT56SQH6#W#LV76IAPYX";
             Onepay.ApiKey = "mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg";
-            Onepay.IntegrationType = OnepayIntegrationType.MOCK;
+            Onepay.IntegrationType = OnepayIntegrationType.Mock;
         }
 
         public ShoppingCart CreateCart()
