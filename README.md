@@ -69,7 +69,7 @@ Onepay.ApiKey = "[your api key here]";
 Onepay.SharedSecret = "[your shared secret here]";
 ```
 
-##### 2. Pasando el APIKEY y APISECRET a cada petición
+##### 2. Pasando el ApiKey y SharedSecret a cada petición
 
 Utilizando un objeto `Transbank.Onepay.Model.Options`
 
