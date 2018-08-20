@@ -67,7 +67,7 @@ La clase `Onepay` contiene la configuración básica de tu comercio.
 ```csharp
 Onepay.ApiKey = "[your api key here]";
 Onepay.SharedSecret = "[your shared secret here]";
-Onepay.CallbackUrl("http://www.somecallback.com/example");
+Onepay.CallbackUrl = "http://www.somecallback.com/example";
 ```
 
 ##### 2. Pasando el ApiKey y SharedSecret a cada petición
@@ -138,7 +138,7 @@ using Transbank.Onepay:
 
 //...
 
-Onepay.AppScheme("STRINGAPPSCHEME");
+Onepay.AppScheme = "STRINGAPPSCHEME";
 ```
 
 El resultado entregado contiene la confirmación de la creación de la transacción, en la forma de un objeto `TransactionCreateResponse`.
