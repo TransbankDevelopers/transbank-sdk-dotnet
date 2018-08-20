@@ -70,7 +70,7 @@ Onepay.SharedSecret = "[your shared secret here]";
 Onepay.CallbackUrl("http://www.somecallback.com/example");
 ```
 
-##### 2. Pasando el APIKEY y APISECRET a cada petición
+##### 2. Pasando el ApiKey y SharedSecret a cada petición
 
 Utilizando un objeto `Transbank.Onepay.Model.Options`
 
