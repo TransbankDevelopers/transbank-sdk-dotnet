@@ -4,6 +4,7 @@ using Transbank.Onepay.Utils;
 using Transbank.Onepay.Net;
 using Transbank.Onepay.Exceptions;
 using Newtonsoft.Json;
+using Transbank.Onepay.Enums;
 
 namespace Transbank.Onepay.Model
 {
@@ -11,26 +12,40 @@ namespace Transbank.Onepay.Model
     {
         private static readonly string ServiceUri = 
             $"{Onepay.IntegrationType.Value}/ewallet-plugin-api-services/services/transactionservice";
-        private static readonly string SendTransaction = "sendtransaction";
-        private static readonly string CommitTransaction = "gettransactionnumber";
-       
+
+        private const string SendTransaction = "sendtransaction";
+        private const string CommitTransaction = "gettransactionnumber";
+
+        [Obsolete ("use Create(ShoppingCart,ChannelType) instead")]
         public static TransactionCreateResponse Create(ShoppingCart cart)
         {
             return Create(cart, null);
         }
 
+        [Obsolete ("use Create(ShoppingCart,ChannelType,Options) instead")]
         public static TransactionCreateResponse Create(ShoppingCart cart,
             Options options)
         {
+            return Create(cart, Onepay.DefaultChannel, options);
+        }
+
+        public static TransactionCreateResponse Create(ShoppingCart cart, ChannelType channel, Options options)
+        {
+            if (channel == ChannelType.App && string.IsNullOrEmpty(Onepay.AppScheme))
+                throw new TransactionCreateException("You need to set an appScheme if you want to use APP channel");
+            
+            if (channel == ChannelType.Mobile && string.IsNullOrEmpty(Onepay.CallbackUrl))
+                throw new TransactionCreateException("You need to set a valid callback is you want to use MOBILE channel");
+            
             if (cart == null)
                 throw new ArgumentNullException(nameof(cart));
             options = Options.Build(options);
-            SendTransactionRequest request = 
-                OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart, options);
-            string output = JsonConvert.SerializeObject(request);
-            string input = Request($"{ServiceUri}/{SendTransaction}",
+            var request = 
+                OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart, channel, options);
+            var output = JsonConvert.SerializeObject(request);
+            var input = Request($"{ServiceUri}/{SendTransaction}",
                 HttpMethod.Post, output);
-            SendTransactionResponse response = 
+            var response = 
                 JsonConvert.DeserializeObject<SendTransactionResponse>(input);
 
             if (response == null)
@@ -66,13 +81,13 @@ namespace Transbank.Onepay.Model
                 throw new ArgumentNullException(nameof(externalUniqueNumber));
         
             options = Options.Build(options);
-            GetTransactionNumberRequest request = 
+            var request = 
                 OnepayRequestBuilder.Instance.BuildGetTransactionNumberRequest
                 (occ, externalUniqueNumber, options);
-            string output = JsonConvert.SerializeObject(request);
-            string input = Request($"{ServiceUri}/{CommitTransaction}",
+            var output = JsonConvert.SerializeObject(request);
+            var input = Request($"{ServiceUri}/{CommitTransaction}",
                 HttpMethod.Post, output);
-            GetTransactionNumberResponse response = 
+            var response = 
                 JsonConvert.DeserializeObject<GetTransactionNumberResponse>(input);
 
             if (response == null)
