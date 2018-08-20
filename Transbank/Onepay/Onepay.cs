@@ -33,13 +33,13 @@ namespace Transbank.Onepay
         public static string AppScheme
         {
             get => _appScheme;
-            set => _appScheme = value ?? throw new ArgumentNullException(nameof(value));
+            set => _appScheme = value ?? throw new ArgumentNullException(nameof(value), "AppScheme can't be null");
         }
         
         public static string CallbackUrl
         {
             get => _callbackUrl;
-            set => _callbackUrl = value ?? throw new ArgumentNullException(nameof(value));
+            set => _callbackUrl = value ?? throw new ArgumentNullException(nameof(value), "CallbackUrl cant't be null");
         }
     }
 }
