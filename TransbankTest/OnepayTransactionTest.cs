@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Transbank.Onepay;
 using Transbank.Onepay.Model;
 using Transbank.Onepay.Enums;
+using Transbank.Onepay.Exceptions;
 
 namespace TransbankTest
 {
@@ -89,6 +90,60 @@ namespace TransbankTest
             Assert.AreEqual("623245", response.ReverseCode);
             Assert.AreEqual(1532104252, response.IssuedAt);
             Assert.AreEqual("52NpZBolTEs+ckNOXwGRexDetY9MOaX1QbFYkjPymf4=", response.Signature);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TransactionCreateException))]
+        public void TestTransactionFailsWhenChannelMobileAndCallbackUrlNull()
+        {
+            var cart = CreateCart();
+            var response = Transaction.Create(cart, ChannelType.Mobile);
+        }
+
+        [TestMethod]
+        public void TestTransactionWhenChannelMobileAndCallbackUrlNotNull()
+        {
+            Onepay.CallbackUrl = "http://someurl";
+            var cart = CreateCart();
+            var response = Transaction.Create(cart, ChannelType.Mobile);
+            
+            Assert.IsNotNull(response);
+
+            Assert.AreEqual("1807983490979289", response.Occ);
+            Assert.AreEqual(64181789, response.Ott);
+            Assert.AreEqual("USrtuoyAU3l5qeG3Gm2fnxKRs++jQaf1wc8lwA6EZ2o=", response.Signature);
+            Assert.AreEqual("f506a955-800c-4185-8818-4ef9fca97aae", response.ExternalUniqueNumber);
+            Assert.AreEqual(1532103896, response.IssuedAt);
+
+            const string qrBase64 = "iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAADmElEQVR42u3dQW4CMRBE0bn/peEEbBCmq9rvS9lFxDP221jEfl6SPvZ4BRIgEiASIBIgEiASIBIgEiASIJIAkQCRAJEAkQCRAJEAkQCRAJEAkQSIBIgEiASIdAuQ53kqfn71XKffT9rntMwXIIAAAggggAACCCCAAAIIIIAAAsh/FlLLeKYWxunP2TpfgAACCCCAAAIIIIAAAggggAACCCDfPeDUQto6ntvmCxBAAAEEEEAAAQQQQAABBBBAAAHkTiBT4zw9HkAAAQQQQAABBBBAAAEEEEAAAQQQQG5+4S3breYLEEAAAQQQQAABBBBAAAEEEEAAASTlAZMW8FYgm9cPIIAAAggggAACCCCAAAIIIIAAAkjPcfp+3/UHgAACCCCAAAIIIIAAAggggAACyA1A2ku7tiBxIa2de68AEAECiAABBBBAAAEEEEAAuQhI+wJrv55gapynxw8IIIAAAggggAACCCCAAAIIIIAA8h8gUwvg9IJp34adGqdv8wICCCCAAAIIIIAAAggggAACCCA7gLRc4pm2UG/bZgcEEEAAAQQQQAABBBBAAAEEEEAAyQTSss3Ycl1C2vYyIIAAAggggAACCCCAAAIIIIAAAkjmwXFp1wGkPW/atvDWeQEEEEAAAQQQQAABBBBAAAEEEEAA+W4i2hd2y/O2/8szIIAAAggggAACCCCAAAIIIIAAAkjmtu3Ugkw7mK4dDiCAAAIIIIAAAggggAACCCCAAALI7m3etG3JlvfQAhYQQAABBBBAAAEEEEAAAQQQQAAB5M6D47aCmgLYcrAeIIAAAggggAACCCCAAAIIIIAAAsju2oG3XBvhy4qAAAIIIIAAAggggAgQQAQIIJnbvGk/p8ffAnPrNjIggAACCCCAAAIIIIAAAggggAACyG8numXbNm27Mu3vblg/gAACCCCAAAIIIIAAAggggAACCCBz26q3HYzWsp0OCCCAAAIIIIAAAggggAACCCCAAALIiRfe8qXKtHlJPCAOEEAAAQQQQAABBBBAAAEEEEAAAWTvNm/L52z9u4AAAggggAACCCCAAAIIIIAAAgggs0BawJ4eT/sCa4IACCCAAAIIIIAAAggggAACCCCAAOL6gy2XeG49cA8QQAABBBBAAAEEEEAAAQQQQAABROoOEAkQCRAJEAkQCRAJEAkQCRAJEEmASIBIgEiASIBIgEiASIBIgEiASAJEAkQCRAJESugNVyLVvcNSF1EAAAAASUVORK5CYII=";
+            Assert.AreEqual(qrBase64, response.QrCodeAsBase64);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TransactionCreateException))]
+        public void TestTransactionFailsWhenChannelAppAndAppSchemeNull()
+        {
+            var cart = CreateCart();
+            var response = Transaction.Create(cart, ChannelType.App);
+        }
+
+        [TestMethod]
+        public void TestTransactionWhenChannelAppAndAppSchemeNotNull()
+        {
+            Onepay.AppScheme = "somescheme";
+            var cart = CreateCart();
+            var response = Transaction.Create(cart, ChannelType.App);
+            
+            Assert.IsNotNull(response);
+
+            Assert.AreEqual("1807983490979289", response.Occ);
+            Assert.AreEqual(64181789, response.Ott);
+            Assert.AreEqual("USrtuoyAU3l5qeG3Gm2fnxKRs++jQaf1wc8lwA6EZ2o=", response.Signature);
+            Assert.AreEqual("f506a955-800c-4185-8818-4ef9fca97aae", response.ExternalUniqueNumber);
+            Assert.AreEqual(1532103896, response.IssuedAt);
+
+            const string qrBase64 = "iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAADmElEQVR42u3dQW4CMRBE0bn/peEEbBCmq9rvS9lFxDP221jEfl6SPvZ4BRIgEiASIBIgEiASIBIgEiASIJIAkQCRAJEAkQCRAJEAkQCRAJEAkQSIBIgEiASIdAuQ53kqfn71XKffT9rntMwXIIAAAggggAACCCCAAAIIIIAAAsh/FlLLeKYWxunP2TpfgAACCCCAAAIIIIAAAggggAACCCDfPeDUQto6ntvmCxBAAAEEEEAAAQQQQAABBBBAAAHkTiBT4zw9HkAAAQQQQAABBBBAAAEEEEAAAQQQQG5+4S3breYLEEAAAQQQQAABBBBAAAEEEEAAASTlAZMW8FYgm9cPIIAAAggggAACCCCAAAIIIIAAAkjPcfp+3/UHgAACCCCAAAIIIIAAAggggAACyA1A2ku7tiBxIa2de68AEAECiAABBBBAAAEEEEAAuQhI+wJrv55gapynxw8IIIAAAggggAACCCCAAAIIIIAA8h8gUwvg9IJp34adGqdv8wICCCCAAAIIIIAAAggggAACCCA7gLRc4pm2UG/bZgcEEEAAAQQQQAABBBBAAAEEEEAAyQTSss3Ycl1C2vYyIIAAAggggAACCCCAAAIIIIAAAkjmwXFp1wGkPW/atvDWeQEEEEAAAQQQQAABBBBAAAEEEEAA+W4i2hd2y/O2/8szIIAAAggggAACCCCAAAIIIIAAAkjmtu3Ugkw7mK4dDiCAAAIIIIAAAggggAACCCCAAALI7m3etG3JlvfQAhYQQAABBBBAAAEEEEAAAQQQQAAB5M6D47aCmgLYcrAeIIAAAggggAACCCCAAAIIIIAAAsju2oG3XBvhy4qAAAIIIIAAAggggAgQQAQIIJnbvGk/p8ffAnPrNjIggAACCCCAAAIIIIAAAggggAACyG8numXbNm27Mu3vblg/gAACCCCAAAIIIIAAAggggAACCCBz26q3HYzWsp0OCCCAAAIIIIAAAggggAACCCCAAALIiRfe8qXKtHlJPCAOEEAAAQQQQAABBBBAAAEEEEAAAWTvNm/L52z9u4AAAggggAACCCCAAAIIIIAAAgggs0BawJ4eT/sCa4IACCCAAAIIIIAAAggggAACCCCAAOL6gy2XeG49cA8QQAABBBBAAAEEEEAAAQQQQAABROoOEAkQCRAJEAkQCRAJEAkQCRAJEEmASIBIgEiASIBIgEiASIBIgEiASAJEAkQCRAJESugNVyLVvcNSF1EAAAAASUVORK5CYII=";
+            Assert.AreEqual(qrBase64, response.QrCodeAsBase64);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Transbank.Onepay.Enums;
 using Transbank.Onepay.Model;
 using Transbank.Onepay.Net;
 
@@ -28,11 +29,14 @@ namespace Transbank.Onepay.Utils
             return (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
 
-        public SendTransactionRequest BuildSendTransactionRequest(ShoppingCart cart, Options options)
+        public SendTransactionRequest BuildSendTransactionRequest(ShoppingCart cart, ChannelType channel,
+            Options options)
         {
+            var callbackUrl = string.IsNullOrEmpty(Onepay.CallbackUrl) ? Onepay.DefaultCallback : Onepay.CallbackUrl;
+            
             SendTransactionRequest request = new SendTransactionRequest(
                 Guid.NewGuid().ToString(), cart.Total, cart.ItemQuantity,
-                    GetTicksNow(), cart.Items, Onepay.FakeCallbackUrl, "WEB");
+                    GetTicksNow(), cart.Items, callbackUrl, channel.Value);
             PrepareRequest(request, options);
             onePaySignUtil.Sign(request, options.SharedSecret);
             return request;
