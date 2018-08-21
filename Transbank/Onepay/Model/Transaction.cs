@@ -40,6 +40,12 @@ namespace Transbank.Onepay.Model
             return Create(cart, externalUniqueNumber, Onepay.DefaultChannel);
         }
 
+        public static TransactionCreateResponse Create(ShoppingCart cart, ChannelType channel)
+        {
+            string externalUniqueNumber = Guid.NewGuid().ToString();
+            return Create(cart, externalUniqueNumber, channel);
+        }
+
         public static TransactionCreateResponse Create(ShoppingCart cart, string externalUniqueNumber, ChannelType channel)
         {
             return Create(cart, externalUniqueNumber, channel, options: null);

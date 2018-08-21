@@ -33,7 +33,7 @@ namespace TransbankTest
         {
             var cart = CreateCart();
             var number = "123-456-789-192";
-            var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: number, options: new Options());
+            var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: number, channel: Onepay.DefaultChannel, options: new Options());
             Assert.AreEqual("mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg", request.ApiKey);
             Assert.AreEqual("04533c31-fe7e-43ed-bbc4-1c8ab1538afp", request.AppKey);
             Assert.AreEqual("http://nourlcallbackneededhere", request.CallbackUrl);
@@ -49,7 +49,7 @@ namespace TransbankTest
         public void OnepayRequestBuilderBuildSendTransactionRequestNullExternalUniqueNumber()
         {
             var cart = CreateCart();
-            var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: null, options: new Options());
+            var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: null, channel: Onepay.DefaultChannel, options: new Options());
         }
 
         [TestMethod]
@@ -57,14 +57,22 @@ namespace TransbankTest
         public void OnepayRequestBuilderSendTransactionRequestNullOptions()
         {
             var cart = CreateCart();
-            var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: "1", options: null);
+            var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: "1", channel: Onepay.DefaultChannel, options: null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void OnepayRequestBuilderSendTransactionRequestNullCart()
         {
-            var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: null, externalUniqueNumber: "1", options: new Options());
+            var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: null, externalUniqueNumber: "1", channel: Onepay.DefaultChannel, options: new Options());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void OnepayRequestBuilderSendTransactionRequestNullChannel()
+        {
+            var cart = CreateCart();
+            var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: "1", channel: null, options: new Options());
         }
 
     }

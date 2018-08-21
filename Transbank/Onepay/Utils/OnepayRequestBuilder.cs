@@ -40,6 +40,8 @@ namespace Transbank.Onepay.Utils
                 throw new ArgumentNullException(nameof(cart));
             if (externalUniqueNumber == null)
                 throw new ArgumentNullException(nameof(externalUniqueNumber));
+            if (channel == null)
+                throw new ArgumentNullException(nameof(channel));
             
             var callbackUrl = string.IsNullOrEmpty(Onepay.CallbackUrl) ? Onepay.DefaultCallback : Onepay.CallbackUrl;
             
