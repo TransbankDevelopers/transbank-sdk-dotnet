@@ -32,7 +32,7 @@ namespace TransbankTest
         public void TestOnepaySendtransaction()
         {
             var cart = CreateCart();
-            var response = Transaction.Create(cart);
+            var response = Transaction.Create(cart, Onepay.DefaultChannel);
 
             Assert.IsNotNull(response);
 
