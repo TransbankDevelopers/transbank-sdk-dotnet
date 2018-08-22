@@ -33,8 +33,8 @@ namespace Transbank.Onepay.Utils
             return (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
 
-        public SendTransactionRequest BuildSendTransactionRequest(ShoppingCart cart, string externalUniqueNumber,
-            ChannelType channel, Options options)
+        public SendTransactionRequest BuildSendTransactionRequest(ShoppingCart cart, ChannelType channel, 
+            string externalUniqueNumber, Options options)
         {
             if (cart == null)
                 throw new ArgumentNullException(nameof(cart));

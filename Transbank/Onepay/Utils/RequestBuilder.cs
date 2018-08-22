@@ -10,7 +10,7 @@ namespace Transbank.Onepay.Utils
     interface IRequestBuilder
     {
         SendTransactionRequest BuildSendTransactionRequest(
-            ShoppingCart cart, string externalUniqueNumber, ChannelType channel, Options options);
+            ShoppingCart cart, ChannelType channel, string externalUniqueNumber, Options options);
         GetTransactionNumberRequest BuildGetTransactionNumberRequest(
             String occ, String externalUniqueNumber, Options options);
         NullifyTransactionRequest BuildNullifyTransactionRequest(long amount, 
