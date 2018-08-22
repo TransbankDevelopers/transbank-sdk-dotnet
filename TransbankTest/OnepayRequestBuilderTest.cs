@@ -36,7 +36,7 @@ namespace TransbankTest
             var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: number, channel: Onepay.DefaultChannel, options: new Options());
             Assert.AreEqual("mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg", request.ApiKey);
             Assert.AreEqual("04533c31-fe7e-43ed-bbc4-1c8ab1538afp", request.AppKey);
-            Assert.AreEqual("http://nourlcallbackneededhere", request.CallbackUrl);
+            Assert.AreEqual("http://no.callback.has/been.set", request.CallbackUrl);
             Assert.AreEqual("WEB", request.Channel);
             Assert.AreEqual("123-456-789-192", request.ExternalUniqueNumber);
             Assert.AreEqual(2, request.Items.Count);
