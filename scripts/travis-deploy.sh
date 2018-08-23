@@ -8,7 +8,7 @@ then
     if ( echo $TRAVIS_TAG | egrep -i '^v[0-9]+\.[0-9]+\.[0-9]+')
     then
             VERSION_NUMBER=${TRAVIS_TAG:1}
-            dotnet pack Transbank.csproj -c release --version-prefix $VERSION_NUMBER --output nupkgs -v d
+            dotnet pack Transbank.csproj -c release  -p:Version=$VERSION_NUMBER --output nupkgs -v d
     else
             dotnet pack Transbank.csproj -c release --version-suffix ci-$TRAVIS_BUILD_ID
     fi
