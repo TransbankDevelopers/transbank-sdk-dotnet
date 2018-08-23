@@ -15,6 +15,10 @@ namespace Transbank.Onepay.Utils
 
         protected void PrepareRequest(BaseRequest request, Options options)
         {
+            if (request == null)
+                throw new ArgumentNullException(nameof(request));
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
             request.ApiKey = options.ApiKey;
             request.AppKey = Onepay.AppKey;
         }
@@ -29,14 +33,22 @@ namespace Transbank.Onepay.Utils
             return (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
 
-        public SendTransactionRequest BuildSendTransactionRequest(ShoppingCart cart, ChannelType channel,
-            Options options)
+        public SendTransactionRequest BuildSendTransactionRequest(ShoppingCart cart, ChannelType channel, 
+            string externalUniqueNumber, Options options)
         {
+            if (cart == null)
+                throw new ArgumentNullException(nameof(cart));
+            if (externalUniqueNumber == null)
+                throw new ArgumentNullException(nameof(externalUniqueNumber));
+            if (channel == null)
+                throw new ArgumentNullException(nameof(channel));
+            
             var callbackUrl = string.IsNullOrEmpty(Onepay.CallbackUrl) ? Onepay.DefaultCallback : Onepay.CallbackUrl;
             
-            SendTransactionRequest request = new SendTransactionRequest(
-                Guid.NewGuid().ToString(), cart.Total, cart.ItemQuantity,
+            var request = new SendTransactionRequest(
+                externalUniqueNumber, cart.Total, cart.ItemQuantity,
                     GetTicksNow(), cart.Items, callbackUrl, channel.Value);
+
             PrepareRequest(request, options);
             onePaySignUtil.Sign(request, options.SharedSecret);
             return request;
