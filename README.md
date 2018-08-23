@@ -125,20 +125,33 @@ using Transbank.Onepay.Model:
 
 // ...
 
-TransactionCreateResponse response = Transaction.Create(cart, channel);
+TransactionCreateResponse response = Transaction.Create(cart, ChannelType.Web);
 ```
 
-El parametro channel puede ser `WEB`, `MOBILE` o `APP` dependiendo si quien esta realizando el pago esta usando un browser en 
-versión Desktop, Móvil o esta utilizando alguna aplicación móvil nativa.
+El segundo parámetro en el ejemplo corresponde al channel y puede ser puede ser `ChannelType.Web`, `ChannelType.Mobile` 
+o `ChannelType.App` dependiendo si quien está realizando el pago está usando un browser en versión Desktop, Móvil o está 
+utilizando alguna aplicación móvil nativa.
 
-En caso que `channel` sea `APP` es obligatorio que este previamente configurado el `appScheme`:
+En caso que channel sea `Channel.Mobile` es obligatorio que esté previamente configurado el `callbackUrl` o de lo 
+contrario la aplicación móvil no podrá re-direccionar a este cuando el pago se complete con éxito y como consecuencia 
+no podrás confirmar la transacción.
 
 ```c#
 using Transbank.Onepay:
 
 //...
 
-Onepay.AppScheme = "STRINGAPPSCHEME";
+Onepay.CallbackUrl = "http://www.somecallback.com/example";
+```
+
+En caso que `channel` sea `Channel.App` es obligatorio que esté previamente configurado el `appScheme`:
+
+```c#
+using Transbank.Onepay:
+
+//...
+
+Onepay.AppScheme = "mi-app://mi-app/onepay-result";
 ```
 
 El resultado entregado contiene la confirmación de la creación de la transacción, en la forma de un objeto `TransactionCreateResponse`.
