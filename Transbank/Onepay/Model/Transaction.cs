@@ -21,20 +21,30 @@ namespace Transbank.Onepay.Model
         {
             return Create(cart, Onepay.DefaultChannel);
         }
-        
+
         public static TransactionCreateResponse Create(ShoppingCart cart, ChannelType channel)
         {
-            return Create(cart, channel, options: null);
+            return Create(cart: cart, channel: channel, options: null);
+        }
+
+        public static TransactionCreateResponse Create(ShoppingCart cart, ChannelType channel, string externalUniqueNumber)
+        {
+            return Create(cart, channel, externalUniqueNumber, options: null);
         }
 
         [Obsolete ("use Create(ShoppingCart,ChannelType,Options) instead")]
-        public static TransactionCreateResponse Create(ShoppingCart cart,
-            Options options)
+        public static TransactionCreateResponse Create(ShoppingCart cart, Options options)
         {
             return Create(cart, Onepay.DefaultChannel, options);
         }
 
         public static TransactionCreateResponse Create(ShoppingCart cart, ChannelType channel, Options options)
+        {
+            var externalUniqueNumber = Guid.NewGuid().ToString();
+            return Create(cart, channel, externalUniqueNumber, options);
+        }
+
+        public static TransactionCreateResponse Create(ShoppingCart cart, ChannelType channel, string externalUniqueNumber, Options options)
         {
             if (channel == ChannelType.App && string.IsNullOrEmpty(Onepay.AppScheme))
                 throw new TransactionCreateException("You need to set an appScheme if you want to use APP channel");
@@ -44,9 +54,11 @@ namespace Transbank.Onepay.Model
             
             if (cart == null)
                 throw new ArgumentNullException(nameof(cart));
+
             options = Options.Build(options);
+
             var request = 
-                OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart, channel, options);
+                OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart, channel, externalUniqueNumber, options);
             var output = JsonConvert.SerializeObject(request);
             var input = Request($"{ServiceUri}/{SendTransaction}",
                 HttpMethod.Post, output);
