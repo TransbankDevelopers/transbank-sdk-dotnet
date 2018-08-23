@@ -35,7 +35,7 @@ namespace Transbank.Onepay.Model
         [Obsolete ("use Create(ShoppingCart,ChannelType,Options) instead")]
         public static TransactionCreateResponse Create(ShoppingCart cart, Options options)
         {
-            return Create (cart, Onepay.DefaultChannel, options);
+            return Create(cart, Onepay.DefaultChannel, options);
         }
 
         public static TransactionCreateResponse Create(ShoppingCart cart, ChannelType channel, Options options)
