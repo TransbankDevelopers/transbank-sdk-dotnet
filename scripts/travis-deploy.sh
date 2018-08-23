@@ -4,10 +4,10 @@
 if [ ! -z "$TRAVIS_TAG" ]
 then 
     echo "Tag found"
+    cd Transbank
     if ( echo $TRAVIS_TAG | egrep -i '^v[0-9]+\.[0-9]+\.[0-9]+')
     then
             VERSION_NUMBER=${TRAVIS_TAG:1}
-            cd Transbank
             dotnet pack Transbank.csproj -c release --version-prefix $VERSION_NUMBER --output nupkgs -v d
     else
             dotnet pack Transbank.csproj -c release --version-suffix ci-$TRAVIS_BUILD_ID
