@@ -51,7 +51,7 @@ namespace Transbank.Onepay.Net
                 + Total.ToString().Length + Total.ToString()
                 + ItemsQuantity.ToString().Length + ItemsQuantity.ToString()
                 + IssuedAt.ToString().Length + IssuedAt.ToString()
-                + Onepay.FakeCallbackUrl.Length + Onepay.FakeCallbackUrl;
+                + CallbackUrl.Length + CallbackUrl;
         }
 
         public override string ToString()
