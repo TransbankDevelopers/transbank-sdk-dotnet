@@ -20,7 +20,7 @@ namespace Transbank.Onepay.Utils
             if (options == null)
                 throw new ArgumentNullException(nameof(options));
             request.ApiKey = options.ApiKey;
-            request.AppKey = Onepay.AppKey;
+            request.AppKey = Onepay.IntegrationType.AppKey;
         }
 
         private OnepayRequestBuilder() : base()

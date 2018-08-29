@@ -10,9 +10,6 @@ namespace Transbank.Onepay.Model
 {
     public class Transaction : Channel
     {
-        private static readonly string ServiceUri = 
-            $"{Onepay.IntegrationType.Value}/ewallet-plugin-api-services/services/transactionservice";
-
         private const string SendTransaction = "sendtransaction";
         private const string CommitTransaction = "gettransactionnumber";
 
@@ -60,7 +57,7 @@ namespace Transbank.Onepay.Model
             var request = 
                 OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart, channel, externalUniqueNumber, options);
             var output = JsonConvert.SerializeObject(request);
-            var input = Request($"{ServiceUri}/{SendTransaction}",
+            var input = Request($"{Onepay.CurrentIntegrationTypeUrl}/{SendTransaction}",
                 HttpMethod.Post, output);
             var response = 
                 JsonConvert.DeserializeObject<SendTransactionResponse>(input);
@@ -102,7 +99,7 @@ namespace Transbank.Onepay.Model
                 OnepayRequestBuilder.Instance.BuildGetTransactionNumberRequest
                 (occ, externalUniqueNumber, options);
             var output = JsonConvert.SerializeObject(request);
-            var input = Request($"{ServiceUri}/{CommitTransaction}",
+            var input = Request($"{Onepay.CurrentIntegrationTypeUrl}/{CommitTransaction}",
                 HttpMethod.Post, output);
             var response = 
                 JsonConvert.DeserializeObject<GetTransactionNumberResponse>(input);

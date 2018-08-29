@@ -41,5 +41,8 @@ namespace Transbank.Onepay
             get => _callbackUrl;
             set => _callbackUrl = value ?? throw new ArgumentNullException(nameof(value), "CallbackUrl cant't be null");
         }
+
+        public static string CurrentIntegrationTypeUrl => $"{IntegrationType.ApiBase}" +
+                $"/ewallet-plugin-api-services/services/transactionservice";
     }
 }
