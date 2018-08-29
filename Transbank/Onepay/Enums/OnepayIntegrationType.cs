@@ -21,14 +21,10 @@ namespace Transbank.Onepay.Enums
             _appKey = appKey;
         }
 
-        public string Value
-        {
-            get { return value; }
-        }
+        public string ApiBase => _apiBase;
 
-        public string Key
-        {
-            get { return key; }
-        }
+        public string AppKey => _appKey;
+
+        public string Key => _key;
     }
 }
