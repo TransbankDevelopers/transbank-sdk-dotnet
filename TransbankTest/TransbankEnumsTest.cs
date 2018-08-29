@@ -11,15 +11,18 @@ namespace TransbankTest
         {
             var type = OnepayIntegrationType.LIVE;
             Assert.AreEqual("LIVE", type.Key);
-            Assert.AreEqual("", type.Value);
+            Assert.AreEqual("https://www.onepay.cl", type.ApiBase);
+            Assert.AreEqual("81A33064-26DC-4267-8616-C97D252E7378", type.AppKey);
 
             type = OnepayIntegrationType.TEST;
             Assert.AreEqual("TEST", type.Key);
-            Assert.AreEqual("https://web2desa.test.transbank.cl",type.Value);
+            Assert.AreEqual("https://onepay.ionix.cl", type.ApiBase);
+            Assert.AreEqual("297a620c-c776-4dd6-a42c-8669c6a4f2c5", type.AppKey);
 
             type = OnepayIntegrationType.MOCK;
             Assert.AreEqual("MOCK", type.Key);
-            Assert.AreEqual("http://onepay.getsandbox.com", type.Value);
+            Assert.AreEqual("http://onepay.getsandbox.com", type.ApiBase);
+            Assert.AreEqual("04533c31-fe7e-43ed-bbc4-1c8ab1538afp", type.AppKey);
         }
     }
 }
