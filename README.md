@@ -215,3 +215,63 @@ El resultado entregado contiene la confirmación de la anulación, en la forma d
 "issuedAt": 1532104252,
 "signature": "52NpZBolTEs+ckNOXwGRexDetY9MOaX1QbFYkjPymf4="
 ```
+
+## Desarrollo
+
+### Windows
+- VisualStudio (2017 o superior)
+
+### Standares
+
+- Para los commits respetamos las siguientes normas: https://chris.beams.io/posts/git-commit/
+- Usamos ingles, para los mensajes de commit.
+- Se pueden usar tokens como WIP, en el subject de un commit, separando el token con `:`, por ejemplo:
+`WIP: This is a useful commit message`
+- Para los nombres de ramas también usamos ingles.
+- Se asume, que una rama de feature no mezclada, es un feature no terminado.
+- El nombre de las ramas va en minúsculas.
+- Las palabras se separan con `-`.
+- Las ramas comienzan con alguno de los short lead tokens definidos, por ejemplo: `feat/tokens-configuration`
+
+#### Short lead tokens
+##### Commits
+- WIP = Trabajo en progreso.
+##### Ramas
+- feat = Nuevos features
+- chore = Tareas, que no son visibles al usuario.
+- bug = Resolución de bugs.
+
+### Todas las mezclas a master se hacen mediante Pull Request.
+
+### Construir el proyecto localmente
+1. Si estas usando VisualStudio: (**F6**) o :
+    - Click derecho sobre la solución en el explorador de soluciones.
+    - Compilar
+
+2. Si estas usando tu propio editor
+    ```bash
+    dotnet build
+    ```
+
+### Correr test localmente
+1. Si estas usando VisualStudio (**CTR** + **R**, **CTR** + **A**) o:
+    - Abrir el explorador de Test
+    - Click derecho sobre el proyecto de test
+    - Ejecutar todos los test
+
+2. Si estas usando tu propio editor
+    ```bash
+    dotnet test TransbankTest
+    ```
+## Generar una nueva versión (con deploy automático a NuGet)
+
+Para generar una nueva versión, se debe crear un PR (con un título "Prepare release X.Y.Z" con los valores que correspondan para `X`, `Y` y `Z`). Se debe seguir el estándar semver para determinar si se incrementa el valor de `X` (si hay cambios no retrocompatibles), `Y` (para mejoras retrocompatibles) o `Z` (si sólo hubo correcciones a bugs).
+
+En ese PR deben incluirse los siguientes cambios:
+
+1. Modificar el archivo CHANGELOG.md para incluir una nueva entrada (al comienzo) para `X.Y.Z` que explique en español los cambios **de cara al usuario del SDK**.
+2. Modificar el archivo `Transbank/Transbank.csproj` para que la versión sea `X.Y.{Z+1}` (de manera que los pre-releases que se generen después del release sean de la siguiente versión).
+
+Luego de obtener aprobación del pull request, debe mezclarse a master e inmediatamente generar un release en GitHub con el tag `vX.Y.Z`. En la descripción del release debes poner lo mismo que agregaste al changelog.
+
+Con eso Travis CI generará automáticamente una nueva versión de la librería y la publicará en NuGet.
