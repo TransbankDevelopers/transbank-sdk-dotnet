@@ -1,5 +1,5 @@
 # Changelog
-Todos los cambios notables a este proyecto serán docuemntados en este archivo.
+Todos los cambios notables a este proyecto serán documentados en este archivo.
 
 El formato está basado en [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
@@ -10,7 +10,7 @@ y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.ht
 
 ## [1.1.1] - 2018-08-27
 ### Changed
-- Corrige bug relacionado a `CallbackURL` no siendo usado para crear la firma y ocacionando que
+- Corrige bug relacionado a `CallbackURL` no siendo usado para crear la firma y ocasionando que
 las nuevas transacciones se generen con errores.
 
 ## [1.1.0] - 2018-08-23
