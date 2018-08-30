@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Transbank.Onepay.Model
+﻿namespace Transbank.Onepay.Model
 {
-   public class Options
+    public class Options
     {
         public Options()
         {

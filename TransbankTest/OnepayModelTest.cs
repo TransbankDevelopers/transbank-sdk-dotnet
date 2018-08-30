@@ -4,7 +4,7 @@ using Transbank.Onepay.Model;
 namespace TransbankTest
 {
     [TestClass]
-    public class TransbankModelTest
+    public class OnepayModelTest
     {
         [TestMethod]
         public void ItemTest()

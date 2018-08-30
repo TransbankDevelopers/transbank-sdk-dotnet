@@ -2,7 +2,6 @@
 using System.Text;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 
 namespace Transbank.Onepay.Net
 {
@@ -21,7 +20,7 @@ namespace Transbank.Onepay.Net
             if (contenType == null)
                 contenType = "application/json";
 
-            HttpRequestMessage message = new HttpRequestMessage(method, new Uri(uri))
+            var message = new HttpRequestMessage(method, new Uri(uri))
             {
                 Content = new StringContent(query, Encoding.UTF8, contenType)
             };

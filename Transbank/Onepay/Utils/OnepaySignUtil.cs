@@ -2,7 +2,6 @@
 using System.Security.Cryptography;
 using System.Text;
 using Transbank.Onepay.Model;
-using Transbank.Onepay.Net;
 using Transbank.Onepay.Exceptions;
 
 namespace Transbank.Onepay.Utils
@@ -37,8 +36,8 @@ namespace Transbank.Onepay.Utils
 
         public byte[] Crypt(string data, string secret)
         {
-            Encoding ascii = Encoding.ASCII;
-            HMACSHA256 hmac = new HMACSHA256(ascii.GetBytes(secret));
+            var ascii = Encoding.ASCII;
+            var hmac = new HMACSHA256(ascii.GetBytes(secret));
             return hmac.ComputeHash(ascii.GetBytes(data));
         }
 

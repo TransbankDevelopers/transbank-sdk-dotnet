@@ -1,5 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Transbank.Onepay.Model;
 
 namespace Transbank.Onepay.Net

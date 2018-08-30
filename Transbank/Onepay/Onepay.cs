@@ -8,8 +8,8 @@ namespace Transbank.Onepay
         public static readonly ChannelType DefaultChannel = ChannelType.Web;
         public static readonly string DefaultCallback = "http://no.callback.has/been.set";
        
-        private static string apiKey;
-        private static string sharedSecret;
+        private static string _apiKey;
+        private static string _sharedSecret;
         private static string _callbackUrl;
         private static string _appScheme;
 
@@ -17,18 +17,18 @@ namespace Transbank.Onepay
         {
         }
 
-        public static OnepayIntegrationType IntegrationType { get; set;} = OnepayIntegrationType.TEST;
+        public static OnepayIntegrationType IntegrationType { get; set;} = OnepayIntegrationType.Test;
 
         public static string ApiKey
         {
-            get => apiKey;
-            set => apiKey = value ?? throw 
+            get => _apiKey;
+            set => _apiKey = value ?? throw 
                 new ArgumentNullException(value,"ApiKey can't be null");
         }
         public static string SharedSecret
         {
-            get => sharedSecret;
-            set => sharedSecret = value ?? throw 
+            get => _sharedSecret;
+            set => _sharedSecret = value ?? throw 
                 new ArgumentNullException(value, "SharedSecret can't be null");
         }
 

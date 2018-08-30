@@ -21,13 +21,13 @@ namespace Transbank.Onepay.Model
             string externalUniqueNumber, string authorizationCode, Options options)
         {
             options = Options.Build(options);
-            NullifyTransactionRequest request =
+            var request =
                 OnepayRequestBuilder.Instance.BuildNullifyTransactionRequest(amount, occ,
                 externalUniqueNumber, authorizationCode, options);
             string output = JsonConvert.SerializeObject(request);
             string input = Request($"{Onepay.CurrentIntegrationTypeUrl}/{CreateRefund}",
                 HttpMethod.Post, output);
-            NullifyTransactionResponse response =
+            var response =
                 JsonConvert.DeserializeObject<NullifyTransactionResponse>(input);
 
             if (response == null || response.ResponseCode == null)

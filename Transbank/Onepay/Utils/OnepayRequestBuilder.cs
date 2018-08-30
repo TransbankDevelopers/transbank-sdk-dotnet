@@ -28,10 +28,7 @@ namespace Transbank.Onepay.Utils
             onePaySignUtil = OnepaySignUtil.Instance;
         }
 
-        private long GetTicksNow()
-        {
-            return (long)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
-        }
+        private long GetTicksNow() => DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
 
         public SendTransactionRequest BuildSendTransactionRequest(ShoppingCart cart, ChannelType channel, 
             string externalUniqueNumber, Options options)
@@ -56,7 +53,7 @@ namespace Transbank.Onepay.Utils
 
         public GetTransactionNumberRequest BuildGetTransactionNumberRequest(string occ, string externalUniqueNumber, Options options)
         {
-            GetTransactionNumberRequest request =
+            var request =
                 new GetTransactionNumberRequest(occ, externalUniqueNumber,
                 GetTicksNow());
             PrepareRequest(request, options);
@@ -66,7 +63,7 @@ namespace Transbank.Onepay.Utils
 
         public NullifyTransactionRequest BuildNullifyTransactionRequest(long amount, string occ, string externalUniqueNumber, string authorizationCode, Options options)
         {
-            NullifyTransactionRequest request =
+            var request =
                new NullifyTransactionRequest(occ, externalUniqueNumber,
                authorizationCode, amount, GetTicksNow());
             PrepareRequest(request, options);

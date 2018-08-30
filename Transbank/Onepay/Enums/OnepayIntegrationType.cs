@@ -3,11 +3,11 @@ namespace Transbank.Onepay.Enums
 {
     public class OnepayIntegrationType
     {
-        public static readonly OnepayIntegrationType LIVE = 
+        public static readonly OnepayIntegrationType Live = 
             new OnepayIntegrationType("LIVE", "https://www.onepay.cl", "81A33064-26DC-4267-8616-C97D252E7378");
-        public static readonly OnepayIntegrationType TEST =
+        public static readonly OnepayIntegrationType Test =
             new OnepayIntegrationType("TEST", "https://onepay.ionix.cl", "297a620c-c776-4dd6-a42c-8669c6a4f2c5");
-        public static readonly OnepayIntegrationType MOCK =
+        public static readonly OnepayIntegrationType Mock =
             new OnepayIntegrationType("MOCK", "http://onepay.getsandbox.com", "04533c31-fe7e-43ed-bbc4-1c8ab1538afp");
 
         private readonly string _apiBase;

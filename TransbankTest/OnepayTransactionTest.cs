@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Transbank.Onepay;
 using Transbank.Onepay.Model;
 using Transbank.Onepay.Enums;
@@ -16,13 +15,13 @@ namespace TransbankTest
             // Setting comerce data
             Onepay.SharedSecret = "P4DCPS55QB2QLT56SQH6#W#LV76IAPYX";
             Onepay.ApiKey = "mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg";
-            Onepay.IntegrationType = OnepayIntegrationType.MOCK;
+            Onepay.IntegrationType = OnepayIntegrationType.Mock;
         }
 
         public ShoppingCart CreateCart()
         {
             // Setting items to the shopping cart
-            ShoppingCart cart = new ShoppingCart();
+            var cart = new ShoppingCart();
             cart.Add(new Item("Zapatos", 1, 10000, null, -1));
             cart.Add(new Item("Pantalon", 1, 5000, null, -1));
             return cart;
@@ -68,7 +67,7 @@ namespace TransbankTest
         [TestMethod]
         public void TestOnepayCommitTransaction()
         {
-            Options options = new Options(
+            var options = new Options(
                 "mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg",
                 "P4DCPS55QB2QLT56SQH6#W#LV76IAPYX"
                 );
@@ -76,7 +75,7 @@ namespace TransbankTest
             var externalNumber = "f506a955-800c-4185-8818-4ef9fca97aae";
             var occ = "1807983490979289";
 
-            TransactionCommitResponse response = Transaction.Commit(
+            var response = Transaction.Commit(
                 occ, externalNumber, options);
 
             Assert.IsNotNull(response);
@@ -100,7 +99,7 @@ namespace TransbankTest
             var externalUniqueNumber = "f506a955-800c-4185-8818-4ef9fca97aae";
             var authorizationCode = "623245";
 
-            RefundCreateResponse response = Refund.Create(amount, occ, 
+            var response = Refund.Create(amount, occ, 
                 externalUniqueNumber, authorizationCode);
 
             Assert.IsNotNull(response);
