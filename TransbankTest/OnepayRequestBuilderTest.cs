@@ -49,7 +49,7 @@ namespace TransbankTest
         public void OnepayRequestBuilderBuildSendTransactionRequestNullExternalUniqueNumber()
         {
             var cart = CreateCart();
-            var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: null, channel: Onepay.DefaultChannel, options: new Options());
+            OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: null, channel: Onepay.DefaultChannel, options: new Options());
         }
 
         [TestMethod]
@@ -57,14 +57,14 @@ namespace TransbankTest
         public void OnepayRequestBuilderSendTransactionRequestNullOptions()
         {
             var cart = CreateCart();
-            var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: "1", channel: Onepay.DefaultChannel, options: null);
+            OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: "1", channel: Onepay.DefaultChannel, options: null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void OnepayRequestBuilderSendTransactionRequestNullCart()
         {
-            var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: null, externalUniqueNumber: "1", channel: Onepay.DefaultChannel, options: new Options());
+           OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: null, externalUniqueNumber: "1", channel: Onepay.DefaultChannel, options: new Options());
         }
 
         [TestMethod]
@@ -72,7 +72,7 @@ namespace TransbankTest
         public void OnepayRequestBuilderSendTransactionRequestNullChannel()
         {
             var cart = CreateCart();
-            var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: "1", channel: null, options: new Options());
+           OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: "1", channel: null, options: new Options());
         }
 
     }
