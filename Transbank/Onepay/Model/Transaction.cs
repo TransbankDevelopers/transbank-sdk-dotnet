@@ -4,31 +4,60 @@ using Transbank.Onepay.Utils;
 using Transbank.Onepay.Net;
 using Transbank.Onepay.Exceptions;
 using Newtonsoft.Json;
+using Transbank.Onepay.Enums;
 
 namespace Transbank.Onepay.Model
 {
     public class Transaction : Channel
     {
-        private static readonly string ServiceUri = 
-            $"{Onepay.IntegrationType.Value}/ewallet-plugin-api-services/services/transactionservice";
-        private static readonly string SendTransaction = "sendtransaction";
-        private static readonly string CommitTransaction = "gettransactionnumber";
-       
+        private const string SendTransaction = "sendtransaction";
+        private const string CommitTransaction = "gettransactionnumber";
+
+        [Obsolete ("use Create(ShoppingCart,ChannelType) instead")]
         public static TransactionCreateResponse Create(ShoppingCart cart)
         {
-            return Create(cart, null);
+            return Create(cart, Onepay.DefaultChannel);
         }
 
-        public static TransactionCreateResponse Create(ShoppingCart cart,
-            Options options)
+        public static TransactionCreateResponse Create(ShoppingCart cart, ChannelType channel)
         {
+            return Create(cart: cart, channel: channel, options: null);
+        }
+
+        public static TransactionCreateResponse Create(ShoppingCart cart, ChannelType channel, string externalUniqueNumber)
+        {
+            return Create(cart, channel, externalUniqueNumber, options: null);
+        }
+
+        [Obsolete ("use Create(ShoppingCart,ChannelType,Options) instead")]
+        public static TransactionCreateResponse Create(ShoppingCart cart, Options options)
+        {
+            return Create(cart, Onepay.DefaultChannel, options);
+        }
+
+        public static TransactionCreateResponse Create(ShoppingCart cart, ChannelType channel, Options options)
+        {
+            var externalUniqueNumber = Guid.NewGuid().ToString();
+            return Create(cart, channel, externalUniqueNumber, options);
+        }
+
+        public static TransactionCreateResponse Create(ShoppingCart cart, ChannelType channel, string externalUniqueNumber, Options options)
+        {
+            if (channel == ChannelType.App && string.IsNullOrEmpty(Onepay.AppScheme))
+                throw new TransactionCreateException("You need to set an appScheme if you want to use APP channel");
+            
+            if (channel == ChannelType.Mobile && string.IsNullOrEmpty(Onepay.CallbackUrl))
+                throw new TransactionCreateException("You need to set a valid callback is you want to use MOBILE channel");
+            
             if (cart == null)
                 throw new ArgumentNullException(nameof(cart));
+
             options = Options.Build(options);
+
             var request = 
-                OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart, options);
-            string output = JsonConvert.SerializeObject(request);
-            string input = Request($"{ServiceUri}/{SendTransaction}",
+                OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart, channel, externalUniqueNumber, options);
+            var output = JsonConvert.SerializeObject(request);
+            var input = Request($"{Onepay.CurrentIntegrationTypeUrl}/{SendTransaction}",
                 HttpMethod.Post, output);
             var response = 
                 JsonConvert.DeserializeObject<SendTransactionResponse>(input);
@@ -69,8 +98,8 @@ namespace Transbank.Onepay.Model
             var request = 
                 OnepayRequestBuilder.Instance.BuildGetTransactionNumberRequest
                 (occ, externalUniqueNumber, options);
-            string output = JsonConvert.SerializeObject(request);
-            string input = Request($"{ServiceUri}/{CommitTransaction}",
+            var output = JsonConvert.SerializeObject(request);
+            var input = Request($"{Onepay.CurrentIntegrationTypeUrl}/{CommitTransaction}",
                 HttpMethod.Post, output);
             var response = 
                 JsonConvert.DeserializeObject<GetTransactionNumberResponse>(input);

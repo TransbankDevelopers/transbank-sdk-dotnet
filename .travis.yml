@@ -11,5 +11,16 @@ addons:
 before_install:
   - bash ./scripts/travis-before-install.sh
 script:
-  - bash ./scripts/travis-build.sh
-  
+  - dotnet restore
+  - mono tools/sonar/SonarQube.Scanner.MSBuild.exe begin /k:dotnetsdk /n:"Transbank dotNET SDK" /d:sonar.organization=transbankdevelopers /d:sonar.login=${SONAR_TOKEN} /d:sonar.host.url=https://sonarcloud.io /d:sonar.cs.vstest.reportsPaths="./TransbankTest/TestResults/*.trx"
+  - dotnet build
+  - cd TransbankTest
+  - dotnet test --logger:trx
+  - cd ..
+  - mono tools/sonar/SonarQube.Scanner.MSBuild.exe end /d:sonar.login=${SONAR_TOKEN}
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: bash ./scripts/travis-deploy.sh
+    on:
+      all_branches: true

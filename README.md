@@ -67,9 +67,10 @@ La clase `Onepay` contiene la configuración básica de tu comercio.
 ```csharp
 Onepay.ApiKey = "[your api key here]";
 Onepay.SharedSecret = "[your shared secret here]";
+Onepay.CallbackUrl = "http://www.somecallback.com/example";
 ```
 
-##### 2. Pasando el APIKEY y APISECRET a cada petición
+##### 2. Pasando el ApiKey y SharedSecret a cada petición
 
 Utilizando un objeto `Transbank.Onepay.Model.Options`
 
@@ -124,7 +125,33 @@ using Transbank.Onepay.Model:
 
 // ...
 
-TransactionCreateResponse response = Transaction.Create(cart);
+TransactionCreateResponse response = Transaction.Create(cart, ChannelType.Web);
+```
+
+El segundo parámetro en el ejemplo corresponde al channel y puede ser puede ser `ChannelType.Web`, `ChannelType.Mobile` 
+o `ChannelType.App` dependiendo si quien está realizando el pago está usando un browser en versión Desktop, Móvil o está 
+utilizando alguna aplicación móvil nativa.
+
+En caso que channel sea `Channel.Mobile` es obligatorio que esté previamente configurado el `callbackUrl` o de lo 
+contrario la aplicación móvil no podrá re-direccionar a este cuando el pago se complete con éxito y como consecuencia 
+no podrás confirmar la transacción.
+
+```c#
+using Transbank.Onepay:
+
+//...
+
+Onepay.CallbackUrl = "http://www.somecallback.com/example";
+```
+
+En caso que `channel` sea `Channel.App` es obligatorio que esté previamente configurado el `appScheme`:
+
+```c#
+using Transbank.Onepay:
+
+//...
+
+Onepay.AppScheme = "mi-app://mi-app/onepay-result";
 ```
 
 El resultado entregado contiene la confirmación de la creación de la transacción, en la forma de un objeto `TransactionCreateResponse`.
