@@ -32,7 +32,7 @@ namespace TransbankTest
             var number = "123-456-789-192";
             var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: number, channel: Onepay.DefaultChannel, options: new Options());
             Assert.AreEqual("dKVhq1WGt_XapIYirTXNyUKoWTDFfxaEV63-O5jcsdw", request.ApiKey);
-            Assert.AreEqual("?XW#WOLG##FBAGEAYSNQ5APD#JF@$AYZ", request.AppKey);
+            Assert.AreEqual("04533c31-fe7e-43ed-bbc4-1c8ab1538afp", request.AppKey);
             Assert.AreEqual("WEB", request.Channel);
             Assert.AreEqual("123-456-789-192", request.ExternalUniqueNumber);
             Assert.AreEqual(2, request.Items.Count);
