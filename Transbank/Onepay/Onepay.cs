@@ -7,29 +7,35 @@ namespace Transbank.Onepay
     {
         public static readonly ChannelType DefaultChannel = ChannelType.Web;
         public static readonly string DefaultCallback = "http://no.callback.has/been.set";
-       
+
         private static string _apiKey;
         private static string _sharedSecret;
         private static string _callbackUrl;
         private static string _appScheme;
 
+        static Onepay()
+        {
+            SetIntegrationApiKeyAndSharedSecret();
+        }
+
         protected Onepay()
         {
         }
 
-        public static OnepayIntegrationType IntegrationType { get; set;} = OnepayIntegrationType.Test;
+        public static OnepayIntegrationType IntegrationType { get; set; } = OnepayIntegrationType.Test;
 
         public static string ApiKey
         {
             get => _apiKey;
-            set => _apiKey = value ?? throw 
-                new ArgumentNullException(value,"ApiKey can't be null");
+            set => _apiKey = value ?? throw
+                                 new ArgumentNullException(nameof(value), "ApiKey can't be null");
         }
+
         public static string SharedSecret
         {
             get => _sharedSecret;
-            set => _sharedSecret = value ?? throw 
-                new ArgumentNullException(value, "SharedSecret can't be null");
+            set => _sharedSecret = value ?? throw
+                                       new ArgumentNullException(nameof(value), "SharedSecret can't be null");
         }
 
         public static string AppScheme
@@ -37,7 +43,7 @@ namespace Transbank.Onepay
             get => _appScheme;
             set => _appScheme = value ?? throw new ArgumentNullException(nameof(value), "AppScheme can't be null");
         }
-        
+
         public static string CallbackUrl
         {
             get => _callbackUrl;
@@ -45,6 +51,12 @@ namespace Transbank.Onepay
         }
 
         public static string CurrentIntegrationTypeUrl => $"{IntegrationType.ApiBase}" +
-                $"/ewallet-plugin-api-services/services/transactionservice";
+                                                          $"/ewallet-plugin-api-services/services/transactionservice";
+
+        public static void SetIntegrationApiKeyAndSharedSecret()
+        {
+            ApiKey = "dKVhq1WGt_XapIYirTXNyUKoWTDFfxaEV63-O5jcsdw";
+            SharedSecret = "?XW#WOLG##FBAGEAYSNQ5APD#JF@$AYZ";
+        }
     }
 }
