@@ -12,9 +12,6 @@ namespace TransbankTest
         [TestInitialize]
         public void Setup()
         {
-            // Setting comerce data
-            Onepay.SharedSecret = "P4DCPS55QB2QLT56SQH6#W#LV76IAPYX";
-            Onepay.ApiKey = "mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg";
             Onepay.IntegrationType = OnepayIntegrationType.Mock;
         }
 
@@ -30,8 +27,13 @@ namespace TransbankTest
         [TestMethod]
         public void TestOnepaySendtransaction()
         {
+            var options = new Options(
+                "mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg",
+                "P4DCPS55QB2QLT56SQH6#W#LV76IAPYX"
+            );
+            
             var cart = CreateCart();
-            var response = Transaction.Create(cart, Onepay.DefaultChannel);
+            var response = Transaction.Create(cart, Onepay.DefaultChannel, options);
 
             Assert.IsNotNull(response);
 
@@ -48,9 +50,14 @@ namespace TransbankTest
         [TestMethod]
         public void TestOnepaySendtransactionCustomEUN()
         {
+            var options = new Options(
+                "mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg",
+                "P4DCPS55QB2QLT56SQH6#W#LV76IAPYX"
+            );
+            
             var cart = CreateCart();
             var externalUniqueNumber = "f506a955-800c-4185-8818-4ef9fca97aae";
-            var response = Transaction.Create(cart, Onepay.DefaultChannel, externalUniqueNumber);
+            var response = Transaction.Create(cart, Onepay.DefaultChannel, externalUniqueNumber, options);
 
             Assert.IsNotNull(response);
 
@@ -94,13 +101,18 @@ namespace TransbankTest
         [TestMethod]
         public void TestOnepayRefundTransaction()
         {
+            var options = new Options(
+                "mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg",
+                "P4DCPS55QB2QLT56SQH6#W#LV76IAPYX"
+            );
+            
             var amount = 27500;
             var occ = "1807983490979289";
             var externalUniqueNumber = "f506a955-800c-4185-8818-4ef9fca97aae";
             var authorizationCode = "623245";
 
             var response = Refund.Create(amount, occ, 
-                externalUniqueNumber, authorizationCode);
+                externalUniqueNumber, authorizationCode, options);
 
             Assert.IsNotNull(response);
             Assert.AreEqual("1807983490979289", response.Occ);
@@ -121,9 +133,14 @@ namespace TransbankTest
         [TestMethod]
         public void TestTransactionWhenChannelMobileAndCallbackUrlNotNull()
         {
+            var options = new Options(
+                "mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg",
+                "P4DCPS55QB2QLT56SQH6#W#LV76IAPYX"
+            );
+            
             Onepay.CallbackUrl = "http://someurl";
             var cart = CreateCart();
-            var response = Transaction.Create(cart, ChannelType.Mobile);
+            var response = Transaction.Create(cart, ChannelType.Mobile, options);
             
             Assert.IsNotNull(response);
 
@@ -148,9 +165,14 @@ namespace TransbankTest
         [TestMethod]
         public void TestTransactionWhenChannelAppAndAppSchemeNotNull()
         {
+            var options = new Options(
+                "mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg",
+                "P4DCPS55QB2QLT56SQH6#W#LV76IAPYX"
+            );
+            
             Onepay.AppScheme = "somescheme";
             var cart = CreateCart();
-            var response = Transaction.Create(cart, ChannelType.App);
+            var response = Transaction.Create(cart, ChannelType.App, options);
             
             Assert.IsNotNull(response);
 

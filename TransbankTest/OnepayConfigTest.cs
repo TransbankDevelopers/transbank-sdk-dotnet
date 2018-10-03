@@ -10,15 +10,9 @@ namespace TransbankTest
         [TestMethod]
         public void TestOnepaySettings()
         {
-            Assert.IsNull(Onepay.ApiKey);
-            Assert.IsNull(Onepay.SharedSecret);
-
-            Onepay.ApiKey = "mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg";
-            Onepay.SharedSecret = "P4DCPS55QB2QLT56SQH6#W#LV76IAPYX";
-
             Assert.AreEqual(OnepayIntegrationType.Test, Onepay.IntegrationType);
-            Assert.AreEqual("mUc0GxYGor6X8u-_oB3e-HWJulRG01WoC96-_tUA3Bg", Onepay.ApiKey);
-            Assert.AreEqual("P4DCPS55QB2QLT56SQH6#W#LV76IAPYX", Onepay.SharedSecret);
+            Assert.AreEqual("dKVhq1WGt_XapIYirTXNyUKoWTDFfxaEV63-O5jcsdw", Onepay.ApiKey);
+            Assert.AreEqual("?XW#WOLG##FBAGEAYSNQ5APD#JF@$AYZ", Onepay.SharedSecret);
         }
     }
 }
