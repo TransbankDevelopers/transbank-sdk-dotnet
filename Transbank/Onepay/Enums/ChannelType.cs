@@ -1,4 +1,6 @@
-﻿namespace Transbank.Onepay.Enums
+﻿using System;
+
+namespace Transbank.Onepay.Enums
 {
     public class ChannelType
     {
@@ -12,5 +14,16 @@
         }
         
         public string Value { get; private set; }
+
+        public static ChannelType Parse(string channel)
+        {
+            if (channel.Equals("mobile", StringComparison.OrdinalIgnoreCase))
+                return Mobile;
+            
+            if (channel.Equals("app", StringComparison.OrdinalIgnoreCase))
+                return App;
+
+            return Web;
+        }
     }
 }
