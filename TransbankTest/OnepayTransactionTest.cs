@@ -33,7 +33,7 @@ namespace TransbankTest
             );
             
             var cart = CreateCart();
-            var response = Transaction.Create(cart, Onepay.DefaultChannel, options);
+            var response = Transaction.Create(cart, ChannelType.Parse("web"), options);
 
             Assert.IsNotNull(response);
 
@@ -57,7 +57,7 @@ namespace TransbankTest
             
             var cart = CreateCart();
             var externalUniqueNumber = "f506a955-800c-4185-8818-4ef9fca97aae";
-            var response = Transaction.Create(cart, Onepay.DefaultChannel, externalUniqueNumber, options);
+            var response = Transaction.Create(cart, ChannelType.Parse("web"), externalUniqueNumber, options);
 
             Assert.IsNotNull(response);
 
