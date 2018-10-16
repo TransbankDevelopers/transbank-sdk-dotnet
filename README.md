@@ -46,177 +46,21 @@ Desde Visual Studio:
 4. Clic en la pestaña Examinar y busque `TransbankSDK`
 5. Clic en el paquete `TransbankSDK`, seleccione la versión que desea utilizar y finalmente selecciones instalar.
 
-## Primeros pasos
+## Documentación 
 
-### Onepay
+Puedes encontrar toda la documentación de cómo usar este SDK en el sitio https://www.transbankdevelopers.cl.
 
-#### Configuración del ApiKey y SharedSecret
+La documentación relevante para usar este SDK es:
 
-Existen 2 formas de configurar esta información, la cual es única para cada comercio.
+- Documentación general sobre los productos y sus diferencias:
+  [Webpay](https://www.transbankdevelopers.cl/producto/webpay) y
+  [Onepay](https://www.transbankdevelopers.cl/producto/onepay).
+- Documentación sobre [ambientes, deberes del comercio, puesta en producción,
+  etc](https://www.transbankdevelopers.cl/documentacion/como_empezar#ambientes).
+- Primeros pasos con [Webpay](https://www.transbankdevelopers.cl/documentacion/webpay) y [Onepay](https://www.transbankdevelopers.cl/documentacion/onepay).
+- Referencia detallada sobre [Webpay](https://www.transbankdevelopers.cl/referencia/webpay) y [Onepay](https://www.transbankdevelopers.cl/referencia/onepay).
 
-##### 1. En la inicialización de tu proyecto. (Solo una vez, al iniciar)
-
-Primero es necesario importar el espacio de nombres:
-
-```csharp
-using Transbank.Onepay;
-```
-
-La clase `Onepay` contiene la configuración básica de tu comercio.
-
-```csharp
-Onepay.ApiKey = "[your api key here]";
-Onepay.SharedSecret = "[your shared secret here]";
-Onepay.CallbackUrl = "http://www.somecallback.com/example";
-```
-
-##### 2. Pasando el ApiKey y SharedSecret a cada petición
-
-Utilizando un objeto `Transbank.Onepay.Model.Options`
-
-```csharp
-    TransactionCreateResponse response = Transaction.Create(cart, new Options()
-        {
-            ApiKey = "[your api key here]",
-            SharedSecret = "[your shared secret here]"
-        });
-```
-
-#### Ambientes TEST y LIVE
-
-Por defecto el tipo de Integración del SDK es siempre: `TEST`.
-La clase `OnepayIntegrationType` dentro del espacio de nombres `Transbank.Onepay.Enums` contiene la información de los distintos ambientes disponibles.
-
-Puedes configurar el SDK para utilizar los servicios del ambiente de `LIVE` (Producción) de la suiguiente forma:
-```csharp
-using Transbank.Onepay;
-...
-Onepay.IntegrationType = Transbank.Onepay.Enums.OnepayIntegrationType.LIVE;
-```
-
-#### Crear una nueva transacción
-
-Para iniciar un proceso de pago mediante la aplicación móvil de Onepay, primero es necesario crear la transacción en Transbank.
-Para esto se debe crear en primera instancia un objeto `Transbank.Onepay.Model.ShoppingCart` el cual se debe llenar con ítems
-`Transbank.Onepay.Model.Item`
-
-```csharp
-using Transbank.Onepay:
-using Transbank.Onepay.Model:
-
-//...
-
-ShoppingCart cart = new ShoppingCart();
-cart.Add(new Item(
-    description: "Zapatos",
-    quantity: 1,
-    amount: 10000,
-    additionalData: null,
-    expire: 10));
-```
-El monto en el carro de compras, debe ser positivo, en caso contrario se lanzará una excepción del tipo
-`Transbank.Onepay.Exceptions.AmountException`
-
-Luego que el carro de compras contiene todos los ítems. Se crea la transacción:
-
-```csharp
-using Transbank.Onepay:
-using Transbank.Onepay.Model:
-
-// ...
-
-TransactionCreateResponse response = Transaction.Create(cart, ChannelType.Web);
-```
-
-El segundo parámetro en el ejemplo corresponde al channel y puede ser puede ser `ChannelType.Web`, `ChannelType.Mobile` 
-o `ChannelType.App` dependiendo si quien está realizando el pago está usando un browser en versión Desktop, Móvil o está 
-utilizando alguna aplicación móvil nativa.
-
-En caso que channel sea `Channel.Mobile` es obligatorio que esté previamente configurado el `callbackUrl` o de lo 
-contrario la aplicación móvil no podrá re-direccionar a este cuando el pago se complete con éxito y como consecuencia 
-no podrás confirmar la transacción.
-
-```c#
-using Transbank.Onepay:
-
-//...
-
-Onepay.CallbackUrl = "http://www.somecallback.com/example";
-```
-
-En caso que `channel` sea `Channel.App` es obligatorio que esté previamente configurado el `appScheme`:
-
-```c#
-using Transbank.Onepay:
-
-//...
-
-Onepay.AppScheme = "mi-app://mi-app/onepay-result";
-```
-
-El resultado entregado contiene la confirmación de la creación de la transacción, en la forma de un objeto `TransactionCreateResponse`.
-
-```json
-"occ": "1807983490979289",
-"ott": 64181789,
-"signature": "USrtuoyAU3l5qeG3Gm2fnxKRs++jQaf1wc8lwA6EZ2o=",
-"externalUniqueNumber": "f506a955-800c-4185-8818-4ef9fca97aae",
-"issuedAt": 1532103896,
-"qrCodeAsBase64": "QRBASE64STRING"
-```
-
-En el caso que no se pueda completar la transacción o el `responseCode` en la respuesta del API sea distinta a `ok`
-Se lanzara una excepción `Transbank.Onepay.Exceptions.TransactionCreateResponse`
-
-Posteriormente, se debe presentar al usuario el código QR y el número de OTT para que pueda proceder al pago
-mediante la aplicación móvil.
-
-#### Confirmar una transacción
-
-Una vez que el usuario realizó el pago mediante la aplicación, dispones de 30 segundos
-para realizar la confirmación de la transacción, de lo contrario, se realizará automáticamente
-la reversa de la transacción.
-
-```csharp
-TransactionCommitResponse commitResponse = Transaction.Commit(
-               createResponse.Occ, createResponse.ExternalUniqueNumber);
-```
-
-El resultado entregado contiene la confirmación de la confirmación de la transacción, en la forma de un objeto `TransactionCreateResponse`.
-
-```json
-"occ": "1807983490979289",
-"authorizationCode": "623245",
-"issuedAt": 1532104549,
-"signature": "FfY4Ab89rC8rEf0qnpGcd0L/0mcm8SpzcWhJJMbUBK0=",
-"amount": 27500,
-"transactionDesc": "Venta Normal: Sin cuotas",
-"installmentsAmount": 27500,
-"installmentsNumber": 1,
-"buyOrder": "20180720122456123"
-```
-
-#### Anular una transacción
-
-Cuando una transacción fue creada correctamente, se dispone de un plazo de 30 días para realizar la anulación de esta.
-
-```csharp
-RefundCreateResponse refundResponse = Refund.Create(commitResponse.Amount,
-                commitResponse.Occ, response.ExternalUniqueNumber,
-                commitResponse.AuthorizationCode);
-```
-
-El resultado entregado contiene la confirmación de la anulación, en la forma de un objeto `RefundCreateResponse`.
-
-```json
-"occ": "1807983490979289",
-"externalUniqueNumber": "f506a955-800c-4185-8818-4ef9fca97aae",
-"reverseCode": "623245",
-"issuedAt": 1532104252,
-"signature": "52NpZBolTEs+ckNOXwGRexDetY9MOaX1QbFYkjPymf4="
-```
-
-## Desarrollo
+## Información para contribuir y desarrollar este SDK
 
 ### Windows
 - VisualStudio (2017 o superior)
