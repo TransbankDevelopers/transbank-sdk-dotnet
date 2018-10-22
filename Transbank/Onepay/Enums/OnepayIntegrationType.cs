@@ -8,7 +8,7 @@ namespace Transbank.Onepay.Enums
         public static readonly OnepayIntegrationType Test =
             new OnepayIntegrationType("TEST", "https://onepay.ionix.cl", "297a620c-c776-4dd6-a42c-8669c6a4f2c5");
         public static readonly OnepayIntegrationType Mock =
-            new OnepayIntegrationType("MOCK", "http://onepay.getsandbox.com", "04533c31-fe7e-43ed-bbc4-1c8ab1538afp");
+            new OnepayIntegrationType("MOCK", "https://transbank-onepay-ewallet-mock.herokuapp.com", "04533c31-fe7e-43ed-bbc4-1c8ab1538afp");
 
         private readonly string _apiBase;
         private readonly string _appKey;
