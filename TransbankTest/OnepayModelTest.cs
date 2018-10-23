@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Transbank.Onepay.Model;
+using Transbank.Onepay.Exceptions;
 
 namespace TransbankTest
 {
@@ -56,6 +57,36 @@ namespace TransbankTest
             cart.Add(item3);
             Assert.AreEqual(8, cart.ItemQuantity);
             Assert.AreEqual(4700, cart.Total);
+        }
+
+        [TestMethod]
+        public void ShopingCartAddWithItemNegativeValueTest()
+        {
+            var item1 = new Item("item 1", 1, 200, null, 10);
+            var item2 = new Item("item discount", 1, -10, "", 10);
+
+            var cart = new ShoppingCart();
+            cart.Add(item1);
+            Assert.AreEqual(1, cart.ItemQuantity);
+            Assert.AreEqual(200, cart.Total);
+
+            cart.Add(item2);
+            Assert.AreEqual(2, cart.ItemQuantity);
+            Assert.AreEqual(190, cart.Total);
+        }
+
+        [TestMethod]
+        public void ShopingCartAddWithItemNegativeValueGreaterThanTotalAmountTest()
+        {
+            var item1 = new Item("item 1", 1, 200, null, 10);
+            var item2 = new Item("item discount", 1, -201, "", 10);
+
+            var cart = new ShoppingCart();
+            cart.Add(item1);
+            Assert.AreEqual(1, cart.ItemQuantity);
+            Assert.AreEqual(200, cart.Total);
+
+            Assert.ThrowsException<AmountException>(() => cart.Add(item2) );
         }
 
         [TestMethod]

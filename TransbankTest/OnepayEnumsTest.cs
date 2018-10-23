@@ -21,7 +21,7 @@ namespace TransbankTest
 
             type = OnepayIntegrationType.Mock;
             Assert.AreEqual("MOCK", type.Key);
-            Assert.AreEqual("http://onepay.getsandbox.com", type.ApiBase);
+            Assert.AreEqual("https://transbank-onepay-ewallet-mock.herokuapp.com", type.ApiBase);
             Assert.AreEqual("04533c31-fe7e-43ed-bbc4-1c8ab1538afp", type.AppKey);
         }
     }
