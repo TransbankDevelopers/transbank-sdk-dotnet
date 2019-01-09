@@ -9,10 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransbankTest", "TransbankT
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4C7A9B11-AFD0-4B1D-B420-F745BE86E8A9}"
 	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
 		LICENSE = LICENSE
 		README.md = README.md
-		CHANGELOG.md = CHANGELOG.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transbank.NET", "transbank.net\Transbank.NET.csproj", "{82C5D434-F346-4F38-B7A5-EB50078A6FCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +30,10 @@ Global
 		{3575F64E-4B5D-423B-890F-C267790CD303}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3575F64E-4B5D-423B-890F-C267790CD303}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3575F64E-4B5D-423B-890F-C267790CD303}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82C5D434-F346-4F38-B7A5-EB50078A6FCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82C5D434-F346-4F38-B7A5-EB50078A6FCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82C5D434-F346-4F38-B7A5-EB50078A6FCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82C5D434-F346-4F38-B7A5-EB50078A6FCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
