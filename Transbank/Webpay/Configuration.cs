@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -107,8 +109,16 @@ namespace Transbank.Webpay
                 modo = "INTEGRACION";
             }
         return modo;
-    }
+        }
 
+        public static Configuration ForTestingWebpayPlusNormal() => new Configuration
+        {
+            Environment = "INTEGRACION",
+            CommerceCode = "597020000540",
+            Password = "transbank123",
+            PublicCert = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\tbk.pem",
+            WebpayCert = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\WebpayPlusCLP.pfx"
+        };
 
     }
 
