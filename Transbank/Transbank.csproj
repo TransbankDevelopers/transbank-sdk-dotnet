@@ -99,6 +99,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Webpay\IntegrationCerts\tbk.pem" />
+    <None Remove="Webpay\IntegrationCerts\WebpayPlusCLP.pfx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Webpay\IntegrationCerts\tbk.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Webpay\IntegrationCerts\WebpayPlusCLP.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Web.Services3" Version="3.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
