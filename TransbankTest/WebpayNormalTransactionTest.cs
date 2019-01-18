@@ -19,10 +19,7 @@ namespace TransbankTest
                         "mi-id-de-sesion", "https://callback/resultado/de/transaccion",
                             "https://callback/final/post/comprobante/webpay");
 
-            var formAction = initResult.url;
-            Console.WriteLine("URL: " + formAction);
-            var tokenWs = initResult.token;
-            Console.WriteLine("Token: " + tokenWs);
+            Assert.AreEqual("https://webpay3gint.transbank.cl/webpayserver/initTransaction", initResult.url);
         }
     }
 }
