@@ -115,9 +115,9 @@ namespace Transbank.Webpay
         {
             Environment = "INTEGRACION",
             CommerceCode = "597020000540",
-            Password = "transbank123",
-            PublicCert = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\tbk.pem",
-            WebpayCert = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\WebpayPlusCLP.pfx"
+            Password = "",
+            PublicCert = AppDomain.CurrentDomain.BaseDirectory + @"\Webpay\IntegrationCerts\tbk.pem",
+            WebpayCert = AppDomain.CurrentDomain.BaseDirectory + @"\Webpay\IntegrationCerts\WebpayPlusCLP.pfx"
         };
 
     }
