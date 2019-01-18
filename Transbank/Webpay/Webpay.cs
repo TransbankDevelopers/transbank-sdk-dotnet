@@ -17,8 +17,8 @@ namespace Transbank.Webpay
     public class Webpay
     {
 
+        WebpayNormal _normalTransaction;
         WebpayNullify nullifyTransaction;
-        WebpayNormal normalTransaction;
         WebpayMallNormal mallNormalTransaction;
         WebpayCapture captureTransaction;
         WebpayComplete completeTransaction;
@@ -31,13 +31,16 @@ namespace Transbank.Webpay
             configuration = param;
         }
 
-        public WebpayNormal getNormalTransaction()
+        public WebpayNormal NormalTransaction
         {
-            if (this.normalTransaction == null)
+            get
             {
-                this.normalTransaction = new WebpayNormal(this.configuration);
+                if (_normalTransaction == null)
+                {
+                    _normalTransaction = new WebpayNormal(this.configuration);
+                }
+                return _normalTransaction;
             }
-            return this.normalTransaction;
         }
 
         public WebpayMallNormal getMallNormalTransaction()
