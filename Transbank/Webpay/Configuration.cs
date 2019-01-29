@@ -116,7 +116,7 @@ namespace Transbank.Webpay
             Environment = "INTEGRACION",
             CommerceCode = "597020000540",
             Password = "",
-            PublicCert = GetAssemblyTempFile("tbk.pem"),
+            PublicCert = GetAssemblyTempFile("WebpayPlusCLP.pem"),
             WebpayCert = GetAssemblyTempFile("WebpayPlusCLP.pfx")
         };
         
