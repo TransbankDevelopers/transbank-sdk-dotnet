@@ -23,8 +23,7 @@ namespace Transbank.Webpay
         WebpayCapture captureTransaction;
         WebpayComplete completeTransaction;
         WebpayOneClick oneclickTransaction;
-
-        Configuration configuration;
+        readonly Configuration configuration;
 
         public Webpay(Configuration param)
         {
