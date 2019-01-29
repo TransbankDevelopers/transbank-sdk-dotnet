@@ -18,11 +18,11 @@ namespace Transbank.Webpay
     {
 
         WebpayNormal _normalTransaction;
+        WebpayOneClick _oneclickTransaction;
         WebpayNullify nullifyTransaction;
         WebpayMallNormal mallNormalTransaction;
         WebpayCapture captureTransaction;
-        WebpayComplete completeTransaction;
-        WebpayOneClick oneclickTransaction;
+        WebpayComplete completeTransaction;        
         readonly Configuration configuration;
 
         public Webpay(Configuration param)
@@ -36,9 +36,21 @@ namespace Transbank.Webpay
             {
                 if (_normalTransaction == null)
                 {
-                    _normalTransaction = new WebpayNormal(this.configuration);
+                    _normalTransaction = new WebpayNormal(configuration);
                 }
                 return _normalTransaction;
+            }
+        }
+
+        public WebpayOneClick OneClickTransaction
+        {
+            get
+            {
+                if (_oneclickTransaction == null)
+                {
+                    _oneclickTransaction = new WebpayOneClick(configuration);
+                }
+                return _oneclickTransaction;
             }
         }
 
@@ -77,15 +89,5 @@ namespace Transbank.Webpay
             }
             return this.completeTransaction;
         }
-
-        public WebpayOneClick getOneClickTransaction()
-        {
-            if (this.oneclickTransaction == null)
-            {
-                this.oneclickTransaction = new WebpayOneClick(this.configuration);
-            }
-            return this.oneclickTransaction;
-        }
-
     }
 }
