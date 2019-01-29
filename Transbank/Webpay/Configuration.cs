@@ -116,10 +116,30 @@ namespace Transbank.Webpay
             Environment = "INTEGRACION",
             CommerceCode = "597020000540",
             Password = "",
-            PublicCert = AppDomain.CurrentDomain.BaseDirectory + @"\Webpay\IntegrationCerts\tbk.pem",
-            WebpayCert = AppDomain.CurrentDomain.BaseDirectory + @"\Webpay\IntegrationCerts\WebpayPlusCLP.pfx"
+            PublicCert = GetAssemblyTempFile("tbk.pem"),
+            WebpayCert = GetAssemblyTempFile("WebpayPlusCLP.pfx")
         };
+        
+        public static string GetAssemblyTempFile(string resource)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "Transbank.Webpay.IntegrationCerts." + resource;
+            var tempFile = Path.Combine(Path.GetTempPath(), resource);
 
+            int bufferSize = 1024 * 1024;
+            using (FileStream fileStream = new FileStream(tempFile, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+            {
+                var resourceFileStream = assembly.GetManifestResourceStream(resourceName);
+                fileStream.SetLength(resourceFileStream.Length);
+                int bytesRead = -1;
+                byte[] bytes = new byte[bufferSize];
+                while ((bytesRead = resourceFileStream.Read(bytes, 0, bufferSize)) > 0)
+                {
+                    fileStream.Write(bytes, 0, bytesRead);
+                }
+            }
+            return tempFile;
+        }
     }
 
 

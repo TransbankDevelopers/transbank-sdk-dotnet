@@ -104,12 +104,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Webpay\IntegrationCerts\tbk.pem">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Webpay\IntegrationCerts\WebpayPlusCLP.pfx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="Webpay\IntegrationCerts\tbk.pem" />
+    <EmbeddedResource Include="Webpay\IntegrationCerts\WebpayPlusCLP.pfx" />
   </ItemGroup>
 
   <ItemGroup>
