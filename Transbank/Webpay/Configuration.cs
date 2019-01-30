@@ -67,15 +67,24 @@ namespace Transbank.Webpay
             WebpayCert = GetAssemblyTempFile("WebpayPlusMallCLP.pfx")
         };
 
+        public static string GetTestingPublicCertPath()
+        {
+            return GetAssemblyTempFilePath("TransbankIntegrationPublic.pem");
+        }
 
-        public static string GetAssemblyTempFile(string resource)
+        public static string GetProductionPublicCertPath()
+        {
+            return GetAssemblyTempFilePath("TransbankProductionPublic.pem");
+        }
+
+        public static string GetAssemblyTempFilePath(string resource)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "Transbank.Webpay.IntegrationCerts." + resource;
+            var resourceName = "Transbank.Webpay.Certs." + resource;
             var tempFile = Path.Combine(Path.GetTempPath(), resource);
 
             int bufferSize = 1024 * 1024;
-            using (FileStream fileStream = new FileStream(tempFile, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+            using (var fileStream = new FileStream(tempFile, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
             {
                 var resourceFileStream = assembly.GetManifestResourceStream(resourceName);
                 fileStream.SetLength(resourceFileStream.Length);
