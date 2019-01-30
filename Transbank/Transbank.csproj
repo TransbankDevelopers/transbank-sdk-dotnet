@@ -101,15 +101,23 @@
   <ItemGroup>
     <None Remove="Webpay\IntegrationCerts\WebpayOneClickCLP.pem" />
     <None Remove="Webpay\IntegrationCerts\WebpayOneClickCLP.pfx" />
+    <None Remove="Webpay\IntegrationCerts\WebpayPlusCaptureCLP.pem" />
+    <None Remove="Webpay\IntegrationCerts\WebpayPlusCaptureCLP.pfx" />
     <None Remove="Webpay\IntegrationCerts\WebpayPlusCLP.pem" />
     <None Remove="Webpay\IntegrationCerts\WebpayPlusCLP.pfx" />
+    <None Remove="Webpay\IntegrationCerts\WebpayPlusMallCLP.pem" />
+    <None Remove="Webpay\IntegrationCerts\WebpayPlusMallCLP.pfx" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Webpay\IntegrationCerts\WebpayOneClickCLP.pem" />
     <EmbeddedResource Include="Webpay\IntegrationCerts\WebpayOneClickCLP.pfx" />
+    <EmbeddedResource Include="Webpay\IntegrationCerts\WebpayPlusCaptureCLP.pem" />
+    <EmbeddedResource Include="Webpay\IntegrationCerts\WebpayPlusCaptureCLP.pfx" />
     <EmbeddedResource Include="Webpay\IntegrationCerts\WebpayPlusCLP.pem" />
     <EmbeddedResource Include="Webpay\IntegrationCerts\WebpayPlusCLP.pfx" />
+    <EmbeddedResource Include="Webpay\IntegrationCerts\WebpayPlusMallCLP.pem" />
+    <EmbeddedResource Include="Webpay\IntegrationCerts\WebpayPlusMallCLP.pfx" />
   </ItemGroup>
 
   <ItemGroup>
