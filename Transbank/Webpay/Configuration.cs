@@ -36,35 +36,40 @@ namespace Transbank.Webpay
             Environment = "INTEGRACION",
             CommerceCode = "597020000540",
             Password = "",
-            PublicCert = GetAssemblyTempFile("WebpayPlusCLP.pem"),
-            WebpayCert = GetAssemblyTempFile("WebpayPlusCLP.pfx")
+            TbkPublicCertPath = GetTestingPublicCertPath(),
+            CommercePfxPath = GetAssemblyTempFilePath("WebpayPlusCLP.p12")
         };
 
         public static Configuration ForTestingWebpayOneClickNormal() => new Configuration
         {
             Environment = "INTEGRACION",
-            CommerceCode = "597020000547",
-            Password = "transbank123",
-            PublicCert = GetAssemblyTempFile("WebpayOneClickCLP.pem"),
-            WebpayCert = GetAssemblyTempFile("WebpayOneClickCLP.pfx")
+            CommerceCode = "597044444405",
+            Password = "12345678",
+            TbkPublicCertPath = GetTestingPublicCertPath(),
+            CommercePfxPath = GetAssemblyTempFilePath("WebpayOneClickCLP.p12")
         };
 
         public static Configuration ForTestingWebpayPlusCapture() => new Configuration
         {
             Environment = "INTEGRACION",
-            CommerceCode = "597020000546",
-            Password = "transbank123",
-            PublicCert = GetAssemblyTempFile("WebpayPlusCaptureCLP.pem"),
-            WebpayCert = GetAssemblyTempFile("WebpayPlusCaptureCLP.pfx")
+            CommerceCode = "597044444404",
+            Password = "12345678",
+            TbkPublicCertPath = GetTestingPublicCertPath(),
+            CommercePfxPath = GetAssemblyTempFilePath("WebpayPlusCaptureCLP.p12")
         };
 
         public static Configuration ForTestingWebpayPlusMall() => new Configuration
         {
             Environment = "INTEGRACION",
-            CommerceCode = "597020000542",
-            Password = "transbank123",
-            PublicCert = GetAssemblyTempFile("WebpayPlusMallCLP.pem"),
-            WebpayCert = GetAssemblyTempFile("WebpayPlusMallCLP.pfx")
+            CommerceCode = "597044444401",
+            Password = "12345678",
+            TbkPublicCertPath = GetTestingPublicCertPath(),
+            CommercePfxPath = GetAssemblyTempFilePath("WebpayPlusMallCLP.p12"),
+            StoreCodes = new Dictionary<string, string>
+            {
+                {"Tienda1", "597044444402" },
+                {"Tienda2", "597044444403" }
+            }
         };
 
         public static string GetTestingPublicCertPath()
