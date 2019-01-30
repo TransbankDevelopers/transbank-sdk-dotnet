@@ -14,10 +14,10 @@ namespace Transbank.Webpay
 {
     public class Configuration
     {
-        public string Environment { get; set; }
+        public string Environment { get; set; } = "INTEGRACION";
         public string CommerceCode { get; set; }
-        public string PublicCert { get; set; }
-        public string WebpayCert { get; set; }
+        public string TbkPublicCertPath { get; set; }
+        public string CommercePfxPath { get; set; }
         public string Password { get; set; }
         public Dictionary<string, string> StoreCodes { get; set; }
 
@@ -89,7 +89,4 @@ namespace Transbank.Webpay
             return tempFile;
         }
     }
-
-
-
 }
