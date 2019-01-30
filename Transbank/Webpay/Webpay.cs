@@ -11,13 +11,12 @@ namespace Transbank.Webpay
 {
     public class Webpay
     {
-
         WebpayNormal _normalTransaction;
         WebpayOneClick _oneclickTransaction;
-        WebpayNullify nullifyTransaction;
-        WebpayMallNormal mallNormalTransaction;
-        WebpayCapture captureTransaction;
-        WebpayComplete completeTransaction;        
+        WebpayNullify _nullifyTransaction;
+        WebpayMallNormal _mallNormalTransaction;
+        WebpayCapture _captureTransaction;
+        WebpayComplete _completeTransaction;        
         readonly Configuration configuration;
 
         public Webpay(Configuration param)
@@ -49,40 +48,53 @@ namespace Transbank.Webpay
             }
         }
 
-        public WebpayMallNormal getMallNormalTransaction()
+        public WebpayMallNormal MallNormalTransaction
         {
-            if (this.mallNormalTransaction == null)
+            get
             {
-                this.mallNormalTransaction = new WebpayMallNormal(this.configuration);
+                if (_mallNormalTransaction == null)
+                {
+                    _mallNormalTransaction = new WebpayMallNormal(configuration);
+                }
+                return _mallNormalTransaction;
             }
-            return this.mallNormalTransaction;
         }
 
-        public WebpayNullify getNullifyTransaction()
+        public WebpayNullify NullifyTransaction
         {
-            if (this.nullifyTransaction == null)
+            get
             {
-                this.nullifyTransaction = new WebpayNullify(this.configuration);
+                if (_nullifyTransaction == null)
+                {
+                    _nullifyTransaction = new WebpayNullify(configuration);
+                }
+                return _nullifyTransaction;
+
             }
-            return this.nullifyTransaction;
         }
 
-        public WebpayCapture getCaptureTransaction()
+        public WebpayCapture CaptureTransaction
         {
-            if (this.captureTransaction == null)
+            get
             {
-                this.captureTransaction = new WebpayCapture(this.configuration);
+                if (_captureTransaction == null)
+                {
+                    _captureTransaction = new WebpayCapture(configuration);
+                }
+                return _captureTransaction;
             }
-            return this.captureTransaction;
         }
 
-        public WebpayComplete getCompleteTransaction()
+        public WebpayComplete CompleteTransaction
         {
-            if (this.completeTransaction == null)
+            get
             {
-                this.completeTransaction = new WebpayComplete(this.configuration);
+                if (_completeTransaction == null)
+                {
+                    _completeTransaction = new WebpayComplete(configuration);
+                }
+                return _completeTransaction;
             }
-            return this.completeTransaction;
         }
     }
 }
