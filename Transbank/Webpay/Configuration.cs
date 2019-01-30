@@ -14,97 +14,21 @@ namespace Transbank.Webpay
 {
     public class Configuration
     {
+        public string Environment { get; set; }
+        public string CommerceCode { get; set; }
+        public string PublicCert { get; set; }
+        public string WebpayCert { get; set; }
+        public string Password { get; set; }
+        public Dictionary<string, string> StoreCodes { get; set; }
 
-        private string environment;
-        private string commerce_code;
-        private string public_cert;
-        private string webpay_cert;
-        private string password;
-        private Dictionary<string, string> store_codes;
-
-        public Configuration(){
-
-        }
-
-
-        public string Environment
-        {
-            get
-            {
-                return this.environment;
-            }
-            set
-            {
-                this.environment = value;
-            }
-        }
-
-        public string CommerceCode
-        {
-            get
-            {
-                return this.commerce_code;
-            }
-            set
-            {
-                this.commerce_code = value;
-            }
-        }
-
-        public string PublicCert
-        {
-            get
-            {
-                return this.public_cert;
-            }
-            set
-            {
-                this.public_cert = value;
-            }
-        }
-
-        public string WebpayCert
-        {
-            get
-            {
-                return this.webpay_cert;
-            }
-            set
-            {
-                this.webpay_cert = value;
-            }
-        }
-
-        public string Password
-        {
-            get
-            {
-                return this.password;
-            }
-            set
-            {
-                this.password = value;
-            }
-        }
-
-        public Dictionary<string, string> StoreCodes
-        {
-            get
-            {
-                return this.store_codes;
-            }
-            set
-            {
-                this.store_codes = value;
-            }
-        }
+        public Configuration(){}
 
         public string getEnvironmentDefault() {
-            string modo = this.environment;
+            string modo = Environment;
             if (modo == null || modo == "") {
                 modo = "INTEGRACION";
             }
-        return modo;
+            return modo;
         }
 
         public static Configuration ForTestingWebpayPlusNormal() => new Configuration
