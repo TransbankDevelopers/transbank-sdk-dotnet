@@ -49,6 +49,25 @@ namespace Transbank.Webpay
             WebpayCert = GetAssemblyTempFile("WebpayOneClickCLP.pfx")
         };
 
+        public static Configuration ForTestingWebpayPlusCapture() => new Configuration
+        {
+            Environment = "INTEGRACION",
+            CommerceCode = "597020000546",
+            Password = "transbank123",
+            PublicCert = GetAssemblyTempFile("WebpayPlusCaptureCLP.pem"),
+            WebpayCert = GetAssemblyTempFile("WebpayPlusCaptureCLP.pfx")
+        };
+
+        public static Configuration ForTestingWebpayPlusMall() => new Configuration
+        {
+            Environment = "INTEGRACION",
+            CommerceCode = "597020000542",
+            Password = "transbank123",
+            PublicCert = GetAssemblyTempFile("WebpayPlusMallCLP.pem"),
+            WebpayCert = GetAssemblyTempFile("WebpayPlusMallCLP.pfx")
+        };
+
+
         public static string GetAssemblyTempFile(string resource)
         {
             var assembly = Assembly.GetExecutingAssembly();
