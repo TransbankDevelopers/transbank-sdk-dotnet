@@ -21,6 +21,16 @@ namespace Transbank.Webpay
 
         public Webpay(Configuration param)
         {
+            if (param.TbkPublicCertPath != null)
+                switch (param.Environment)
+                {
+                    case "PRODUCCION":
+                        param.TbkPublicCertPath = Configuration.GetProductionPublicCertPath();
+                        break;
+                    default:
+                        param.TbkPublicCertPath = Configuration.GetTestingPublicCertPath();
+                        break;
+                }                     
             configuration = param;
         }
 
