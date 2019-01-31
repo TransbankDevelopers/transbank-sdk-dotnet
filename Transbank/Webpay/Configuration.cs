@@ -16,8 +16,8 @@ namespace Transbank.Webpay
     {
         public string Environment { get; set; } = "INTEGRACION";
         public string CommerceCode { get; set; }
-        public string TbkPublicCertPath { get; set; }
-        public string CommercePfxPath { get; set; }
+        public string WebpayCertPath { get; set; }
+        public string PrivateCertPfxPath { get; set; }
         public string Password { get; set; }
         public Dictionary<string, string> StoreCodes { get; set; }
 
@@ -36,8 +36,8 @@ namespace Transbank.Webpay
             Environment = "INTEGRACION",
             CommerceCode = "597020000540",
             Password = "",
-            TbkPublicCertPath = GetTestingPublicCertPath(),
-            CommercePfxPath = GetAssemblyTempFilePath("WebpayPlusCLP.p12")
+            WebpayCertPath = GetTestingPublicCertPath(),
+            PrivateCertPfxPath = GetAssemblyTempFilePath("WebpayPlusCLP.p12")
         };
 
         public static Configuration ForTestingWebpayOneClickNormal() => new Configuration
@@ -45,8 +45,8 @@ namespace Transbank.Webpay
             Environment = "INTEGRACION",
             CommerceCode = "597044444405",
             Password = "12345678",
-            TbkPublicCertPath = GetTestingPublicCertPath(),
-            CommercePfxPath = GetAssemblyTempFilePath("WebpayOneClickCLP.p12")
+            WebpayCertPath = GetTestingPublicCertPath(),
+            PrivateCertPfxPath = GetAssemblyTempFilePath("WebpayOneClickCLP.p12")
         };
 
         public static Configuration ForTestingWebpayPlusCapture() => new Configuration
@@ -54,8 +54,8 @@ namespace Transbank.Webpay
             Environment = "INTEGRACION",
             CommerceCode = "597044444404",
             Password = "12345678",
-            TbkPublicCertPath = GetTestingPublicCertPath(),
-            CommercePfxPath = GetAssemblyTempFilePath("WebpayPlusCaptureCLP.p12")
+            WebpayCertPath = GetTestingPublicCertPath(),
+            PrivateCertPfxPath = GetAssemblyTempFilePath("WebpayPlusCaptureCLP.p12")
         };
 
         public static Configuration ForTestingWebpayPlusMall() => new Configuration
@@ -63,8 +63,8 @@ namespace Transbank.Webpay
             Environment = "INTEGRACION",
             CommerceCode = "597044444401",
             Password = "12345678",
-            TbkPublicCertPath = GetTestingPublicCertPath(),
-            CommercePfxPath = GetAssemblyTempFilePath("WebpayPlusMallCLP.p12"),
+            WebpayCertPath = GetTestingPublicCertPath(),
+            PrivateCertPfxPath = GetAssemblyTempFilePath("WebpayPlusMallCLP.p12"),
             StoreCodes = new Dictionary<string, string>
             {
                 {"Tienda1", "597044444402" },
