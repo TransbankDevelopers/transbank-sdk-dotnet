@@ -189,6 +189,11 @@ namespace Transbank.Webpay
 
         }
 
+        public bool RemoveUser(string tbkUser, string username)
+        {
+            return oneClickremoveUserOutput(tbkUser, username);
+        }
+
         /* *
         * Permite eliminar la inscripción de un usuario en Webpay OneClick
         * */
