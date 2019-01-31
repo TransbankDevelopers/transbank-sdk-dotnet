@@ -68,6 +68,11 @@ namespace Transbank.Webpay
 
         }
 
+        public nullificationOutput nullify(string authorizationCode, decimal authorizedAmount, string buyOrder, decimal nullifyAmount)
+        {
+            return nullify(authorizationCode, authorizedAmount, buyOrder, nullifyAmount, commercecode: null);
+        }
+
         /* *
         * Permite solicitar a  Webpay la anulación de una transacción realizada previamente y que se encuentra vigente.
         * */
