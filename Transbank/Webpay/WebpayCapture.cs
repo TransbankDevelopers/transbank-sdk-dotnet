@@ -74,10 +74,15 @@ namespace Transbank.Webpay
 
         }
 
+        public captureOutput capture(string authorizationCode, decimal captureAmount, string buyOrder)
+        {
+            return capture(authorizationCode, captureAmount, buyOrder, Int64.Parse(this.config.CommerceCode));
+        }
+
         /**
          * Permite solicitar a Webpay la captura diferida de una transacción con autorización y sin captura simultánea.
          * */
-        public captureOutput capture(string authorizationCode, decimal captureAmount, string buyOrder)
+        public captureOutput capture(string authorizationCode, decimal captureAmount, string buyOrder, long storeCode)
         {
 
             captureInput capture = new captureInput();
@@ -85,7 +90,7 @@ namespace Transbank.Webpay
             capture.authorizationCode = authorizationCode;
             capture.buyOrder = buyOrder;
             capture.captureAmount = captureAmount;
-            capture.commerceId = Int64.Parse(this.config.CommerceCode);
+            capture.commerceId = storeCode;
 
             using (WSCommerceIntegrationServiceImplService proxy = new WSCommerceIntegrationServiceImplService())
             {
