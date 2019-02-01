@@ -4,7 +4,7 @@ cache:
   - '%LocalAppData%\NuGet\Cache'
   - '%LocalAppData%\NuGet\v3-cache'
 artifacts:
-  - path: '**\*.nupkg'
+  - path: 'Transbank\bin\release\*.nupkg'
     name: Nuget
 before_build:
 - cmd: nuget restore
