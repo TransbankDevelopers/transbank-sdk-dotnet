@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/TransbankDevelopers/transbank-sdk-dotnet.svg?branch=master)](https://travis-ci.org/TransbankDevelopers/transbank-sdk-dotnet)
+[![Build status](https://ci.appveyor.com/api/projects/status/89bp8nprjo3hfwu1/branch/master?svg=true)](https://ci.appveyor.com/project/TransbankDevelopers/transbank-sdk-dotnet/branch/master)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=dotnetsdk&metric=alert_status)](https://sonarcloud.io/dashboard?id=dotnetsdk)
 [![NuGet version](https://badge.fury.io/nu/TransbankSDK.svg)](https://badge.fury.io/nu/TransbankSDK)
 # Transbank .Net SDK
@@ -114,7 +114,7 @@ Para generar una nueva versión, se debe crear un PR (con un título "Prepare re
 En ese PR deben incluirse los siguientes cambios:
 
 1. Modificar el archivo CHANGELOG.md para incluir una nueva entrada (al comienzo) para `X.Y.Z` que explique en español los cambios **de cara al usuario del SDK**.
-2. Modificar el archivo `Transbank/Transbank.csproj` para que la versión sea `X.Y.{Z+1}` (de manera que los pre-releases que se generen después del release sean de la siguiente versión).
+2. Modificar el archivo `Transbank/Transbank.csproj` para que <`VersionPrefix`> sea `X.Y.{Z+1}` (de manera que los pre-releases que se generen después del release sean de la siguiente versión).
 
 Luego de obtener aprobación del pull request, debe mezclarse a master e inmediatamente generar un release en GitHub con el tag `vX.Y.Z`. En la descripción del release debes poner lo mismo que agregaste al changelog.
 
