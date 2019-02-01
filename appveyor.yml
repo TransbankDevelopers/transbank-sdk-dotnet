@@ -1,7 +1,6 @@
 version: 1.0.{build}
 image: Visual Studio 2017
 cache:
-  - packages -> **\packages.config
   - '%LocalAppData%\NuGet\Cache'
   - '%LocalAppData%\NuGet\v3-cache'
 artifacts:
@@ -12,17 +11,7 @@ before_build:
 build:
   verbosity: minimal
 before_deploy:
-- sh: >-
-    cd Transbank
-
-    if ($APPVEYOR_REPO_TAG && (echo $APPVEYOR_REPO_TAG_NAME | egrep -i '^v[0-9]+\.[0-9]+\.[0-9]+'))
-
-    then
-      VERSION_NUMBER=${APPVEYOR_REPO_TAG_NAME:1}
-      dotnet pack Transbank.csproj -c release  -p:Version=$VERSION_NUMBER --output nupkgs -v d
-    else
-      dotnet pack Transbank.csproj -c release --version-suffix ci-$APPVEYOR_BUILD_ID
-    fi
+- sh: **\scripts\appveyor-before-deploy.sh
 deploy:
 - provider: NuGet
   api_key:
