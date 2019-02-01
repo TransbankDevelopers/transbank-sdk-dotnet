@@ -11,5 +11,5 @@ else{
     dotnet.exe pack Transbank.csproj -c release --version-suffix ci-$env:APPVEYOR_BUILD_ID --output nupkgs
     Write-Host "Done"
 }
-Push-AppveyorArtifact '.\Transbank\nupkgs\*.nupkg'
+Push-AppveyorArtifact '.\nupkgs\*.nupkg'
 Set-Location ..
