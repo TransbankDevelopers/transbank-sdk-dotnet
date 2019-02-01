@@ -1,0 +1,29 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+before_build:
+- cmd: nuget restore
+build:
+  verbosity: minimal
+before_deploy:
+- sh: >-
+    cd Transbank
+
+    if ($APPVEYOR_REPO_TAG && (echo $APPVEYOR_REPO_TAG_NAME | egrep -i '^v[0-9]+\.[0-9]+\.[0-9]+'))
+
+    then
+      VERSION_NUMBER=${APPVEYOR_REPO_TAG_NAME:1}
+      dotnet pack Transbank.csproj -c release  -p:Version=$VERSION_NUMBER --output nupkgs -v d
+    else
+      dotnet pack Transbank.csproj -c release --version-suffix ci-$APPVEYOR_BUILD_ID
+    fi
+deploy:
+- provider: NuGet
+  api_key:
+    secure: LeCi2XYIwTi/+V3LI/5jHJujW8AOW2T6x+/P5qswDJ94eBHqB0JbcrihanjI4434
+notifications:
+- provider: Slack
+  incoming_webhook: https://hooks.slack.com/services/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
+  channel: transbank-continuum
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: false
