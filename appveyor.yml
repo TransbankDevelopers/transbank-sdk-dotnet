@@ -1,5 +1,12 @@
 version: 1.0.{build}
 image: Visual Studio 2017
+cache:
+  - packages -> **\packages.config
+  - '%LocalAppData%\NuGet\Cache'
+  - '%LocalAppData%\NuGet\v3-cache'
+artifacts:
+  - path: '**\*.nupkg'
+    name: Nuget
 before_build:
 - cmd: nuget restore
 build:
