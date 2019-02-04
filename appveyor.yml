@@ -1,0 +1,25 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+cache:
+  - '%LocalAppData%\NuGet\Cache'
+  - '%LocalAppData%\NuGet\v3-cache'
+before_build:
+- cmd: nuget restore
+build:
+  verbosity: minimal
+before_deploy:
+- ps: '.\scripts\appveyor-before-deploy.ps1'
+deploy:
+- provider: NuGet
+  api_key:
+    secure: LeCi2XYIwTi/+V3LI/5jHJujW8AOW2T6x+/P5qswDJ94eBHqB0JbcrihanjI4434
+  on:
+    branch: master
+
+notifications:
+- provider: Slack
+  incoming_webhook: https://hooks.slack.com/services/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
+  channel: transbank-continuum
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: false
