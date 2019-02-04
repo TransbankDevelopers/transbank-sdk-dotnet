@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://service.wswebpay.webpay.transbank.com/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="WSCommerceIntegrationServiceImplService" targetNamespace="http://service.wswebpay.webpay.transbank.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://service.wswebpay.webpay.transbank.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="capture" type="tns:capture" />
+      <xs:element name="captureResponse" type="tns:captureResponse" />
+      <xs:element name="nullify" type="tns:nullify" />
+      <xs:element name="nullifyResponse" type="tns:nullifyResponse" />
+      <xs:complexType name="nullify">
+        <xs:sequence>
+          <xs:element name="nullificationInput" type="tns:nullificationInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="nullificationInput">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:baseBean">
+            <xs:sequence>
+              <xs:element name="commerceId" type="xs:long" />
+              <xs:element name="buyOrder" type="xs:string" />
+              <xs:element name="authorizedAmount" type="xs:decimal" />
+              <xs:element name="authorizationCode" type="xs:string" />
+              <xs:element name="nullifyAmount" type="xs:decimal" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="baseBean">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="nullifyResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:nullificationOutput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="nullificationOutput">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:baseBean">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="authorizationCode" type="xs:string" />
+              <xs:element minOccurs="0" name="authorizationDate" type="xs:dateTime" />
+              <xs:element minOccurs="0" name="balance" type="xs:decimal" />
+              <xs:element minOccurs="0" name="nullifiedAmount" type="xs:decimal" />
+              <xs:element minOccurs="0" name="token" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="capture">
+        <xs:sequence>
+          <xs:element name="captureInput" type="tns:captureInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="captureInput">
+        <xs:sequence>
+          <xs:element name="commerceId" type="xs:long" />
+          <xs:element name="buyOrder" type="xs:string" />
+          <xs:element name="authorizationCode" type="xs:string" />
+          <xs:element name="captureAmount" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="captureResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:captureOutput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="captureOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="authorizationCode" type="xs:string" />
+          <xs:element minOccurs="0" name="authorizationDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="capturedAmount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="token" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="captureResponse">
+    <wsdl:part name="parameters" element="tns:captureResponse" />
+  </wsdl:message>
+  <wsdl:message name="nullify">
+    <wsdl:part name="parameters" element="tns:nullify" />
+  </wsdl:message>
+  <wsdl:message name="capture">
+    <wsdl:part name="parameters" element="tns:capture" />
+  </wsdl:message>
+  <wsdl:message name="nullifyResponse">
+    <wsdl:part name="parameters" element="tns:nullifyResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSCommerceIntegrationService">
+    <wsdl:operation name="nullify">
+      <wsdl:input name="nullify" message="tns:nullify" />
+      <wsdl:output name="nullifyResponse" message="tns:nullifyResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="capture">
+      <wsdl:input name="capture" message="tns:capture" />
+      <wsdl:output name="captureResponse" message="tns:captureResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSCommerceIntegrationServiceImplServiceSoapBinding" type="tns:WSCommerceIntegrationService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="nullify">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="nullify">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="nullifyResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="capture">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="capture">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="captureResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSCommerceIntegrationServiceImplService">
+    <wsdl:port name="WSCommerceIntegrationServiceImplPort" binding="tns:WSCommerceIntegrationServiceImplServiceSoapBinding">
+      <soap:address location="https://webpay3gint.transbank.cl:443/WSWebpayTransaction/cxf/WSCommerceIntegrationService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

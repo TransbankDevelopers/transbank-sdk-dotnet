@@ -6,9 +6,7 @@
 SDK Oficial de Transbank
 
 ## Requisitos:
- - .Net Standard 1.3+
- - .Net Core 1.0+
- - .Net Framework 4.6+
+ - .Net Framework 4.5.2+
 
 ## Dependencias
 Al realizar la instalación con NuGet las dependencias

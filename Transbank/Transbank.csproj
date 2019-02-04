@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.3</TargetFramework>
+    <TargetFramework>net452</TargetFramework>
     <ApplicationIcon />
     <Win32Resource />
     <OutputType>Library</OutputType>
@@ -20,7 +20,7 @@
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <Product>TransbankSDK</Product>
     <Copyright>2018 - Transbank</Copyright>
-    <PackageReleaseNotes>First Release</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -32,7 +32,123 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Webpay\Web References\Wsdl.Capture.Certificacion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.Capture.Integracion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.Capture.Produccion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.Certificacion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.Complete.Certificacion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.Complete.Integracion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.Complete.Produccion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.Integracion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.Mall.Normal.Certificacion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.Mall.Normal.Integracion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.Mall.Normal.Produccion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.Normal.Integracion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.Normal.Produccion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.NormalCertificacion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.Nullify.Certificacion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.Nullify.Integracion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.Nullify.Produccion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.OneClick.Certificacion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.OneClick.Integracion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.OneClick.Produccion\**" />
+    <Compile Remove="Webpay\Web References\Wsdl.Produccion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Capture.Certificacion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Capture.Integracion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Capture.Produccion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Certificacion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Complete.Certificacion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Complete.Integracion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Complete.Produccion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Integracion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Mall.Normal.Certificacion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Mall.Normal.Integracion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Mall.Normal.Produccion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Normal.Integracion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Normal.Produccion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.NormalCertificacion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Nullify.Certificacion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Nullify.Integracion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Nullify.Produccion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.OneClick.Certificacion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.OneClick.Integracion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.OneClick.Produccion\**" />
+    <EmbeddedResource Remove="Webpay\Web References\Wsdl.Produccion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Capture.Certificacion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Capture.Integracion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Capture.Produccion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Certificacion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Complete.Certificacion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Complete.Integracion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Complete.Produccion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Integracion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Mall.Normal.Certificacion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Mall.Normal.Integracion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Mall.Normal.Produccion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Normal.Integracion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Normal.Produccion\**" />
+    <None Remove="Webpay\Web References\Wsdl.NormalCertificacion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Nullify.Certificacion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Nullify.Integracion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Nullify.Produccion\**" />
+    <None Remove="Webpay\Web References\Wsdl.OneClick.Certificacion\**" />
+    <None Remove="Webpay\Web References\Wsdl.OneClick.Integracion\**" />
+    <None Remove="Webpay\Web References\Wsdl.OneClick.Produccion\**" />
+    <None Remove="Webpay\Web References\Wsdl.Produccion\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Webpay\Certs\TransbankProductionPublic.pem" />
+    <None Remove="Webpay\Certs\WebpayOneClickCLP.pfx" />
+    <None Remove="Webpay\Certs\WebpayPlusCaptureCLP.pem" />
+    <None Remove="Webpay\Certs\WebpayPlusCaptureCLP.pfx" />
+    <None Remove="Webpay\Certs\WebpayPlusCLP.pem" />
+    <None Remove="Webpay\Certs\WebpayPlusCLP.pfx" />
+    <None Remove="Webpay\Certs\WebpayPlusMallCLP.pem" />
+    <None Remove="Webpay\Certs\WebpayPlusMallCLP.pfx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Webpay\Certs\TransbankIntegrationPublic.pem" />
+    <EmbeddedResource Include="Webpay\Certs\TransbankProductionPublic.pem" />
+    <EmbeddedResource Include="Webpay\Certs\WebpayOneClickCLP.p12" />
+    <EmbeddedResource Include="Webpay\Certs\WebpayPlusCaptureCLP.p12" />
+    <EmbeddedResource Include="Webpay\Certs\WebpayPlusCLP.p12" />
+    <EmbeddedResource Include="Webpay\Certs\WebpayPlusMallCLP.p12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.Services3" Version="3.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Webpay\Web References\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Services" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>
