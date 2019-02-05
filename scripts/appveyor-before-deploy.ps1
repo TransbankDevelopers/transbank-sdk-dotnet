@@ -13,4 +13,5 @@ elseif ($env:APPVEYOR_FORCED_BUILD -Match "true") {
     Push-AppveyorArtifact '.\nupkgs\*.nupkg'
     Write-Host "Done"
 }
+
 Set-Location ..
