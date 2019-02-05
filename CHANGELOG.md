@@ -4,6 +4,37 @@ Todos los cambios notables a este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2019-01-31
+### Added
+- Agrega soporte para Webpay
+- `WebpayCapture.cs`:
+  - Sobrecarga del metodo `capture` para soportar entregar como parametro el codigo de comercio `storeCode`
+- `WebpayNullify.cs`:
+  - Sobrecarga del metodo `nullify` para no enviar el parametro `commerceCode` cuando la anulación es para el mismo comercio.
+- `WebpayOneClick.cs`
+  - Metodo `RemoveUser` como wrapper de `oneClickremoveUserOutput` 
+
+### Changed
+- TargetFramework .net452
+- Se cambia el namespace `Webpay.Transbank.Library` por `Transbank.Webpay`
+- `Configuration.cs`:
+  - Para ser consistentes con los demas SDK
+    - `WebpayCert` que representaba al certificado del comercio, ahora se llama `PrivateCertPfxPath` y hace referencia a que es la ruta a un archivo pfx o p12 generado por el commercio.
+    - `PublicCert` que representaba al certificado publico de Transbank, ahora se llama `TbkPublicCertPath` y es proporcionado por el SDK de aceurdo al ambiente configurado.
+  - Se agregan metodos estaticos que permiten obtener un objeto `Configuration` preparado para distintos tipos de pruebas:
+    -  `ForTestingWebpayPlusNormal()`
+    -  `ForTestingWebpayOneClickNormal()`
+    -  `ForTestingWebpayPlusCapture()`
+    -  `ForTestingWebpayPlusMall()`
+- `Webpay.cs`:
+  - Los siguientes metodos se transformaron en Properties:
+    - `getNormalTransaction()` => `NormalTransaction`
+    - `getMallNormalTransaction()` => `MallNormalTransaction`
+    - `getNullifyTransaction()` => `NullifyTransaction`
+    - `getCaptureTransaction()` => `CaptureTransaction`
+    - `getCompleteTransaction()` => `CompleteTransaction`
+    - `getOneClickTransaction()` => `OneClickTransaction`
+
 ## [1.3.0] - 2018-10-02
 ### Added
 - Se implementa `ChannelTyep.Parse` para obtener una instancia de `ChannelType` en base a un string.
