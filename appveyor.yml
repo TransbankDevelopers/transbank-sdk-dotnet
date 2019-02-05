@@ -18,8 +18,9 @@ deploy:
 
 notifications:
 - provider: Slack
-  incoming_webhook: https://hooks.slack.com/services/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
+  incoming_webhook:
+    secure: FpjGXF6JUredzPLfH9xCxDsNFfC8RFIO5oKnRhVYydsWwQY6CaUaqCwSQJ9ZnANt1e8J8c4T+b11QjTgRoN78jmo74TGBx9cCt3Y2mVHGnM=
   channel: transbank-continuum
-  on_build_success: true
-  on_build_failure: true
-  on_build_status_changed: false
+  on_build_success: false
+  on_build_failure: false
+  on_build_status_changed: true
