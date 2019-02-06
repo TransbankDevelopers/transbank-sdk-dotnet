@@ -13,6 +13,7 @@ Al realizar la instalación con NuGet las dependencias
 debieran instalarse automáticamente.
 
 - [Newtonsoft 11.0.2](https://www.newtonsoft.com/json)
+- [Microsoft Web Services 3.0.0](https://www.microsoft.com/en-us/download/details.aspx?id=14089)
 
 ## Instalación
 
