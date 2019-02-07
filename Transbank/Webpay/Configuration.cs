@@ -77,7 +77,7 @@ namespace Transbank.Webpay
         public static string GetAssemblyTempFilePath(string resource)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "Transbank.Webpay.Certs." + resource;
+            var resourceName = "Transbank.Certs." + resource;
             var tempFile = Path.Combine(Path.GetTempPath(), resource);
 
             int bufferSize = 1024 * 1024;
