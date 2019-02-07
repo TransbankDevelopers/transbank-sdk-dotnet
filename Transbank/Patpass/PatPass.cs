@@ -2,7 +2,7 @@
 {
     public class PatPass
     {
-        private PatPassNormal _normalTransaction;
+        private PatPassByWebpayNormal _normalTransaction;
         readonly Configuration configuration;
 
         public PatPass(Configuration param)
@@ -26,7 +26,7 @@
             {
                 if (_normalTransaction == null)
                 {
-                    _normalTransaction = new PatPassNormal(configuration);
+                    _normalTransaction = new PatPassByWebpayNormal(configuration);
                 }
                 return _normalTransaction;
             }

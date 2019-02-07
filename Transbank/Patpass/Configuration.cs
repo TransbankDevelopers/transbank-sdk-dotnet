@@ -5,7 +5,7 @@
         public string CommerceMail { get; set; }
         public bool UfFlag { get; set; }
 
-        public static Configuration ForTestingPatPassNormal() => new Configuration
+        public static Configuration ForTestingPatPassByWebpayNormal() => new Configuration
         {
             CommerceCode = "597044444432",
             CommerceMail = "user@domain.com",

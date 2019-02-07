@@ -36,7 +36,7 @@ namespace Transbank.PatPass
      *  -100 Rechazo por inscripción de PatPass by Webpay
      * */
 
-    public class PatPassNormal
+    public class PatPassByWebpayNormal
     {
         Configuration config;
         string WSDL;
@@ -54,7 +54,7 @@ namespace Transbank.PatPass
             return wsdl[environment];
         }
 
-        public PatPassNormal(Configuration config)
+        public PatPassByWebpayNormal(Configuration config)
         {
             /** Configuración para ser consultado desde cualquier metodo de la clase */
             this.config = config;
@@ -108,7 +108,6 @@ namespace Transbank.PatPass
                 ufFlag = this.config.UfFlag
             };
 
-            /** wpmDetailInput[] wpmDetailInput = new wpmDetailInput[] { idetails }; */
             initTransaction.wPMDetail = wpmDetailInput;
 
             using (var proxy = new WSWebpayServiceImplService())
