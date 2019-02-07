@@ -98,23 +98,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Webpay\Certs\TransbankProductionPublic.pem" />
-    <None Remove="Webpay\Certs\WebpayOneClickCLP.pfx" />
-    <None Remove="Webpay\Certs\WebpayPlusCaptureCLP.pem" />
-    <None Remove="Webpay\Certs\WebpayPlusCaptureCLP.pfx" />
-    <None Remove="Webpay\Certs\WebpayPlusCLP.pem" />
-    <None Remove="Webpay\Certs\WebpayPlusCLP.pfx" />
-    <None Remove="Webpay\Certs\WebpayPlusMallCLP.pem" />
-    <None Remove="Webpay\Certs\WebpayPlusMallCLP.pfx" />
+    <None Remove="Certs\PatPassNormalCLP.p12" />
+    <None Remove="Certs\TransbankProductionPublic.pem" />
+    <None Remove="Certs\WebpayOneClickCLP.pfx" />
+    <None Remove="Certs\WebpayPlusCaptureCLP.pem" />
+    <None Remove="Certs\WebpayPlusCaptureCLP.pfx" />
+    <None Remove="Certs\WebpayPlusCLP.pem" />
+    <None Remove="Certs\WebpayPlusCLP.pfx" />
+    <None Remove="Certs\WebpayPlusMallCLP.pem" />
+    <None Remove="Certs\WebpayPlusMallCLP.pfx" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Webpay\Certs\TransbankIntegrationPublic.pem" />
-    <EmbeddedResource Include="Webpay\Certs\TransbankProductionPublic.pem" />
-    <EmbeddedResource Include="Webpay\Certs\WebpayOneClickCLP.p12" />
-    <EmbeddedResource Include="Webpay\Certs\WebpayPlusCaptureCLP.p12" />
-    <EmbeddedResource Include="Webpay\Certs\WebpayPlusCLP.p12" />
-    <EmbeddedResource Include="Webpay\Certs\WebpayPlusMallCLP.p12" />
+    <EmbeddedResource Include="Certs\PatPassNormalCLP.p12" />
+    <EmbeddedResource Include="Certs\TransbankIntegrationPublic.pem" />
+    <EmbeddedResource Include="Certs\TransbankProductionPublic.pem" />
+    <EmbeddedResource Include="Certs\WebpayOneClickCLP.p12" />
+    <EmbeddedResource Include="Certs\WebpayPlusCaptureCLP.p12" />
+    <EmbeddedResource Include="Certs\WebpayPlusCLP.p12" />
+    <EmbeddedResource Include="Certs\WebpayPlusMallCLP.p12" />
   </ItemGroup>
 
   <ItemGroup>
