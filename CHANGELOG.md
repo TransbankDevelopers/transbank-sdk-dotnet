@@ -4,6 +4,10 @@ Todos los cambios notables a este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2019-02-08
+### Changed
+- Corrige bug en `WSSecurity.CreateToken()` cuando Serial Number del certificado es muy largo.
+  
 ## [2.0.0] - 2019-01-31
 ### Added
 - Agrega soporte para Webpay
