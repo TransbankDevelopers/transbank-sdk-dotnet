@@ -20,7 +20,7 @@
             configuration = param;
         }
 
-        public PatPassNormal NormalTransaction
+        public PatPassByWebpayNormal NormalTransaction
         {
             get
             {
