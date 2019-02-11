@@ -6,6 +6,8 @@ using Transbank.Webpay.Common;
 using Microsoft.Web.Services3;
 using Microsoft.Web.Services3.Security;
 using System.Security.Cryptography.Xml;
+using System.Numerics;
+using System.Globalization;
 
 namespace Transbank.Webpay.Security
 {
@@ -27,7 +29,6 @@ namespace Transbank.Webpay.Security
             catch (Exception)
             {
                 throw new Exception(result);
-                //return false;
             }
         }
 
@@ -93,7 +94,7 @@ namespace Transbank.Webpay.Security
             nodeX509IssuerName.InnerText = certificateSignature.Issuer;
 
             var nodeX509SerialNumber = CreateNode(nodeX509IssuerSerial, Constants.SERIAL_NUMBER);
-            nodeX509SerialNumber.InnerText = Convert.ToString(Convert.ToInt64(certificateSignature.SerialNumber, 16));
+            nodeX509SerialNumber.InnerText = BigInteger.Parse("0" + certificateSignature.SerialNumber, NumberStyles.HexNumber).ToString();
 
             nodeX509IssuerSerial.AppendChild(nodeX509IssuerName);
             nodeX509IssuerSerial.AppendChild(nodeX509SerialNumber);
