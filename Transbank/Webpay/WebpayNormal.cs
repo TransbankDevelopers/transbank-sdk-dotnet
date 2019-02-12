@@ -50,26 +50,23 @@ namespace Transbank.Webpay
 
         Configuration config;
 
-        string WSDL;
+        protected internal string WSDL;
 
 
         /** Configuración de URL según Ambiente */
-        private static string wsdlUrl(string environment)
+        protected internal static string wsdlUrl(string environment)
         {
-
-            Dictionary<string, string> wsdl = new Dictionary<string, string>();
-            wsdl.Add("INTEGRACION", "https://webpay3gint.transbank.cl/WSWebpayTransaction/cxf/WSWebpayService?wsdl");
-            wsdl.Add("CERTIFICACION", "https://webpay3gint.transbank.cl/WSWebpayTransaction/cxf/WSWebpayService?wsdl");
-            wsdl.Add("PRODUCCION", "https://webpay3g.transbank.cl/WSWebpayTransaction/cxf/WSWebpayService?wsdl");
-
+            var wsdl = new Dictionary<string, string>
+            {
+                { "INTEGRACION", "https://webpay3gint.transbank.cl/WSWebpayTransaction/cxf/WSWebpayService?wsdl" },
+                { "CERTIFICACION", "https://webpay3gint.transbank.cl/WSWebpayTransaction/cxf/WSWebpayService?wsdl" },
+                { "PRODUCCION", "https://webpay3g.transbank.cl/WSWebpayTransaction/cxf/WSWebpayService?wsdl" }
+            };
             return wsdl[environment];
-
         }
-
 
         public WebpayNormal(Configuration config)
         {
-
             /** Configuración para ser consultado desde cualquier metodo de la clase */
             this.config = config;
 
@@ -77,8 +74,7 @@ namespace Transbank.Webpay
             string url = this.config.getEnvironmentDefault();
             WSDL = wsdlUrl(url);
 
-            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
         }
 
         /**
@@ -87,7 +83,6 @@ namespace Transbank.Webpay
          * */
         public wsInitTransactionOutput initTransaction(decimal amount, string buyOrder, string sessionId, string urlReturn, string urlFinal)
         {
-
             wsInitTransactionInput initTransaction = new wsInitTransactionInput();
 
             /** Indica el tipo de transacción, su valor debe ser siempre TR_NORMAL_WS */
@@ -109,22 +104,10 @@ namespace Transbank.Webpay
 
             using (WSWebpayServiceImplService proxy = new WSWebpayServiceImplService())
             {
-
-                /*Define el ENDPOINT del Web Service Webpay*/
-                proxy.Url = WSDL;
-
-                Policy myPolicy = new Policy();
-                myPolicy.Assertions.Add(new CustomPolicyAssertion(this.config));
-
-                proxy.SetPolicy(myPolicy);
-                proxy.Timeout = 60000;
-                proxy.UseDefaultCredentials = false;
-
+                PrepareProxy(proxy);
                 wsInitTransactionOutput wsInitTransactionOutput = proxy.initTransaction(initTransaction);
                 return wsInitTransactionOutput;
-
             }
-
         }
 
         /**
@@ -142,27 +125,12 @@ namespace Transbank.Webpay
          * */
         public transactionResultOutput getTransactionResult(string token)
         {
-
             using (WSWebpayServiceImplService proxy = new WSWebpayServiceImplService())
             {
-
-                /*Define el ENDPOINT del Web Service Webpay*/
-                proxy.Url = WSDL;
-
-                Policy myPolicy = new Policy();
-
-                CustomPolicyAssertion customPolicty = new CustomPolicyAssertion(this.config);
-                myPolicy.Assertions.Add(customPolicty);
-                proxy.SetPolicy(myPolicy);
-                proxy.Timeout = 60000;
-                proxy.UseDefaultCredentials = false;
-
+                PrepareProxy(proxy);
                 transactionResultOutput transactionResultOutput = proxy.getTransactionResult(token);
-
                 acknowledgeTransaction(token); // Indica a Webpay que se ha recibido conforme el resultado de la transacción
-
                 return transactionResultOutput;
-
             }
         }
 
@@ -171,27 +139,25 @@ namespace Transbank.Webpay
          * */
         public bool acknowledgeTransaction(string token)
         {
-
             using (WSWebpayServiceImplService proxy = new WSWebpayServiceImplService())
             {
-
-                /*Define el ENDPOINT del Web Service Webpay*/
-                proxy.Url = WSDL;
-
-                Policy myPolicy = new Policy();
-                CustomPolicyAssertion customPolicty = new CustomPolicyAssertion(this.config);
-                myPolicy.Assertions.Add(customPolicty);
-
-                proxy.SetPolicy(myPolicy);
-                proxy.Timeout = 60000;
-                proxy.UseDefaultCredentials = false;
+                PrepareProxy(proxy);
                 proxy.acknowledgeTransaction(token);
             }
-
             return true;
-
         }
 
-    }
+        protected internal void PrepareProxy(WSWebpayServiceImplService proxy)
+        {
+            /*Define el ENDPOINT del Web Service Webpay*/
+            proxy.Url = WSDL;
 
+            Policy myPolicy = new Policy();
+            myPolicy.Assertions.Add(new CustomPolicyAssertion(this.config));
+
+            proxy.SetPolicy(myPolicy);
+            proxy.Timeout = 60000;
+            proxy.UseDefaultCredentials = false;
+        }
+    }
 }

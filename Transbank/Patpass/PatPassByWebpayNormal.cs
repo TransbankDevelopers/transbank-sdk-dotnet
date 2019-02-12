@@ -36,7 +36,7 @@ namespace Transbank.PatPass
 
     public class PatPassByWebpayNormal : WebpayNormal
     {
-        new readonly Configuration config;
+        readonly Configuration config;
 
         public PatPassByWebpayNormal(Configuration config) : base (null)
         {
