@@ -1,6 +1,4 @@
 ﻿using System.Net;
-using System.Collections.Generic;
-using Microsoft.Web.Services3.Design;
 using Transbank.Webpay;
 using Transbank.Webpay.Wsdl.Normal;
 
@@ -36,25 +34,11 @@ namespace Transbank.PatPass
      *  -100 Rechazo por inscripción de PatPass by Webpay
      * */
 
-    public class PatPassByWebpayNormal
+    public class PatPassByWebpayNormal : WebpayNormal
     {
-        Configuration config;
-        string WSDL;
+        new readonly Configuration config;
 
-        /** Configuración de URL según Ambiente */
-        private static string wsdlUrl(string environment)
-        {
-            var wsdl = new Dictionary<string, string>
-            {
-                { "INTEGRACION", "https://webpay3gint.transbank.cl/WSWebpayTransaction/cxf/WSWebpayService?wsdl" },
-                { "CERTIFICACION", "https://webpay3gint.transbank.cl/WSWebpayTransaction/cxf/WSWebpayService?wsdl" },
-                { "PRODUCCION", "https://webpay3g.transbank.cl/WSWebpayTransaction/cxf/WSWebpayService?wsdl" }
-            };
-
-            return wsdl[environment];
-        }
-
-        public PatPassByWebpayNormal(Configuration config)
+        public PatPassByWebpayNormal(Configuration config) : base (null)
         {
             /** Configuración para ser consultado desde cualquier metodo de la clase */
             this.config = config;
@@ -70,120 +54,52 @@ namespace Transbank.PatPass
          * Permite inicializar una transacción en PatPass. Como respuesta a la invocación se genera un token que representa en forma única una transacción.
          * 
          * */
-        public wsInitTransactionOutput initTransaction(decimal amount, string buyOrder, string sessionId, string urlReturn, string urlFinal, string serviceId, string cardHolderId, string cardHolderName, string cardHolderLastName1, string cardHolderLastName2, string cardHolderMail, string cellPhoneNumber, System.DateTime expirationDate)
+        public wsInitTransactionOutput initTransaction(decimal amount, string buyOrder, string sessionId, string returnUrl, string finalUrl, PatPassInfo info)
         {
-            var initTransaction = new wsInitTransactionInput
+            var initTransactionInput = new wsInitTransactionInput
             {
                 /** Indica el tipo de transacción, su valor debe ser siempre TR_NORMAL_WS_WPM */
                 wSTransactionType = wsTransactionType.TR_NORMAL_WS_WPM,
 
                 buyOrder = buyOrder,
                 sessionId = sessionId,
-                returnURL = urlReturn,
-                finalURL = urlFinal
+                returnURL = returnUrl,
+                finalURL = finalUrl
             };
 
             var details = new wsTransactionDetail
             {
-                commerceCode = this.config.CommerceCode
+                commerceCode = this.config.CommerceCode,
+                buyOrder = buyOrder,
+                amount = amount
             };
-            details.buyOrder = buyOrder;
-            details.amount = amount;
 
-            wsTransactionDetail[] wsTransactionDetail = new wsTransactionDetail[] { details };
+            wsTransactionDetail[] wsTransactionDetail = { details };
 
-            initTransaction.transactionDetails = wsTransactionDetail;
+            initTransactionInput.transactionDetails = wsTransactionDetail;
 
             var wpmDetailInput = new wpmDetailInput
             {
-                serviceId = serviceId,
-                cardHolderId = cardHolderId,
-                cardHolderName = cardHolderName,
-                cardHolderLastName1 = cardHolderLastName1,
-                cardHolderLastName2 = cardHolderLastName2,
-                cardHolderMail = cardHolderMail,
-                cellPhoneNumber = cellPhoneNumber,
-                expirationDate = expirationDate,
+                serviceId = info.ServiceId,
+                cardHolderId = info.CardHolderId,
+                cardHolderName = info.CardHolderName,
+                cardHolderLastName1 = info.CardHolderLastName1,
+                cardHolderLastName2 = info.CardHolderLastName2,
+                cardHolderMail = info.CardHolderMail,
+                cellPhoneNumber = info.CellPhoneNumber,
+                expirationDate = info.ExpirationDate,
                 commerceMail = this.config.CommerceMail,
                 ufFlag = this.config.UfFlag
             };
 
-            initTransaction.wPMDetail = wpmDetailInput;
+            initTransactionInput.wPMDetail = wpmDetailInput;
 
             using (var proxy = new WSWebpayServiceImplService())
             {
-                /*Define el ENDPOINT del Web Service PatPass by Webpay*/
-                proxy.Url = WSDL;
-
-                var myPolicy = new Policy();
-                myPolicy.Assertions.Add(new CustomPolicyAssertion(this.config));
-
-                proxy.SetPolicy(myPolicy);
-                proxy.Timeout = 60000;
-                proxy.UseDefaultCredentials = false;
-
-                var wsInitTransactionOutput = proxy.initTransaction(initTransaction);
+                PrepareProxy(proxy);
+                var wsInitTransactionOutput = proxy.initTransaction(initTransactionInput);
                 return wsInitTransactionOutput;
             }
-        }
-
-        /**
-         * Permite obtener el resultado de la transacción una vez que 
-         * PatPass by Webpay ha resuelto su autorización financiera.
-         * 
-         * Respuesta VCI:
-         * 
-         * TSY: Autenticación exitosa
-         * TSN: autenticación fallida.
-         * TO : Tiempo máximo excedido para autenticación
-         * ABO: Autenticación abortada por tarjetahabiente
-         * U3 : Error interno en la autenticación
-         * Puede ser vacío si la transacción no se autentico
-         * */
-        public transactionResultOutput getTransactionResult(string token)
-        {
-            using (var proxy = new WSWebpayServiceImplService())
-            {
-                /*Define el ENDPOINT del Web Service PatPass by Webpay*/
-                proxy.Url = WSDL;
-
-                var myPolicy = new Policy();
-
-                var customPolicty = new CustomPolicyAssertion(this.config);
-                myPolicy.Assertions.Add(customPolicty);
-                proxy.SetPolicy(myPolicy);
-                proxy.Timeout = 60000;
-                proxy.UseDefaultCredentials = false;
-
-                var transactionResultOutput = proxy.getTransactionResult(token);
-
-                acknowledgeTransaction(token); // Indica a PatPass que se ha recibido conforme el resultado de la transacción
-
-                return transactionResultOutput;
-            }
-        }
-
-        /**
-         * Indica a PatPass by Webpay que se ha recibido conforme el resultado de la transacción
-         * */
-        public bool acknowledgeTransaction(string token)
-        {
-            using (var proxy = new WSWebpayServiceImplService())
-            {
-                /*Define el ENDPOINT del Web Service PatPass by Webpay*/
-                proxy.Url = WSDL;
-
-                var myPolicy = new Policy();
-                var customPolicty = new CustomPolicyAssertion(this.config);
-                myPolicy.Assertions.Add(customPolicty);
-
-                proxy.SetPolicy(myPolicy);
-                proxy.Timeout = 60000;
-                proxy.UseDefaultCredentials = false;
-                proxy.acknowledgeTransaction(token);
-            }
-
-            return true;
         }
     }
 }
