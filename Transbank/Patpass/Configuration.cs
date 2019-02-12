@@ -15,17 +15,14 @@
             UfFlag = false
         };
 
-        public Webpay.Configuration BaseConfig()
+        public Webpay.Configuration BaseConfig() => new Webpay.Configuration
         {
-            return new Webpay.Configuration()
-            {
-                CommerceCode = this.CommerceCode,
-                Environment = this.Environment,
-                Password = this.Password,
-                PrivateCertPfxPath = this.PrivateCertPfxPath,
-                StoreCodes = this.StoreCodes,
-                WebpayCertPath = this.WebpayCertPath
-            };
-        }
+            CommerceCode = this.CommerceCode,
+            Environment = this.Environment,
+            Password = this.Password,
+            PrivateCertPfxPath = this.PrivateCertPfxPath,
+            StoreCodes = this.StoreCodes,
+            WebpayCertPath = this.WebpayCertPath
+        };
     }
 }
