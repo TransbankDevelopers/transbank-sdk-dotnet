@@ -5,6 +5,8 @@
         private PatPassByWebpayNormal _normalTransaction;
         readonly Configuration configuration;
 
+        private static readonly object padlock = new object();
+
         public PatPass(Configuration param)
         {
             if (param.WebpayCertPath != null)
@@ -25,9 +27,9 @@
             get
             {
                 if (_normalTransaction == null)
-                {
-                    _normalTransaction = new PatPassByWebpayNormal(configuration);
-                }
+                    lock (padlock)
+                        if (_normalTransaction == null)
+                            _normalTransaction = new PatPassByWebpayNormal(configuration);
                 return _normalTransaction;
             }
         }
