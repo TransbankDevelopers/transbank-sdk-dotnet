@@ -97,8 +97,7 @@ namespace Transbank.PatPass
             using (var proxy = new WSWebpayServiceImplService())
             {
                 PrepareProxy(proxy);
-                var wsInitTransactionOutput = proxy.initTransaction(initTransactionInput);
-                return wsInitTransactionOutput;
+                return proxy.initTransaction(initTransactionInput);
             }
         }
     }
