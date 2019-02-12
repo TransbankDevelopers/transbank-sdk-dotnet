@@ -14,5 +14,18 @@
             Password = "12345678",
             UfFlag = false
         };
+
+        public Webpay.Configuration BaseConfig()
+        {
+            return new Webpay.Configuration()
+            {
+                CommerceCode = this.CommerceCode,
+                Environment = this.Environment,
+                Password = this.Password,
+                PrivateCertPfxPath = this.PrivateCertPfxPath,
+                StoreCodes = this.StoreCodes,
+                WebpayCertPath = this.WebpayCertPath
+            };
+        }
     }
 }
