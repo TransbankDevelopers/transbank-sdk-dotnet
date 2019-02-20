@@ -36,19 +36,15 @@ namespace Transbank.PatPass
 
     public class PatPassByWebpayNormal : WebpayNormal
     {
-        readonly Configuration config;
-
-        public PatPassByWebpayNormal(Configuration config) : base (config.BaseConfig())
+        public enum Currency
         {
-            /** Configuración para ser consultado desde cualquier metodo de la clase */
-            this.config = config;
-
-            /** Obtiene URL de WSDL según parametro desde Configuración (INTEGRACION, CERTIFICACION, PRODUCCION) */
-            string url = this.config.getEnvironmentDefault();
-            WSDL = wsdlUrl(url);
-
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            DEFAULT, // Pesos o UF
+            UF
         }
+
+        public PatPassByWebpayNormal (Configuration config) : base (config) => 
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | 
+                SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
 
         /**
          * Permite inicializar una transacción en PatPass. Como respuesta a la invocación se genera un token que representa en forma única una transacción.
@@ -89,7 +85,7 @@ namespace Transbank.PatPass
                 cellPhoneNumber = info.CellPhoneNumber,
                 expirationDate = info.ExpirationDate,
                 commerceMail = this.config.CommerceMail,
-                ufFlag = this.config.UfFlag
+                ufFlag = Currency.UF.Equals(this.config.PatPassCurrency)
             };
 
             initTransactionInput.wPMDetail = wpmDetailInput;

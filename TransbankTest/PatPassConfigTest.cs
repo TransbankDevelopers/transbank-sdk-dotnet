@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Transbank.Webpay;
 using Transbank.PatPass;
 
 namespace TransbankTest
@@ -9,12 +10,12 @@ namespace TransbankTest
         [TestMethod]
         public void TestWebpayNormalTransaccionConfig()
         {
-            var config = Configuration.ForTestingPatPassByWebpayNormal();
+            var config = Configuration.ForTestingPatPassByWebpayNormal("test@mail.com");
 
             Assert.AreEqual("597044444432", config.CommerceCode);
             Assert.AreEqual("INTEGRACION", config.Environment);
-            Assert.AreEqual("user@domain.com", config.CommerceMail);
-            Assert.IsFalse(config.UfFlag);
+            Assert.AreEqual("test@mail.com", config.CommerceMail);
+            Assert.AreEqual(PatPassByWebpayNormal.Currency.DEFAULT, config.PatPassCurrency);
             Assert.AreEqual("12345678", config.Password);
             Assert.IsTrue(config.WebpayCertPath.Contains("TransbankIntegrationPublic.pem"));
             Assert.IsTrue(config.PrivateCertPfxPath.Contains("PatPassNormalCLP.p12"));
