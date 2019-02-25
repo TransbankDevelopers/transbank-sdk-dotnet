@@ -72,7 +72,7 @@ namespace Transbank.Webpay
             this.config = config;
 
             /** Obtiene URL de WSDL según parametro desde Configuración (INTEGRACION, CERTIFICACION, PRODUCCION) */
-            string url = this.config.getEnvironmentDefault();
+            string url = this.config.GetEnvironmentDefault();
             WSDL = wsdlUrl(url);
 
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;

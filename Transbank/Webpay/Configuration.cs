@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Transbank.PatPass;
 
 namespace Transbank.Webpay
 {
@@ -12,12 +14,17 @@ namespace Transbank.Webpay
         public string PrivateCertPfxPath { get; set; }
         public string Password { get; set; }
         public Dictionary<string, string> StoreCodes { get; set; }
+        public string CommerceMail { get; set; }
+        public PatPassByWebpayNormal.Currency PatPassCurrency { get; set; } = PatPassByWebpayNormal.Currency.DEFAULT;
 
-        public Configuration(){}
+        [Obsolete("getEnvironmentDefault is deprecated, please use GetEnvironmentDedault instead.")]
+        public string getEnvironmentDefault() => getEnvironmentDefault();
 
-        public string getEnvironmentDefault() {
+        public string GetEnvironmentDefault()
+        {
             string modo = Environment;
-            if (modo == null || modo == "") {
+            if (string.IsNullOrEmpty(modo))
+            {
                 modo = "INTEGRACION";
             }
             return modo;
@@ -64,6 +71,16 @@ namespace Transbank.Webpay
             }
         };
 
+        public static Configuration ForTestingPatPassByWebpayNormal(string commerceMail) => new Configuration
+        {
+            Environment = "INTEGRACION",
+            CommerceCode = "597044444432",
+            CommerceMail = commerceMail,
+            WebpayCertPath = GetTestingPublicCertPath(),
+            PrivateCertPfxPath = GetAssemblyTempFilePath("PatPassNormalCLP.p12"),
+            Password = "12345678"
+        };
+
         public static string GetTestingPublicCertPath()
         {
             return GetAssemblyTempFilePath("TransbankIntegrationPublic.pem");
@@ -77,7 +94,7 @@ namespace Transbank.Webpay
         public static string GetAssemblyTempFilePath(string resource)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "Transbank.Webpay.Certs." + resource;
+            var resourceName = "Transbank.Certs." + resource;
             var tempFile = Path.Combine(Path.GetTempPath(), resource);
 
             int bufferSize = 1024 * 1024;

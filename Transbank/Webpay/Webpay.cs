@@ -1,4 +1,6 @@
-﻿namespace Transbank.Webpay
+﻿using Transbank.PatPass;
+
+namespace Transbank.Webpay
 {
     public class Webpay
     {
@@ -7,7 +9,8 @@
         WebpayNullify _nullifyTransaction;
         WebpayMallNormal _mallNormalTransaction;
         WebpayCapture _captureTransaction;
-        WebpayComplete _completeTransaction;        
+        WebpayComplete _completeTransaction;
+        PatPassByWebpayNormal _patpassbywebpaynormalTransaction;        
         readonly Configuration configuration;
 
         private static readonly object padlock = new object();
@@ -97,6 +100,18 @@
                         if (_completeTransaction == null)
                             _completeTransaction = new WebpayComplete(configuration);
                 return _completeTransaction;
+            }
+        }
+
+        public PatPassByWebpayNormal PatPassByWebpayTransaction
+        {
+            get
+            {
+                if (_patpassbywebpaynormalTransaction == null)
+                    lock (padlock)
+                        if (_patpassbywebpaynormalTransaction == null)
+                            _patpassbywebpaynormalTransaction = new PatPassByWebpayNormal(configuration);
+                return _patpassbywebpaynormalTransaction;
             }
         }
     }
