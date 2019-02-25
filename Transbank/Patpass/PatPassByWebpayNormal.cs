@@ -4,57 +4,26 @@ using Transbank.Webpay.Wsdl.Normal;
 
 namespace Transbank.PatPass
 {
-    /**
-     * TRANSACCIÓN DE AUTORIZACIÓN NORMAL:
-     * Una transacción de autorización normal (o transacción normal),corresponde a una solicitud de 
-     * autorización financiera de un pago con tarjetas de crédito o débito, en donde quién realiza el pago
-     * ingresa al sitio del comercio, selecciona productos o servicio, y el ingreso asociado a los datos de la
-     * tarjeta de crédito o débito lo realiza en forma segura en PatPass by Webpay
-     * 
-     *  Respuestas PatPass: 
-     * 
-     *  TSY: Autenticación exitosa
-     *  TSN: autenticación fallida.
-     *  TO : Tiempo máximo excedido para autenticación.
-     *  ABO: Autenticación abortada por tarjetahabiente.
-     *  U3 : Error interno en la autenticación.
-     *  Puede ser vacío si la transacción no se autentico.
-     *
-     *  Códigos Resultado
-     * 
-     *   0  Transacción aprobada.
-     *  -1 Rechazo de transacción.
-     *  -2 Transacción debe reintentarse.
-     *  -3 Error en transacción.
-     *  -4 Rechazo de transacción.
-     *  -5 Rechazo por error de tasa.
-     *  -6 Excede cupo máximo mensual.
-     *  -7 Excede límite diario por transacción.
-     *  -8 Rubro no autorizado.
-     *  -100 Rechazo por inscripción de PatPass by Webpay
-     * */
-
     public class PatPassByWebpayNormal : WebpayNormal
     {
         public enum Currency
         {
-            DEFAULT, // Pesos o UF
+            DEFAULT, // CLP o USD
             UF
         }
 
-        public PatPassByWebpayNormal (Configuration config) : base (config) => 
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | 
+        public PatPassByWebpayNormal (Configuration config) : base (config) =>
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls |
                 SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
 
         /**
          * Permite inicializar una transacción en PatPass. Como respuesta a la invocación se genera un token que representa en forma única una transacción.
-         * 
+         *
          * */
         public wsInitTransactionOutput initTransaction(decimal amount, string buyOrder, string sessionId, string returnUrl, string finalUrl, PatPassInfo info)
         {
             var initTransactionInput = new wsInitTransactionInput
             {
-                /** Indica el tipo de transacción, su valor debe ser siempre TR_NORMAL_WS_WPM */
                 wSTransactionType = wsTransactionType.TR_NORMAL_WS_WPM,
 
                 buyOrder = buyOrder,
