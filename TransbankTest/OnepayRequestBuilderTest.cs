@@ -49,7 +49,7 @@ namespace TransbankTest
             var number = "123-456-789-192";
             var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: number, channel: Onepay.DefaultChannel, options: new Options(commerceLogoUrl: "http://asd.asd", qrWidthHeight: 17));
             Assert.AreEqual("http://asd.asd", request.CommerceLogoUrl);
-            Assert.AreEqual(17, request.QrWidthHeight);
+            Assert.AreEqual("17", request.QrWidthHeight);
         }
 
 
