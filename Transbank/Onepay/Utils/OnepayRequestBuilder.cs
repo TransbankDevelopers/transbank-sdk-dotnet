@@ -44,7 +44,9 @@ namespace Transbank.Onepay.Utils
             
             var request = new SendTransactionRequest(
                 externalUniqueNumber, cart.Total, cart.ItemQuantity,
-                    GetTicksNow(), cart.Items, callbackUrl, channel.Value);
+                GetTicksNow(), cart.Items, callbackUrl, channel.Value,
+                options.CommerceLogoUrl, options.QrWidthHeight
+                );
 
             PrepareRequest(request, options);
             onePaySignUtil.Sign(request, options.SharedSecret);

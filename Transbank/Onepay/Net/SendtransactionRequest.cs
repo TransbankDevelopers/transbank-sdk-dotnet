@@ -24,9 +24,9 @@ namespace Transbank.Onepay.Net
         public string Signature { get; set; }
         [JsonProperty("generateOttQrCode")]
         private readonly bool GenerateOttQrCode = true;
-        [JsonProperty("commerceLogoUrl")]
+        [JsonProperty("commerceLogoUrl", NullValueHandling = NullValueHandling.Ignore)]
         public string CommerceLogoUrl { get; set; }
-        [JsonProperty("widthHeight")]
+        [JsonProperty("widthHeight", NullValueHandling = NullValueHandling.Ignore)]
         public string QrWidthHeight { get; set; }
 
 
@@ -36,7 +36,7 @@ namespace Transbank.Onepay.Net
        
         public SendTransactionRequest(string externalUniqueNumber, long total, int itemsQuantity, 
             long issuedAt, ReadOnlyCollection<Item> items, string callbackUrl, 
-            string channel)
+            string channel, string commerceLogoUrl = null, int? qrWidthHeight = null)
         {
             ExternalUniqueNumber = externalUniqueNumber;
             Total = total;
@@ -45,6 +45,8 @@ namespace Transbank.Onepay.Net
             Items = items;
             CallbackUrl = callbackUrl;
             Channel = channel;
+            CommerceLogoUrl = commerceLogoUrl;
+            if (qrWidthHeight != null) QrWidthHeight = qrWidthHeight.ToString();
         }
 
         public string GetDataToSign()
@@ -65,7 +67,8 @@ namespace Transbank.Onepay.Net
                 $"ItemsQuantity={ItemsQuantity}, IssuedAt={IssuedAt}, " +
                 $"Items={string.Join<Item>(" , ", itemsArray)}," +
                 $"CallbackUrl={CallbackUrl}, Channel={Channel}," +
-                $"Signature={Signature}, GenerateOttQrCore={GenerateOttQrCode}";
+                $"Signature={Signature}, GenerateOttQrCore={GenerateOttQrCode}, " +
+                $"CommerceLogoUrl={CommerceLogoUrl}, QrWidthHeight={QrWidthHeight}";
         }
     }
 }
