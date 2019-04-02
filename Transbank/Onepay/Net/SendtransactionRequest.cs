@@ -24,6 +24,11 @@ namespace Transbank.Onepay.Net
         public string Signature { get; set; }
         [JsonProperty("generateOttQrCode")]
         private readonly bool GenerateOttQrCode = true;
+        [JsonProperty("commerceLogoUrl")]
+        public string CommerceLogoUrl { get; set; }
+        [JsonProperty("widthHeight")]
+        public string QrWidthHeight { get; set; }
+
 
         public SendTransactionRequest()
         {
