@@ -38,7 +38,20 @@ namespace TransbankTest
             Assert.AreEqual(2, request.Items.Count);
             Assert.AreEqual(2, request.ItemsQuantity);
             Assert.AreEqual(15000, request.Total);
+            Assert.IsNull(request.CommerceLogoUrl);
+            Assert.IsNull(request.QrWidthHeight);
         }
+
+        [TestMethod]
+        public void OnepayRequestBuilderBuildSendTransactionRequestWithCommerceLogoUrlAndwidthHeight()
+        {
+            var cart = CreateCart();
+            var number = "123-456-789-192";
+            var request = OnepayRequestBuilder.Instance.BuildSendTransactionRequest(cart: cart, externalUniqueNumber: number, channel: Onepay.DefaultChannel, options: new Options(commerceLogoUrl: "http://asd.asd", qrWidthHeight: 17));
+            Assert.AreEqual("http://asd.asd", request.CommerceLogoUrl);
+            Assert.AreEqual("17", request.QrWidthHeight);
+        }
+
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]

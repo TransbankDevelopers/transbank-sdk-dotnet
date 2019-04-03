@@ -13,6 +13,9 @@ namespace Transbank.Onepay
         private static string _callbackUrl;
         private static string _appScheme;
 
+        public static string CommerceLogoUrl { get; } = null;
+        public static int? QrWidthHeight { get; } = null;
+
         static Onepay()
         {
             SetIntegrationApiKeyAndSharedSecret();
