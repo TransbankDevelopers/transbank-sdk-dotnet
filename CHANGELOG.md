@@ -9,7 +9,7 @@ y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.ht
 
 ### Added
 
-- Se agregaron los parámetros `qr_width_height` y `commerce_logo_url` a Options. Ahora puedes configurar estos parámetros globalmente o por transacción.
+- Se agregaron los parámetros `qr_width_height` y `commerce_logo_url` a Options, para especificar el tamaño del QR generado para la transacción, y especificar la ubicación del logo de comercio para ser mostrado en la aplicación móvil de Onepay. Puedes configurar estos parámetros globalmente o por transacción.
 
 
 ## [2.1.0] - 2019-02-25
