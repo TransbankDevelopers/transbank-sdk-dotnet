@@ -12,6 +12,10 @@ namespace Transbank.Webpay.Security
         {
         }
 
+        public XmlSignature(XmlDocument xml) : base(xml)
+        {
+        }
+
         public override XmlElement GetIdElement(XmlDocument document, string idValue)
         {
             XmlElement idElem = base.GetIdElement(document, idValue);
@@ -19,9 +23,9 @@ namespace Transbank.Webpay.Security
             if (idElem == null)
             {
                 XmlNamespaceManager nsmanager = new XmlNamespaceManager(document.NameTable);
-                nsmanager.AddNamespace(Constants.WSU, Constants.WSSECURITY_UTILITY);
+                nsmanager.AddNamespace("wsu", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd");
 
-                idElem = (XmlElement)document.SelectSingleNode(String.Format(Constants.WSU_ID, idValue), nsmanager);
+                idElem = (XmlElement)document.SelectSingleNode("//*[@wsu:Id=\"" + idValue + "\"]", nsmanager) as XmlElement;
 
                 if (idElem == null)
                 {
