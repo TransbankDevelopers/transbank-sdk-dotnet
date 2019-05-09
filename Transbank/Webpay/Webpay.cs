@@ -17,7 +17,7 @@ namespace Transbank.Webpay
 
         public Webpay(Configuration param)
         {
-            if (param.WebpayCertPath != null)
+            if (string.IsNullOrEmpty(param.WebpayCertPath))
                 switch (param.Environment)
                 {
                     case "PRODUCCION":
