@@ -80,7 +80,7 @@ namespace Transbank.Webpay.Security
 
             InitializeSoapEnv(soap);
 
-            SignedXml signedXml = new SignedXml(soap);
+            XmlSignature signedXml = new XmlSignature(soap);
 
             KeyInfo keyInfo = new KeyInfo();
             signedXml.SigningKey = certificateSignature.PrivateKey;

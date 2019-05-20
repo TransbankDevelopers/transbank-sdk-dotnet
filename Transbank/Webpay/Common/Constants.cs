@@ -21,7 +21,7 @@ namespace Transbank.Webpay.Common
         public static String SECURITY = "Security";
         public static String WSSE = "wsse";
         public static String NS_WEBSERVICE_UTILITY = "xmlns:wsu";
-        public static String ID = "id";
+        public static String ID = "Id";
         public static String SOAPENV = "soapenv";
         public static String NS_SOAP = "xmlns:soap";
         public static String NS_SER = "xmlns:ser";
