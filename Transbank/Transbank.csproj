@@ -16,7 +16,7 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageTags>payments, cl, chile, transbank</PackageTags>
     <PackageIconUrl>http://www.transbankdevelopers.cl/library/img/favicon/mstile-310x310.png</PackageIconUrl>
-    <VersionPrefix>2.2.1</VersionPrefix>
+    <VersionPrefix>2.2.2</VersionPrefix>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <Product>TransbankSDK</Product>
     <Copyright>2018 - Transbank</Copyright>
