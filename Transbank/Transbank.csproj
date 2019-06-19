@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net452</TargetFramework>
@@ -114,6 +114,9 @@
 
   <ItemGroup>
     <Folder Include="Webpay\Web References\" />
+    <Folder Include="WebpayRest\" />
+    <Folder Include="WebpayRest\Common\" />
+    <Folder Include="WebpayRest\WebpayPlus\" />
   </ItemGroup>
 
   <ItemGroup>
