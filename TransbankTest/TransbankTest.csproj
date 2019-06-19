@@ -18,4 +18,8 @@
     <ProjectReference Include="..\Transbank\Transbank.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="WebpayRest\" />
+    <Folder Include="WebpayRest\WebpayPlus\" />
+  </ItemGroup>
 </Project>
