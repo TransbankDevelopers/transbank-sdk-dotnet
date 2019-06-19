@@ -17,10 +17,10 @@ namespace TransbankTest.WebpayRest.WebpayPlus
         }
 
         [TestMethod]
-        public void TestApiKeyNotNull() => Assert.ThrowsException<ArgumentNullException>(() => new Options(null, "somecommercecode", WebpayIntegrationType.Live));
+        public void TestCommerceCodeNotNull() => Assert.ThrowsException<ArgumentNullException>(() => new Options(null, "someapikey", WebpayIntegrationType.Live));
 
         [TestMethod]
-        public void TestCommerceCodeNotNull() => Assert.ThrowsException<ArgumentNullException>(() => new Options("someapikey", null, WebpayIntegrationType.Live));
+        public void TestApiKeyNotNull() => Assert.ThrowsException<ArgumentNullException>(() => new Options("somecommercecode", null, WebpayIntegrationType.Live));
 
         [TestMethod]
         public void TestIntegrationTypeNotNull() => Assert.ThrowsException<ArgumentNullException>(() => new Options("someapikey", "somecommercecode", null));
