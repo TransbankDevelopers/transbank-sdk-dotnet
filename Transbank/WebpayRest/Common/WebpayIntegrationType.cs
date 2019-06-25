@@ -13,8 +13,8 @@ namespace Transbank.Webpay.Common
         }
 
         public static readonly WebpayIntegrationType Live =
-            new WebpayIntegrationType("LIVE", "https://webpay3g.transbank.cl/");
+            new WebpayIntegrationType("LIVE", "https://webpay3g.transbank.cl");
         public static readonly WebpayIntegrationType Test =
-            new WebpayIntegrationType("TEST", "https://webpay3gint.transbank.cl/");
+            new WebpayIntegrationType("TEST", "https://webpay3gint.transbank.cl");
     }
 }
