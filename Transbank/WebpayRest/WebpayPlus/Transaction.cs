@@ -22,5 +22,18 @@ namespace Transbank.Webpay.WebpayPlus
 
             return JsonConvert.DeserializeObject<CreateResponse>(response);
         }
+
+        public static CommitResponse Commit(string token)
+        {
+            return Commit(token, WebpayPlus.DefaultOptions());
+        }
+
+        public static CommitResponse Commit(string token, Options options)
+        {
+            var commitRequest = new CommitRequest(token);
+            var response = RequestService.Perform(commitRequest, options);
+
+            return JsonConvert.DeserializeObject<CommitResponse>(response);
+        }
     }
 }
