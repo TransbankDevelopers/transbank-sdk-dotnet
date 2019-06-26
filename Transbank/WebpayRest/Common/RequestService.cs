@@ -18,9 +18,9 @@ namespace Transbank.Webpay.Common
             client.DefaultRequestHeaders.Add("Tbk-Api-Key-Secret", apiKey);
         }
 
-        public static string Post(BaseRequest request, Options options)
+        public static string Perform(BaseRequest request, Options options)
         {
-            var message = new HttpRequestMessage(HttpMethod.Post, new Uri(options.IntegrationType.ApiBase + request.Endpoint))
+            var message = new HttpRequestMessage(request.Method, new Uri(options.IntegrationType.ApiBase + request.Endpoint))
             {
                 Content = new StringContent(JsonConvert.SerializeObject(request),
                     Encoding.UTF8, CONTENT_TYPE)

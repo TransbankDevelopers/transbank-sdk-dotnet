@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Transbank.Webpay.WebpayPlus.Requests;
 using Transbank.Webpay.Common;
 using Transbank.Webpay.WebpayPlus.Responses;
@@ -18,7 +18,7 @@ namespace Transbank.Webpay.WebpayPlus
             decimal amount, string returnUrl, Options options)
         {
             var createRequest = new CreateRequest(buyOrder, sessionId, amount, returnUrl);
-            var response = RequestService.Post(createRequest, options);
+            var response = RequestService.Perform(createRequest, options);
 
             return JsonConvert.DeserializeObject<CreateResponse>(response);
         }
