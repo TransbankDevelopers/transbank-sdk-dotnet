@@ -20,11 +20,10 @@ namespace Transbank.Webpay.Common
 
         public static string Perform(BaseRequest request, Options options)
         {
-            var message = new HttpRequestMessage(request.Method, new Uri(options.IntegrationType.ApiBase + request.Endpoint))
-            {
-                Content = new StringContent(JsonConvert.SerializeObject(request),
-                    Encoding.UTF8, CONTENT_TYPE)
-            };
+            var message = new HttpRequestMessage(request.Method, new Uri(options.IntegrationType.ApiBase + request.Endpoint));
+            if (request.Method != HttpMethod.Get)
+                message.Content = new StringContent(JsonConvert.SerializeObject(request),
+                    Encoding.UTF8, CONTENT_TYPE);
 
             using (var client = new HttpClient())
             {
