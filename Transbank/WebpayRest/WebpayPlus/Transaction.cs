@@ -35,5 +35,18 @@ namespace Transbank.Webpay.WebpayPlus
 
             return JsonConvert.DeserializeObject<CommitResponse>(response);
         }
+
+        public static RefundResponse Refund(string token, decimal amount)
+        {
+            return Refund(token, amount, WebpayPlus.DefaultOptions());
+        }
+
+        public static RefundResponse Refund(string token, decimal amount, Options options)
+        {
+            var refundRequest = new RefundRequest(token, amount);
+            var response = RequestService.Perform(refundRequest, options);
+
+            return JsonConvert.DeserializeObject<RefundResponse>(response);
+        }
     }
 }
