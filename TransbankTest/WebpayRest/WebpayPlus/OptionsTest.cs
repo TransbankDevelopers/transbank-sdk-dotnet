@@ -13,14 +13,14 @@ namespace TransbankTest.WebpayRest.WebpayPlus
             var options = Transbank.Webpay.WebpayPlus.WebpayPlus.DefaultOptions();
             Assert.AreEqual("597055555532", options.CommerceCode);
             Assert.AreEqual("579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C", options.ApiKey);
-            Assert.AreEqual(options.IntegrationType, WebpayIntegrationType.Live);
+            Assert.AreEqual(options.IntegrationType, WebpayIntegrationType.Test);
         }
 
         [TestMethod]
-        public void TestCommerceCodeNotNull() => Assert.ThrowsException<ArgumentNullException>(() => new Options(null, "someapikey", WebpayIntegrationType.Live));
+        public void TestCommerceCodeNotNull() => Assert.ThrowsException<ArgumentNullException>(() => new Options(null, "someapikey", WebpayIntegrationType.Test));
 
         [TestMethod]
-        public void TestApiKeyNotNull() => Assert.ThrowsException<ArgumentNullException>(() => new Options("somecommercecode", null, WebpayIntegrationType.Live));
+        public void TestApiKeyNotNull() => Assert.ThrowsException<ArgumentNullException>(() => new Options("somecommercecode", null, WebpayIntegrationType.Test));
 
         [TestMethod]
         public void TestIntegrationTypeNotNull() => Assert.ThrowsException<ArgumentNullException>(() => new Options("someapikey", "somecommercecode", null));

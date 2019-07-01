@@ -6,7 +6,7 @@ namespace Transbank.Webpay.WebpayPlus
     {
         private static string _commerceCode = "597055555532";
         private static string _apiKey = "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C";
-        private static WebpayIntegrationType _integrationType = WebpayIntegrationType.Live;
+        private static WebpayIntegrationType _integrationType = WebpayIntegrationType.Test;
 
         public static string CommerceCode
         {
