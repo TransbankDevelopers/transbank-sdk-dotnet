@@ -8,7 +8,7 @@ namespace Transbank.Webpay.WebpayPlus.Responses
 {
     public class CaptureResponse
     {
-        [JsonProperty("Token")]
+        [JsonProperty("token")]
         public string Token { get; set; }
         [JsonProperty("authorization_code")]
         public string AuthorizationCode { get; set; }
