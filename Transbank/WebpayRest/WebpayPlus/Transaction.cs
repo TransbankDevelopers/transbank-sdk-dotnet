@@ -61,5 +61,26 @@ namespace Transbank.Webpay.WebpayPlus
 
             return JsonConvert.DeserializeObject<StatusResponse>(response);
         }
+
+        public static CaptureResponse Capture(string token, string buyOrder, string authorizationCode,
+            decimal captureAmount, string commerceCode = null)
+        {
+            return Capture(token, buyOrder, authorizationCode, captureAmount, commerceCode, WebpayPlus.DefaultOptions());
+        }
+
+        public static CaptureResponse Capture(string token, string buyOrder, string authorizationCode,
+            decimal captureAmount, Options options)
+        {
+            return Capture(token, buyOrder, authorizationCode, captureAmount, null, options);
+        }
+
+        public static CaptureResponse Capture(string token, string buyOrder,string authorizationCode,
+            decimal captureAmount, string commerceCode, Options options)
+        {
+            var captureRequest = new CaptureRequest(token, buyOrder, authorizationCode, captureAmount, commerceCode);
+            var response = RequestService.Perform(captureRequest, options);
+
+            return JsonConvert.DeserializeObject<CaptureResponse>(response);
+        }
     }
 }

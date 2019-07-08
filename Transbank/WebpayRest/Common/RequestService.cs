@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Transbank.Onepay.Exceptions;
 
 namespace Transbank.Webpay.Common
 {
@@ -28,12 +31,16 @@ namespace Transbank.Webpay.Common
             using (var client = new HttpClient())
             {
                 AddRequiredHeaders(client, options.CommerceCode, options.ApiKey);
-
                 var response = client.SendAsync(message).ConfigureAwait(false)
                     .GetAwaiter().GetResult();
-                response.EnsureSuccessStatusCode();
                 var jsonResponse = response.Content.ReadAsStringAsync()
                     .ConfigureAwait(false).GetAwaiter().GetResult();
+                if (!response.IsSuccessStatusCode)
+                {
+                    var jsonObject = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+                    throw new TransbankException(-1, $"Error message: {jsonObject.Value<string>("error_message")}");
+                }
+
                 return jsonResponse;
             }
         }
