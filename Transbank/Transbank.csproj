@@ -119,6 +119,8 @@
     <Folder Include="WebpayRest\WebpayPlus\" />
     <Folder Include="WebpayRest\WebpayPlus\Requests\" />
     <Folder Include="WebpayRest\WebpayPlus\Responses\" />
+    <Folder Include="WebpayRest\Oneclick\Request\" />
+    <Folder Include="WebpayRest\Oneclick\Response\" />
   </ItemGroup>
 
   <ItemGroup>
