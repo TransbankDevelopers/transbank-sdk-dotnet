@@ -1,16 +1,14 @@
 ﻿using System;
+using Newtonsoft.Json;
+
 namespace Transbank.Webpay.WebpayPlus.Responses
 {
     public class CreateResponse
     {
+        [JsonProperty("token")]
         public string Token { get; private set; }
-        public string Url { get; private set; } 
-
-        public CreateResponse(string token, string url)
-        {
-            Token = token;
-            Url = url;
-        }
+        [JsonProperty("url")]
+        public string Url { get; private set; }
 
         public override string ToString()
         {
