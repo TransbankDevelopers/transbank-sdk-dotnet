@@ -1,14 +1,14 @@
-using Transbank.Webpay.Oneclick.Requests;
-using Transbank.Webpay.Common;
-using Transbank.Webpay.Oneclick.Responses;
+using System;
 using Newtonsoft.Json;
+using Transbank.Webpay.Common;
+using Transbank.Webpay.Oneclick.Requests;
+using Transbank.Webpay.Oneclick.Responses;
 
 namespace Transbank.Webpay.Oneclick
 {
     public static class Inscription
     {
-        public static StartResponse Start(string userName, string email,
-            string responseUrl)
+        public static StartResponse Start(string userName, string email, string responseUrl)
         {
             return Start(userName, email, responseUrl, Oneclick.DefaultOptions());
         }

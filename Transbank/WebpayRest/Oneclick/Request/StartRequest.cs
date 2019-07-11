@@ -17,7 +17,7 @@ namespace Transbank.Webpay.Oneclick.Requests
 
         public override string ToString()
         {
-            return $"UserName={UserName}, Email={Email}, " +
+            return $"UserName={UserName},\nEmail={Email},\n" + 
                 $"RsponseUrl={ResponseUrl}";
         }
 
