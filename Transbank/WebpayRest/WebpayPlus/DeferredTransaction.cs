@@ -1,14 +1,14 @@
-using System;
-using Transbank.Webpay.WebpayPlus.Requests;
-using Transbank.Webpay.Common;
-using Transbank.Webpay.WebpayPlus.Responses;
+﻿using System;
 using Newtonsoft.Json;
+using Transbank.Webpay.Common;
+using Transbank.Webpay.WebpayPlus.Requests;
+using Transbank.Webpay.WebpayPlus.Responses;
 
 namespace Transbank.Webpay.WebpayPlus
 {
-    public static class Transaction
+    public static class DeferredTransaction
     {
-        private static string _commerceCode = "597055555532";
+        private static string _commerceCode = "597055555540";
         private static string _apiKey = "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C";
         private static WebpayIntegrationType _integrationType = WebpayIntegrationType.Test;
 
@@ -50,10 +50,7 @@ namespace Transbank.Webpay.WebpayPlus
         public static CreateResponse Create(string buyOrder, string sessionId,
             decimal amount, string returnUrl, Options options)
         {
-            var createRequest = new CreateRequest(buyOrder, sessionId, amount, returnUrl);
-            var response = RequestService.Perform(createRequest, options);
-
-            return JsonConvert.DeserializeObject<CreateResponse>(response);
+            return Transaction.Create(buyOrder, sessionId, amount, returnUrl, options);
         }
 
         public static CommitResponse Commit(string token)
@@ -63,10 +60,7 @@ namespace Transbank.Webpay.WebpayPlus
 
         public static CommitResponse Commit(string token, Options options)
         {
-            var commitRequest = new CommitRequest(token);
-            var response = RequestService.Perform(commitRequest, options);
-
-            return JsonConvert.DeserializeObject<CommitResponse>(response);
+            return Transaction.Commit(token, options);
         }
 
         public static RefundResponse Refund(string token, decimal amount)
@@ -76,10 +70,7 @@ namespace Transbank.Webpay.WebpayPlus
 
         public static RefundResponse Refund(string token, decimal amount, Options options)
         {
-            var refundRequest = new RefundRequest(token, amount);
-            var response = RequestService.Perform(refundRequest, options);
-
-            return JsonConvert.DeserializeObject<RefundResponse>(response);
+            return Transaction.Refund(token, amount, options);
         }
 
         public static StatusResponse Status(string token)
@@ -89,10 +80,28 @@ namespace Transbank.Webpay.WebpayPlus
 
         public static StatusResponse Status(string token, Options options)
         {
-            var statusRequest = new StatusRequest(token);
-            var response = RequestService.Perform(statusRequest, options);
+            return Transaction.Status(token, options);
+        }
 
-            return JsonConvert.DeserializeObject<StatusResponse>(response);
+        public static CaptureResponse Capture(string token, string buyOrder, string authorizationCode,
+            decimal captureAmount, string commerceCode = null)
+        {
+            return Capture(token, buyOrder, authorizationCode, captureAmount, commerceCode, DefaultOptions());
+        }
+
+        public static CaptureResponse Capture(string token, string buyOrder, string authorizationCode,
+            decimal captureAmount, Options options)
+        {
+            return Capture(token, buyOrder, authorizationCode, captureAmount, null, options);
+        }
+
+        public static CaptureResponse Capture(string token, string buyOrder, string authorizationCode,
+            decimal captureAmount, string commerceCode, Options options)
+        {
+            var captureRequest = new CaptureRequest(token, buyOrder, authorizationCode, captureAmount, commerceCode);
+            var response = RequestService.Perform(captureRequest, options);
+
+            return JsonConvert.DeserializeObject<CaptureResponse>(response);
         }
     }
 }

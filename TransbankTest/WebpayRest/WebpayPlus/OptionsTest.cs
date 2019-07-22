@@ -10,7 +10,7 @@ namespace TransbankTest.WebpayRest.WebpayPlus
         [TestMethod]
         public void TestDefaultConfiguration()
         {
-            var options = Transbank.Webpay.WebpayPlus.WebpayPlus.DefaultOptions();
+            var options = Transbank.Webpay.WebpayPlus.Transaction.DefaultOptions();
             Assert.AreEqual("597055555532", options.CommerceCode);
             Assert.AreEqual("579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C", options.ApiKey);
             Assert.AreEqual(options.IntegrationType, WebpayIntegrationType.Test);
