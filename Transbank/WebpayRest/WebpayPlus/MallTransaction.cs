@@ -7,7 +7,7 @@ using Transbank.Webpay.WebpayPlus.Responses;
 
 namespace Transbank.Webpay.WebpayPlus
 {
-    public class MallTransaction
+    public static class MallTransaction
     {
         public static MallCreateResponse Create(string buyOrder, string sessionId, string returnUrl, List<TransactionDetail> transactions)
         {
@@ -20,6 +20,19 @@ namespace Transbank.Webpay.WebpayPlus
             var response = RequestService.Perform(mallCreateRequest, options);
 
             return JsonConvert.DeserializeObject<MallCreateResponse>(response);
+        }
+
+        public static MallCommitResponse Commit(string token)
+        {
+            return Commit(token, WebpayPlus.DefaultOptions());
+        }
+
+        public static MallCommitResponse Commit(string token, Options options)
+        {
+            var mallCommitRequest = new MallCommitRequest(token);
+            var response = RequestService.Perform(mallCommitRequest, options);
+
+            return JsonConvert.DeserializeObject<MallCommitResponse>(response);
         }
     }
 }
