@@ -34,5 +34,18 @@ namespace Transbank.Webpay.Oneclick
 
             return JsonConvert.DeserializeObject<FinishResponse>(response);
         }
+
+        public static DeleteResponse Delete(string userName, string tbkUser)
+        {
+            return Delete(userName, tbkUser, Oneclick.DefaultOptions());
+        }
+
+        public static DeleteResponse Delete(string userName, string tbkUser, Options options)
+        {
+            var deleteRequest = new DeleteRequest(userName, tbkUser);
+            var response = RequestService.Perform(deleteRequest, options);
+
+            return JsonConvert.DeserializeObject<DeleteResponse>(response);
+        }
     }
 }
