@@ -22,7 +22,10 @@ namespace Transbank.Webpay.Oneclick.Requests
 
         public override string ToString()
         {
-            return $"UserName={UserName}";
+            return $"UserName= {UserName}\n" +
+                   $"TbkUser= {TBKUser}\n" +
+                   $"BuyOrder= {BuyOrder}\n" +
+                   $"Details= {Details.ToString()}\n";
         }
 
         internal AuthorizeRequest(string userName, string tbkUser, string buyOrder, List<PaymentRequest> details)
