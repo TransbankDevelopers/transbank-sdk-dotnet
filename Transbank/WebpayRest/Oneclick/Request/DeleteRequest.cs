@@ -16,8 +16,8 @@ namespace Transbank.Webpay.Oneclick.Requests
 
         public override string ToString()
         {
-            return $"UserName= {UserName}\n" +
-                   $"TbkUser={TBKUser}";
+            return $"\"UserName\": \"{UserName}\"\n" +
+                   $"\"TbkUser\": \"{TBKUser}\"";
         }
 
         internal DeleteRequest(string userName, string tbkUser)
