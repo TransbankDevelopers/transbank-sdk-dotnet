@@ -38,7 +38,7 @@ namespace Transbank.Webpay.Common
                 if (!response.IsSuccessStatusCode)
                 {
                     var jsonObject = (JObject)JsonConvert.DeserializeObject(jsonResponse);
-                    throw new TransbankException(-1, $"Error message: {jsonObject.Value<string>("error_message")}");
+                    throw new TransbankException((int)response.StatusCode , $"Error message: {jsonObject.Value<string>("error_message")}");
                 }
 
                 return jsonResponse;
