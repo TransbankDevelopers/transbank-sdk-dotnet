@@ -21,18 +21,5 @@ namespace Transbank.Webpay.Oneclick
 
             return JsonConvert.DeserializeObject<AuthorizeResponse>(response);
         }
-
-        public static FinishResponse Finish(string token)
-        {
-            return Finish(token, Oneclick.DefaultOptions());
-        }
-
-        public static FinishResponse Finish(string token, Options options)
-        {
-            var finishRequest = new FinishRequest(token);
-            var response = RequestService.Perform(finishRequest, options);
-
-            return JsonConvert.DeserializeObject<FinishResponse>(response);
-        }
     }
 }
