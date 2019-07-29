@@ -4,6 +4,7 @@ using Transbank.Webpay.Common;
 using Transbank.Exceptions;
 using Transbank.Webpay.Oneclick.Requests;
 using Transbank.Webpay.Oneclick.Responses;
+using Transbank.Webpay.Oneclick.Exceptions;
 
 namespace Transbank.Webpay.Oneclick
 {
@@ -17,10 +18,19 @@ namespace Transbank.Webpay.Oneclick
         public static StartResponse Start(string userName, string email,
             string responseUrl, Options options)
         {
-            var startRequest = new StartRequest(userName, email, responseUrl);
-            var response = RequestService.Perform(startRequest, options);
+            try
+            {
+                var startRequest = new StartRequest(userName, email, responseUrl);
+                var response = RequestService.Perform(startRequest, options);
 
-            return JsonConvert.DeserializeObject<StartResponse>(response);
+                return JsonConvert.DeserializeObject<StartResponse>(response);
+            }
+            catch (Exception e)
+            {
+                int code = e.GetType().Equals(typeof(TransbankException)) ?
+                    ((TransbankException)e).Code : -1;
+                throw new InscriptionStartException(code, e.Message, e);
+            }
         }
 
         public static FinishResponse Finish(string token)
@@ -30,23 +40,39 @@ namespace Transbank.Webpay.Oneclick
 
         public static FinishResponse Finish(string token, Options options)
         {
-            var finishRequest = new FinishRequest(token);
-            var response = RequestService.Perform(finishRequest, options);
+            try
+            {
+                var finishRequest = new FinishRequest(token);
+                var response = RequestService.Perform(finishRequest, options);
 
-            return JsonConvert.DeserializeObject<FinishResponse>(response);
+                return JsonConvert.DeserializeObject<FinishResponse>(response);
+            }
+            catch (Exception e)
+            {
+                int code = e.GetType().Equals(typeof(TransbankException)) ?
+                    ((TransbankException)e).Code : -1;
+                throw new InscriptionFinishException(code, e.Message, e);
+            }
         }
 
-        public static DeleteResponse Delete(string userName, string tbkUser)
+        public static void Delete(string userName, string tbkUser)
         {
-            return Delete(userName, tbkUser, Oneclick.DefaultOptions());
+            Delete(userName, tbkUser, Oneclick.DefaultOptions());
         }
 
-        public static DeleteResponse Delete(string userName, string tbkUser, Options options)
+        public static void Delete(string userName, string tbkUser, Options options)
         {
-            var deleteRequest = new DeleteRequest(userName, tbkUser);
-            var response = RequestService.Perform(deleteRequest, options);
-
-            return JsonConvert.DeserializeObject<DeleteResponse>(response);
+            try
+            {
+                var deleteRequest = new DeleteRequest(userName, tbkUser);
+                RequestService.Perform(deleteRequest, options);
+            }
+            catch (Exception e)
+            {
+                int code = e.GetType().Equals(typeof(TransbankException)) ?
+                    ((TransbankException)e).Code : -1;
+                throw new InscriptionDeleteException(code, e.Message, e);
+            }
         }
     }
 }
