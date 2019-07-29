@@ -3,23 +3,23 @@ using Transbank.Exceptions;
 
 namespace Transbank.Webpay.Oneclick.Exceptions
 {
-    public class InscriptionStartException : TransbankException
+    public class InscriptionDeleteException : TransbankException
     {
-        public InscriptionStartException() : base()
+        public InscriptionDeleteException() : base()
         {
         }
 
-        public InscriptionStartException(string message)
+        public InscriptionDeleteException(string message)
             : base(-1, message)
         {
         }
 
-        public InscriptionStartException(int code, string message)
+        public InscriptionDeleteException(int code, string message)
             : base(code, message)
         {
         }
 
-        public InscriptionStartException(int code, string message,
+        public InscriptionDeleteException(int code, string message,
             Exception innerException) : base(code, message, innerException)
         {
         }
