@@ -21,7 +21,7 @@ namespace Transbank.Webpay.Oneclick.Requests
         }
 
         internal DeleteRequest(string userName, string tbkUser)
-            : base("/rswebpaytransaction/api/oneclick/v1.0/transactions", HttpMethod.Delete)
+            : base("/rswebpaytransaction/api/oneclick/v1.0/inscriptions", HttpMethod.Delete)
         {
             UserName = userName;
             TBKUser = tbkUser;

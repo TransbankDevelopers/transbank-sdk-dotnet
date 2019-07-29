@@ -8,7 +8,7 @@ namespace Transbank.Webpay.Oneclick.Responses
         [JsonProperty("response_code")]
         public int ResponseCode { get; private set; }
         [JsonProperty("tbk_user")]
-        public string TransbankUser { get; private set; }
+        public string TbkUser { get; private set; }
         [JsonProperty("authorization_code")]
         public string AuthorizationCode { get; private set; }
         [JsonProperty("credit_card_type")]
@@ -20,7 +20,7 @@ namespace Transbank.Webpay.Oneclick.Responses
             string authorizationCode, string creditCardType, string lastFourCardDigits)
         {
             ResponseCode = responseCode;
-            TransbankUser = transbankUser;
+            TbkUser = transbankUser;
             AuthorizationCode = authorizationCode;
             CreditCardType = creditCardType;
             LastFourCardDigits = lastFourCardDigits;
