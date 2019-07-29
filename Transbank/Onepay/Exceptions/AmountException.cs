@@ -1,9 +1,8 @@
 ﻿using System;
 
-
 namespace Transbank.Onepay.Exceptions
 {
-    public class AmountException : TransbankException
+    public class AmountException : Transbank.Exceptions.TransbankException
     {
         public AmountException() : base()
         {

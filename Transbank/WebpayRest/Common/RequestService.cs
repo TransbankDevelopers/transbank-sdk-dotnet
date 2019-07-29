@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Transbank.Onepay.Exceptions;
+using Transbank.Exceptions;
 
 namespace Transbank.Webpay.Common
 {
