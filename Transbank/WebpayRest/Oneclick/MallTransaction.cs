@@ -1,4 +1,3 @@
-using System;
 using Newtonsoft.Json;
 using Transbank.Webpay.Common;
 using Transbank.Webpay.Oneclick.Requests;
@@ -6,7 +5,7 @@ using Transbank.Webpay.Oneclick.Responses;
 
 namespace Transbank.Webpay.Oneclick
 {
-    public static class Transaction
+    public static class MallTransaction
     {
         public static AuthorizeResponse Authorize(string userName, string email, string responseUrl)
         {
