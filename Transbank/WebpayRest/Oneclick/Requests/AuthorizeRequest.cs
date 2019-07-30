@@ -9,24 +9,16 @@ namespace Transbank.Webpay.Oneclick.Requests
     {
 
         [JsonProperty("username")]
-        public string UserName { get; set; }
+        internal string UserName { get; set; }
 
         [JsonProperty("tbk_user")]
-        public string TBKUser { get; set; }
+        internal string TBKUser { get; set; }
 
         [JsonProperty("buy_order")]
-        public string BuyOrder { get; set; }
+        internal string BuyOrder { get; set; }
 
         [JsonProperty("details")]
-        public List<PaymentRequest> Details { get; set; }
-
-        public override string ToString()
-        {
-            return $"UserName= {UserName}\n" +
-                   $"TbkUser= {TBKUser}\n" +
-                   $"BuyOrder= {BuyOrder}\n" +
-                   $"Details= {Details.ToString()}\n";
-        }
+        internal List<PaymentRequest> Details { get; set; }
 
         internal AuthorizeRequest(string userName, string tbkUser, string buyOrder, List<PaymentRequest> details)
             : base("/rswebpaytransaction/api/oneclick/v1.0/transactions", HttpMethod.Post)
