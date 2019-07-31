@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Transbank.Onepay.Exceptions;
+using Transbank.Exceptions;
 
 namespace Transbank.Webpay.Common
 {
@@ -38,7 +38,7 @@ namespace Transbank.Webpay.Common
                 if (!response.IsSuccessStatusCode)
                 {
                     var jsonObject = (JObject)JsonConvert.DeserializeObject(jsonResponse);
-                    throw new TransbankException(-1, $"Error message: {jsonObject.Value<string>("error_message")}");
+                    throw new TransbankException((int)response.StatusCode , $"Error message: {jsonObject.Value<string>("error_message")}");
                 }
 
                 return jsonResponse;
