@@ -6,7 +6,7 @@ using Transbank.Webpay.Common;
 
 namespace Transbank.Webpay.Oneclick.Requests
 {
-    internal class AuthorizeRequest : BaseRequest
+    internal class AuthorizeMallRequest : BaseRequest
     {
         [JsonProperty("username")]
         internal string UserName { get; set; }
@@ -20,7 +20,7 @@ namespace Transbank.Webpay.Oneclick.Requests
         [JsonProperty("details")]
         internal List<PaymentRequest> Details { get; set; }
 
-        internal AuthorizeRequest(string userName, string tbkUser, string buyOrder, List<PaymentRequest> details)
+        internal AuthorizeMallRequest(string userName, string tbkUser, string buyOrder, List<PaymentRequest> details)
             : base("/rswebpaytransaction/api/oneclick/v1.0/transactions", HttpMethod.Post)
         {
             UserName = userName;
