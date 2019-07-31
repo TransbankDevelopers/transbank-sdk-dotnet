@@ -13,13 +13,13 @@ namespace Transbank.Webpay.Oneclick
 {
     public static class MallTransaction
     {
-        public static AuthorizeResponse Authorize(string userName, string tbkUser,
+        public static AuthorizeMallResponse Authorize(string userName, string tbkUser,
             string buyOrder, List<PaymentRequest> details)
         {
             return Authorize(userName, tbkUser, buyOrder, details, Oneclick.DefaultOptions());
         }
 
-        public static AuthorizeResponse Authorize(string userName,
+        public static AuthorizeMallResponse Authorize(string userName,
             string tbkUser, string buyOrder, List<PaymentRequest> details,
             Options options)
         {
@@ -29,7 +29,7 @@ namespace Transbank.Webpay.Oneclick
                     details);
                 var response = RequestService.Perform(authorizeRequest, options);
 
-                return JsonConvert.DeserializeObject<AuthorizeResponse>(response);
+                return JsonConvert.DeserializeObject<AuthorizeMallResponse>(response);
             }
             catch (Exception e)
             {

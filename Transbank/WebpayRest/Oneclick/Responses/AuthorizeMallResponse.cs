@@ -4,7 +4,7 @@ using Transbank.Webpay.Common;
 
 namespace Transbank.Webpay.Oneclick.Responses
 {
-    public class AuthorizeResponse
+    public class AuthorizeMallResponse
     {
         [JsonProperty("buy_order")]
         public string BuyOrder { get; private set; }
@@ -28,7 +28,7 @@ namespace Transbank.Webpay.Oneclick.Responses
         [JsonProperty("details")]
         public PaymentResponse Details{get; private set; }
 
-        public AuthorizeResponse(string buyOrder, string sessionId, string cardNumber, DateTime expirationDate,
+        public AuthorizeMallResponse(string buyOrder, string sessionId, string cardNumber, DateTime expirationDate,
             DateTime accountingDate, DateTime transactionDate, PaymentResponse details)
         {
             BuyOrder = buyOrder;

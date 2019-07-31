@@ -16,13 +16,17 @@ namespace Transbank.Webpay.Common
         [JsonProperty("installments_amount")]
         public int InstallmentsAmount { get; private set; }
 
+        [JsonProperty("status")]
+        public string Status { get; private set; }
+
         public PaymentResponse (string comerceCode, string buyOrder, int ammount, int autorizationCode,
-            string paymentTypeCode, int responseCode, int installmentsAmmount) : base(comerceCode, buyOrder, ammount)
+            string paymentTypeCode, int responseCode, int installmentsAmmount, string status) : base(comerceCode, buyOrder, ammount)
         {
             AuthorizationCode = autorizationCode;
             PaymentTypeCode = paymentTypeCode;
             ResponseCode = responseCode;
             InstallmentsAmount = installmentsAmmount;
+            Status = status;
         }
 
         public override string ToString()
@@ -31,7 +35,8 @@ namespace Transbank.Webpay.Common
                 $"InstallmentsAmount= {InstallmentsAmount}\n" +
                 $"AuthorizationCode= {AuthorizationCode}\n" +
                 $"PaymentTypeCode= {PaymentTypeCode}\n" +
-                $"ResponseCode= {ResponseCode}\n";
+                $"ResponseCode= {ResponseCode}\n" +
+                $"Status= {Status}\n";
         }
     }
 }
