@@ -1,28 +1,33 @@
 using System;
 using Newtonsoft.Json;
 using Transbank.Common;
+using System.Collections.Generic;
 using Transbank.Exceptions;
 using Transbank.Webpay.Common;
 using Transbank.Webpay.Oneclick.Requests;
 using Transbank.Webpay.Oneclick.Responses;
 using Transbank.Webpay.Oneclick.Exceptions;
 
+
 namespace Transbank.Webpay.Oneclick
 {
     public static class MallTransaction
     {
-        public static AuthorizeResponse Authorize(string userName, string email, string responseUrl)
+        public static AuthorizeResponse Authorize(string userName, string tbkUser,
+            string buyOrder, List<PaymentRequest> details)
         {
-            return Authorize(userName, email, responseUrl, Oneclick.DefaultOptions());
+            return Authorize(userName, tbkUser, buyOrder, details, Oneclick.DefaultOptions());
         }
 
-        public static AuthorizeResponse Authorize(string userName, string email,
-            string responseUrl, Options options)
+        public static AuthorizeResponse Authorize(string userName,
+            string tbkUser, string buyOrder, List<PaymentRequest> details,
+            Options options)
         {
             try
             {
-                var startRequest = new StartRequest(userName, email, responseUrl);
-                var response = RequestService.Perform(startRequest, options);
+                var authorizeRequest = new AuthorizeMallRequest(userName, tbkUser, buyOrder,
+                    details);
+                var response = RequestService.Perform(authorizeRequest, options);
 
                 return JsonConvert.DeserializeObject<AuthorizeResponse>(response);
             }
