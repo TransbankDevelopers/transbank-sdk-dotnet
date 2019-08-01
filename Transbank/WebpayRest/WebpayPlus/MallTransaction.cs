@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Transbank.Exceptions;
 using Transbank.Webpay.Common;
+using Transbank.Webpay.WebpayPlus.Exceptions;
 using Transbank.Webpay.WebpayPlus.Requests;
 using Transbank.Webpay.WebpayPlus.Responses;
 
@@ -85,6 +87,28 @@ namespace Transbank.Webpay.WebpayPlus
             var response = RequestService.Perform(mallRefundRequest, options);
 
             return JsonConvert.DeserializeObject<MallRefundResponse>(response);
+        }
+
+        public static MallStatusResponse Status(string token)
+        {
+            return Status(token, DefaultOptions());
+        }
+
+        public static MallStatusResponse Status(string token, Options options)
+        {
+            try
+            {
+                var mallStatusRequest = new MallStatusRequest(token);
+                var response = RequestService.Perform(mallStatusRequest, options);
+
+                return JsonConvert.DeserializeObject<MallStatusResponse>(response);
+            }
+            catch (Exception e)
+            {
+                int code = e.GetType().Equals(typeof(TransbankException)) ?
+                    ((TransbankException)e).Code : -1;
+                throw new MallStatusException(code, e.Message, e);
+            }
         }
     }
 }
