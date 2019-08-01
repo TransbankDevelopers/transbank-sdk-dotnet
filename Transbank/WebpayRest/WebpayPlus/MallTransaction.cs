@@ -42,14 +42,17 @@ namespace Transbank.Webpay.WebpayPlus
             return new Options(CommerceCode, ApiKey, IntegrationType);
         }
 
-        public static MallCreateResponse Create(string buyOrder, string sessionId, string returnUrl, List<TransactionDetail> transactions)
+        public static MallCreateResponse Create(string buyOrder, string sessionId,
+            string returnUrl, List<TransactionDetail> transactions)
         {
             return Create(buyOrder, sessionId, returnUrl, transactions, DefaultOptions());
         }
 
-        public static MallCreateResponse Create(string buyOrder, string sessionId, string returnUrl, List<TransactionDetail> transactions, Options options)
+        public static MallCreateResponse Create(string buyOrder, string sessionId,
+            string returnUrl, List<TransactionDetail> transactions, Options options)
         {
-            var mallCreateRequest = new MallCreateRequest(buyOrder, sessionId, returnUrl, transactions);
+            var mallCreateRequest = new MallCreateRequest(buyOrder, sessionId,
+                returnUrl, transactions);
             var response = RequestService.Perform(mallCreateRequest, options);
 
             return JsonConvert.DeserializeObject<MallCreateResponse>(response);
@@ -66,6 +69,22 @@ namespace Transbank.Webpay.WebpayPlus
             var response = RequestService.Perform(mallCommitRequest, options);
 
             return JsonConvert.DeserializeObject<MallCommitResponse>(response);
+        }
+
+        public static MallRefundResponse Refund(string token, string buyOrder,
+            string commerceCode, decimal amount)
+        {
+            return Refund(token, buyOrder, commerceCode, amount, DefaultOptions());
+        }
+
+        public static MallRefundResponse Refund(string token, string buyOrder,
+            string commerceCode, decimal amount, Options options)
+        {
+            var mallRefundRequest = new MallRefundRequest(token, buyOrder,
+                commerceCode, amount);
+            var response = RequestService.Perform(mallRefundRequest, options);
+
+            return JsonConvert.DeserializeObject<MallRefundResponse>(response);
         }
     }
 }
