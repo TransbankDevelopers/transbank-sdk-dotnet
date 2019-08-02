@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Transbank.Webpay.Common;
+using Transbank.Webpay.Oneclick.Exceptions;
 using Transbank.Webpay.Oneclick.Requests;
 using Transbank.Webpay.Oneclick.Responses;
 
@@ -15,10 +16,14 @@ namespace Transbank.Webpay.Oneclick
         public static AuthorizeResponse Authorize(string userName, string email,
             string responseUrl, Options options)
         {
-            var startRequest = new StartRequest(userName, email, responseUrl);
-            var response = RequestService.Perform(startRequest, options);
+            return ExceptionHandler.Perform<AuthorizeResponse, MallTransactionAuthorizeException>(() =>
+            {
+                var startRequest = new StartRequest(userName, email, responseUrl);
+                var response = RequestService.Perform<MallTransactionAuthorizeException>(
+                    startRequest, options);
 
-            return JsonConvert.DeserializeObject<AuthorizeResponse>(response);
+                return JsonConvert.DeserializeObject<AuthorizeResponse>(response);
+            });
         }
     }
 }
