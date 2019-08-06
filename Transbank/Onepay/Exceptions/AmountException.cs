@@ -2,7 +2,7 @@
 
 namespace Transbank.Onepay.Exceptions
 {
-    public class AmountException : Transbank.Exceptions.TransbankException
+    public class AmountException : TransbankException
     {
         public AmountException() : base()
         {
