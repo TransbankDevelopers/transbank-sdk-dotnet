@@ -21,7 +21,7 @@ namespace Transbank.Webpay.Common
             client.DefaultRequestHeaders.Add("Tbk-Api-Key-Secret", apiKey);
         }
 
-        public static string Perform(BaseRequest request, Options options)
+        public static string Perform<T>(BaseRequest request, Options options) where T : TransbankException
         {
             var message = new HttpRequestMessage(request.Method, new Uri(options.IntegrationType.ApiBase + request.Endpoint));
             if (request.Method != HttpMethod.Get)
@@ -38,9 +38,10 @@ namespace Transbank.Webpay.Common
                 if (!response.IsSuccessStatusCode)
                 {
                     var jsonObject = (JObject)JsonConvert.DeserializeObject(jsonResponse);
-                    throw new TransbankException((int)response.StatusCode , $"Error message: {jsonObject.Value<string>("error_message")}");
+                    throw (T)Activator.CreateInstance(typeof(T), new object[] {
+                        (int)response.StatusCode, $"Error message: {jsonObject.Value<string>("error_message")}"
+                    });
                 }
-
                 return jsonResponse;
             }
         }
