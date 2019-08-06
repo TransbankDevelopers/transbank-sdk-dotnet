@@ -3,7 +3,7 @@
 
 namespace Transbank.Onepay.Exceptions
 {
-    public class RefundCreateException : Transbank.Exceptions.TransbankException
+    public class RefundCreateException : TransbankException
     {
         public RefundCreateException() : base()
         {
