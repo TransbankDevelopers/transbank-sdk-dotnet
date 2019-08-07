@@ -1,4 +1,5 @@
 using System;
+using Transbank.Common;
 using Transbank.Webpay.WebpayPlus.Requests;
 using Transbank.Webpay.Common;
 using Transbank.Webpay.WebpayPlus.Responses;

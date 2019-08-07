@@ -1,5 +1,5 @@
 ﻿using System;
-using Transbank.Webpay.Common;
+using Transbank.Common;
 using Newtonsoft.Json;
 using System.Net.Http;
 

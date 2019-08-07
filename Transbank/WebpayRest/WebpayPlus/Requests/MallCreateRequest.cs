@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using Newtonsoft.Json;
+using Transbank.Common;
 using Transbank.Webpay.Common;
 
 namespace Transbank.Webpay.WebpayPlus.Requests

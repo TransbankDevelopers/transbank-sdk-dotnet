@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
-using Transbank.Webpay.Common;
+using Transbank.Common;
+
 namespace Transbank.Webpay.Oneclick.Requests
 {
     internal class FinishRequest : BaseRequest

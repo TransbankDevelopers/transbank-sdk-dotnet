@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Transbank.Exceptions;
+using Transbank.Common;
 using Transbank.Webpay.Common;
 using Transbank.Webpay.WebpayPlus.Exceptions;
 using Transbank.Webpay.WebpayPlus.Requests;

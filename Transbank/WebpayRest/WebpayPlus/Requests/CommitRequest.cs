@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
-using Transbank.Webpay.Common;
+using Transbank.Common;
+
 namespace Transbank.Webpay.WebpayPlus.Requests
 {
     internal class CommitRequest : BaseRequest

@@ -1,5 +1,5 @@
 ﻿using System;
-using Transbank.Webpay.Common;
+using Transbank.Common;
 using System.Net.Http;
 
 namespace Transbank.Webpay.WebpayPlus.Requests
