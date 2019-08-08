@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Transbank.Webpay.Common;
+using Transbank.Webpay.WebpayPlus.Responses;
 
 namespace Transbank.Webpay.WebpayPlus
 {
@@ -31,6 +33,23 @@ namespace Transbank.Webpay.WebpayPlus
             set => _integrationType = value ?? throw new ArgumentNullException(
                                           nameof(value), "Integration type can't be null."
                                       );
+        }
+
+        public static Options DefaultOptions()
+        {
+            return new Options(CommerceCode, ApiKey, IntegrationType);
+        }
+
+        public static MallCreateResponse Create(string buyOrder, string sessionId, string returnUrl,
+            List<TransactionDetail> transactions)
+        {
+            return Create(buyOrder, sessionId, returnUrl, transactions, DefaultOptions());
+        }
+
+        public static MallCreateResponse Create(string buyOrder, string sessionId, string returnUrl,
+            List<TransactionDetail> transactions, Options options)
+        {
+            return MallTransaction.Create(buyOrder, sessionId, returnUrl, transactions, options);
         }
     }
 }
