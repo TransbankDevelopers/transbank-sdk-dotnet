@@ -80,5 +80,39 @@ namespace Transbank.Patpass.PatpassByWebpay
                 return JsonConvert.DeserializeObject<CommitResponse>(response);
             });
         }
+
+        public static RefundResponse Refund(string token, decimal amount)
+        {
+            return Refund(token, amount, DefaultOptions());
+        }
+
+        public static RefundResponse Refund(string token, decimal amount, Options options)
+        {
+            return ExceptionHandler.Perform<RefundResponse, TransactionRefundException>(() =>
+            {
+                var refundRequest = new RefundRequest(token, amount);
+                var response = RequestService.Perform<TransactionRefundException>(
+                    refundRequest, options);
+
+                return JsonConvert.DeserializeObject<RefundResponse>(response);
+            });
+        }
+
+        public static StatusResponse Status(string token)
+        {
+            return Status(token, DefaultOptions());
+        }
+
+        public static StatusResponse Status(string token, Options options)
+        {
+            return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
+            {
+                var statusRequest = new StatusRequest(token);
+                var response = RequestService.Perform<TransactionStatusException>(
+                    statusRequest, options);
+
+                return JsonConvert.DeserializeObject<StatusResponse>(response);
+            });
+        }
     }
 }
