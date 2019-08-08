@@ -63,5 +63,22 @@ namespace Transbank.Patpass.PatpassByWebpay
 
             return JsonConvert.DeserializeObject<CreateResponse>(response);
         }
+
+        public static CommitResponse Commit(string token)
+        {
+            return Commit(token, DefaultOptions());
+        }
+
+        public static CommitResponse Commit(string token, Options options)
+        {
+            return ExceptionHandler.Perform<CommitResponse, TransactionCommitException>(() =>
+            {
+                var commitRequest = new CommitRequest(token);
+                var response = RequestService.Perform<TransactionCommitException>(
+                    commitRequest, options);
+
+                return JsonConvert.DeserializeObject<CommitResponse>(response);
+            });
+        }
     }
 }
