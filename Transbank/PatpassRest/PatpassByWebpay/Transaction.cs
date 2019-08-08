@@ -1,6 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Transbank.Common;
+using Transbank.Exceptions;
 using Transbank.Patpass.Common;
 using Transbank.Patpass.PatpassByWebpay.Requests;
 using Transbank.Patpass.PatpassByWebpay.Responses;
@@ -58,7 +59,7 @@ namespace Transbank.Patpass.PatpassByWebpay
             var createRequest = new CreateRequest(buyOrder, sessionId, amount, returnUrl, serviceId, cardHolderId,
                 cardHolderName, cardHolderLastName1, cardHolderLastName2, cardHolderMail, cellphoneNumber,
                 expirationDate, commerceMail, ufFlag);
-            var response = RequestService.Perform(createRequest, options);
+            var response = RequestService.Perform<TransactionCreateException>(createRequest, options);
 
             return JsonConvert.DeserializeObject<CreateResponse>(response);
         }
