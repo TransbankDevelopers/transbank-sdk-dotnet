@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Transbank.Common;
 using System.Net.Http;
-using Transbank.PatpassRest.Common;
+using Transbank.Patpass.Common;
 
 namespace Transbank.Patpass.PatpassByWebpay.Requests
 {
