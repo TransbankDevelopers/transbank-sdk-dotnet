@@ -1,7 +1,9 @@
 ﻿using System;
+using Transbank.Common;
+
 namespace Transbank.Webpay.Common
 {
-    public class WebpayIntegrationType
+    public class WebpayIntegrationType : IIntegrationType
     {
         public string Key { get; private set; }
         public string ApiBase { get; private set; }

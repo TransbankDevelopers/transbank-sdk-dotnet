@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Net.Http;
 using Newtonsoft.Json;
-namespace Transbank.Webpay.Common
+
+namespace Transbank.Common
 {
     public abstract class BaseRequest
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Transbank.Exceptions;
 
-namespace Transbank.Webpay.Common
+namespace Transbank.Common
 {
     internal static class ExceptionHandler
     {

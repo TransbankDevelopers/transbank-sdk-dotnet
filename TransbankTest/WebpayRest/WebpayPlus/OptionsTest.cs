@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Transbank.Common;
 using Transbank.Webpay.Common;
 
 namespace TransbankTest.WebpayRest.WebpayPlus

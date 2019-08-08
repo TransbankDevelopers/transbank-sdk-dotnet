@@ -1,7 +1,6 @@
 ﻿using System;
-using Transbank.Exceptions;
 
-namespace Transbank.Webpay.WebpayPlus.Exceptions
+namespace Transbank.Exceptions
 {
     public class TransactionCreateException : TransbankException
     {

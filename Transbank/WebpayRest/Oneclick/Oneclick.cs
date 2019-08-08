@@ -1,4 +1,5 @@
 ﻿using System;
+using Transbank.Common;
 using Transbank.Webpay.Common;
 namespace Transbank.Webpay.Oneclick
 {
