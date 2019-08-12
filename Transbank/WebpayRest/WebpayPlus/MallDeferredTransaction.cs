@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Transbank.Common;
 using Transbank.Webpay.Common;
 using Transbank.Webpay.WebpayPlus.Responses;
 
