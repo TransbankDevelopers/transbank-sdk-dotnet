@@ -4,7 +4,6 @@ using Transbank.Common;
 using Transbank.Exceptions;
 using Transbank.Webpay.Oneclick.Requests;
 using Transbank.Webpay.Oneclick.Responses;
-using Transbank.Webpay.Oneclick.Exceptions;
 
 namespace Transbank.Webpay.Oneclick
 {
