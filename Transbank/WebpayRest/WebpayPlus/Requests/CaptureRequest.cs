@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using Newtonsoft.Json;
-using Transbank.Webpay.Common;
+using Transbank.Common;
 
 namespace Transbank.Webpay.WebpayPlus.Requests
 {

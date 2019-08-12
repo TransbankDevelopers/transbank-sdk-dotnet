@@ -1,19 +1,18 @@
-using System;
+﻿using System;
+using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Exceptions;
-using Transbank.Webpay.WebpayPlus.Requests;
-using Transbank.Webpay.Common;
-using Transbank.Webpay.WebpayPlus.Responses;
-using Newtonsoft.Json;
-using Transbank.Webpay.WebpayPlus.Exceptions;
+using Transbank.Patpass.Common;
+using Transbank.Patpass.PatpassByWebpay.Requests;
+using Transbank.Patpass.PatpassByWebpay.Responses;
 
-namespace Transbank.Webpay.WebpayPlus
+namespace Transbank.Patpass.PatpassByWebpay
 {
     public static class Transaction
     {
-        private static string _commerceCode = "597055555532";
+        private static string _commerceCode = "597055555550";
         private static string _apiKey = "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C";
-        private static WebpayIntegrationType _integrationType = WebpayIntegrationType.Test;
+        private static PatpassByWebpayIntegrationType _integrationType = PatpassByWebpayIntegrationType.Test;
 
         public static string CommerceCode
         {
@@ -31,7 +30,7 @@ namespace Transbank.Webpay.WebpayPlus
             );
         }
 
-        public static WebpayIntegrationType IntegrationType
+        public static PatpassByWebpayIntegrationType IntegrationType
         {
             get => _integrationType;
             set => _integrationType = value ?? throw new ArgumentNullException(
@@ -44,23 +43,25 @@ namespace Transbank.Webpay.WebpayPlus
             return new Options(CommerceCode, ApiKey, IntegrationType);
         }
 
-        public static CreateResponse Create(string buyOrder, string sessionId,
-            decimal amount, string returnUrl)
+        public static CreateResponse Create(string buyOrder, string sessionId, decimal amount, string returnUrl, string serviceId, string cardHolderId,
+                string cardHolderName, string cardHolderLastName1, string cardHolderLastName2, string cardHolderMail, string cellphoneNumber,
+                string expirationDate, string commerceMail, bool ufFlag)
         {
-            return Create(buyOrder, sessionId, amount, returnUrl, DefaultOptions());
+            return Create(buyOrder, sessionId, amount, returnUrl, serviceId, cardHolderId,
+                cardHolderName, cardHolderLastName1, cardHolderLastName2, cardHolderMail, cellphoneNumber,
+                expirationDate, commerceMail, ufFlag, DefaultOptions());
         }
 
-        public static CreateResponse Create(string buyOrder, string sessionId,
-            decimal amount, string returnUrl, Options options)
+        public static CreateResponse Create(string buyOrder, string sessionId, decimal amount, string returnUrl, string serviceId, string cardHolderId,
+                string cardHolderName, string cardHolderLastName1, string cardHolderLastName2, string cardHolderMail, string cellphoneNumber,
+                string expirationDate, string commerceMail, bool ufFlag, Options options)
         {
-            return ExceptionHandler.Perform<CreateResponse, TransactionCreateException>(() =>
-            {
-                var createRequest = new CreateRequest(buyOrder, sessionId, amount, returnUrl);
-                var response = RequestService.Perform<TransactionCreateException>(
-                    createRequest, options);
+            var createRequest = new CreateRequest(buyOrder, sessionId, amount, returnUrl, serviceId, cardHolderId,
+                cardHolderName, cardHolderLastName1, cardHolderLastName2, cardHolderMail, cellphoneNumber,
+                expirationDate, commerceMail, ufFlag);
+            var response = RequestService.Perform<TransactionCreateException>(createRequest, options);
 
-                return JsonConvert.DeserializeObject<CreateResponse>(response);
-            });
+            return JsonConvert.DeserializeObject<CreateResponse>(response);
         }
 
         public static CommitResponse Commit(string token)
@@ -77,23 +78,6 @@ namespace Transbank.Webpay.WebpayPlus
                     commitRequest, options);
 
                 return JsonConvert.DeserializeObject<CommitResponse>(response);
-            });
-        }
-
-        public static RefundResponse Refund(string token, decimal amount)
-        {
-            return Refund(token, amount, DefaultOptions());
-        }
-
-        public static RefundResponse Refund(string token, decimal amount, Options options)
-        {
-            return ExceptionHandler.Perform<RefundResponse, TransactionRefundException>(() =>
-            {
-                var refundRequest = new RefundRequest(token, amount);
-                var response = RequestService.Perform<TransactionRefundException>(
-                    refundRequest, options);
-
-                return JsonConvert.DeserializeObject<RefundResponse>(response);
             });
         }
 

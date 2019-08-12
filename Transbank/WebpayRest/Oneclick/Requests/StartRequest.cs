@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Transbank.Webpay.Common;
 using System.Net.Http;
+using Transbank.Common;
 
 namespace Transbank.Webpay.Oneclick.Requests
 {

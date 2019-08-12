@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Transbank.Exceptions;
 
-namespace Transbank.Webpay.Common
+namespace Transbank.Common
 {
     public static class RequestService
     {

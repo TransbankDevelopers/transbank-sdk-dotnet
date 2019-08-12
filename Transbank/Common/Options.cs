@@ -1,11 +1,12 @@
 ﻿using System;
-namespace Transbank.Webpay.Common
+
+namespace Transbank.Common
 {
     public class Options
     {
         private string _commerceCode;
         private string _apiKey;
-        private WebpayIntegrationType _integrationType;
+        private IIntegrationType _integrationType;
 
         public string CommerceCode
         {
@@ -23,7 +24,7 @@ namespace Transbank.Webpay.Common
             );
         }
 
-        public WebpayIntegrationType IntegrationType
+        public IIntegrationType IntegrationType
         {
             get => _integrationType;
             set => _integrationType = value ?? throw new ArgumentNullException(
@@ -31,11 +32,11 @@ namespace Transbank.Webpay.Common
                 );
         }
 
-        public Options(string commerceCode, string apiKey, WebpayIntegrationType webpayIntegrationType)
+        public Options(string commerceCode, string apiKey, IIntegrationType integrationType)
         {
             CommerceCode = commerceCode;
             ApiKey = apiKey;
-            IntegrationType = webpayIntegrationType;
+            IntegrationType = integrationType;
         }
     }
 }
