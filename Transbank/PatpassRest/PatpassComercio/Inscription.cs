@@ -1,6 +1,4 @@
 using System;
-using System.CodeDom;
-using System.Net;
 using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Exceptions;
@@ -93,6 +91,23 @@ namespace Transbank.Patpass.PatpassComercio
             var response = RequestService.Perform<InscriptionStartException>(startRequest, options);
 
             return JsonConvert.DeserializeObject<StartResponse>(response);
+        }
+
+        public static StatusResponse Status(string token)
+        {
+            return Status(token, DefaultOptions());
+        }
+
+        public static StatusResponse Status(string token, Options options)
+        {
+            return ExceptionHandler.Perform<StatusResponse, InscriptionStatusException>(() =>
+            {
+                var statusRequest = new StatusRequest(token);
+                var response = RequestService.Perform<InscriptionStatusException>(
+                    statusRequest, options);
+
+                return JsonConvert.DeserializeObject<StatusResponse>(response);
+            });
         }
     }
     
