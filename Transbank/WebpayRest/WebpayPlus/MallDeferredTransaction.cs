@@ -52,5 +52,15 @@ namespace Transbank.Webpay.WebpayPlus
         {
             return MallTransaction.Create(buyOrder, sessionId, returnUrl, transactions, options);
         }
+
+        public static MallCommitResponse Commit(string token)
+        {
+            return Commit(token, DefaultOptions());
+        }
+
+        public static MallCommitResponse Commit(string token, Options options)
+        {
+            return MallTransaction.Commit(token, options);
+        }
     }
 }
