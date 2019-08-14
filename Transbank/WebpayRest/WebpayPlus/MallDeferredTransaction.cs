@@ -62,5 +62,26 @@ namespace Transbank.Webpay.WebpayPlus
         {
             return MallTransaction.Commit(token, options);
         }
+
+        public static MallRefundResponse Refund(string token, string buyOrder, string commerceCode, decimal amount)
+        {
+            return Refund(token, buyOrder, commerceCode, amount, DefaultOptions());
+        }
+        
+        public static MallRefundResponse Refund(string token, string buyOrder, string commerceCode, decimal amount, 
+            Options options)
+        {
+            return MallTransaction.Refund(token, buyOrder, commerceCode, amount, options);
+        }
+
+        public static MallStatusResponse Status(string token)
+        {
+            return Status(token, DefaultOptions());
+        }
+        
+        public static MallStatusResponse Status(string token, Options options)
+        {
+            return MallTransaction.Status(token, options);
+        }
     }
 }
