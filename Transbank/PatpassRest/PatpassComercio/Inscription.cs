@@ -10,8 +10,8 @@ namespace Transbank.Patpass.PatpassComercio
 {
     public static class Inscription
     {
-        private static string _commerceCode = "";
-        private static string _apiKey = "";
+        private static string _commerceCode = "28299257";
+        private static string _apiKey = "cxxXQgGD9vrVe4M41FIt";
         private static PatpassComercioIntegrationType _integrationType = PatpassComercioIntegrationType.Test;
         
         public static string CommerceCode
