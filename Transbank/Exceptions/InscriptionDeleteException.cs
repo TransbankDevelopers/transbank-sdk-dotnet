@@ -1,7 +1,6 @@
 ﻿using System;
-using Transbank.Exceptions;
 
-namespace Transbank.Webpay.Oneclick.Exceptions
+namespace Transbank.Exceptions
 {
     public class InscriptionDeleteException : TransbankException
     {

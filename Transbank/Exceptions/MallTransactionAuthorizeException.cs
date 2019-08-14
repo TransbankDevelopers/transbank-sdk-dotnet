@@ -1,7 +1,6 @@
-﻿using System;
-using Transbank.Exceptions;
+using System;
 
-namespace Transbank.Webpay.Oneclick.Exceptions
+namespace Transbank.Exceptions
 {
     public class MallTransactionAuthorizeException : TransbankException
     {
@@ -11,5 +10,6 @@ namespace Transbank.Webpay.Oneclick.Exceptions
 
         public MallTransactionAuthorizeException(int code, string message, Exception innerException)
             : base(code, message, innerException) { }
+        
     }
 }
