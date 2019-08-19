@@ -8,9 +8,9 @@ using Transbank.Webpay.Oneclick.Requests;
 using Transbank.Webpay.TransaccionCompleta.Requests;
 using Transbank.Webpay.TransaccionCompleta.Responses;
 
-namespace Transbank.Webpay.FullTransaction
+namespace Transbank.Webpay.TransaccionCompleta
 {
-    public static class Transaction
+    public static class FullTransaction
     {
 
         private static string _commerceCode = "597055555530";
