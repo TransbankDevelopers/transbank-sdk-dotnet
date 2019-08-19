@@ -4,7 +4,7 @@ using System.Net.Http;
 
 namespace Transbank.Webpay.TransaccionCompleta.Requests
 {
-    public class CreateRequest : BaseRequest
+    internal class CreateRequest : BaseRequest
     {
         [JsonProperty("buy_order")]
         public string BuyOrder { get; set; }
@@ -31,7 +31,7 @@ namespace Transbank.Webpay.TransaccionCompleta.Requests
             int cvv,
             string cardNumber,
             string cardExpirationDate)
-            : base(" /rswebpaytransaction/api/webpay/v1.0/transactions", HttpMethod.Post)
+            : base("/rswebpaytransaction/api/webpay/v1.0/transactions", HttpMethod.Post)
         {
             BuyOrder = buyOrder;
             SessionId = sessionId;
