@@ -79,5 +79,24 @@ namespace Transbank.Webpay.TransaccionCompleta
             });
 
         }
+
+        public static InstallmentsResponse Installments(
+            string token)
+        {
+            return Installments(token, DefaultOptions());
+        }
+
+        public static InstallmentsResponse Installments(
+            string token,
+            Options options)
+        {
+            return ExceptionHandler.Perform<InstallmentsResponse, TransactionInstallmentsException>(() =>
+            {
+                var installmentsRequest = new InstallmentsRequest(token);
+                var response = RequestService.Perform<TransactionInstallmentsException>(installmentsRequest, options);
+
+                return JsonConvert.DeserializeObject<InstallmentsResponse>(response);
+            });
+        }
     }
 }
