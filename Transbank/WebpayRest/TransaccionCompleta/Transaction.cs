@@ -8,7 +8,7 @@ using Transbank.Webpay.Oneclick.Requests;
 using Transbank.Webpay.TransaccionCompleta.Requests;
 using Transbank.Webpay.TransaccionCompleta.Responses;
 
-namespace Transbank.Webpay.TransaccionCompleta
+namespace Transbank.Webpay.FullTransaction
 {
     public static class Transaction
     {
