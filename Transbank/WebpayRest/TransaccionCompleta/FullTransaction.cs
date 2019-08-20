@@ -100,5 +100,34 @@ namespace Transbank.Webpay.TransaccionCompleta
                 return JsonConvert.DeserializeObject<InstallmentsResponse>(response);
             });
         }
+        
+        public static CommitResponse Commit(
+            string token,
+            int idQueryInstallments,
+            int deferredPeriods,
+            bool gracePeriod)
+        {
+            return Commit(token, idQueryInstallments, deferredPeriods, gracePeriod, DefaultOptions());
+        }
+
+        public static CommitResponse Commit(
+            string token,
+            int idQueryInstallments,
+            int deferredPeriodsIndex,
+            bool gracePeriods,
+            Options options)
+        {
+            return ExceptionHandler.Perform<CommitResponse, TransactionCommitException>(() =>
+            {
+                var commitRequest = new CommitRequest(
+                    token, 
+                    idQueryInstallments, 
+                    deferredPeriodsIndex, 
+                    gracePeriods, 
+                    options);
+                var response = RequestService.Perform<TransactionCommitException>(commitRequest, options);
+                return JsonConvert.DeserializeObject<CommitResponse>(response);
+            });
+        }
     }
 }
