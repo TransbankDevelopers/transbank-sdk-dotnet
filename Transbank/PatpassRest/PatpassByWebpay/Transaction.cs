@@ -5,6 +5,7 @@ using Transbank.Exceptions;
 using Transbank.Patpass.Common;
 using Transbank.Patpass.PatpassByWebpay.Requests;
 using Transbank.Patpass.PatpassByWebpay.Responses;
+using RequestService = Transbank.Common.RequestService;
 
 namespace Transbank.Patpass.PatpassByWebpay
 {

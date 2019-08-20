@@ -5,6 +5,7 @@ using Transbank.Exceptions;
 using Transbank.Patpass.Common;
 using Transbank.Patpass.PatpassComercio.Requests;
 using Transbank.Patpass.PatpassComercio.Responses;
+using RequestService = Transbank.Patpass.Common.RequestService;
 
 namespace Transbank.Patpass.PatpassComercio
 {
