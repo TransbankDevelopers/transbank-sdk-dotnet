@@ -23,7 +23,6 @@ namespace Transbank.Onepay.Model
                     + InstallmentsAmount.ToString().Length + InstallmentsAmount.ToString()
                     + InstallmentsNumber.ToString().Length + InstallmentsNumber.ToString()
                     + BuyOrder.Length + BuyOrder;
-            Console.WriteLine(ret);
             return ret;
         }
 

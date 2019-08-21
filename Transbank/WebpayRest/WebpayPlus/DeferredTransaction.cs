@@ -92,9 +92,9 @@ namespace Transbank.Webpay.WebpayPlus
         }
 
         public static CaptureResponse Capture(string token, string buyOrder, string authorizationCode,
-            decimal captureAmount, Options options)
+            decimal captureAmount)
         {
-            return Capture(token, buyOrder, authorizationCode, captureAmount, null, options);
+            return Capture(token, buyOrder, authorizationCode, captureAmount, null, DefaultOptions());
         }
 
         public static CaptureResponse Capture(string token, string buyOrder, string authorizationCode,

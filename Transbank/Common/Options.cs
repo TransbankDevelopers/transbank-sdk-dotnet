@@ -38,5 +38,10 @@ namespace Transbank.Common
             ApiKey = apiKey;
             IntegrationType = integrationType;
         }
+
+        public override string ToString()
+        {
+            return $"{nameof(CommerceCode)}: {CommerceCode}, {nameof(ApiKey)}: {ApiKey}, {nameof(IntegrationType)}: {IntegrationType}";
+        }
     }
 }

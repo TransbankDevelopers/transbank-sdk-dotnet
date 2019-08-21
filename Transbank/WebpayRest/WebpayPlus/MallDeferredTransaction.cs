@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using Transbank.Common;
+using Transbank.Onepay.Exceptions;
 using Transbank.Webpay.Common;
 using Transbank.Webpay.WebpayPlus.Responses;
+using Transbank.WebpayRest.WebpayPlus.Exceptions;
+using Transbank.WebpayRest.WebpayPlus.Requests;
+using Transbank.WebpayRest.WebpayPlus.Responses;
 
 namespace Transbank.Webpay.WebpayPlus
 {
@@ -82,6 +87,23 @@ namespace Transbank.Webpay.WebpayPlus
         public static MallStatusResponse Status(string token, Options options)
         {
             return MallTransaction.Status(token, options);
+        }
+
+        public static MallCaptureResponse Capture(string token, string commerceCode, string buyOrder,
+            string authorizationCode, decimal amount)
+        {
+            return Capture(token, commerceCode, buyOrder, authorizationCode, amount, DefaultOptions());
+        }
+        
+        public static MallCaptureResponse Capture(string token, string commerceCode, string buyOrder,
+            string authorizationCode, decimal amount, Options options)
+        {
+            return ExceptionHandler.Perform<MallCaptureResponse, MallTransactionCaptureException>(() =>
+            {
+                var mallCaptureRequest = new MallCaptureRequest(token, commerceCode, buyOrder, authorizationCode, amount);
+                var response = RequestService.Perform<MallTransactionCaptureException>(mallCaptureRequest, options);
+                return JsonConvert.DeserializeObject<MallCaptureResponse>(response);
+            });
         }
     }
 }
