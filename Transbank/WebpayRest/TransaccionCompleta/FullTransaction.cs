@@ -94,12 +94,15 @@ namespace Transbank.Webpay.TransaccionCompleta
         {
             return ExceptionHandler.Perform<InstallmentsResponse, TransactionInstallmentsException>(() =>
             {
-                var installmentsRequest = new InstallmentsRequest(token, installmentsNumber);
-                var response = RequestService.Perform<TransactionInstallmentsException>(
-                    installmentsRequest, options);
+                var installmentsRequest = new InstallmentsRequest(
+                    token, 
+                    installmentsNumber);
+                var response = RequestService.Perform<TransactionInstallmentsException>(installmentsRequest, options);
 
                 return JsonConvert.DeserializeObject<InstallmentsResponse>(response);
+
             });
+            
         }
         
         public static CommitResponse Commit(
@@ -108,7 +111,12 @@ namespace Transbank.Webpay.TransaccionCompleta
             int deferredPeriods,
             bool gracePeriod)
         {
-            return Commit(token, idQueryInstallments, deferredPeriods, gracePeriod, DefaultOptions());
+            return Commit(
+                token, 
+                idQueryInstallments, 
+                deferredPeriods, 
+                gracePeriod, 
+                DefaultOptions());
         }
 
         public static CommitResponse Commit(
