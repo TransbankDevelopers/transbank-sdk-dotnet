@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Web.Services3.Security;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Transbank.Common;
 using Transbank.Exceptions;
-using Transbank.Patpass.Common;
 using Transbank.Webpay.Common;
 using Transbank.Webpay.TransaccionCompletaMall.Common;
 using Transbank.Webpay.TransaccionCompletaMall.Requests;
@@ -113,6 +113,33 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             });
         }
 
+        public static MallInstallmentsResponse MallInstallments(
+            string token,
+            List<MallInstallmentsDetails> details)
+        {
+            return MallInstallments(token, details);
+        }
+
+        public static MallInstallmentsResponse MallInstallmentsResponse(
+            string token,
+            List<MallInstallmentsDetails> details,
+            Options options)
+        {
+            return ExceptionHandler.Perform<MallInstallmentsDetailsResponse, MallTransactionInstallmentsExceptions>(() =>
+            {
+                List<MallInstallmentsDetailsResponse> detailsResponse = new List<MallInstallmentsDetailsResponse>();
+                foreach (MallInstallmentsDetails detail in details)
+                {
+                    var mallInstallmentsResponse = new MallInstallmentsRequest(
+                        token,
+                        detail.CommerceCode,
+                        detail.BuyOrder,
+                        detail.InstallmentsNumber);
+                    
+                }
+            });
+        }
+
         public static MallCommitResponse MallCommit(
             string token,
             List<CommitDetails> details)
@@ -188,6 +215,4 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             });
         }
     }
-    
-    
-}
+ }

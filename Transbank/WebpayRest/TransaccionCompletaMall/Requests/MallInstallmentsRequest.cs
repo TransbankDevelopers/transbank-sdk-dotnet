@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using Transbank.Common;
 using System.Net.Http;
+using Transbank.Webpay.TransaccionCompletaMall.Common;
 
 namespace Transbank.Webpay.TransaccionCompletaMall.Requests
 {
@@ -14,7 +15,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Requests
         
         [JsonProperty("installments_number")]
         public int InstallmentsNumber { get; set; }
-
+        
         internal MallInstallmentsRequest(
             string token,
             string commerceCode,
