@@ -6,6 +6,9 @@ using Transbank.Webpay.Common;
 using Transbank.Webpay.Oneclick.Requests;
 using Transbank.Webpay.Oneclick.Responses;
 using Transbank.Webpay.Oneclick.Exceptions;
+using Transbank.Webpay.WebpayPlus.Exceptions;
+using Transbank.WebpayRest.Oneclick.Requests;
+using Transbank.WebpayRest.Oneclick.Responses;
 
 namespace Transbank.Webpay.Oneclick
 {
@@ -46,22 +49,54 @@ namespace Transbank.Webpay.Oneclick
             return new Options(CommerceCode, ApiKey, IntegrationType);
         }
         
-        public static AuthorizeMallResponse Authorize(string userName, string tbkUser,
+        public static MallAuthorizeResponse Authorize(string userName, string tbkUser,
             string buyOrder, List<PaymentRequest> details)
         {
             return Authorize(userName, tbkUser, buyOrder, details, DefaultOptions());
         }
 
-        public static AuthorizeMallResponse Authorize(string userName, string tbkUser, string buyOrder,
+        public static MallAuthorizeResponse Authorize(string userName, string tbkUser, string buyOrder,
             List<PaymentRequest> details, Options options)
         {
-            return ExceptionHandler.Perform<AuthorizeMallResponse, MallTransactionAuthorizeException>(() =>
+            return ExceptionHandler.Perform<MallAuthorizeResponse, MallTransactionAuthorizeException>(() =>
             {
-                var authorizeRequest = new AuthorizeMallRequest(userName, tbkUser, buyOrder,
+                var authorizeRequest = new MallAuthorizeRequest(userName, tbkUser, buyOrder,
                     details);
                 var response = RequestService.Perform<MallTransactionAuthorizeException>(authorizeRequest, options);
 
-                return JsonConvert.DeserializeObject<AuthorizeMallResponse>(response);
+                return JsonConvert.DeserializeObject<MallAuthorizeResponse>(response);
+            });
+        }
+
+        public static MallRefundResponse Refund(string buyOrder, string childCommerceCode, string childBuyOrder,
+            decimal amount)
+        {
+            return Refund(buyOrder, childCommerceCode, childBuyOrder, amount, DefaultOptions());
+        }
+
+        public static MallRefundResponse Refund(string buyOrder, string childCommerceCode, string childBuyOrder,
+            decimal amount, Options options)
+        {
+            return ExceptionHandler.Perform<MallRefundResponse, MallTransactionRefundException>(() =>
+            {
+                var mallRefundRequest = new MallRefundRequest(buyOrder, childCommerceCode, childBuyOrder, amount);
+                var response = RequestService.Perform<MallTransactionRefundException>(mallRefundRequest, options);
+                return JsonConvert.DeserializeObject<MallRefundResponse>(response);
+            });
+        }
+
+        public static MallStatusResponse Status(string buyOrder)
+        {
+            return Status(buyOrder, DefaultOptions());
+        }
+        
+        public static MallStatusResponse Status(string buyOrder, Options options)
+        {
+            return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
+            {
+                var mallStatusRequest = new MallStatusRequest(buyOrder);
+                var response = RequestService.Perform<MallTransactionStatusException>(mallStatusRequest, options);
+                return JsonConvert.DeserializeObject<MallStatusResponse>(response);
             });
         }
     }

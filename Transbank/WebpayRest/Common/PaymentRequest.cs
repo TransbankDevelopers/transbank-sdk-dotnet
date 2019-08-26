@@ -5,30 +5,31 @@ namespace Transbank.Webpay.Common
     public class PaymentRequest
     {
         [JsonProperty("commerce_code")]
-        public string ComerceCode { get; private set; }
+        public string CommerceCode { get; private set; }
 
         [JsonProperty("buy_order")]
         public string BuyOrder { get; private set; }
 
         [JsonProperty("amount")]
-        public int Amount { get; private set; }
+        public decimal Amount { get; private set; }
 
         [JsonProperty("installments_number")]
-        public int Installments { get; private set; }
+        public int InstallmentsNumber { get; private set; }
 
-        public PaymentRequest (string comerceCode, string buyOrder, int amount)
+        public PaymentRequest (string commerceCode, string buyOrder, decimal amount, int installmentsNumber)
         {
-            ComerceCode = comerceCode;
+            CommerceCode = commerceCode;
             BuyOrder = buyOrder;
             Amount = amount;
+            InstallmentsNumber = installmentsNumber;
         }
 
         public override string ToString()
         {
-            return $"Comerce Code= {ComerceCode}\n" +
+            return $"Commerce Code= {CommerceCode}\n" +
                 $"Buy Order= {BuyOrder}\n" +
                 $"Amount= {Amount}\n" +
-                $"Installments= {Installments}";
+                $"InstallmentsNumber= {InstallmentsNumber}";
         }
     }
 }
