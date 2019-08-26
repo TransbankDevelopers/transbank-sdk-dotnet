@@ -167,6 +167,26 @@ namespace Transbank.Webpay.TransaccionCompletaMall
 
             });
         }
+
+        public static MallStatusResponse MallStatus(
+            string token)
+        {
+            return MallStatus(token);
+        }
+
+        public static MallStatusResponse MallStatus(
+            string token,
+            Options options)
+        {
+            return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
+            {
+                var mallStatusRequest = new MallStatusRequest(
+                    token);
+                var response = RequestService.Perform<MallTransactionStatusException>(mallStatusRequest, options);
+
+                return JsonConvert.DeserializeObject<MallStatusResponse>(response);
+            });
+        }
     }
     
     
