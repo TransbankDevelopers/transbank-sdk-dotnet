@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Web.Services3.Security;
 using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Exceptions;
@@ -114,7 +115,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
 
         public static MallCommitResponse MallCommit(
             string token,
-            CommitDetails details)
+            List<CommitDetails> details)
         {
             return MallCommit(
                 token, 
@@ -136,7 +137,36 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                 return JsonConvert.DeserializeObject<MallCommitResponse>(response);
             });
         }
-        
+
+        public static MallRefundResponse MallRefund(
+            string token,
+            string buyOrder,
+            string commerceCode,
+            int amount)
+        {
+            return MallRefund(token, buyOrder, commerceCode, amount);
+        }
+
+        public static MallRefundResponse MallRefund(
+            string token,
+            string buyOrder,
+            string commerceCode,
+            int amount,
+            Options options)
+        {
+            return ExceptionHandler.Perform<MallRefundResponse, MallTransactionRefundException>(() =>
+            {
+                var mallRefundRequest = new MallRefundRequest(
+                    token,
+                    buyOrder,
+                    commerceCode, 
+                    amount);
+                var response = RequestService.Perform<MallTransactionRefundException>(mallRefundRequest, options);
+
+                return JsonConvert.DeserializeObject<MallRefundResponse>(response);
+
+            });
+        }
     }
     
     

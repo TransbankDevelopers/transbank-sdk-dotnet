@@ -17,14 +17,14 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Common
         public int DeferredPeriodIndex { get; }
         
         [JsonProperty("grace_period")]
-        public int GracePeriod { get; }
+        public bool GracePeriod { get; }
 
         public CommitDetails(
             string commerceCode,
             string buyOrder,
             int idQueryInstallments,
             int deferredPeriodIndex,
-            int gracePeriod)
+            bool gracePeriod)
         {
             CommerceCode = commerceCode;
             BuyOrder = buyOrder;
