@@ -15,8 +15,6 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Responses
         [JsonProperty("deferred_periods")]
         public List<DeferredPeriods> DeferredPeriods { get; set; }
         
-        [JsonProperty("details")]
-        public List<MallInstallmentsDetailsResponse> Details { get; set; }
 
         public MallInstallmentsResponse(int installmentsAmount, int idQueryInstallments, List<DeferredPeriods> deferredPeriods)
         {
@@ -25,9 +23,5 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Responses
             DeferredPeriods = deferredPeriods;
         }
 
-        public MallInstallmentsResponse(List<MallInstallmentsDetailsResponse> details)
-        {
-            Details = details;
-        }
     }
 }

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using Transbank.Common;
 using Transbank.Exceptions;
 using Transbank.Webpay.Common;
@@ -97,7 +95,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             string token,
             string commerceCode,
             string buyOrder,
-            int installmentsAmount,
+            int installmentsNumber,
             Options options)
         {
             return ExceptionHandler.Perform<MallInstallmentsResponse, MallTransactionInstallmentsExceptions>(() =>
@@ -106,43 +104,53 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                     token,
                     commerceCode,
                     buyOrder,
-                    installmentsAmount);
+                    installmentsNumber);
                 var response = RequestService.Perform<MallTransactionInstallmentsExceptions>(mallInstallmentsResponse, options);
 
                 return JsonConvert.DeserializeObject<MallInstallmentsResponse>(response);
             });
         }
 
-        public static MallInstallmentsResponse MallInstallments(
+        public static MallInstallmentsDetailsResponse MallInstallments(
             string token,
             List<MallInstallmentsDetails> details)
         {
             return MallInstallments(token, details);
         }
 
-        public static MallInstallmentsResponse MallInstallmentsResponse(
+        public static MallInstallmentsDetailsResponse MallInstallments(
             string token,
-            List<MallInstallmentsDetails> details,
+            List<MallInstallmentsDetails> detailsGroup,
             Options options)
         {
             return ExceptionHandler.Perform<MallInstallmentsDetailsResponse, MallTransactionInstallmentsExceptions>(() =>
             {
-                List<MallInstallmentsDetailsResponse> detailsResponse = new List<MallInstallmentsDetailsResponse>();
-                foreach (MallInstallmentsDetails detail in details)
-                {
-                    var mallInstallmentsResponse = new MallInstallmentsRequest(
-                        token,
-                        detail.CommerceCode,
-                        detail.BuyOrder,
-                        detail.InstallmentsNumber);
-                    
-                }
+               List<MallInstallmentsResponse> details = new List<MallInstallmentsResponse>();
+
+               foreach (MallInstallmentsDetails req in detailsGroup)
+               {
+                   var request = new MallInstallmentsRequest(
+                       token,
+                       req.CommerceCode,
+                       req.BuyOrder,
+                       req.InstallmentsNumber);
+
+                   var response = RequestService.Perform<MallTransactionInstallmentsExceptions>(request, options);
+                   var json = JsonConvert.DeserializeObject<MallInstallmentsResponse>(response);
+                   
+                   details.Add(new MallInstallmentsResponse(json.InstallmentsAmount, json.IdQueryInstallments, json.DeferredPeriods));
+
+               }
+
+              
+
+               return JsonConvert.DeserializeObject<MallInstallmentsDetailsResponse>(details.ToString());
             });
         }
 
         public static MallCommitResponse MallCommit(
             string token,
-            List<CommitDetails> details)
+            List<MallCommitDetails> details)
         {
             return MallCommit(
                 token, 
@@ -151,7 +159,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
 
         public static MallCommitResponse MallCommit(
             string token,
-            List<CommitDetails> details,
+            List<MallCommitDetails> details,
             Options options)
         {
             return ExceptionHandler.Perform<MallCommitResponse, MallTransactionCommitException>(() =>
