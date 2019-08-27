@@ -1,5 +1,7 @@
 using System;
+using System.Net.NetworkInformation;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Transbank.Common;
 using Transbank.Exceptions;
 using Transbank.Webpay.Common;
@@ -135,6 +137,44 @@ namespace Transbank.Webpay.TransaccionCompleta
             var response = RequestService.Perform<TransactionCommitException>(commitRequest, options);
             return JsonConvert.DeserializeObject<CommitResponse>(response);
             
+        }
+
+        public static StatusResponse Status(
+            string token)
+        {
+            return Status(token, DefaultOptions());
+        }
+
+        public static StatusResponse Status(
+            string token,
+            Options options)
+        {
+            return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
+            {
+                var request = new StatusRequest(token);
+                var response = RequestService.Perform<TransactionStatusException>(request, options);
+
+                return JsonConvert.DeserializeObject<StatusResponse>(response);
+            });
+        }
+
+        public static RefundResponse Refund(
+            string token,
+            int amount)
+        {
+            return Refund(token, amount, DefaultOptions());
+        }
+
+        public static RefundResponse Refund(
+            string token, int amount, Options options)
+        {
+            return ExceptionHandler.Perform<RefundResponse, TransactionRefundException>(() =>
+            {
+                var request = new RefundRequest(token, amount);
+                var response = RequestService.Perform<TransactionRefundException>(request, options);
+
+                return JsonConvert.DeserializeObject<RefundResponse>(response);
+            });
         }
     }
 }
