@@ -18,7 +18,7 @@ namespace Transbank.Webpay.TransaccionCompleta.Requests
         internal CommitRequest(string token,
             int idQueryInstallments,
             int deferredPeriodIndex,
-            bool gracePeriod, Options options)
+            bool gracePeriod)
             : base($"/rswebpaytransaction/api/webpay/v1.0/transactions/{token}", HttpMethod.Put)
         {
             IdQueryInstallments = idQueryInstallments;

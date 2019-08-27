@@ -41,6 +41,21 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
         [JsonProperty("installments_number")]
         public int InstallmentsNumber { get; private set; }
 
+        public CommitResponse(int amount, string status, string buyOrder, string sessionId, CardDetail cardDetail, string accountingDate, string transactionDate, string authorizationCode, string paymentTypeCode, int responseCode, int installmentsAmount, int installmentsNumber)
+        {
+            Amount = amount;
+            Status = status;
+            BuyOrder = buyOrder;
+            SessionId = sessionId;
+            CardDetail = cardDetail;
+            AccountingDate = accountingDate;
+            TransactionDate = transactionDate;
+            AuthorizationCode = authorizationCode;
+            PaymentTypeCode = paymentTypeCode;
+            ResponseCode = responseCode;
+            InstallmentsAmount = installmentsAmount;
+        }
+
         public override string ToString()
         {
             return $"Amount={Amount}\n" +

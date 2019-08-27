@@ -63,14 +63,14 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
                    $"Status={Status}\n" +
                    $"BuyOrder={BuyOrder}\n" +
                    $"SessionId={SessionId}\n" +
-                   $"CardDetail={CardDetail.ToString()}\n" +
+                   $"CardDetail={CardDetail}\n" +
                    $"AccountingDate={AccountingDate}\n" +
                    $"TransactionDate={TransactionDate}\n" +
                    $"AuthorizationCode={AuthorizationCode}\n" +
                    $"PaymentTypeCode={PaymentTypeCode}\n" +
                    $"ResponseCode={ResponseCode}\n" +
                    $"InstallmentsAmount={InstallmentsAmount}\n" +
-                   $"InstallmentsNumber={InstallmentsNumber}\n";
+                   $"InstallmentsAmount={InstallmentsAmount}\n";
         }
     }
 }

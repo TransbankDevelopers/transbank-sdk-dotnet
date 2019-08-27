@@ -6,7 +6,12 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
     {
         [JsonProperty("token")]
         public string Token { get; private set; }
-  
+
+        public CreateResponse(string token)
+        {
+            Token = token;
+        }
+
         public override string ToString()
         {
             return $"Token={Token}";

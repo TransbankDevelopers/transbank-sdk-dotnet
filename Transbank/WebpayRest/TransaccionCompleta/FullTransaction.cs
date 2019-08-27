@@ -1,7 +1,5 @@
 using System;
-using System.Net.NetworkInformation;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using Transbank.Common;
 using Transbank.Exceptions;
 using Transbank.Webpay.Common;
@@ -128,15 +126,16 @@ namespace Transbank.Webpay.TransaccionCompleta
             bool gracePeriods,
             Options options)
         {
-            var commitRequest = new CommitRequest(
-                token, 
-                idQueryInstallments, 
-                deferredPeriodsIndex, 
-                gracePeriods, 
-                options);
-            var response = RequestService.Perform<TransactionCommitException>(commitRequest, options);
-            return JsonConvert.DeserializeObject<CommitResponse>(response);
-            
+            return ExceptionHandler.Perform<CommitResponse, TransactionCommitException>(() =>
+            {
+                var commitRequest = new CommitRequest(
+                    token, 
+                    idQueryInstallments, 
+                    deferredPeriodsIndex, 
+                    gracePeriods);
+                var response = RequestService.Perform<TransactionCommitException>(commitRequest, options);
+                return JsonConvert.DeserializeObject<CommitResponse>(response);
+            });
         }
 
         public static StatusResponse Status(

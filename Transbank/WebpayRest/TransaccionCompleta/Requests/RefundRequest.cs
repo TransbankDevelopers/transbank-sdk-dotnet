@@ -1,5 +1,4 @@
 using System.Net.Http;
-using System.Net.NetworkInformation;
 using Newtonsoft.Json;
 using Transbank.Common;
 
@@ -15,4 +14,4 @@ namespace Transbank.Webpay.TransaccionCompleta.Requests
             Amount = amount;
         }
     }
-}
+}    
