@@ -12,7 +12,7 @@ namespace Transbank.Webpay.TransaccionCompleta.Requests
         internal InstallmentsRequest(
             string token, 
             int installmentsNumber)
-            : base($"/rswebpaytransaction/api/webpay/v1.0/transactions/{token}", HttpMethod.Post)
+            : base($"/rswebpaytransaction/api/webpay/v1.0/transactions/{token}/installments", HttpMethod.Post)
         {
             InstallmentsNumber = installmentsNumber;
         }
