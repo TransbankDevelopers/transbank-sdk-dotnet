@@ -11,5 +11,10 @@ namespace Transbank.Webpay.TransaccionCompleta.Common
         {
             CardNumber = cardNumber;
         }
+
+        public override string ToString()
+        {
+            return $"CardNumber={CardNumber}";
+        }
     }
 }

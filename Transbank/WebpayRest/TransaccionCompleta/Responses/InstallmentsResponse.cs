@@ -21,5 +21,12 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
             IdQueryInstallments = idQueryInstallments;
             DeferredPeriods = deferredPeriods;
         }
+        
+        public override string ToString()
+        {
+            return $"InstallmentsAmount={InstallmentsAmount}\n" +
+                   $"IdQueryInstallments={IdQueryInstallments}\n" +
+                   $"DeferredPeriods={DeferredPeriods.ToString()}";
+        }
     }
 }

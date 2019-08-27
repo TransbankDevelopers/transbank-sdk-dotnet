@@ -15,5 +15,11 @@ namespace Transbank.Webpay.TransaccionCompleta.Common
             Amount= amount;
             Period = period;
         }
+
+        public override string ToString()
+        {
+            return $"Amount={Amount}\n" +
+                   $"Period={Period}";
+        }
     }
 }

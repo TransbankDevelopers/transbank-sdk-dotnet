@@ -56,5 +56,21 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
             InstallmentsAmount = installmentsAmount;
             InstallmentsNumber = installmentsNumber;
         }
+
+        public override string ToString()
+        {
+            return $"Amount={Amount}\n" +
+                   $"Status={Status}\n" +
+                   $"BuyOrder={BuyOrder}\n" +
+                   $"SessionId={SessionId}\n" +
+                   $"CardDetail={CardDetail.ToString()}\n" +
+                   $"AccountingDate={AccountingDate}\n" +
+                   $"TransactionDate={TransactionDate}\n" +
+                   $"AuthorizationCode={AuthorizationCode}\n" +
+                   $"PaymentTypeCode={PaymentTypeCode}\n" +
+                   $"ResponseCode={ResponseCode}\n" +
+                   $"InstallmentsAmount={InstallmentsAmount}\n" +
+                   $"InstallmentsNumber={InstallmentsNumber}\n";
+        }
     }
 }
