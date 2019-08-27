@@ -46,17 +46,17 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             return new Options(CommerceCode, ApiKey, IntegrationType);
         }
 
-        public static MallCreateResponse MallCreate(
+        public static MallCreateResponse Create(
             string buyOrder,
             string sessionId,
             string cardNumber,
             string cardExpirationDate,
             List<CreateDetails> details)
         {
-            return MallCreate(buyOrder, sessionId, cardNumber, cardExpirationDate, details);
+            return Create(buyOrder, sessionId, cardNumber, cardExpirationDate, details);
         }
 
-        public static MallCreateResponse MallCreate(
+        public static MallCreateResponse Create(
             string buyOrder,
             string sessionId,
             string cardNumber,
@@ -78,20 +78,20 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             });
         }
 
-        public static MallInstallmentsResponse MallInstallments(
+        public static MallInstallmentsResponse Installments(
             string token,
             string commerceCode,
             string buyOrder,
             int installmentsAmount)
         {
-            return MallInstallments(
+            return Installments(
                 token,
                 commerceCode,
                 buyOrder,
                 installmentsAmount);
         }
 
-        public static MallInstallmentsResponse MallInstallments(
+        public static MallInstallmentsResponse Installments(
             string token,
             string commerceCode,
             string buyOrder,
@@ -111,14 +111,14 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             });
         }
 
-        public static MallInstallmentsDetailsResponse MallInstallments(
+        public static MallInstallmentsDetailsResponse Installments(
             string token,
             List<MallInstallmentsDetails> details)
         {
-            return MallInstallments(token, details);
+            return Installments(token, details);
         }
 
-        public static MallInstallmentsDetailsResponse MallInstallments(
+        public static MallInstallmentsDetailsResponse Installments(
             string token,
             List<MallInstallmentsDetails> detailsGroup,
             Options options)
@@ -148,16 +148,16 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             });
         }
 
-        public static MallCommitResponse MallCommit(
+        public static MallCommitResponse Commit(
             string token,
             List<MallCommitDetails> details)
         {
-            return MallCommit(
+            return Commit(
                 token, 
                 details);
         }
 
-        public static MallCommitResponse MallCommit(
+        public static MallCommitResponse Commit(
             string token,
             List<MallCommitDetails> details,
             Options options)
@@ -173,16 +173,16 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             });
         }
 
-        public static MallRefundResponse MallRefund(
+        public static MallRefundResponse Refund(
             string token,
             string buyOrder,
             string commerceCode,
             int amount)
         {
-            return MallRefund(token, buyOrder, commerceCode, amount);
+            return Refund(token, buyOrder, commerceCode, amount);
         }
 
-        public static MallRefundResponse MallRefund(
+        public static MallRefundResponse Refund(
             string token,
             string buyOrder,
             string commerceCode,
@@ -203,13 +203,13 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             });
         }
 
-        public static MallStatusResponse MallStatus(
+        public static MallStatusResponse Status(
             string token)
         {
-            return MallStatus(token);
+            return Status(token);
         }
 
-        public static MallStatusResponse MallStatus(
+        public static MallStatusResponse Status(
             string token,
             Options options)
         {
