@@ -94,10 +94,85 @@ namespace Transbank.Webpay.TransaccionCompleta
         {
             return ExceptionHandler.Perform<InstallmentsResponse, TransactionInstallmentsException>(() =>
             {
-                var installmentsRequest = new InstallmentsRequest(token, installmentsNumber);
+                var installmentsRequest = new InstallmentsRequest(
+                    token, 
+                    installmentsNumber);
                 var response = RequestService.Perform<TransactionInstallmentsException>(installmentsRequest, options);
 
                 return JsonConvert.DeserializeObject<InstallmentsResponse>(response);
+
+            });
+            
+        }
+        
+        public static CommitResponse Commit(
+            string token,
+            int idQueryInstallments,
+            int deferredPeriods,
+            bool gracePeriod)
+        {
+            return Commit(
+                token, 
+                idQueryInstallments, 
+                deferredPeriods, 
+                gracePeriod, 
+                DefaultOptions());
+        }
+
+        public static CommitResponse Commit(
+            string token,
+            int idQueryInstallments,
+            int deferredPeriodsIndex,
+            bool gracePeriods,
+            Options options)
+        {
+            return ExceptionHandler.Perform<CommitResponse, TransactionCommitException>(() =>
+            {
+                var commitRequest = new CommitRequest(
+                    token, 
+                    idQueryInstallments, 
+                    deferredPeriodsIndex, 
+                    gracePeriods);
+                var response = RequestService.Perform<TransactionCommitException>(commitRequest, options);
+                return JsonConvert.DeserializeObject<CommitResponse>(response);
+            });
+        }
+
+        public static StatusResponse Status(
+            string token)
+        {
+            return Status(token, DefaultOptions());
+        }
+
+        public static StatusResponse Status(
+            string token,
+            Options options)
+        {
+            return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
+            {
+                var request = new StatusRequest(token);
+                var response = RequestService.Perform<TransactionStatusException>(request, options);
+
+                return JsonConvert.DeserializeObject<StatusResponse>(response);
+            });
+        }
+
+        public static RefundResponse Refund(
+            string token,
+            int amount)
+        {
+            return Refund(token, amount, DefaultOptions());
+        }
+
+        public static RefundResponse Refund(
+            string token, int amount, Options options)
+        {
+            return ExceptionHandler.Perform<RefundResponse, TransactionRefundException>(() =>
+            {
+                var request = new RefundRequest(token, amount);
+                var response = RequestService.Perform<TransactionRefundException>(request, options);
+
+                return JsonConvert.DeserializeObject<RefundResponse>(response);
             });
         }
     }
