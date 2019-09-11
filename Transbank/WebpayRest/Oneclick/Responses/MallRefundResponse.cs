@@ -31,5 +31,14 @@ namespace Transbank.WebpayRest.Oneclick.Responses
             AuthorizationDate = authorizationDate;
             NullifiedAmount = nullifiedAmount;
         }
+        public override string ToString()
+        {
+            return $"\"Type\": {Type}\"\n" +
+                   $"\"Balance\": {Balance}\"\n" +
+                   $"\"AuthorizationCode\": {AuthorizationCode}\"\n" +
+                   $"\"ResponseCode\": {ResponseCode}\"\n" +
+                   $"\"AuthorizationDate\": {AuthorizationDate}\"\n" +
+                   $"\"NullifiedAmount\": {NullifiedAmount}\"\n" ;
+        }
     }
 }
