@@ -28,17 +28,17 @@ namespace Transbank.Webpay.Common
         [JsonProperty("amount")]
         public decimal Amount { get; private set; }
 
-        public PaymentResponse (string comerceCode, string buyOrder, int ammount, int autorizationCode,
-            string paymentTypeCode, int responseCode, int installmentsAmmount, string status)
+        public PaymentResponse (string commerceCode, string buyOrder, int amount, int authorizationCode,
+            string paymentTypeCode, int responseCode, int installmentsAmount, string status)
         {
-            AuthorizationCode = autorizationCode;
+            AuthorizationCode = authorizationCode;
             PaymentTypeCode = paymentTypeCode;
             ResponseCode = responseCode;
-            InstallmentsNumber = installmentsAmmount;
+            InstallmentsNumber = installmentsAmount;
             Status = status;
-            CommerceCode = comerceCode;
+            CommerceCode = commerceCode;
             BuyOrder = buyOrder;
-            Amount = ammount;
+            Amount = amount;
         }
 
         public override string ToString()
