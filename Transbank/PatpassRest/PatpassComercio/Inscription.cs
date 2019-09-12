@@ -5,7 +5,7 @@ using Transbank.Exceptions;
 using Transbank.Patpass.Common;
 using Transbank.Patpass.PatpassComercio.Requests;
 using Transbank.Patpass.PatpassComercio.Responses;
-using RequestService = Transbank.Patpass.Common.RequestService;
+using RequestService = Transbank.Patpass.Common.PatpassComercioRequestService;
 
 namespace Transbank.Patpass.PatpassComercio
 {
@@ -85,13 +85,17 @@ namespace Transbank.Patpass.PatpassComercio
             Options options
         )
         {
-            var startRequest = new StartRequest(
-                url, name, fLastname, sLastname, rut, serviceId, finalUrl, commerceCode, maxAmount,
-                phoneNumber, mobileNumber, patpassName, personEmail, commerceEmail, address, city
+            return ExceptionHandler.Perform<StartResponse, InscriptionStartException>(() =>
+            {
+                var startRequest = new StartRequest(
+                    url, name, fLastname, sLastname, rut, serviceId, finalUrl, commerceCode, maxAmount,
+                    phoneNumber, mobileNumber, patpassName, personEmail, commerceEmail, address, city
                 );
-            var response = RequestService.Perform<InscriptionStartException>(startRequest, options);
+                var response = RequestService.Perform<InscriptionStartException>(startRequest, options);
 
-            return JsonConvert.DeserializeObject<StartResponse>(response);
+                return JsonConvert.DeserializeObject<StartResponse>(response);
+            });
+            
         }
 
         public static StatusResponse Status(string token)

@@ -5,7 +5,6 @@ namespace Transbank.Patpass.Common
 {
     public class PatpassComercioIntegrationType : IIntegrationType
     {
-        
         public string Key { get; private set; }
         public string ApiBase { get; private set; }
 
@@ -18,6 +17,6 @@ namespace Transbank.Patpass.Common
         public static readonly PatpassComercioIntegrationType Live =
             new PatpassComercioIntegrationType("LIVE", "https://www.pagoautomaticocontarjetas.cl/");
         public static readonly PatpassComercioIntegrationType Test =
-            new PatpassComercioIntegrationType("TEST", "https://webpay3gint.transbank.cl");
+            new PatpassComercioIntegrationType("TEST", "https://pagoautomaticocontarjetasint.transbank.cl/");
     }
 }
