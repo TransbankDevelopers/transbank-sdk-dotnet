@@ -14,7 +14,19 @@ namespace Transbank.Patpass.PatpassByWebpay
         private static string _commerceCode = "597055555550";
         private static string _apiKey = "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C";
         private static PatpassByWebpayIntegrationType _integrationType = PatpassByWebpayIntegrationType.Test;
+        
+        private static string _commerceCodeHeaderName = "Tbk-Api-Key-Id";
+        private static string _apiKeyHeaderName = "Tbk-Api-Key-Secret";
 
+        private static RequestServiceHeaders _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
+
+        public static RequestServiceHeaders Headers
+        {
+            get => _headers;
+            set => _headers = value ?? throw new ArgumentNullException(
+                                  nameof(value), "Integration type can't be null."
+                              );
+        }
         public static string CommerceCode
         {
             get => _commerceCode;
@@ -39,9 +51,11 @@ namespace Transbank.Patpass.PatpassByWebpay
             );
         }
 
+        
+
         public static Options DefaultOptions()
         {
-            return new Options(CommerceCode, ApiKey, IntegrationType);
+            return new Options(CommerceCode, ApiKey, IntegrationType, Headers);
         }
 
         public static CreateResponse Create(string buyOrder, string sessionId, decimal amount, string returnUrl, string serviceId, string cardHolderId,

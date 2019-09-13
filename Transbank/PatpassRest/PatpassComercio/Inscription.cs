@@ -1,11 +1,12 @@
 using System;
+using System.Dynamic;
+using System.Runtime.Remoting.Messaging;
 using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Exceptions;
 using Transbank.Patpass.Common;
 using Transbank.Patpass.PatpassComercio.Requests;
 using Transbank.Patpass.PatpassComercio.Responses;
-using RequestService = Transbank.Patpass.Common.PatpassComercioRequestService;
 
 namespace Transbank.Patpass.PatpassComercio
 {
@@ -14,7 +15,11 @@ namespace Transbank.Patpass.PatpassComercio
         private static string _commerceCode = "28299257";
         private static string _apiKey = "cxxXQgGD9vrVe4M41FIt";
         private static PatpassComercioIntegrationType _integrationType = PatpassComercioIntegrationType.Test;
-        
+        private static string _apiKeyHeaderName = "Authorization";
+        private static string _commerceCodeHeaderName = "commerceCode";
+
+        private static RequestServiceHeaders _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
+
         public static string CommerceCode
         {
             get => _commerceCode;
@@ -37,9 +42,16 @@ namespace Transbank.Patpass.PatpassComercio
                                           nameof(value), "Integration type can't be null");
         }
 
+        public static RequestServiceHeaders Headers
+        {
+            get => _headers;
+            set => _headers = value ?? throw new ArgumentNullException(
+                                 nameof(value), " Headers can't be null");
+        }
+
         public static Options DefaultOptions()
         {
-            return new Options(CommerceCode, ApiKey, IntegrationType);
+            return new Options(CommerceCode, ApiKey, IntegrationType, Headers);
         }
 
         public static StartResponse Start(
@@ -51,7 +63,7 @@ namespace Transbank.Patpass.PatpassComercio
             string serviceId,
             string finalUrl,
             string commerceCode,
-            int maxAmount,
+            decimal maxAmount,
             string phoneNumber,
             string mobileNumber,
             string patpassName,
@@ -61,8 +73,25 @@ namespace Transbank.Patpass.PatpassComercio
             string city
         )
         {
-            return Start(url, name, fLastname, sLastname, rut, serviceId, finalUrl, commerceCode, maxAmount,
-                phoneNumber, mobileNumber, patpassName, personEmail, commerceEmail, address, city, DefaultOptions());
+            return Start(
+                url,
+                name,
+                fLastname,
+                sLastname,
+                rut,
+                serviceId,
+                finalUrl,
+                commerceCode,
+                maxAmount,
+                phoneNumber,
+                mobileNumber,
+                patpassName,
+                personEmail,
+                commerceEmail,
+                address,
+                city, 
+                DefaultOptions()
+                );
         }
 
         public static StartResponse Start(
@@ -74,7 +103,7 @@ namespace Transbank.Patpass.PatpassComercio
             string serviceId,
             string finalUrl,
             string commerceCode,
-            int maxAmount,
+            decimal maxAmount,
             string phoneNumber,
             string mobileNumber,
             string patpassName,
@@ -87,11 +116,25 @@ namespace Transbank.Patpass.PatpassComercio
         {
             return ExceptionHandler.Perform<StartResponse, InscriptionStartException>(() =>
             {
-                var startRequest = new StartRequest(
-                    url, name, fLastname, sLastname, rut, serviceId, finalUrl, commerceCode, maxAmount,
-                    phoneNumber, mobileNumber, patpassName, personEmail, commerceEmail, address, city
+                var request = new StartRequest(
+                    url,
+                    name,
+                    fLastname,
+                    sLastname,
+                    rut,
+                    serviceId,
+                    finalUrl,
+                    commerceCode,
+                    maxAmount,
+                    phoneNumber,
+                    mobileNumber,
+                    patpassName,
+                    personEmail,
+                    commerceEmail,
+                    address,
+                    city
                 );
-                var response = RequestService.Perform<InscriptionStartException>(startRequest, options);
+                var response = RequestService.Perform<InscriptionStartException>(request, options);
 
                 return JsonConvert.DeserializeObject<StartResponse>(response);
             });
