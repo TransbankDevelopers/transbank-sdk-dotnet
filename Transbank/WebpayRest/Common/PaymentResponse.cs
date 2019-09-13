@@ -2,7 +2,7 @@
 
 namespace Transbank.Webpay.Common
 {
-    public class PaymentResponse : PaymentRequest
+    public class PaymentResponse
     {
         [JsonProperty("authorization_code")]
         public int AuthorizationCode { get; private set; }
@@ -13,25 +13,45 @@ namespace Transbank.Webpay.Common
         [JsonProperty("response_code")]
         public int ResponseCode { get; private set; }
 
-        [JsonProperty("installments_amount")]
-        public int InstallmentsAmount { get; private set; }
+        [JsonProperty("installments_number")]
+        public int InstallmentsNumber { get; private set; }
 
-        public PaymentResponse (string comerceCode, string buyOrder, int ammount, int autorizationCode,
-            string paymentTypeCode, int responseCode, int installmentsAmmount) : base(comerceCode, buyOrder, ammount)
+        [JsonProperty("status")]
+        public string Status { get; private set; }
+        
+        [JsonProperty("commerce_code")]
+        public string CommerceCode { get; private set; }
+        
+        [JsonProperty("buy_order")]
+        public string BuyOrder { get; private set; }
+        
+        [JsonProperty("amount")]
+        public decimal Amount { get; private set; }
+
+        public PaymentResponse (string commerceCode, string buyOrder, int amount, int authorizationCode,
+            string paymentTypeCode, int responseCode, int installmentsAmount, string status)
         {
-            AuthorizationCode = autorizationCode;
+            AuthorizationCode = authorizationCode;
             PaymentTypeCode = paymentTypeCode;
             ResponseCode = responseCode;
-            InstallmentsAmount = installmentsAmmount;
+            InstallmentsNumber = installmentsAmount;
+            Status = status;
+            CommerceCode = commerceCode;
+            BuyOrder = buyOrder;
+            Amount = amount;
         }
 
         public override string ToString()
         {
             return base.ToString() + "\n" +
-                $"InstallmentsAmount= {InstallmentsAmount}\n" +
-                $"AuthorizationCode= {AuthorizationCode}\n" +
-                $"PaymentTypeCode= {PaymentTypeCode}\n" +
-                $"ResponseCode= {ResponseCode}\n";
+                   $"InstallmentsAmount= {InstallmentsNumber}\n" +
+                   $"AuthorizationCode= {AuthorizationCode}\n" +
+                   $"PaymentTypeCode= {PaymentTypeCode}\n" +
+                   $"ResponseCode= {ResponseCode}\n" +
+                   $"Status= {Status}\n" +
+                   $"CommerceCode= {CommerceCode}\n" +
+                   $"BuyOrder= {BuyOrder}\n" +
+                   $"Amount= {Amount}\n";
         }
     }
 }
