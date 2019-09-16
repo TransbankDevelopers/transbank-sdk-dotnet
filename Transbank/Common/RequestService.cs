@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -12,13 +11,13 @@ namespace Transbank.Common
     public static class RequestService
     {
         private static readonly string CONTENT_TYPE = "application/json";
-
-        private static void AddRequiredHeaders(HttpClient client, string commerceCode, string apiKey)
+        
+        private static void AddRequiredHeaders(HttpClient client, string commerceCode, string apiKey, RequestServiceHeaders headers)
         {
             var header = new MediaTypeWithQualityHeaderValue(CONTENT_TYPE);
             client.DefaultRequestHeaders.Accept.Add(header);
-            client.DefaultRequestHeaders.Add("Tbk-Api-Key-Id", commerceCode);
-            client.DefaultRequestHeaders.Add("Tbk-Api-Key-Secret", apiKey);
+            client.DefaultRequestHeaders.Add(headers.CommerceCodeHeaderName, commerceCode);
+            client.DefaultRequestHeaders.Add(headers.ApiKeyHeaderName, apiKey);
         }
 
         public static string Perform<T>(BaseRequest request, Options options) where T : TransbankException
@@ -30,9 +29,9 @@ namespace Transbank.Common
 
             using (var client = new HttpClient())
             {
-                AddRequiredHeaders(client, options.CommerceCode, options.ApiKey);
-                var response = client.SendAsync(message).ConfigureAwait(false)
-                    .GetAwaiter().GetResult();
+                AddRequiredHeaders(client, options.CommerceCode, options.ApiKey, options.Headers);
+                var response = client.SendAsync(message)
+                    .ConfigureAwait(false).GetAwaiter().GetResult();
                 var jsonResponse = response.Content.ReadAsStringAsync()
                     .ConfigureAwait(false).GetAwaiter().GetResult();
                 if (!response.IsSuccessStatusCode)

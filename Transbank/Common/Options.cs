@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace Transbank.Common
 {
@@ -7,6 +8,19 @@ namespace Transbank.Common
         private string _commerceCode;
         private string _apiKey;
         private IIntegrationType _integrationType;
+        
+        private static string _commerceCodeHeaderName = "Tbk-Api-Key-Id";
+        private static string _apiKeyHeaderName = "Tbk-Api-Key-Secret";
+
+        private static RequestServiceHeaders _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
+        
+        public RequestServiceHeaders Headers
+        {
+            get => _headers;
+            set => _headers = value ?? throw new ArgumentNullException(
+                                  nameof(value), "headers can't be null."
+                              );
+        }
 
         public string CommerceCode
         {
@@ -32,11 +46,12 @@ namespace Transbank.Common
                 );
         }
 
-        public Options(string commerceCode, string apiKey, IIntegrationType integrationType)
+        public Options(string commerceCode, string apiKey, IIntegrationType integrationType, RequestServiceHeaders headers)
         {
             CommerceCode = commerceCode;
             ApiKey = apiKey;
             IntegrationType = integrationType;
+            Headers = headers;
         }
 
         public override string ToString()

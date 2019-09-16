@@ -10,6 +10,12 @@ namespace Transbank.Patpass.PatpassComercio.Responses
         [JsonProperty("urlVoucher")]
         public string UrlVoucher { get; set; }
 
+        public StatusResponse(string status, string urlVoucher)
+        {
+            Status = status;
+            UrlVoucher = urlVoucher;
+        }
+
         public override string ToString()
         {
             return $"status: {Status}\n" +

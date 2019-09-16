@@ -31,7 +31,7 @@ namespace Transbank.Patpass.PatpassComercio.Requests
         public string CommerceCode { get; set; }
         
         [JsonProperty("montoMaximo")]
-        public int MaxAmount { get; set; }
+        public decimal MaxAmount { get; set; }
         
         [JsonProperty("telefonoFijo")]
         public string PhoneNumber { get; set; }
@@ -39,7 +39,7 @@ namespace Transbank.Patpass.PatpassComercio.Requests
         [JsonProperty("telefonoCelular")]
         public string MobileNumber { get; set; }
         
-        [JsonProperty("nombrePatpPass")]
+        [JsonProperty("nombrePatPass")]
         public string PatpassName { get; set; }
         
         [JsonProperty("correoPersona")]
@@ -63,7 +63,7 @@ namespace Transbank.Patpass.PatpassComercio.Requests
             string serviceId, 
             string finalUrl, 
             string commerceCode, 
-            int maxAmount, 
+            decimal maxAmount, 
             string phoneNumber, 
             string mobileNumber, 
             string patpassName, 
@@ -71,7 +71,7 @@ namespace Transbank.Patpass.PatpassComercio.Requests
             string commerceEmail, 
             string address, 
             string city
-            ) : base("/restpatpass/v1/services/patInscription", HttpMethod.Post)
+            ) : base("restpatpass/v1/services/patInscription", HttpMethod.Post)
         {
             Url = url;
             Name = name;
