@@ -17,6 +17,19 @@ namespace Transbank.Webpay.TransaccionCompletaMall
         
         private static WebpayIntegrationType _integrationType = WebpayIntegrationType.Test;
         
+        private static string _commerceCodeHeaderName = "Tbk-Api-Key-Id";
+        private static string _apiKeyHeaderName = "Tbk-Api-Key-Secret";
+
+        private static RequestServiceHeaders _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
+
+        public static RequestServiceHeaders Headers
+        {
+            get => _headers;
+            set => _headers = value ?? throw new ArgumentNullException(
+                                  nameof(value), "Integration type can't be null."
+                              );
+        }
+        
         public static string CommerceCode
         {
             get => _commerceCode;
@@ -43,7 +56,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
 
         public static Options DefaultOptions()
         {
-            return new Options(CommerceCode, ApiKey, IntegrationType);
+            return new Options(CommerceCode, ApiKey, IntegrationType, Headers);
         }
 
         public static MallCreateResponse Create(

@@ -19,6 +19,19 @@ namespace Transbank.Webpay.Oneclick
         private static string[] _storeCodes = { "597055555542", "597055555543" };
 
         private static WebpayIntegrationType _integrationType = WebpayIntegrationType.Test;
+        
+        private static string _commerceCodeHeaderName = "Tbk-Api-Key-Id";
+        private static string _apiKeyHeaderName = "Tbk-Api-Key-Secret";
+
+        private static RequestServiceHeaders _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
+
+        public static RequestServiceHeaders Headers
+        {
+            get => _headers;
+            set => _headers = value ?? throw new ArgumentNullException(
+                                  nameof(value), "Integration type can't be null."
+                              );
+        }
 
         public static string CommerceCode
         {
@@ -46,7 +59,7 @@ namespace Transbank.Webpay.Oneclick
 
         public static Options DefaultOptions()
         {
-            return new Options(CommerceCode, ApiKey, IntegrationType);
+            return new Options(CommerceCode, ApiKey, IntegrationType, Headers);
         }
         
         public static MallAuthorizeResponse Authorize(string userName, string tbkUser,
