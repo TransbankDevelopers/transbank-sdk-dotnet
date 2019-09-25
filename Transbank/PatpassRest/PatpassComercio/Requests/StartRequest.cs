@@ -1,3 +1,4 @@
+using System;
 using Newtonsoft.Json;
 using Transbank.Common;
 using System.Net.Http;
@@ -31,7 +32,7 @@ namespace Transbank.Patpass.PatpassComercio.Requests
         public string CommerceCode { get; set; }
         
         [JsonProperty("montoMaximo")]
-        public decimal MaxAmount { get; set; }
+        public string MaxAmount { get; set; }
         
         [JsonProperty("telefonoFijo")]
         public string PhoneNumber { get; set; }
@@ -63,7 +64,7 @@ namespace Transbank.Patpass.PatpassComercio.Requests
             string serviceId, 
             string finalUrl, 
             string commerceCode, 
-            decimal maxAmount, 
+            string maxAmount, 
             string phoneNumber, 
             string mobileNumber, 
             string patpassName, 
