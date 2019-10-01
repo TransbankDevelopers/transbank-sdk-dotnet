@@ -1,5 +1,6 @@
 using System;
 using System.Dynamic;
+using System.Globalization;
 using System.Runtime.Remoting.Messaging;
 using Newtonsoft.Json;
 using Transbank.Common;
@@ -62,7 +63,6 @@ namespace Transbank.Patpass.PatpassComercio
             string rut,
             string serviceId,
             string finalUrl,
-            string commerceCode,
             decimal maxAmount,
             string phoneNumber,
             string mobileNumber,
@@ -81,7 +81,6 @@ namespace Transbank.Patpass.PatpassComercio
                 rut,
                 serviceId,
                 finalUrl,
-                commerceCode,
                 maxAmount,
                 phoneNumber,
                 mobileNumber,
@@ -102,7 +101,6 @@ namespace Transbank.Patpass.PatpassComercio
             string rut,
             string serviceId,
             string finalUrl,
-            string commerceCode,
             decimal maxAmount,
             string phoneNumber,
             string mobileNumber,
@@ -114,6 +112,9 @@ namespace Transbank.Patpass.PatpassComercio
             Options options
         )
         {
+            // set culture to es-CL, since webpay only works with clp we are forcing to anyone to use clp currency standard.
+            CultureInfo myCiIntl = new CultureInfo("es-CL", false);  
+            string  mAmount = maxAmount <= 0 ? "" : maxAmount.ToString(myCiIntl);   
             return ExceptionHandler.Perform<StartResponse, InscriptionStartException>(() =>
             {
                 var request = new StartRequest(
@@ -124,8 +125,8 @@ namespace Transbank.Patpass.PatpassComercio
                     rut,
                     serviceId,
                     finalUrl,
-                    commerceCode,
-                    maxAmount,
+                    options.CommerceCode,
+                    mAmount,
                     phoneNumber,
                     mobileNumber,
                     patpassName,
