@@ -3,18 +3,18 @@
 
 namespace Transbank.Onepay.Exceptions
 {
-    public class AmountException : TransbankException
+    public class Sigv4UtilException : TransbankException
     {
-        public AmountException() : base()
+        public Sigv4UtilException() : base()
         {
         }
 
-        public AmountException(string message) 
+        public Sigv4UtilException(string message) 
             : base(-1, message)
         {
         }
 
-        public AmountException(string message, Exception innerException) 
+        public Sigv4UtilException(string message, Exception innerException) 
             : base(-1, message, innerException)
         {
         }

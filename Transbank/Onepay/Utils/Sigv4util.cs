@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Security;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Globalization;
+using Transbank.Onepay.Exceptions;
+using Transbank.Onepay.Model;
 
-namespace OnepayWebSocket.Utils
+namespace Transbank.Onepay.Utils
 {
     public static class Sigv4util
     {
@@ -16,17 +13,13 @@ namespace OnepayWebSocket.Utils
         public const string DateStringFormat = "yyyyMMdd";
         public const string EmptyBodySha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
         public static HashAlgorithm CanonicalRequestHashAlgorithm = HashAlgorithm.Create("SHA-256");
-        // the name of the keyed hash algorithm used in signing
         public const string HmacSha256 = "HMACSHA256";
         public const string XAmzSignature = "X-Amz-Signature";
 
-
-
-
         private static byte[] HmacSHA256(String data, byte[] key)
         {
-            String algorithm = "HmacSHA256";
-            KeyedHashAlgorithm keyHashAlgorithm = KeyedHashAlgorithm.Create(algorithm);
+            var algorithm = "HmacSHA256";
+            var keyHashAlgorithm = KeyedHashAlgorithm.Create(algorithm);
             keyHashAlgorithm.Key = key;
 
             return keyHashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(data));
@@ -41,7 +34,7 @@ namespace OnepayWebSocket.Utils
 
         public static string ToHexString(byte[] data, bool lowerCase)
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
 
             try
             {
@@ -51,11 +44,10 @@ namespace OnepayWebSocket.Utils
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Logger.LogDebug(ex.Message);
+                throw new Sigv4UtilException("Unable to convert data to hex string", e);
             }
-
             return stringBuilder.ToString();
         }
 
@@ -70,25 +62,21 @@ namespace OnepayWebSocket.Utils
             return kSigning;
         }
 
-        public static string getSignedurl(WebSocketResponse credentials)
+        public static string getSignedurl(WebsocketCredentials credentials)
         {
-            string requestUrl = "";
+            string requestUrl;
             try
             {
 
-                DateTime requestDateTime = DateTime.UtcNow;
+                var requestDateTime = DateTime.UtcNow;
                 string datetime = requestDateTime.ToString(ISO8601BasicFormat, CultureInfo.InvariantCulture);
                 var date = requestDateTime.ToString(DateStringFormat, CultureInfo.InvariantCulture);
 
-                string method = "GET";//ConfigHelper.ReadSetting("method");
-
-                string protocol = "wss"; // ConfigHelper.ReadSetting("protocol");
-
-                string uri = "/mqtt"; //ConfigHelper.ReadSetting("uri");
-
-                string service = "iotdevicegateway"; //ConfigHelper.ReadSetting("service");
-
-                string algorithm = "AWS4-HMAC-SHA256"; //ConfigHelper.ReadSetting("algorithm");
+                string method = "GET";
+                string protocol = "wss";
+                string uri = "/mqtt";
+                string service = "iotdevicegateway";
+                string algorithm = "AWS4-HMAC-SHA256";
 
                 string credentialScope = date + "/" + credentials.region + "/" + service + "/" + "aws4_request";
                 string canonicalQuerystring = "X-Amz-Algorithm=" + algorithm;
@@ -104,9 +92,7 @@ namespace OnepayWebSocket.Utils
 
                 byte[] hashValueCanonicalRequest = CanonicalRequestHashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(canonicalRequest));
 
-
-
-                StringBuilder builder = new StringBuilder();
+                var builder = new StringBuilder();
 
                 for (int i = 0; i < hashValueCanonicalRequest.Length; i++)
                 {
@@ -116,8 +102,9 @@ namespace OnepayWebSocket.Utils
                 string byteString = builder.ToString();
 
                 var stringToSign = algorithm + "\n" + datetime + "\n" + credentialScope + "\n" + byteString;
+
                 // compute the signing key
-                KeyedHashAlgorithm keyedHashAlgorithm = KeyedHashAlgorithm.Create(HmacSha256);
+                var keyedHashAlgorithm = KeyedHashAlgorithm.Create(HmacSha256);
 
                 keyedHashAlgorithm.Key = getSignatureKey(credentials.secretKey, date, credentials.region, service);
 
@@ -130,14 +117,11 @@ namespace OnepayWebSocket.Utils
                 canonicalQuerystring += "&X-Amz-Security-Token=" + HttpHelper.UrlEncode(credentials.sessionToken);
 
                 requestUrl = protocol + "://" + credentials.iotEndpoint + uri + "?" + canonicalQuerystring;
-
-
             }
 
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Logger.LogError(ex.Message);
-
+                throw new Sigv4UtilException("Unable to get signed url", e);
             }
 
 

@@ -110,6 +110,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Web.Services3" Version="3.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="MQTTnet" Version="2.8.5" />
   </ItemGroup>
 
   <ItemGroup>

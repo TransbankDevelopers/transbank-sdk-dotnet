@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Transbank.Onepay.Exceptions;
 
-namespace OnepayWebSocket.Utils
+namespace Transbank.Onepay.Utils
 {
     public static class HttpHelper
     {
@@ -20,7 +18,7 @@ namespace OnepayWebSocket.Utils
             {
                 string unreservedChars = String.Concat(ValidUrlCharacters, (isPath ? "/:" : ""));
 
-                foreach (char symbol in System.Text.Encoding.UTF8.GetBytes(data))
+                foreach (char symbol in Encoding.UTF8.GetBytes(data))
                 {
                     if (unreservedChars.IndexOf(symbol) != -1)
                         encoded.Append(symbol);
@@ -28,10 +26,9 @@ namespace OnepayWebSocket.Utils
                         encoded.Append("%").Append(String.Format("{0:X2}", (int)symbol));
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Logger.LogError(ex.Message);
-
+                throw new HttpHelperException("Unable to encode URL", e);
             }
             return encoded.ToString();
         }

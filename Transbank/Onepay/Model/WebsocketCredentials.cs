@@ -11,10 +11,10 @@
         public override string ToString()
         {
             return "Endpoint: " + iotEndpoint + "\n" +
-                    "Region: " + region + "\n" +
-                    "Acces Key: " + accessKey + "\n" +
-                    "SecretKey: " + secretKey + "\n" +
-                    "SessionToken: " + sessionToken;
+                   "Region: " + region + "\n" +
+                   "Acces Key: " + accessKey + "\n" +
+                   "SecretKey: " + secretKey + "\n" +
+                   "SessionToken: " + sessionToken;
         }
     }
 }
