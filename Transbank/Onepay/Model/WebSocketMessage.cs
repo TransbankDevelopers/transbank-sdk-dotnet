@@ -1,4 +1,4 @@
-﻿namespace OnepayWebSocket.Utils
+﻿namespace Transbank.Onepay.Model
 {
     public class WebsocketMessage
     {
