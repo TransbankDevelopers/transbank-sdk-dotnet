@@ -23,8 +23,6 @@ namespace Transbank.Onepay
 
             string requestUrl = Sigv4util.getSignedurl(Credentials);
 
-            string clientId = Guid.NewGuid().ToString();
-
             var factory = new MqttFactory();
             mqttClient = factory.CreateMqttClient();
 
@@ -69,7 +67,6 @@ namespace Transbank.Onepay
                     break;
 
                 case "AUTHORIZED":
-                    //Commit(response);
                     mqttClient.DisconnectAsync();
                     break;
 
