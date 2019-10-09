@@ -17,7 +17,7 @@ namespace Transbank.Onepay
         public IMqttClient mqttClient;
         public IMqttClientOptions mqttClientOptions;
 
-        public Websocket(string Ott)
+        public Websocket(long Ott)
         {
             Credentials = FetchCredentials();
 
@@ -31,18 +31,58 @@ namespace Transbank.Onepay
             mqttClientOptions = new MqttClientOptionsBuilder().
                 WithWebSocketServer(requestUrl).Build();
 
+            mqttClient.Connected +=
+                    (sender, e) => Console.WriteLine("Connected :D");
+
+            mqttClient.ApplicationMessageReceived +=
+                (sender, e) => MqttClient_ApplicationMessageReceived(sender, e, new TransactionCreateResponse());
+
+            mqttClient.Disconnected +=
+                (sender, e) => Console.WriteLine("Conection Lost :(");
+
             mqttClient.ConnectAsync(mqttClientOptions);
-            mqttClient.SubscribeAsync(Ott);
+            mqttClient.SubscribeAsync(Ott.ToString());
         }
 
         private WebsocketCredentials FetchCredentials()
         {
             var request = (HttpWebRequest)WebRequest.Create(OnepayIotEndpoint);
 
-            using var responseStream = request.GetResponse().GetResponseStream();
-            using var streamReader = new StreamReader(responseStream);
+            var responseStream = request.GetResponse().GetResponseStream();
+            var streamReader = new StreamReader(responseStream);
             var credentialsAsJson = streamReader.ReadToEnd();
             return JsonConvert.DeserializeObject<WebsocketCredentials>(credentialsAsJson);
+        }
+
+        private void MqttClient_ApplicationMessageReceived
+            (object sender, MqttApplicationMessageReceivedEventArgs e, TransactionCreateResponse response)
+        {
+            string payload = System.Text.Encoding.UTF8.GetString(e.ApplicationMessage.Payload, 0, e.ApplicationMessage.Payload.Length);
+
+
+            WebsocketMessage message = JsonConvert.DeserializeObject<WebsocketMessage>(payload);
+            Console.WriteLine(message);
+
+            switch (message.status)
+            {
+                case "OTT_ASSIGNED":
+                    break;
+
+                case "AUTHORIZED":
+                    //Commit(response);
+                    mqttClient.DisconnectAsync();
+                    break;
+
+                case "REJECTED_BY_USER":
+                    break;
+
+                case "AUTHORIZATION_ERROR":
+                    break;
+
+                default:
+                    Console.WriteLine("No action found");
+                    break;
+            }
         }
     }
 }
