@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using MQTTnet;
 using MQTTnet.Client;
 using Newtonsoft.Json;
@@ -17,7 +18,7 @@ namespace Transbank.Onepay
         public IMqttClient mqttClient;
         public IMqttClientOptions mqttClientOptions;
 
-        public Websocket(long Ott)
+        public Websocket()
         {
             Credentials = FetchCredentials();
 
@@ -29,17 +30,24 @@ namespace Transbank.Onepay
             mqttClientOptions = new MqttClientOptionsBuilder().
                 WithWebSocketServer(requestUrl).Build();
 
+        }
+
+        public async Task Connect(long ott, IOnepayPayment obj)
+        {
             mqttClient.Connected +=
-                    (sender, e) => Console.WriteLine("Connected :D");
+                   (sender, e) => obj.Connected();
 
             mqttClient.ApplicationMessageReceived +=
-                (sender, e) => MqttClient_ApplicationMessageReceived(sender, e, new TransactionCreateResponse());
+                (sender, e) => obj.NewMessage(
+                    System.Text.Encoding.UTF8.GetString(
+                        e.ApplicationMessage.Payload, 0,
+                        e.ApplicationMessage.Payload.Length));
 
             mqttClient.Disconnected +=
-                (sender, e) => Console.WriteLine("Conection Lost :(");
+                (sender, e) => obj.Disconnected();
 
-            mqttClient.ConnectAsync(mqttClientOptions);
-            mqttClient.SubscribeAsync(Ott.ToString());
+            await mqttClient.ConnectAsync(mqttClientOptions);
+            await mqttClient.SubscribeAsync(ott.ToString());
         }
 
         private WebsocketCredentials FetchCredentials()
@@ -52,34 +60,5 @@ namespace Transbank.Onepay
             return JsonConvert.DeserializeObject<WebsocketCredentials>(credentialsAsJson);
         }
 
-        private void MqttClient_ApplicationMessageReceived
-            (object sender, MqttApplicationMessageReceivedEventArgs e, TransactionCreateResponse response)
-        {
-            string payload = System.Text.Encoding.UTF8.GetString(e.ApplicationMessage.Payload, 0, e.ApplicationMessage.Payload.Length);
-
-
-            WebsocketMessage message = JsonConvert.DeserializeObject<WebsocketMessage>(payload);
-            Console.WriteLine(message);
-
-            switch (message.status)
-            {
-                case "OTT_ASSIGNED":
-                    break;
-
-                case "AUTHORIZED":
-                    mqttClient.DisconnectAsync();
-                    break;
-
-                case "REJECTED_BY_USER":
-                    break;
-
-                case "AUTHORIZATION_ERROR":
-                    break;
-
-                default:
-                    Console.WriteLine("No action found");
-                    break;
-            }
-        }
     }
 }
