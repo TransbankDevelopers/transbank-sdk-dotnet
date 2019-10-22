@@ -32,7 +32,7 @@ namespace Transbank.Onepay
 
         }
 
-        public async Task Connect(string ott, IOnepayPayment obj)
+        public async Task Connect(IOnepayPayment obj)
         {
             mqttClient.Connected +=
                    (sender, e) => obj.Connected();
@@ -47,7 +47,7 @@ namespace Transbank.Onepay
                 (sender, e) => obj.Disconnected();
 
             await mqttClient.ConnectAsync(mqttClientOptions);
-            await mqttClient.SubscribeAsync(ott);
+            await mqttClient.SubscribeAsync(obj.Ott);
         }
 
         private WebsocketCredentials FetchCredentials()
