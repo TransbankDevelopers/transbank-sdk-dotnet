@@ -1,9 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using MQTTnet;
 using MQTTnet.Client;
+using MQTTnet.Client.Options;
 using Newtonsoft.Json;
 using Transbank.Onepay.Model;
 using Transbank.Onepay.Utils;
@@ -28,26 +31,27 @@ namespace Transbank.Onepay
             mqttClient = factory.CreateMqttClient();
 
             mqttClientOptions = new MqttClientOptionsBuilder().
-                WithWebSocketServer(requestUrl).Build();
+                 WithWebSocketServer(requestUrl).
+                 WithKeepAlivePeriod(TimeSpan.FromMinutes(10)).Build();
 
         }
 
-        public async Task Connect(IOnepayPayment obj)
+        public async Task ConnectAsync(IOnepayPayment obj)
         {
-            mqttClient.Connected +=
-                   (sender, e) => obj.Connected();
+            mqttClient.UseConnectedHandler(e => {
+                obj.Connected();
+            });
 
-            mqttClient.ApplicationMessageReceived +=
-                (sender, e) => obj.NewMessage(
-                    System.Text.Encoding.UTF8.GetString(
-                        e.ApplicationMessage.Payload, 0,
-                        e.ApplicationMessage.Payload.Length));
+            mqttClient.UseApplicationMessageReceivedHandler(e => {
+                obj.NewMessage(Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
+            });
 
-            mqttClient.Disconnected +=
-                (sender, e) => obj.Disconnected();
+            mqttClient.UseDisconnectedHandler(e => {
+                obj.Disconnected();
+            });
 
-            await mqttClient.ConnectAsync(mqttClientOptions);
-            await mqttClient.SubscribeAsync(obj.Ott);
+            _ = await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
+            _ = await mqttClient.SubscribeAsync(new TopicFilterBuilder().WithTopic(obj.Ott).Build());
         }
 
         private WebsocketCredentials FetchCredentials()
