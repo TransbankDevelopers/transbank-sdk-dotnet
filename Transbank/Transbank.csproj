@@ -16,7 +16,7 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageTags>payments, cl, chile, transbank</PackageTags>
     <PackageIconUrl>http://www.transbankdevelopers.cl/library/img/favicon/mstile-310x310.png</PackageIconUrl>
-    <VersionPrefix>2.2.2</VersionPrefix>
+    <VersionPrefix>2.3.0</VersionPrefix>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <Product>TransbankSDK</Product>
     <Copyright>2018 - Transbank</Copyright>
@@ -109,7 +109,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Web.Services3" Version="3.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="MQTTnet" Version="3.0.8" />
   </ItemGroup>
 
   <ItemGroup>
