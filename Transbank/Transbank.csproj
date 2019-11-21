@@ -15,7 +15,7 @@
     <RepositoryType>git</RepositoryType>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageTags>payments, cl, chile, transbank</PackageTags>
-    <PackageIconUrl>http://www.transbankdevelopers.cl/library/img/favicon/mstile-310x310.png</PackageIconUrl>
+    <PackageIconUrl>https://www.transbankdevelopers.cl/favicon.ico</PackageIconUrl>
     <VersionPrefix>2.3.1</VersionPrefix>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <Product>TransbankSDK</Product>
