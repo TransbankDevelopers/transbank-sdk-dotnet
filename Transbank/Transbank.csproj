@@ -10,12 +10,12 @@
     <PackageId>TransbankSDK</PackageId>
     <Description>This is the .Net SDK for Transbank Integration.</Description>
     <PackageLicense>https://raw.githubusercontent.com/TransbankDevelopers/transbank-sdk-dotnet/master/LICENSE</PackageLicense>
-    <PackageIconUrl>https://www.transbankdevelopers.cl//favicon.ico</PackageIconUrl>
+    <PackageProjectUrl>http://www.transbankdevelopers.cl/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TransbankDevelopers/transbank-sdk-dotnet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageTags>payments, cl, chile, transbank</PackageTags>
-    <PackageIconUrl>http://www.transbankdevelopers.cl/library/img/favicon/mstile-310x310.png</PackageIconUrl>
+    <PackageIconUrl>https://www.transbankdevelopers.cl/favicon.ico</PackageIconUrl>
     <VersionPrefix>2.3.1</VersionPrefix>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <Product>TransbankSDK</Product>
