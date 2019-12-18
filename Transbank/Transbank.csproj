@@ -116,12 +116,8 @@
     <Folder Include="Webpay\Web References\" />
     <Folder Include="WebpayRest\" />
     <Folder Include="WebpayRest\Common\" />
-    <Folder Include="WebpayRest\WebpayPlus\" />
-    <Folder Include="WebpayRest\WebpayPlus\Requests\" />
-    <Folder Include="WebpayRest\WebpayPlus\Responses\" />
     <Folder Include="WebpayRest\Oneclick\Responses\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="WebpayRest\WebpayPlus\Exceptions\" />
   </ItemGroup>
 
   <ItemGroup>
