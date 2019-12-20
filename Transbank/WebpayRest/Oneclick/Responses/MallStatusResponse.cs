@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Transbank.Webpay.Common;
 
@@ -16,6 +17,9 @@ namespace Transbank.WebpayRest.Oneclick.Responses
         
         [JsonProperty("transaction_date")]
         public string TransactionDate { get; set; }
+
+        [JsonProperty("details")]
+        public List<PaymentResponse> Details { get; private set; }
 
         public MallStatusResponse(string buyOrder, CardDetail cardDetail, string accountingDate, string transactionDate)
         {
@@ -51,7 +55,8 @@ namespace Transbank.WebpayRest.Oneclick.Responses
             [JsonProperty("buy_order")]
             public string BuyOrder { get; set; }
 
-            public Detail(decimal amount, string status, string authorizationCode, string paymentTypeCode, int responseCode, int installmentsNumber, string commerceCode, string buyOrder)
+            public Detail(decimal amount, string status, string authorizationCode, string paymentTypeCode,
+                int responseCode, int installmentsNumber, string commerceCode, string buyOrder)
             {
                 Amount = amount;
                 Status = status;
