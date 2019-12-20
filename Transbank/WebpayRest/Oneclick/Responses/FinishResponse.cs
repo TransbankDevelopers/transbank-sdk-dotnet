@@ -28,11 +28,11 @@ namespace Transbank.Webpay.Oneclick.Responses
 
         public override string ToString()
         {
-            return $"\"Response Code\": \"{ResponseCode}\"\n" + 
-                   $"\"Transbank User\": \"{TbkUser}\"\n" +
-                   $"\"Authorization Code\": \"{AuthorizationCode}\"\n" +
-                   $"\"Credit Card Type\": \"{CreditCardType}\"\n" +
-                   $"\"Last Four Card Digits\": \"{LastFourCardDigits}\"";
+            return $"\"ResponseCode\": \"{ResponseCode}\"\n" + 
+                   $"\"TransbankUser\": \"{TbkUser}\"\n" +
+                   $"\"AuthorizationCode\": \"{AuthorizationCode}\"\n" +
+                   $"\"CardType\": \"{CardType}\"\n" +
+                   $"\"CardNumber\": \"{CardNumber}\"";
         }
     }
 }

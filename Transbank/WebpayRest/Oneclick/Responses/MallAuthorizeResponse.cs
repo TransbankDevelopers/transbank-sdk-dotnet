@@ -43,13 +43,13 @@ namespace Transbank.Webpay.Oneclick.Responses
 
         public override string ToString()
         {
-            return $"\"BuyOrder\": {BuyOrder}\"\n" +
-                   $"\"SessionId\": {SessionId}\"\n" +
-                   $"\"CardNumber\": {CardNumber}\"\n" +
-                   $"\"ExpirationDate\": {ExpirationDate}\"\n" +
-                   $"\"AccountingDate\": {AccountingDate}\"\n" +
-                   $"\"TransactionDate\": {TransactionDate}\"\n" +
-                   $"\"Details\": {Details.ToString()}\"";
+            return $"\"BuyOrder\": \"{BuyOrder}\"\n" +
+                   $"\"SessionId\": \"{SessionId}\"\n" +
+                   $"\"CardNumber\": \"{CardNumber}\"\n" +
+                   $"\"ExpirationDate\": \"{ExpirationDate}\"\n" +
+                   $"\"AccountingDate\": \"{AccountingDate}\"\n" +
+                   $"\"TransactionDate\": \"{TransactionDate}\"\n" +
+                   $"\"Details\": \"{Details.ToString()}\"";
         }
     }
 }

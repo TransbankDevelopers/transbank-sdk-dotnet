@@ -35,12 +35,12 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
 
         public override string ToString()
         {
-            return $"Type={Type}\n" +
-                   $"AuthorizationCode={AuthorizationCode}\n" +
-                   $"AuthorizationDate={AuthorizationDate}\n" +
-                   $"NullifiedAmount={NullifiedAmount}\n" +
-                   $"Balance={Balance}\n" +
-                   $"ResponseCode={ResponseCode}\n";
+            return $"\"Type\":\"{Type}\"\n" +
+                   $"\"AuthorizationCode\":\"{AuthorizationCode}\"\n" +
+                   $"\"AuthorizationDate\":\"{AuthorizationDate}\"\n" +
+                   $"\"NullifiedAmount\":\"{NullifiedAmount}\"\n" +
+                   $"\"Balance\":\"{Balance}\"\n" +
+                   $"\"ResponseCode\":\"{ResponseCode}\"\n";
         }
     }
 }

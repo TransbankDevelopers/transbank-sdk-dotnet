@@ -29,6 +29,14 @@ namespace Transbank.WebpayRest.Oneclick.Responses
             TransactionDate = transactionDate;
         }
 
+        public override string ToString()
+        {
+            return $"\"BuyOrder\": \"{BuyOrder}\"\n" +
+                   $"\"AccountingDate\": \"{AccountingDate}\"\n" +
+                   $"\"TransactionDate\": \"{TransactionDate}\"\n" +
+                   $"\"Details\": \"{Details.ToString()}\"";
+        }
+
         public class Detail
         {
             [JsonProperty("amount")]

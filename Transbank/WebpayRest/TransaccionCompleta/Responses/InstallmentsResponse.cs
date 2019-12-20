@@ -24,9 +24,9 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
         
         public override string ToString()
         {
-            return $"InstallmentsAmount={InstallmentsAmount}\n" +
-                   $"IdQueryInstallments={IdQueryInstallments}\n" +
-                   $"DeferredPeriods={DeferredPeriods.ToString()}";
+            return $"\"InstallmentsAmount\":\"{InstallmentsAmount}\"\n" +
+                   $"\"IdQueryInstallments\":\"{IdQueryInstallments}\"\n" +
+                   $"\"DeferredPeriods\":\"{DeferredPeriods.ToString()}\"";
         }
     }
 }

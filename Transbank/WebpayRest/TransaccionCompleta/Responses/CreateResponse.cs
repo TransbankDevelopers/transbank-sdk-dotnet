@@ -14,7 +14,7 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
 
         public override string ToString()
         {
-            return $"Token={Token}";
+            return $"\"Token\":\"{Token}\"";
         }
     }
 }
