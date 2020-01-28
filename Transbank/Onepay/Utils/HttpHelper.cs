@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Class based in https://github.com/aws-samples/aws-iot-core-dotnet-app-mqtt-over-websockets-sigv4
+// subsequently modified.
+
+using System;
 using System.Text;
 using Transbank.Onepay.Exceptions;
 
