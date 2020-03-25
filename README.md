@@ -59,6 +59,25 @@ La documentación relevante para usar este SDK es:
 - Primeros pasos con [Webpay](https://www.transbankdevelopers.cl/documentacion/webpay) y [Onepay](https://www.transbankdevelopers.cl/documentacion/onepay).
 - Referencia detallada sobre [Webpay](https://www.transbankdevelopers.cl/referencia/webpay) y [Onepay](https://www.transbankdevelopers.cl/referencia/onepay).
 
+## Solución de problemas
+
+### CryptographicException: Invalid algorithm specified
+
+Si al intentar ejecutar el código en el que integras, se lanza una excepción similar a la siguiente:
+```
+System.Security.Cryptography.CryptographicException
+  HResult=0x80090008
+  Message=Invalid algorithm specified.
+  Source=<Cannot evaluate the exception source>
+  StackTrace:<Cannot evaluate the exception stack trace>
+```
+puedes solucionarlo agregando a tu código, antes de llamar a initTransaction, las siguientes líneas:
+
+```csharp
+AppContext.SetSwitch("Switch.System.Security.Cryptography.Xml.UseInsecureHashAlgorithms", true);
+AppContext.SetSwitch("Switch.System.Security.Cryptography.Pkcs.UseInsecureHashAlgorithms", true);
+```
+
 ## Información para contribuir y desarrollar este SDK
 
 ### Windows
