@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Transbank.Exceptions;
 
 namespace Transbank.Webpay.TransaccionCompleta.Common
 {
@@ -12,7 +13,11 @@ namespace Transbank.Webpay.TransaccionCompleta.Common
 
         public DeferredPeriods(int amount, int period)
         {
-            Amount= amount;
+            if (amount % 1 != 0)
+            {
+                throw new InvalidAmountException(InvalidAmountException.HAS_DECIMALS_MESSAGE);
+            }
+            Amount = amount;
             Period = period;
         }
 

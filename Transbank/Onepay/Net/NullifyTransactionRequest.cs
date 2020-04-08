@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using Newtonsoft.Json;
+using Transbank.Exceptions;
 using Transbank.Onepay.Model;
 
 namespace Transbank.Onepay.Net
@@ -9,9 +10,20 @@ namespace Transbank.Onepay.Net
         private string occ;
         private string externalUniqueNumber;
         private string authorizationCode;
+        private long _nullifyAmount;
 
         [JsonProperty("nullifyAmount")]
-        public long NullifyAmount { get; set; }
+        public long NullifyAmount {
+            get { return this._nullifyAmount; }
+            set
+            {
+                if (value % 1 != 0)
+                {
+                    throw new InvalidAmountException(InvalidAmountException.HAS_DECIMALS_MESSAGE);
+                }
+                this._nullifyAmount = value;
+            }
+        }
 
         [JsonProperty("issuedAt")]
         public long IssuedAt { get; set; }

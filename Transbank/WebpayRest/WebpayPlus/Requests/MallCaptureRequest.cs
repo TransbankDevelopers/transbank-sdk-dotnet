@@ -1,11 +1,14 @@
-﻿using System.Net.Http;
+using System.Net.Http;
 using Newtonsoft.Json;
 using Transbank.Common;
+using Transbank.Exceptions;
 
 namespace Transbank.WebpayRest.WebpayPlus.Requests
 {
     public class MallCaptureRequest : BaseRequest
     {
+        private decimal _captureAmount;
+
         [JsonProperty("commerce_code")]
         private string CommerceCode { get; set; }
         
@@ -16,7 +19,17 @@ namespace Transbank.WebpayRest.WebpayPlus.Requests
         private string AuthorizationCode { get; set; }
         
         [JsonProperty("capture_amount")]
-        private decimal CaptureAmount { get; set; }
+        private decimal CaptureAmount {
+            get { return this._captureAmount; }
+            set
+            {
+                if (value % 1 != 0)
+                {
+                    throw new InvalidAmountException(InvalidAmountException.HAS_DECIMALS_MESSAGE);
+                }
+                this._captureAmount = value;
+            }
+        }
         
         public MallCaptureRequest(string token, string commerceCode, string buyOrder, string authorizationCode,
             decimal captureAmount)

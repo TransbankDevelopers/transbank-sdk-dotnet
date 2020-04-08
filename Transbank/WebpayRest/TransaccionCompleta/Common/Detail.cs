@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Transbank.Exceptions;
 
 namespace Transbank.Webpay.TransaccionCompleta.Common
 {
@@ -18,6 +19,10 @@ namespace Transbank.Webpay.TransaccionCompleta.Common
             int commerceCode,
             string buyOrder)
         {
+            if (amount % 1 != 0)
+            {
+                throw new InvalidAmountException(InvalidAmountException.HAS_DECIMALS_MESSAGE);
+            }
             Amount = amount;
             CommerceCode = commerceCode;
             BuyOrder = buyOrder;

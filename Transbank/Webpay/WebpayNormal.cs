@@ -1,4 +1,4 @@
-﻿using Transbank.Webpay.Wsdl.Normal;
+using Transbank.Webpay.Wsdl.Normal;
 using Microsoft.Web.Services3;
 using Microsoft.Web.Services3.Design;
 using Microsoft.Web.Services3.Security.Tokens;
