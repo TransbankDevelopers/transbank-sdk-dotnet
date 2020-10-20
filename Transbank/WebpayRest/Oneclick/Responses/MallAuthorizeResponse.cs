@@ -49,7 +49,7 @@ namespace Transbank.Webpay.Oneclick.Responses
                    $"\"ExpirationDate\": {ExpirationDate}\"\n" +
                    $"\"AccountingDate\": {AccountingDate}\"\n" +
                    $"\"TransactionDate\": {TransactionDate}\"\n" +
-                   $"\"Details\": {Details.ToString()}\"";
+                   "\"Details\":\n{\n\t" + Details.ToString() + "\n}\n";
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Transbank.Webpay.WebpayPlus.Responses
                 object value = descriptor.GetValue(this);
                 properties.Add($"{name}={value}");
             }
-            return String.Join(", ", properties);
+            return String.Join(",\n", properties);
         }
     }
 }

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using Newtonsoft.Json;
 using Transbank.Webpay.Common;
 
@@ -24,6 +27,19 @@ namespace Transbank.WebpayRest.Oneclick.Responses
             AccountingDate = accountingDate;
             TransactionDate = transactionDate;
         }
+
+        public override string ToString()
+        {
+            var properties = new List<string>();
+            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(this))
+            {
+                string name = descriptor.Name;
+                object value = descriptor.GetValue(this);
+                properties.Add($"{name}={value}");
+            }
+            return String.Join(",\n", properties);
+        }
+
 
         public class Detail
         {
@@ -62,6 +78,19 @@ namespace Transbank.WebpayRest.Oneclick.Responses
                 CommerceCode = commerceCode;
                 BuyOrder = buyOrder;
             }
+
+            public override string ToString()
+            {
+                var properties = new List<string>();
+                foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(this))
+                {
+                    string name = descriptor.Name;
+                    object value = descriptor.GetValue(this);
+                    properties.Add($"{name}={value}");
+                }
+                return String.Join(",\n", properties);
+            }
+
         }
     }
 }

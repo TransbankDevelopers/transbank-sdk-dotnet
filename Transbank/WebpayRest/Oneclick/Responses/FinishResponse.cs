@@ -32,7 +32,7 @@ namespace Transbank.Webpay.Oneclick.Responses
                    $"\"Transbank User\": \"{TbkUser}\"\n" +
                    $"\"Authorization Code\": \"{AuthorizationCode}\"\n" +
                    $"\"Credit Card Type\": \"{CreditCardType}\"\n" +
-                   $"\"Last Four Card Digits\": \"{LastFourCardDigits}\"";
+                   $"\"Last Four Card Digits\": \"{LastFourCardDigits}\"\n";
         }
     }
 }

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Newtonsoft.Json;
 using Transbank.Patpass.Common;
 using Transbank.Webpay.Common;
@@ -41,6 +43,18 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Responses
             CardDetail = cardDetail;
             AccountingDate = accountingDate;
             TransactionDate = transactionDate;
+        }
+
+        public override string ToString()
+        {
+            var properties = new List<string>();
+            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(this))
+            {
+                string name = descriptor.Name;
+                object value = descriptor.GetValue(this);
+                properties.Add($"{name}={value}");
+            }
+            return String.Join(",\n", properties);
         }
     }
 }

@@ -29,12 +29,12 @@ namespace Transbank.Webpay.Common
         public decimal Amount { get; private set; }
 
         public PaymentResponse (string commerceCode, string buyOrder, int amount, int authorizationCode,
-            string paymentTypeCode, int responseCode, int installmentsAmount, string status)
+            string paymentTypeCode, int responseCode, int installmentsNumber, string status)
         {
             AuthorizationCode = authorizationCode;
             PaymentTypeCode = paymentTypeCode;
             ResponseCode = responseCode;
-            InstallmentsNumber = installmentsAmount;
+            InstallmentsNumber = installmentsNumber;
             Status = status;
             CommerceCode = commerceCode;
             BuyOrder = buyOrder;
@@ -43,8 +43,7 @@ namespace Transbank.Webpay.Common
 
         public override string ToString()
         {
-            return base.ToString() + "\n" +
-                   $"InstallmentsAmount= {InstallmentsNumber}\n" +
+            return $"InstallmentsNumber= {InstallmentsNumber}\n" +
                    $"AuthorizationCode= {AuthorizationCode}\n" +
                    $"PaymentTypeCode= {PaymentTypeCode}\n" +
                    $"ResponseCode= {ResponseCode}\n" +

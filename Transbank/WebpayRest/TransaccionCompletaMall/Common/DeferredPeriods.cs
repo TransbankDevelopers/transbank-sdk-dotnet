@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Transbank.Webpay.TransaccionCompletaMall.Common
@@ -14,6 +17,18 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Common
         {
             Amount= amount;
             Period = period;
+        }
+
+        public override string ToString()
+        {
+            var properties = new List<string>();
+            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(this))
+            {
+                string name = descriptor.Name;
+                object value = descriptor.GetValue(this);
+                properties.Add($"{name}={value}");
+            }
+            return String.Join(",\n", properties);
         }
     }
 }

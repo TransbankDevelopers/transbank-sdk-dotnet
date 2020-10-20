@@ -12,7 +12,7 @@ namespace Transbank.Webpay.WebpayPlus.Responses
 
         public override string ToString()
         {
-            return $"Token={Token}, Url={Url}";
+            return $"Token={Token},\nUrl={Url}\n";
         }
     }
 }

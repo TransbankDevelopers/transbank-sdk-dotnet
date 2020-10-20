@@ -15,5 +15,12 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Common
         {
             Details = details;
         }
+
+        public override string ToString()
+        {
+            string details = "";
+            Details.ForEach(i => details += "{\n" + i.ToString() + "\n}\n");
+            return details;
+        }
     }
 }

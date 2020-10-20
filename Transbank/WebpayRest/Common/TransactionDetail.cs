@@ -20,5 +20,12 @@ namespace Transbank.Webpay.Common
             CommerceCode = commerceCode;
             BuyOrder = buyOrder;
         }
+
+        public override string ToString()
+        {
+            return $"Amount= {Amount}\n" +
+                $"CommerceCode= {CommerceCode}\n" +
+                $"BuyOrder= {BuyOrder}\n";
+        }
     }
 }
