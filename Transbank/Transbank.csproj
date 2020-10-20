@@ -16,10 +16,10 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageTags>payments, cl, chile, transbank</PackageTags>
     <PackageIconUrl>https://www.transbankdevelopers.cl/favicon.ico</PackageIconUrl>
-    <VersionPrefix>2.4.1</VersionPrefix>
+    <VersionPrefix>2.5.0</VersionPrefix>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <Product>TransbankSDK</Product>
-    <Copyright>2018 - Transbank</Copyright>
+    <Copyright>2020 - Transbank</Copyright>
     <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
