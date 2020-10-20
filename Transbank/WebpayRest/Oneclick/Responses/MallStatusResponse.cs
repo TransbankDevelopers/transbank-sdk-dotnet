@@ -20,6 +20,9 @@ namespace Transbank.WebpayRest.Oneclick.Responses
         [JsonProperty("transaction_date")]
         public string TransactionDate { get; set; }
 
+        [JsonProperty("details")]
+        public List<PaymentResponse> Details { get; private set; }
+
         public MallStatusResponse(string buyOrder, CardDetail cardDetail, string accountingDate, string transactionDate)
         {
             BuyOrder = buyOrder;
@@ -30,17 +33,14 @@ namespace Transbank.WebpayRest.Oneclick.Responses
 
         public override string ToString()
         {
-            var properties = new List<string>();
-            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(this))
-            {
-                string name = descriptor.Name;
-                object value = descriptor.GetValue(this);
-                properties.Add($"{name}={value}");
-            }
-            return String.Join(",\n", properties);
+            var details = "";
+            Details.ForEach(i => details += "{\n"+ i.ToString() + "\n}\n");
+            return $"\"BuyOrder\": \"{BuyOrder}\"\n" +
+                   $"\"AccountingDate\": \"{AccountingDate}\"\n" +
+                   $"\"TransactionDate\": \"{TransactionDate}\"\n" +
+                   "\"Details\":\n{\n\t" + details + "\n}\n";
         }
-
-
+  
         public class Detail
         {
             [JsonProperty("amount")]
@@ -67,7 +67,8 @@ namespace Transbank.WebpayRest.Oneclick.Responses
             [JsonProperty("buy_order")]
             public string BuyOrder { get; set; }
 
-            public Detail(decimal amount, string status, string authorizationCode, string paymentTypeCode, int responseCode, int installmentsNumber, string commerceCode, string buyOrder)
+            public Detail(decimal amount, string status, string authorizationCode, string paymentTypeCode,
+                int responseCode, int installmentsNumber, string commerceCode, string buyOrder)
             {
                 Amount = amount;
                 Status = status;

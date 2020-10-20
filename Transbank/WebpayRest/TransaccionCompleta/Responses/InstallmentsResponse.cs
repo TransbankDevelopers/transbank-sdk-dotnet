@@ -26,9 +26,10 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
         {
             string deferred = "";
             DeferredPeriods.ForEach(i => deferred += "{\n" + i.ToString() + "}\n");
-            return $"InstallmentsAmount={InstallmentsAmount}\n" +
-                   $"IdQueryInstallments={IdQueryInstallments}\n" +
+            return $"\"InstallmentsAmount\":\"{InstallmentsAmount}\"\n" +
+                   $"\"IdQueryInstallments\":\"{IdQueryInstallments}\"\n" +
                    "DeferredPeriods=\n{\n" + deferred + "}\n";
+
         }
     }
 }

@@ -33,12 +33,12 @@ namespace Transbank.WebpayRest.Oneclick.Responses
         }
         public override string ToString()
         {
-            return $"\"Type\": {Type}\"\n" +
-                   $"\"Balance\": {Balance}\"\n" +
-                   $"\"AuthorizationCode\": {AuthorizationCode}\"\n" +
-                   $"\"ResponseCode\": {ResponseCode}\"\n" +
-                   $"\"AuthorizationDate\": {AuthorizationDate}\"\n" +
-                   $"\"NullifiedAmount\": {NullifiedAmount}\"\n" ;
+            return $"\"Type\": \"{Type}\"\n" +
+                   $"\"Balance\": \"{Balance}\"\n" +
+                   $"\"AuthorizationCode\": \"{AuthorizationCode}\"\n" +
+                   $"\"ResponseCode\": \"{ResponseCode}\"\n" +
+                   $"\"AuthorizationDate\": \"{AuthorizationDate}\"\n" +
+                   $"\"NullifiedAmount\": \"{NullifiedAmount}\"\n" ;
         }
     }
 }

@@ -58,18 +58,18 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
 
         public override string ToString()
         {
-            return $"Amount={Amount}\n" +
-                   $"Status={Status}\n" +
-                   $"Buy Order={BuyOrder}\n" +
-                   $"Session Id={SessionId}\n" +
+            return $"\"Amount\":\"{Amount}\"\n" +
+                   $"\"Status\":\"{Status}\"\n" +
+                   $"\"BuyOrder\":\"{BuyOrder}\"\n" +
+                   $"\"SessionId\":\"{SessionId}\"\n" +
                    "Card Detail=\n{\n" + CardDetail.ToString() + "}\n" +
-                   $"Accounting Date={AccountingDate}\n" +
-                   $"Transaction Date={TransactionDate}\n" +
-                   $"Authorization Code={AuthorizationCode}\n" +
-                   $"Payment Type Code={PaymentTypeCode}\n" +
-                   $"Response Code={ResponseCode}\n" +
-                   $"Installments Amount={InstallmentsAmount}\n" +
-                   $"Installments Number={InstallmentsNumber}\n";
+                   $"\"AccountingDate\":\"{AccountingDate}\"\n" +
+                   $"\"TransactionDate\":\"{TransactionDate}\"\n" +
+                   $"\"AuthorizationCode\":\"{AuthorizationCode}\"\n" +
+                   $"\"PaymentTypeCode:\"{PaymentTypeCode}\"\n" +
+                   $"\"ResponseCode\":\"{ResponseCode}\"\n" +
+                   $"\"InstallmentsAmount\":\"{InstallmentsAmount}\"\n" +
+                   $"\"InstallmentsNumber\":\"{InstallmentsNumber}\"\n";
         }
 
     }

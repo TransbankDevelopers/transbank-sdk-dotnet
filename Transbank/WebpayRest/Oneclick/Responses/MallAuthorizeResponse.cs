@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Transbank.Webpay.Common;
@@ -45,13 +45,12 @@ namespace Transbank.Webpay.Oneclick.Responses
         {
             var details = "";
             Details.ForEach(i => details += "{\n"+ i.ToString() + "\n}\n");
-
-            return $"\"BuyOrder\": {BuyOrder}\"\n" +
-                   $"\"SessionId\": {SessionId}\"\n" +
-                   $"\"CardNumber\": {CardNumber}\"\n" +
-                   $"\"ExpirationDate\": {ExpirationDate}\"\n" +
-                   $"\"AccountingDate\": {AccountingDate}\"\n" +
-                   $"\"TransactionDate\": {TransactionDate}\"\n" +
+            return $"\"BuyOrder\": \"{BuyOrder}\"\n" +
+                   $"\"SessionId\": \"{SessionId}\"\n" +
+                   $"\"CardNumber\": \"{CardNumber}\"\n" +
+                   $"\"ExpirationDate\": \"{ExpirationDate}\"\n" +
+                   $"\"AccountingDate\": \"{AccountingDate}\"\n" +
+                   $"\"TransactionDate\": \"{TransactionDate}\"\n" +
                    "\"Details\":\n{\n\t" + details + "\n}\n";
         }
     }

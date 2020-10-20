@@ -1,4 +1,5 @@
-﻿using Transbank.Webpay.Common;
+using System;
+using Transbank.Webpay.Common;
 using Newtonsoft.Json;
 
 namespace Transbank.Webpay.Oneclick.Responses
@@ -11,28 +12,28 @@ namespace Transbank.Webpay.Oneclick.Responses
         public string TbkUser { get; private set; }
         [JsonProperty("authorization_code")]
         public string AuthorizationCode { get; private set; }
-        [JsonProperty("credit_card_type")]
-        public string CreditCardType { get; private set; }
-        [JsonProperty("last_four_card_digits")]
-        public string LastFourCardDigits { get; private set; }
+        [JsonProperty("card_type")]
+        public string CardType { get; private set; }
+        [JsonProperty("card_number")]
+        public string CardNumber { get; private set; }
 
         public FinishResponse(int responseCode, string transbankUser,
-            string authorizationCode, string creditCardType, string lastFourCardDigits)
+            string authorizationCode, string cardType, string cardNumber)
         {
             ResponseCode = responseCode;
             TbkUser = transbankUser;
             AuthorizationCode = authorizationCode;
-            CreditCardType = creditCardType;
-            LastFourCardDigits = lastFourCardDigits;
+            CardType = cardType;
+            CardNumber = cardNumber;
         }
 
         public override string ToString()
         {
-            return $"\"Response Code\": \"{ResponseCode}\"\n" + 
-                   $"\"Transbank User\": \"{TbkUser}\"\n" +
-                   $"\"Authorization Code\": \"{AuthorizationCode}\"\n" +
-                   $"\"Credit Card Type\": \"{CreditCardType}\"\n" +
-                   $"\"Last Four Card Digits\": \"{LastFourCardDigits}\"\n";
+            return $"\"ResponseCode\": \"{ResponseCode}\"\n" + 
+                   $"\"TransbankUser\": \"{TbkUser}\"\n" +
+                   $"\"AuthorizationCode\": \"{AuthorizationCode}\"\n" +
+                   $"\"CardType\": \"{CardType}\"\n" +
+                   $"\"CardNumber\": \"{CardNumber}\"";
         }
     }
 }

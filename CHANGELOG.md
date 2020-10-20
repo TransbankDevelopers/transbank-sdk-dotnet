@@ -5,6 +5,21 @@ Todos los cambios notables a este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2019-12-26
+
+### Added
+
+- Se agrega soporte para Oneclick Mall y Transacción Completa en sus versiones REST.
+
+
+## [2.3.0] - 2019-11-12
+
+### Added
+
+- Se agregan las clases necesarias para conectarse al Websocket de Onepay. Estas clases pueden ser utilizadas independientes, pero estan especialmente diseñadas para ser utilizadas por el SDK de POSIntegrado
+
+- Se agregan templates para crear Issues en Github.
+
 ## [2.2.1] - 2019-05-20
 
 ### Fixed

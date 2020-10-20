@@ -59,6 +59,25 @@ La documentación relevante para usar este SDK es:
 - Primeros pasos con [Webpay](https://www.transbankdevelopers.cl/documentacion/webpay) y [Onepay](https://www.transbankdevelopers.cl/documentacion/onepay).
 - Referencia detallada sobre [Webpay](https://www.transbankdevelopers.cl/referencia/webpay) y [Onepay](https://www.transbankdevelopers.cl/referencia/onepay).
 
+## Solución de problemas
+
+### CryptographicException: Invalid algorithm specified
+
+Si al intentar ejecutar el código en el que integras, se lanza una excepción similar a la siguiente:
+```
+System.Security.Cryptography.CryptographicException
+  HResult=0x80090008
+  Message=Invalid algorithm specified.
+  Source=<Cannot evaluate the exception source>
+  StackTrace:<Cannot evaluate the exception stack trace>
+```
+puedes solucionarlo agregando a tu código, antes de llamar a initTransaction, las siguientes líneas:
+
+```csharp
+AppContext.SetSwitch("Switch.System.Security.Cryptography.Xml.UseInsecureHashAlgorithms", true);
+AppContext.SetSwitch("Switch.System.Security.Cryptography.Pkcs.UseInsecureHashAlgorithms", true);
+```
+
 ## Información para contribuir y desarrollar este SDK
 
 ### Windows
@@ -112,8 +131,8 @@ Para generar una nueva versión, se debe crear un PR (con un título "Prepare re
 
 En ese PR deben incluirse los siguientes cambios:
 
-1. Modificar el archivo CHANGELOG.md para incluir una nueva entrada (al comienzo) para `X.Y.Z` que explique en español los cambios **de cara al usuario del SDK**.
-2. Modificar el archivo `Transbank/Transbank.csproj` para que <`VersionPrefix`> sea `X.Y.{Z+1}` (de manera que los pre-releases que se generen después del release sean de la siguiente versión).
+1. Modificar el archivo `CHANGELOG.md` para incluir una nueva entrada (al comienzo) para `X.Y.Z` que explique en español los cambios **de cara al usuario del SDK**.
+2. Modificar [Transbank.csproj](./Transbank/Transbank.csproj) para que <`VersionPrefix`> sea `X.Y.{Z+1}` (de manera que los pre-releases que se generen después del release sean de la siguiente versión).
 
 Luego de obtener aprobación del pull request, debe mezclarse a master e inmediatamente generar un release en GitHub con el tag `vX.Y.Z`. En la descripción del release debes poner lo mismo que agregaste al changelog.
 
