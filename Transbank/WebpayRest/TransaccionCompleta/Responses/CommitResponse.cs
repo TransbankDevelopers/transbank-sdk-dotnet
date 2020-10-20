@@ -62,7 +62,7 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
                    $"\"Status\":\"{Status}\"\n" +
                    $"\"BuyOrder\":\"{BuyOrder}\"\n" +
                    $"\"SessionId\":\"{SessionId}\"\n" +
-                   $"\"CardDetail\":\"{CardDetail.ToString()}\"\n" +
+                   "Card Detail=\n{\n" + CardDetail.ToString() + "}\n" +
                    $"\"AccountingDate\":\"{AccountingDate}\"\n" +
                    $"\"TransactionDate\":\"{TransactionDate}\"\n" +
                    $"\"AuthorizationCode\":\"{AuthorizationCode}\"\n" +

@@ -27,7 +27,7 @@ namespace Transbank.Webpay.TransaccionCompleta.Common
         {
             return $"Amount={Amount}\n" +
                    $"CommerceCode={CommerceCode}\n" +
-                   $"BuyOrder={BuyOrder}";
+                   $"BuyOrder={BuyOrder}\n";
         }
     }
 }

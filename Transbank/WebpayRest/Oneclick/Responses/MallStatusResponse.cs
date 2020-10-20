@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Newtonsoft.Json;
 using Transbank.Webpay.Common;
 
@@ -31,12 +33,14 @@ namespace Transbank.WebpayRest.Oneclick.Responses
 
         public override string ToString()
         {
+            var details = "";
+            Details.ForEach(i => details += "{\n"+ i.ToString() + "\n}\n");
             return $"\"BuyOrder\": \"{BuyOrder}\"\n" +
                    $"\"AccountingDate\": \"{AccountingDate}\"\n" +
                    $"\"TransactionDate\": \"{TransactionDate}\"\n" +
-                   $"\"Details\": \"{Details.ToString()}\"";
+                   "\"Details\":\n{\n\t" + details + "\n}\n";
         }
-
+  
         public class Detail
         {
             [JsonProperty("amount")]
@@ -75,6 +79,19 @@ namespace Transbank.WebpayRest.Oneclick.Responses
                 CommerceCode = commerceCode;
                 BuyOrder = buyOrder;
             }
+
+            public override string ToString()
+            {
+                var properties = new List<string>();
+                foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(this))
+                {
+                    string name = descriptor.Name;
+                    object value = descriptor.GetValue(this);
+                    properties.Add($"{name}={value}");
+                }
+                return String.Join(",\n", properties);
+            }
+
         }
     }
 }

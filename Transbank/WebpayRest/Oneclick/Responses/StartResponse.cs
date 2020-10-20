@@ -18,7 +18,8 @@ namespace Transbank.Webpay.Oneclick.Responses
 
         public override string ToString()
         {
-            return $"\"Token\": \"{Token}\"\n\"Url\": \"{Url}\"";
+            return $"\"Token\": \"{Token}\"\n"+
+                $"\"Url\": \"{Url}\"\n";
         }
     }
 }

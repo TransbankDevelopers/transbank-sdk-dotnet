@@ -29,7 +29,7 @@ namespace Transbank.Webpay.Common
             return $"Commerce Code= {CommerceCode}\n" +
                 $"Buy Order= {BuyOrder}\n" +
                 $"Amount= {Amount}\n" +
-                $"InstallmentsNumber= {InstallmentsNumber}";
+                $"InstallmentsNumber= {InstallmentsNumber}\n";
         }
     }
 }

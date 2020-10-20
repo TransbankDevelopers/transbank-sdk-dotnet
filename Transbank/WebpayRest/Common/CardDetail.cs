@@ -10,7 +10,7 @@ namespace Transbank.Webpay.Common
 
         public override string ToString()
         {
-            return $"CardNumber={CardNumber}";
+            return $"CardNumber={CardNumber}\n";
         }
     }
 }
