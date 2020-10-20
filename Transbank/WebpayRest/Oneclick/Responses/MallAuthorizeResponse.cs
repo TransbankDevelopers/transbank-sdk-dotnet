@@ -43,13 +43,16 @@ namespace Transbank.Webpay.Oneclick.Responses
 
         public override string ToString()
         {
+            var details = "";
+            Details.ForEach(i => details += "{\n"+ i.ToString() + "\n}\n");
+
             return $"\"BuyOrder\": {BuyOrder}\"\n" +
                    $"\"SessionId\": {SessionId}\"\n" +
                    $"\"CardNumber\": {CardNumber}\"\n" +
                    $"\"ExpirationDate\": {ExpirationDate}\"\n" +
                    $"\"AccountingDate\": {AccountingDate}\"\n" +
                    $"\"TransactionDate\": {TransactionDate}\"\n" +
-                   "\"Details\":\n{\n\t" + Details.ToString() + "\n}\n";
+                   "\"Details\":\n{\n\t" + details + "\n}\n";
         }
     }
 }
