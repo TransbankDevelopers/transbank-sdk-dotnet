@@ -5,6 +5,21 @@ Todos los cambios notables a este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] - 2020-10-20
+
+### Added
+
+- Se agrega soporte para:
+    - Webpay Plus Rest
+        - modalidad normal
+        - modalidad captura diferida
+        - modalidad mall
+        - modalidad mall captura diferida
+    - Patpass by Webpay Rest
+    - Patpass Comercio Rest
+    - Transacción completa Rest
+        - modalidad mall
+
 ## [2.4.0] - 2019-12-26
 
 ### Added
