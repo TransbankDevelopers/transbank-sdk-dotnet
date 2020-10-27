@@ -38,7 +38,7 @@ namespace Transbank.Common
                 {
                     var jsonObject = (JObject)JsonConvert.DeserializeObject(jsonResponse);
                     throw (T)Activator.CreateInstance(typeof(T), new object[] {
-                        (int)response.StatusCode, $"Error message: {jsonObject?.Value<string>("error_message")}"
+                        (int)response.StatusCode, $"Error message: {jsonObject?.Value<string>("description")}"
                     });
                 }
                 return jsonResponse;
