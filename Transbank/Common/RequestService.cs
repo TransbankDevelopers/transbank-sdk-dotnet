@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -10,7 +10,7 @@ using Transbank.Common;
 
 namespace Transbank.Common
 {
-    public static class RequestService
+    internal static class RequestService
     {
         private static readonly string CONTENT_TYPE = "application/json";
 

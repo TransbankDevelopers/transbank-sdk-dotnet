@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Transbank.Common
 {
-    public class RequestServiceHeaders
+    internal class RequestServiceHeaders
     {
 
         public string CommerceCodeHeader { get; set; }

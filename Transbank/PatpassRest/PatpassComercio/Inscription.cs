@@ -46,13 +46,6 @@ namespace Transbank.Patpass.PatpassComercio
                                           nameof(value), "Integration type can't be null");
         }
 
-        public static RequestServiceHeaders Headers
-        {
-            get => _headers;
-            set => _headers = value ?? throw new ArgumentNullException(
-                                 nameof(value), " Headers can't be null");
-        }
-
         public static Options DefaultOptions()
         {
             return new Options(CommerceCode, ApiKey, IntegrationType);
