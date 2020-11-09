@@ -16,6 +16,9 @@ namespace Transbank.Patpass.PatpassComercio
         private static string _commerceCode = "28299257";
         private static string _apiKey = "cxxXQgGD9vrVe4M41FIt";
         private static PatpassComercioIntegrationType _integrationType = PatpassComercioIntegrationType.Test;
+
+        // The authentication headers for this product are different, these have
+        // to be used. You can put them in the Perform method of the RequestService
         private static string _apiKeyHeaderName = "Authorization";
         private static string _commerceCodeHeaderName = "commerceCode";
 
@@ -52,7 +55,7 @@ namespace Transbank.Patpass.PatpassComercio
 
         public static Options DefaultOptions()
         {
-            return new Options(CommerceCode, ApiKey, IntegrationType, Headers);
+            return new Options(CommerceCode, ApiKey, IntegrationType);
         }
 
         public static StartResponse Start(
@@ -74,23 +77,10 @@ namespace Transbank.Patpass.PatpassComercio
         )
         {
             return Start(
-                url,
-                name,
-                fLastname,
-                sLastname,
-                rut,
-                serviceId,
-                finalUrl,
-                maxAmount,
-                phoneNumber,
-                mobileNumber,
-                patpassName,
-                personEmail,
-                commerceEmail,
-                address,
-                city, 
-                DefaultOptions()
-                );
+                url, name, fLastname, sLastname, rut, serviceId, finalUrl,
+                maxAmount, phoneNumber, mobileNumber, patpassName, personEmail,
+                commerceEmail, address, city, DefaultOptions()
+            );
         }
 
         public static StartResponse Start(
@@ -118,24 +108,11 @@ namespace Transbank.Patpass.PatpassComercio
             return ExceptionHandler.Perform<StartResponse, InscriptionStartException>(() =>
             {
                 var request = new StartRequest(
-                    url,
-                    name,
-                    fLastname,
-                    sLastname,
-                    rut,
-                    serviceId,
-                    finalUrl,
-                    options.CommerceCode,
-                    mAmount,
-                    phoneNumber,
-                    mobileNumber,
-                    patpassName,
-                    personEmail,
-                    commerceEmail,
-                    address,
-                    city
+                    url, name, fLastname, sLastname, rut, serviceId, finalUrl,
+                    options.CommerceCode, mAmount, phoneNumber, mobileNumber,
+                    patpassName, personEmail, commerceEmail, address, city
                 );
-                var response = RequestService.Perform<InscriptionStartException>(request, options);
+                var response = RequestService.Perform<InscriptionStartException>(request, options, _headers);
 
                 return JsonConvert.DeserializeObject<StartResponse>(response);
             });
@@ -153,7 +130,7 @@ namespace Transbank.Patpass.PatpassComercio
             {
                 var statusRequest = new StatusRequest(token);
                 var response = RequestService.Perform<InscriptionStatusException>(
-                    statusRequest, options);
+                    statusRequest, options, _headers);
 
                 return JsonConvert.DeserializeObject<StatusResponse>(response);
             });

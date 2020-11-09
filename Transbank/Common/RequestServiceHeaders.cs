@@ -5,18 +5,21 @@ namespace Transbank.Common
 {
     public class RequestServiceHeaders
     {
-        [DefaultValue("Tbk-Api-Key-Id")]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
-        public string ApiKeyHeaderName { get; set; }
-        
-        [DefaultValue("Tbk-Api-Key-Secret")]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
-        public string CommerceCodeHeaderName { get; set; }
 
-        public RequestServiceHeaders(string apiKeyHeaderName, string commerceCodeHeaderName)
+        public string CommerceCodeHeader { get; set; }
+
+        public string ApiKeyHeader { get; set; }
+
+        public RequestServiceHeaders()
         {
-            ApiKeyHeaderName = apiKeyHeaderName;
-            CommerceCodeHeaderName = commerceCodeHeaderName;
+            CommerceCodeHeader = "Tbk-Api-Key-Id";
+            ApiKeyHeader = "Tbk-Api-Key-Secret";
+        }
+
+        public RequestServiceHeaders(string apiKeyHeader, string commerceCodeHeader)
+        {
+            CommerceCodeHeader = commerceCodeHeader;
+            ApiKeyHeader = apiKeyHeader;
         }
     }
 }

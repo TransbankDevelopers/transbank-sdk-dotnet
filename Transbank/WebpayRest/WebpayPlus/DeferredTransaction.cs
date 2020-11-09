@@ -40,7 +40,7 @@ namespace Transbank.Webpay.WebpayPlus
 
         public static Options DefaultOptions()
         {
-            return new Options(CommerceCode, ApiKey, IntegrationType, null);
+            return new Options(CommerceCode, ApiKey, IntegrationType);
         }
 
         public static CreateResponse Create(string buyOrder, string sessionId,
