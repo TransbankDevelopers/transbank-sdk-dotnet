@@ -14,6 +14,13 @@ namespace Transbank.Webpay.WebpayPlus
         private static string _apiKey = "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C";
         private static WebpayIntegrationType _integrationType = WebpayIntegrationType.Test;
 
+        // Temporal patch so we don't break compatibility
+        // Proper fix: https://github.com/TransbankDevelopers/transbank-sdk-dotnet/pull/124
+        private static string _commerceCodeHeaderName = "Tbk-Api-Key-Id";
+        private static string _apiKeyHeaderName = "Tbk-Api-Key-Secret";
+
+        private static RequestServiceHeaders _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
+
         public static string CommerceCode
         {
             get => _commerceCode;
@@ -40,7 +47,7 @@ namespace Transbank.Webpay.WebpayPlus
 
         public static Options DefaultOptions()
         {
-            return new Options(CommerceCode, ApiKey, IntegrationType, null);
+            return new Options(CommerceCode, ApiKey, IntegrationType, _headers);
         }
 
         public static CreateResponse Create(string buyOrder, string sessionId,
