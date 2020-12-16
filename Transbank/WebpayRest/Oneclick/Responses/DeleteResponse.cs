@@ -1,5 +1,7 @@
-﻿
+﻿using System;
+
 namespace Transbank.Webpay.Oneclick.Responses
 {
-    public class DeleteResponse{}
+    [Obsolete("Use MallDeleteresponse instead", false)]
+    public class DeleteResponse : MallDeleteResponse { }
 }

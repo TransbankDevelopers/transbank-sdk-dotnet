@@ -16,12 +16,11 @@ namespace Transbank.Webpay.Oneclick
     {
         private static string _commerceCode = "597055555541";
         private static string _apiKey = "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C";
-        private static string[] _storeCodes = { "597055555542", "597055555543" };
 
         private static WebpayIntegrationType _integrationType = WebpayIntegrationType.Test;
         
-        private static string _commerceCodeHeaderName = "Tbk-Api-Key-Id";
-        private static string _apiKeyHeaderName = "Tbk-Api-Key-Secret";
+        private static readonly string _commerceCodeHeaderName = "Tbk-Api-Key-Id";
+        private static readonly string _apiKeyHeaderName = "Tbk-Api-Key-Secret";
 
         private static RequestServiceHeaders _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
 
