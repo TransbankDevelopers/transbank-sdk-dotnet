@@ -1,12 +1,11 @@
-﻿using System.Net.Http;
-using Transbank.Common;
+﻿using System;
 
 namespace Transbank.Webpay.Oneclick.Requests
 {
-    internal class FinishRequest : BaseRequest
+    [Obsolete("Use MallFinishRequest instead", false)]
+    internal class FinishRequest : MallFinishRequest
     {
         internal FinishRequest(string token)
-            : base($"/rswebpaytransaction/api/oneclick/v1.0/inscriptions/{token}",
-                  HttpMethod.Put){}
+            : base(token) { }
     }
 }
