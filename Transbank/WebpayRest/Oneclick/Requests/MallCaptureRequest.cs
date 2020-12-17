@@ -7,7 +7,7 @@ namespace Transbank.WebpayRest.Oneclick.Requests
     public class MallCaptureRequest : BaseRequest
     {
         [JsonProperty("commerce_code")]
-        internal int CommerceCode { get; set; }
+        internal long CommerceCode { get; set; }
 
         [JsonProperty("buy_order")]
         internal string BuyOrder { get; set; }
@@ -18,7 +18,7 @@ namespace Transbank.WebpayRest.Oneclick.Requests
         [JsonProperty("authorization_code")]
         internal string AuthorizationCode { get; set; }
 
-        public MallCaptureRequest(int comerceCode, string buyOrder, decimal amount, string authorizationCode)
+        public MallCaptureRequest(long comerceCode, string buyOrder, decimal amount, string authorizationCode)
             : base($"/rswebpaytransaction/api/oneclick/v1.0/transactions/capture", HttpMethod.Put)
         {
             CommerceCode = comerceCode;

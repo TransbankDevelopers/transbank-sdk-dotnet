@@ -93,16 +93,17 @@ namespace Transbank.Webpay.Oneclick
             return MallTransaction.Status(buyOrder, options);
         }
 
-        public static MallCaptureResponse Capture(int commerceCode, string buyOrder, decimal amount, string authorizationCode)
+        public static MallCaptureResponse Capture(string commerceCode, string buyOrder, decimal amount, string authorizationCode)
         {
             return Capture(commerceCode, buyOrder, amount, authorizationCode, DefaultOptions());
         }
 
-        public static MallCaptureResponse Capture(int commerceCode, string buyOrder, decimal amount, string authorizationCode, Options options)
+        public static MallCaptureResponse Capture(string commerceCode, string buyOrder, decimal amount, string authorizationCode, Options options)
         {
             return ExceptionHandler.Perform<MallCaptureResponse, MallCaptureException>(() =>
             {
-                var mallCaptureRequest = new MallCaptureRequest(commerceCode, buyOrder, amount, authorizationCode);
+                long.TryParse(commerceCode, out long ccode);
+                var mallCaptureRequest = new MallCaptureRequest(ccode, buyOrder, amount, authorizationCode);
                 var response = RequestService.Perform<MallCaptureException>(mallCaptureRequest, options);
                 return JsonConvert.DeserializeObject<MallCaptureResponse>(response);
             });
