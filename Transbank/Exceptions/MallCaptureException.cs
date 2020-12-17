@@ -2,13 +2,13 @@ using System;
 
 namespace Transbank.Exceptions
 {
-    public class MallTransactionCreateException : TransbankException
+    public class MallCaptureException : TransbankException
     {
-        public MallTransactionCreateException(string message) : base(-1, message) { }
+        public MallCaptureException(string message) : base(-1, message) { }
 
-        public MallTransactionCreateException(int code, string message) : base(code, message) { }
+        public MallCaptureException(int code, string message) : base(code, message) { }
 
-        public MallTransactionCreateException(int code, string message, Exception innerException)
+        public MallCaptureException(int code, string message, Exception innerException)
             : base(code, message, innerException) { }
     }
 }
