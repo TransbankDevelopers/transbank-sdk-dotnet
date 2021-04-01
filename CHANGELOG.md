@@ -5,27 +5,42 @@ Todos los cambios notables a este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] - 2020-12-17
+
+### Added
+
+- Se Agrega soporte para Oneclick Mall Diferido
+
+### Changed
+
+- Se mantiene la retro compatibilidad, pero todas las clases Oneclick "Normal" tienen su reemplazo "Mall" y las clases "Normal" se marcaron como deprecadas.
+
+## [2.5.1] - 2020-11-09
+
+### Fixed
+
+- Se agregan headers faltantes para Webpay Plus Diferido
+
 ## [2.5.0] - 2020-10-20
 
 ### Added
 
 - Se agrega soporte para:
-    - Webpay Plus Rest
-        - modalidad normal
-        - modalidad captura diferida
-        - modalidad mall
-        - modalidad mall captura diferida
-    - Patpass by Webpay Rest
-    - Patpass Comercio Rest
-    - Transacción completa Rest
-        - modalidad mall
+  - Webpay Plus Rest
+    - modalidad normal
+    - modalidad captura diferida
+    - modalidad mall
+    - modalidad mall captura diferida
+  - Patpass by Webpay Rest
+  - Patpass Comercio Rest
+  - Transacción completa Rest
+    - modalidad mall
 
 ## [2.4.0] - 2019-12-26
 
 ### Added
 
 - Se agrega soporte para Oneclick Mall y Transacción Completa en sus versiones REST.
-
 
 ## [2.3.0] - 2019-11-12
 
@@ -47,7 +62,6 @@ y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.ht
 ### Added
 
 - Se agregaron los parámetros `qr_width_height` y `commerce_logo_url` a Options, para especificar el tamaño del QR generado para la transacción, y especificar la ubicación del logo de comercio para ser mostrado en la aplicación móvil de Onepay. Puedes configurar estos parámetros globalmente o por transacción.
-
 
 ## [2.1.0] - 2019-02-25
 
