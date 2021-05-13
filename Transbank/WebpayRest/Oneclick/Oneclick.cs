@@ -10,19 +10,6 @@ namespace Transbank.Webpay.Oneclick
         private static string _commerceCode = "597055555541";
         private static string _apiKey = "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C";
         
-        private static readonly string _commerceCodeHeaderName = "Tbk-Api-Key-Id";
-        private static readonly string _apiKeyHeaderName = "Tbk-Api-Key-Secret";
-
-        private static RequestServiceHeaders _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
-
-        public static RequestServiceHeaders Headers
-        {
-            get => _headers;
-            set => _headers = value ?? throw new ArgumentNullException(
-                                  nameof(value), "Integration type can't be null."
-                              );
-        }
-
         private static WebpayIntegrationType _integrationType = WebpayIntegrationType.Test;
 
         public static string CommerceCode
@@ -51,7 +38,7 @@ namespace Transbank.Webpay.Oneclick
 
         public static Options DefaultOptions()
         {
-            return new Options(CommerceCode, ApiKey, IntegrationType, Headers);
+            return new Options(CommerceCode, ApiKey, IntegrationType);
         }
     }
 }
