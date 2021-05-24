@@ -51,7 +51,7 @@ namespace Transbank.Onepay
             });
 
             _ = await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
-            _ = await mqttClient.SubscribeAsync(new TopicFilterBuilder().WithTopic(obj.Ott).Build());
+            _ = await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic(obj.Ott).Build());
         }
 
         private WebsocketCredentials FetchCredentials()
