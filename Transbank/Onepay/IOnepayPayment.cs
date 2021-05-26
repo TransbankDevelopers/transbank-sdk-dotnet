@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using MQTTnet;
 using MQTTnet.Client;
 
-
 namespace Transbank.Onepay
 {
     public interface IOnepayPayment
