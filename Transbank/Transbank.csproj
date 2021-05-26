@@ -2,6 +2,24 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <ApplicationIcon />
+    <Win32Resource />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageId>TransbankSDK</PackageId>
+    <Description>This is the .Net SDK for Transbank Integration.</Description>
+    <PackageLicense>https://raw.githubusercontent.com/TransbankDevelopers/transbank-sdk-dotnet/master/LICENSE</PackageLicense>
+    <PackageProjectUrl>http://www.transbankdevelopers.cl/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TransbankDevelopers/transbank-sdk-dotnet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageTags>payments, cl, chile, transbank</PackageTags>
+    <PackageIconUrl>https://www.transbankdevelopers.cl/favicon.ico</PackageIconUrl>
+    <VersionPrefix>2.6.1</VersionPrefix>
+    <VersionSuffix>$(VersionSuffix)</VersionSuffix>
+    <Product>TransbankSDK</Product>
+    <Copyright>2020 - Transbank</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
