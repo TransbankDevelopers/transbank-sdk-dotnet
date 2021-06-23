@@ -4,11 +4,12 @@ namespace Transbank.Patpass.PatpassComercio.Responses
 {
     public class StatusResponse
     {
-        [JsonProperty("status")]
+        [JsonProperty("authorized")]
         public string Status { get; set; }
-        
-        [JsonProperty("urlVoucher")]
+
+        [JsonProperty("voucherUrl")]
         public string UrlVoucher { get; set; }
+
 
         public StatusResponse(string status, string urlVoucher)
         {
