@@ -5,6 +5,11 @@ Todos los cambios notables a este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [3.0.1] - 2021-06-23
+
+### Fixed
+- Se corrigio el mapeo de las propiedades Status y UrlVoucher de la clase StatusResponse de Patpass Comercio.
+
 ## [3.0.0] - 2021-05-26
 
 ### Removed
