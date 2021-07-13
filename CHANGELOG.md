@@ -5,6 +5,22 @@ Todos los cambios notables a este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [3.0.1] - 2021-06-23
+
+### Fixed
+- Se corrigio el mapeo de las propiedades Status y UrlVoucher de la clase StatusResponse de Patpass Comercio.
+
+## [3.0.0] - 2021-05-26
+
+### Removed
+- Se quita soporte para todos los productos en versión REST
+
+### Changed
+- Ya no es necesario pasar los headers del producto en las opciones, el SDK lo hace por su cuenta.
+
+### Added
+- Se agrega soporte para .NET Standard 2.0, puedes revisar la lista de compatibilidad en este link https://dotnet.microsoft.com/platform/dotnet-standard
+
 ## [2.6.0] - 2020-12-17
 
 ### Added
