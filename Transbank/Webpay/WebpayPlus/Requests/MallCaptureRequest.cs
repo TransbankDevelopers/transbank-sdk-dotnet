@@ -20,7 +20,7 @@ namespace Transbank.WebpayRest.WebpayPlus.Requests
         
         public MallCaptureRequest(string token, string commerceCode, string buyOrder, string authorizationCode,
             decimal captureAmount)
-            : base($"/rswebpaytransaction/api/webpay/v1.0/transactions/{token}/capture", HttpMethod.Put)
+            : base($"{Constant.WEBPAY_METHOD}/transactions/{token}/capture", HttpMethod.Put)
         {
             CommerceCode = commerceCode;
             BuyOrder = buyOrder;

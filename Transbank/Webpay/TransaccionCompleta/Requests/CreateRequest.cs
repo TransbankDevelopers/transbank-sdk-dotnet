@@ -31,7 +31,7 @@ namespace Transbank.Webpay.TransaccionCompleta.Requests
             int cvv,
             string cardNumber,
             string cardExpirationDate)
-            : base("/rswebpaytransaction/api/webpay/v1.0/transactions", HttpMethod.Post)
+            : base($"{Constant.WEBPAY_METHOD}/transactions", HttpMethod.Post)
         {
             BuyOrder = buyOrder;
             SessionId = sessionId;

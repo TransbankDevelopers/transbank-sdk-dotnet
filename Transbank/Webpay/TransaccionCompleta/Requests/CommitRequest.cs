@@ -19,7 +19,7 @@ namespace Transbank.Webpay.TransaccionCompleta.Requests
             int idQueryInstallments,
             int deferredPeriodIndex,
             bool gracePeriod)
-            : base($"/rswebpaytransaction/api/webpay/v1.0/transactions/{token}", HttpMethod.Put)
+            : base($"{Constant.WEBPAY_METHOD}/transactions/{token}", HttpMethod.Put)
         {
             IdQueryInstallments = idQueryInstallments;
             DeferredPeriodIndex = deferredPeriodIndex;
