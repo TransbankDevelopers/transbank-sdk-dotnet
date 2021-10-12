@@ -28,7 +28,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Requests
             string cardNumber,
             string cardExpirationDate,
             List<CreateDetails> details)
-        : base("/rswebpaytransaction/api/webpay/v1.0/transactions", HttpMethod.Post)
+        : base($"{Constant.WEBPAY_METHOD}/transactions", HttpMethod.Post)
         {
             BuyOrder = buyOrder;
             SessionId = sessionId;

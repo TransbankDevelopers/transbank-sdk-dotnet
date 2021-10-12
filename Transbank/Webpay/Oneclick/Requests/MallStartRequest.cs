@@ -16,7 +16,7 @@ namespace Transbank.Webpay.Oneclick.Requests
         internal string ResponseUrl { get; set; }
 
         internal MallStartRequest(string userName, string email, string responseUrl)
-            : base("/rswebpaytransaction/api/oneclick/v1.0/inscriptions", HttpMethod.Post)
+            : base($"{Constant.ONECLICK_METHOD}/inscriptions", HttpMethod.Post)
         {
             UserName = userName;
             Email = email;

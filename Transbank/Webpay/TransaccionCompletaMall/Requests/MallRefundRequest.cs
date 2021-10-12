@@ -20,7 +20,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Requests
             string buyOrder,
             string commerceCode,
             int amount)
-            : base($"/rswebpaytransaction/api/webpay/v1.0/transactions/{token}/refunds", HttpMethod.Post)
+            : base($"{Constant.WEBPAY_METHOD}/transactions/{token}/refunds", HttpMethod.Post)
         {
             BuyOrder = buyOrder;
             CommerceCode = commerceCode;

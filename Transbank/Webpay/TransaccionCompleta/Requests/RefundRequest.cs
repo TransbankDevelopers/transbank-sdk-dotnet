@@ -9,7 +9,7 @@ namespace Transbank.Webpay.TransaccionCompleta.Requests
         [JsonProperty("amount")]
         public int Amount { get; set; }
 
-        public RefundRequest(string token, int amount) : base($"/rswebpaytransaction/api/webpay/v1.0/transactions/{token}/refunds", HttpMethod.Post)
+        public RefundRequest(string token, int amount) : base($"{Constant.WEBPAY_METHOD}/transactions/{token}/refunds", HttpMethod.Post)
         {
             Amount = amount;
         }
