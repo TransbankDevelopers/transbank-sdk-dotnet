@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Transbank.Common;
@@ -53,6 +53,17 @@ namespace Transbank.Webpay.WebpayPlus
         public static MallCreateResponse Create(string buyOrder, string sessionId,
             string returnUrl, List<TransactionDetail> transactions, Options options)
         {
+            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(sessionId, 61, "sessionId");
+            ValidationUtil.hasTextWithMaxLength(returnUrl, 255, "returnUrl");
+            ValidationUtil.hasElements(transactions, "transactions");
+
+            foreach (var item in transactions)
+            {
+                ValidationUtil.hasText(item.CommerceCode, "transactions.commerceCode");
+                ValidationUtil.hasTextWithMaxLength(item.BuyOrder, 26, "transactions.buyOrder");
+            }
+
             return ExceptionHandler.Perform<MallCreateResponse, MallTransactionCreateException>(() =>
             {
                 var mallCreateRequest = new MallCreateRequest(buyOrder, sessionId,
@@ -71,6 +82,8 @@ namespace Transbank.Webpay.WebpayPlus
 
         public static MallCommitResponse Commit(string token, Options options)
         {
+            ValidationUtil.hasText(token, "token");
+
             return ExceptionHandler.Perform<MallCommitResponse, MallTransactionCommitException>(() =>
             {
                 var mallCommitRequest = new MallCommitRequest(token);
@@ -90,6 +103,10 @@ namespace Transbank.Webpay.WebpayPlus
         public static MallRefundResponse Refund(string token, string buyOrder,
             string commerceCode, decimal amount, Options options)
         {
+            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasText(commerceCode, "commerceCode");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+
             return ExceptionHandler.Perform<MallRefundResponse, MallTransactionRefundException>(() =>
             {
                 var mallRefundRequest = new MallRefundRequest(token, buyOrder,
@@ -108,6 +125,8 @@ namespace Transbank.Webpay.WebpayPlus
 
         public static MallStatusResponse Status(string token, Options options)
         {
+            ValidationUtil.hasText(token, "token");
+
             return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
             {
                 var mallStatusRequest = new MallStatusRequest(token);

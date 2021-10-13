@@ -56,6 +56,17 @@ namespace Transbank.Webpay.Oneclick
         public static MallAuthorizeResponse Authorize(string userName, string tbkUser, string buyOrder,
             List<PaymentRequest> details, Options options)
         {
+            ValidationUtil.hasTextWithMaxLength(userName, 40, "userName");
+            ValidationUtil.hasTextWithMaxLength(tbkUser, 40, "tbkUser");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+            ValidationUtil.hasElements(details, "details");
+
+            foreach (var item in details)
+            {
+                ValidationUtil.hasText(item.CommerceCode, "details.commerceCode");
+                ValidationUtil.hasTextWithMaxLength(item.BuyOrder, 26, "details.buyOrder");
+            }
+
             return ExceptionHandler.Perform<MallAuthorizeResponse, MallTransactionAuthorizeException>(() =>
             {
                 var authorizeRequest = new MallAuthorizeRequest(userName, tbkUser, buyOrder,
@@ -75,6 +86,10 @@ namespace Transbank.Webpay.Oneclick
         public static MallRefundResponse Refund(string buyOrder, string childCommerceCode, string childBuyOrder,
             decimal amount, Options options)
         {
+            ValidationUtil.hasText(childCommerceCode, "childCommerceCode");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(childBuyOrder, 26, "childBuyOrder");
+
             return ExceptionHandler.Perform<MallRefundResponse, MallTransactionRefundException>(() =>
             {
                 var mallRefundRequest = new MallRefundRequest(buyOrder, childCommerceCode, childBuyOrder, amount);
@@ -90,6 +105,8 @@ namespace Transbank.Webpay.Oneclick
         
         public static MallStatusResponse Status(string buyOrder, Options options)
         {
+            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+
             return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
             {
                 var mallStatusRequest = new MallStatusRequest(buyOrder);

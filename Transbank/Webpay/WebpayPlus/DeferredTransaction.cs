@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Webpay.Common;
@@ -86,24 +86,22 @@ namespace Transbank.Webpay.WebpayPlus
         }
 
         public static CaptureResponse Capture(string token, string buyOrder, string authorizationCode,
-            decimal captureAmount, string commerceCode = null)
-        {
-            return Capture(token, buyOrder, authorizationCode, captureAmount, commerceCode, DefaultOptions());
-        }
-
-        public static CaptureResponse Capture(string token, string buyOrder, string authorizationCode,
             decimal captureAmount)
         {
-            return Capture(token, buyOrder, authorizationCode, captureAmount, null, DefaultOptions());
+            return Capture(token, buyOrder, authorizationCode, captureAmount, DefaultOptions());
         }
 
         public static CaptureResponse Capture(string token, string buyOrder, string authorizationCode,
-            decimal captureAmount, string commerceCode, Options options)
+            decimal captureAmount, Options options)
         {
+            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(authorizationCode, 6, "authorizationCode");
+
             return ExceptionHandler.Perform<CaptureResponse, TransactionCaptureException>(() =>
             {
                 var captureRequest = new CaptureRequest(token, buyOrder,
-                    authorizationCode, captureAmount, commerceCode);
+                    authorizationCode, captureAmount);
                 var response = RequestService.Perform<TransactionCaptureException>(
                     captureRequest, options);
 

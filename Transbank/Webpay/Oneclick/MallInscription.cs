@@ -41,6 +41,10 @@ namespace Transbank.Webpay.Oneclick
         public static MallStartResponse Start(string userName, string email,
             string responseUrl, Options options)
         {
+            ValidationUtil.hasTextTrimWithMaxLength(userName, 40, "userName");
+            ValidationUtil.hasTextTrimWithMaxLength(email, 100, "email");
+            ValidationUtil.hasTextWithMaxLength(responseUrl, 255, "responseUrl");
+
             return ExceptionHandler.Perform<MallStartResponse, InscriptionStartException>(() =>
             {
                 var startRequest = new MallStartRequest(userName, email, responseUrl);
@@ -58,6 +62,8 @@ namespace Transbank.Webpay.Oneclick
 
         public static MallFinishResponse Finish(string token, Options options)
         {
+            ValidationUtil.hasText(token, "token");
+
             return ExceptionHandler.Perform<MallFinishResponse, InscriptionFinishException>(() =>
             {
                 var finishRequest = new MallFinishRequest(token);
@@ -74,6 +80,10 @@ namespace Transbank.Webpay.Oneclick
 
         public static void Delete(string userName, string tbkUser, Options options)
         {
+
+            ValidationUtil.hasTextTrimWithMaxLength(userName, 40, "userName");
+            ValidationUtil.hasTextWithMaxLength(tbkUser, 40, "tbkUser");
+
             ExceptionHandler.Perform<InscriptionDeleteException>(() =>
             {
                 var deleteRequest = new MallDeleteRequest(userName, tbkUser);

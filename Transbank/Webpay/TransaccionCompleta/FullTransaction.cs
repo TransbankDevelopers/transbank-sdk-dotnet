@@ -63,6 +63,11 @@ namespace Transbank.Webpay.TransaccionCompleta
             string cardExpirationDate,
             Options options)
         {
+            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(sessionId, 61, "sessionId");
+            ValidationUtil.hasTextWithMaxLength(cardNumber, 19, "cardNumber");
+            ValidationUtil.hasTextWithMaxLength(cardExpirationDate, 5, "cardExpirationDate");
+
             return ExceptionHandler.Perform<CreateResponse, TransactionCreateException>(() =>
             {
                 var createRequest = new CreateRequest(
@@ -92,6 +97,8 @@ namespace Transbank.Webpay.TransaccionCompleta
             int installmentsNumber,
             Options options)
         {
+            ValidationUtil.hasText(token, "token");
+
             return ExceptionHandler.Perform<InstallmentsResponse, TransactionInstallmentsException>(() =>
             {
                 var installmentsRequest = new InstallmentsRequest(
@@ -126,6 +133,8 @@ namespace Transbank.Webpay.TransaccionCompleta
             bool gracePeriods,
             Options options)
         {
+            ValidationUtil.hasText(token, "token");
+
             return ExceptionHandler.Perform<CommitResponse, TransactionCommitException>(() =>
             {
                 var commitRequest = new CommitRequest(
@@ -148,6 +157,8 @@ namespace Transbank.Webpay.TransaccionCompleta
             string token,
             Options options)
         {
+            ValidationUtil.hasText(token, "token");
+
             return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
             {
                 var request = new StatusRequest(token);
@@ -167,6 +178,8 @@ namespace Transbank.Webpay.TransaccionCompleta
         public static RefundResponse Refund(
             string token, int amount, Options options)
         {
+            ValidationUtil.hasText(token, "token");
+
             return ExceptionHandler.Perform<RefundResponse, TransactionRefundException>(() =>
             {
                 var request = new RefundRequest(token, amount);
