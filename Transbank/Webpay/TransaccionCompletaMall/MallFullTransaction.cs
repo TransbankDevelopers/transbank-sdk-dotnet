@@ -64,6 +64,17 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             List<CreateDetails> details,
             Options options)
         {
+            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(sessionId, 61, "sessionId");
+            ValidationUtil.hasTextWithMaxLength(cardNumber, 19, "cardNumber");
+            ValidationUtil.hasTextWithMaxLength(cardExpirationDate, 5, "cardExpirationDate");
+            ValidationUtil.hasElements(details, "details");
+
+            foreach (var item in details){
+                ValidationUtil.hasText(item.CommerceCode, "details.commerceCode");
+                ValidationUtil.hasTextWithMaxLength(item.BuyOrder, 26, "details.buyOrder");
+            }
+
             return ExceptionHandler.Perform<MallCreateResponse, MallTransactionCreateException>(() =>
             {
                 var mallCreateRequest = new MallCreateRequest(
@@ -84,6 +95,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             string buyOrder,
             int installmentsAmount)
         {
+
             return Installments(
                 token,
                 commerceCode,
@@ -98,6 +110,11 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             int installmentsNumber,
             Options options)
         {
+
+            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasText(commerceCode, "commerceCode");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+
             return ExceptionHandler.Perform<MallInstallmentsResponse, MallTransactionInstallmentsExceptions>(() =>
             {
                 var mallInstallmentsResponse = new MallInstallmentsRequest(
@@ -123,6 +140,8 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             List<MallInstallmentsDetails> detailsGroup,
             Options options)
         {
+            ValidationUtil.hasText(token, "token");
+
             return ExceptionHandler.Perform<MallInstallmentsDetailsResponse, MallTransactionInstallmentsExceptions>(() =>
             {
                List<MallInstallmentsResponse> details = new List<MallInstallmentsResponse>();
@@ -162,6 +181,9 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             List<MallCommitDetails> details,
             Options options)
         {
+
+            ValidationUtil.hasText(token, "token");
+
             return ExceptionHandler.Perform<MallCommitResponse, MallTransactionCommitException>(() =>
             {
                 var mallCommitRequest = new MallCommitRequest(
@@ -189,6 +211,10 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             int amount,
             Options options)
         {
+            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasText(commerceCode, "commerceCode");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+
             return ExceptionHandler.Perform<MallRefundResponse, MallTransactionRefundException>(() =>
             {
                 var mallRefundRequest = new MallRefundRequest(
@@ -213,6 +239,8 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             string token,
             Options options)
         {
+
+            ValidationUtil.hasText(token, "token");
             return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
             {
                 var mallStatusRequest = new MallStatusRequest(

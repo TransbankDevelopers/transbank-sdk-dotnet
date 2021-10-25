@@ -52,6 +52,11 @@ namespace Transbank.Webpay.WebpayPlus
         public static CreateResponse Create(string buyOrder, string sessionId,
             decimal amount, string returnUrl, Options options)
         {
+
+            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(sessionId, 61, "sessionId");
+            ValidationUtil.hasTextWithMaxLength(returnUrl, 255, "returnUrl");
+
             return ExceptionHandler.Perform<CreateResponse, TransactionCreateException>(() =>
             {
                 var createRequest = new CreateRequest(buyOrder, sessionId, amount, returnUrl);
@@ -69,6 +74,8 @@ namespace Transbank.Webpay.WebpayPlus
 
         public static CommitResponse Commit(string token, Options options)
         {
+            ValidationUtil.hasText(token, "token");
+
             return ExceptionHandler.Perform<CommitResponse, TransactionCommitException>(() =>
             {
                 var commitRequest = new CommitRequest(token);
@@ -86,6 +93,8 @@ namespace Transbank.Webpay.WebpayPlus
 
         public static RefundResponse Refund(string token, decimal amount, Options options)
         {
+            ValidationUtil.hasText(token, "token");
+
             return ExceptionHandler.Perform<RefundResponse, TransactionRefundException>(() =>
             {
                 var refundRequest = new RefundRequest(token, amount);
@@ -103,6 +112,8 @@ namespace Transbank.Webpay.WebpayPlus
 
         public static StatusResponse Status(string token, Options options)
         {
+            ValidationUtil.hasText(token, "token");
+
             return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
             {
                 var statusRequest = new StatusRequest(token);

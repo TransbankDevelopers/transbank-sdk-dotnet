@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Transbank.Common;
@@ -97,6 +97,11 @@ namespace Transbank.Webpay.WebpayPlus
         public static MallCaptureResponse Capture(string token, string commerceCode, string buyOrder,
             string authorizationCode, decimal amount, Options options)
         {
+            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasText(commerceCode, "commerceCode");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(authorizationCode, 6, "authorizationCode");
+
             return ExceptionHandler.Perform<MallCaptureResponse, MallTransactionCaptureException>(() =>
             {
                 var mallCaptureRequest = new MallCaptureRequest(token, commerceCode, buyOrder, authorizationCode, amount);
