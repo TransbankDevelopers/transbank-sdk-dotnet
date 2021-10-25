@@ -6,14 +6,16 @@
 SDK Oficial de Transbank
 
 ## Requisitos:
- - Target compatible con .NET Standard 2.0
+ - Target compatible con .NET Framework 4.5.2 y .NET Standard 2.0
 
 ## Dependencias
 Al realizar la instalación con NuGet las dependencias
 debieran instalarse automáticamente.
 
-- [Newtonsoft 11.0.2](https://www.newtonsoft.com/json)
-- [Microsoft Web Services 3.0.0](https://www.microsoft.com/en-us/download/details.aspx?id=14089)
+- [Newtonsoft 13.0.1](https://www.newtonsoft.com/json)
+- [System.Net.Http 4.3.4](https://dotnet.microsoft.com/)
+- [NETStandard.Library 2.0.3](https://dotnet.microsoft.com/)
+- [MQTTnet 3.0.16](https://github.com/chkr1011/MQTTnet)
 
 ## Instalación
 
