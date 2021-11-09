@@ -21,7 +21,7 @@ namespace Transbank.Webpay.Oneclick.Requests
         internal List<PaymentRequest> Details { get; set; }
 
         internal MallAuthorizeRequest(string userName, string tbkUser, string buyOrder, List<PaymentRequest> details)
-            : base($"{Constant.ONECLICK_METHOD}/transactions", HttpMethod.Post)
+            : base($"{ApiConstant.ONECLICK_METHOD}/transactions", HttpMethod.Post)
         {
             UserName = userName;
             TbkUser = tbkUser;

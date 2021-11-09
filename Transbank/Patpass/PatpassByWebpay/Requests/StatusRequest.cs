@@ -7,6 +7,6 @@ namespace Transbank.Patpass.PatpassByWebpay.Requests
     public class StatusRequest : BaseRequest
     {
         internal StatusRequest(string token)
-            : base($"{Constant.WEBPAY_METHOD}/transactions/{token}", HttpMethod.Get) { }
+            : base($"{ApiConstant.WEBPAY_METHOD}/transactions/{token}", HttpMethod.Get) { }
     }
 }

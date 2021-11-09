@@ -6,7 +6,7 @@ namespace Transbank.Webpay.Oneclick.Requests
     internal class MallFinishRequest : BaseRequest
     {
         internal MallFinishRequest(string token)
-            : base($"{Constant.ONECLICK_METHOD}/inscriptions/{token}",
+            : base($"{ApiConstant.ONECLICK_METHOD}/inscriptions/{token}",
                   HttpMethod.Put){}
                   
     }

@@ -19,7 +19,7 @@ namespace Transbank.WebpayRest.Oneclick.Requests
         internal string AuthorizationCode { get; set; }
 
         public MallCaptureRequest(long comerceCode, string buyOrder, decimal amount, string authorizationCode)
-            : base($"{Constant.ONECLICK_METHOD}/transactions/capture", HttpMethod.Put)
+            : base($"{ApiConstant.ONECLICK_METHOD}/transactions/capture", HttpMethod.Put)
         {
             CommerceCode = comerceCode;
             BuyOrder = buyOrder;

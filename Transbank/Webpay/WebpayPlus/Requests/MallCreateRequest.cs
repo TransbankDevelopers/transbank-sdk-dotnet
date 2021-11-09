@@ -19,7 +19,7 @@ namespace Transbank.Webpay.WebpayPlus.Requests
 
         internal MallCreateRequest(string buyOrder, string sessionId, string returnUrl,
             List<TransactionDetail> transactions) : base(
-                $"{Constant.WEBPAY_METHOD}/transactions", HttpMethod.Post)
+                $"{ApiConstant.WEBPAY_METHOD}/transactions", HttpMethod.Post)
         {
             BuyOrder = buyOrder;
             SessionId = sessionId;

@@ -14,7 +14,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Requests
         internal MallCommitRequest(
             string token,
             List<MallCommitDetails> details)
-            : base($"{Constant.WEBPAY_METHOD}/transactions/{token}", HttpMethod.Put)
+            : base($"{ApiConstant.WEBPAY_METHOD}/transactions/{token}", HttpMethod.Put)
         {
             Details = details;
         }
