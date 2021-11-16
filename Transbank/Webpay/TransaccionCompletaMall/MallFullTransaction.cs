@@ -64,15 +64,15 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             List<CreateDetails> details,
             Options options)
         {
-            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
-            ValidationUtil.hasTextWithMaxLength(sessionId, 61, "sessionId");
-            ValidationUtil.hasTextWithMaxLength(cardNumber, 19, "cardNumber");
-            ValidationUtil.hasTextWithMaxLength(cardExpirationDate, 5, "cardExpirationDate");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(sessionId, ApiConstant.SESSION_ID_LENGTH, "sessionId");
+            ValidationUtil.hasTextWithMaxLength(cardNumber, ApiConstant.CARD_NUMBER_LENGTH, "cardNumber");
+            ValidationUtil.hasTextWithMaxLength(cardExpirationDate, ApiConstant.CARD_EXPIRATION_DATE_LENGTH, "cardExpirationDate");
             ValidationUtil.hasElements(details, "details");
 
             foreach (var item in details){
-                ValidationUtil.hasText(item.CommerceCode, "details.commerceCode");
-                ValidationUtil.hasTextWithMaxLength(item.BuyOrder, 26, "details.buyOrder");
+                ValidationUtil.hasTextWithMaxLength(item.CommerceCode, ApiConstant.COMMERCE_CODE_LENGTH, "details.commerceCode");
+                ValidationUtil.hasTextWithMaxLength(item.BuyOrder, ApiConstant.BUY_ORDER_LENGTH, "details.buyOrder");
             }
 
             return ExceptionHandler.Perform<MallCreateResponse, MallTransactionCreateException>(() =>
@@ -111,9 +111,9 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             Options options)
         {
 
-            ValidationUtil.hasText(token, "token");
-            ValidationUtil.hasText(commerceCode, "commerceCode");
-            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
+            ValidationUtil.hasTextWithMaxLength(commerceCode, ApiConstant.COMMERCE_CODE_LENGTH, "commerceCode");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
 
             return ExceptionHandler.Perform<MallInstallmentsResponse, MallTransactionInstallmentsExceptions>(() =>
             {
@@ -140,7 +140,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             List<MallInstallmentsDetails> detailsGroup,
             Options options)
         {
-            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<MallInstallmentsDetailsResponse, MallTransactionInstallmentsExceptions>(() =>
             {
@@ -182,7 +182,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             Options options)
         {
 
-            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<MallCommitResponse, MallTransactionCommitException>(() =>
             {
@@ -211,9 +211,9 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             int amount,
             Options options)
         {
-            ValidationUtil.hasText(token, "token");
-            ValidationUtil.hasText(commerceCode, "commerceCode");
-            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
+            ValidationUtil.hasTextWithMaxLength(commerceCode, ApiConstant.COMMERCE_CODE_LENGTH, "commerceCode");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
 
             return ExceptionHandler.Perform<MallRefundResponse, MallTransactionRefundException>(() =>
             {
@@ -240,7 +240,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             Options options)
         {
 
-            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
             return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
             {
                 var mallStatusRequest = new MallStatusRequest(

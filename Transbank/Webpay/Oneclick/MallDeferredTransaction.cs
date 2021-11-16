@@ -87,9 +87,9 @@ namespace Transbank.Webpay.Oneclick
 
         public static MallCaptureResponse Capture(string commerceCode, string buyOrder, decimal amount, string authorizationCode, Options options)
         {
-            ValidationUtil.hasText(commerceCode, "commerceCode");
-            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
-            ValidationUtil.hasTextWithMaxLength(authorizationCode, 6, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(commerceCode, ApiConstant.COMMERCE_CODE_LENGTH, "commerceCode");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(authorizationCode, ApiConstant.AUTHORIZATION_CODE_LENGTH, "buyOrder");
 
             return ExceptionHandler.Perform<MallCaptureResponse, MallCaptureException>(() =>
             {

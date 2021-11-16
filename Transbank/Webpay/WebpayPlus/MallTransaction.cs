@@ -53,15 +53,15 @@ namespace Transbank.Webpay.WebpayPlus
         public static MallCreateResponse Create(string buyOrder, string sessionId,
             string returnUrl, List<TransactionDetail> transactions, Options options)
         {
-            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
-            ValidationUtil.hasTextWithMaxLength(sessionId, 61, "sessionId");
-            ValidationUtil.hasTextWithMaxLength(returnUrl, 255, "returnUrl");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(sessionId, ApiConstant.SESSION_ID_LENGTH, "sessionId");
+            ValidationUtil.hasTextWithMaxLength(returnUrl, ApiConstant.RETURN_URL_LENGTH, "returnUrl");
             ValidationUtil.hasElements(transactions, "transactions");
 
             foreach (var item in transactions)
             {
-                ValidationUtil.hasText(item.CommerceCode, "transactions.commerceCode");
-                ValidationUtil.hasTextWithMaxLength(item.BuyOrder, 26, "transactions.buyOrder");
+                ValidationUtil.hasTextWithMaxLength(item.CommerceCode, ApiConstant.COMMERCE_CODE_LENGTH, "transactions.commerceCode");
+                ValidationUtil.hasTextWithMaxLength(item.BuyOrder, ApiConstant.BUY_ORDER_LENGTH, "transactions.buyOrder");
             }
 
             return ExceptionHandler.Perform<MallCreateResponse, MallTransactionCreateException>(() =>
@@ -82,7 +82,7 @@ namespace Transbank.Webpay.WebpayPlus
 
         public static MallCommitResponse Commit(string token, Options options)
         {
-            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<MallCommitResponse, MallTransactionCommitException>(() =>
             {
@@ -103,9 +103,9 @@ namespace Transbank.Webpay.WebpayPlus
         public static MallRefundResponse Refund(string token, string buyOrder,
             string commerceCode, decimal amount, Options options)
         {
-            ValidationUtil.hasText(token, "token");
-            ValidationUtil.hasText(commerceCode, "commerceCode");
-            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
+            ValidationUtil.hasTextWithMaxLength(commerceCode, ApiConstant.COMMERCE_CODE_LENGTH, "commerceCode");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
 
             return ExceptionHandler.Perform<MallRefundResponse, MallTransactionRefundException>(() =>
             {
@@ -125,7 +125,7 @@ namespace Transbank.Webpay.WebpayPlus
 
         public static MallStatusResponse Status(string token, Options options)
         {
-            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
             {

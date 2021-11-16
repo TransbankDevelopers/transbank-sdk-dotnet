@@ -94,9 +94,9 @@ namespace Transbank.Webpay.WebpayPlus
         public static CaptureResponse Capture(string token, string buyOrder, string authorizationCode,
             decimal captureAmount, Options options)
         {
-            ValidationUtil.hasText(token, "token");
-            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
-            ValidationUtil.hasTextWithMaxLength(authorizationCode, 6, "authorizationCode");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(authorizationCode, ApiConstant.AUTHORIZATION_CODE_LENGTH, "authorizationCode");
 
             return ExceptionHandler.Perform<CaptureResponse, TransactionCaptureException>(() =>
             {

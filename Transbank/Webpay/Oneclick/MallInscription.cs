@@ -41,9 +41,9 @@ namespace Transbank.Webpay.Oneclick
         public static MallStartResponse Start(string userName, string email,
             string responseUrl, Options options)
         {
-            ValidationUtil.hasTextTrimWithMaxLength(userName, 40, "userName");
-            ValidationUtil.hasTextTrimWithMaxLength(email, 100, "email");
-            ValidationUtil.hasTextWithMaxLength(responseUrl, 255, "responseUrl");
+            ValidationUtil.hasTextTrimWithMaxLength(userName, ApiConstant.USER_NAME_LENGTH, "userName");
+            ValidationUtil.hasTextTrimWithMaxLength(email, ApiConstant.EMAIL_LENGTH, "email");
+            ValidationUtil.hasTextWithMaxLength(responseUrl, ApiConstant.RETURN_URL_LENGTH, "responseUrl");
 
             return ExceptionHandler.Perform<MallStartResponse, InscriptionStartException>(() =>
             {
@@ -62,7 +62,7 @@ namespace Transbank.Webpay.Oneclick
 
         public static MallFinishResponse Finish(string token, Options options)
         {
-            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<MallFinishResponse, InscriptionFinishException>(() =>
             {
@@ -81,8 +81,8 @@ namespace Transbank.Webpay.Oneclick
         public static void Delete(string userName, string tbkUser, Options options)
         {
 
-            ValidationUtil.hasTextTrimWithMaxLength(userName, 40, "userName");
-            ValidationUtil.hasTextWithMaxLength(tbkUser, 40, "tbkUser");
+            ValidationUtil.hasTextTrimWithMaxLength(userName, ApiConstant.USER_NAME_LENGTH, "userName");
+            ValidationUtil.hasTextWithMaxLength(tbkUser, ApiConstant.TBK_USER_LENGTH, "tbkUser");
 
             ExceptionHandler.Perform<InscriptionDeleteException>(() =>
             {

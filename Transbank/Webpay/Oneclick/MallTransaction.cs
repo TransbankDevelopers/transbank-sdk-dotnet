@@ -56,15 +56,15 @@ namespace Transbank.Webpay.Oneclick
         public static MallAuthorizeResponse Authorize(string userName, string tbkUser, string buyOrder,
             List<PaymentRequest> details, Options options)
         {
-            ValidationUtil.hasTextWithMaxLength(userName, 40, "userName");
-            ValidationUtil.hasTextWithMaxLength(tbkUser, 40, "tbkUser");
-            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(userName, ApiConstant.USER_NAME_LENGTH, "userName");
+            ValidationUtil.hasTextWithMaxLength(tbkUser, ApiConstant.TBK_USER_LENGTH, "tbkUser");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
             ValidationUtil.hasElements(details, "details");
 
             foreach (var item in details)
             {
-                ValidationUtil.hasText(item.CommerceCode, "details.commerceCode");
-                ValidationUtil.hasTextWithMaxLength(item.BuyOrder, 26, "details.buyOrder");
+                ValidationUtil.hasTextWithMaxLength(item.CommerceCode, ApiConstant.COMMERCE_CODE_LENGTH, "details.commerceCode");
+                ValidationUtil.hasTextWithMaxLength(item.BuyOrder, ApiConstant.BUY_ORDER_LENGTH, "details.buyOrder");
             }
 
             return ExceptionHandler.Perform<MallAuthorizeResponse, MallTransactionAuthorizeException>(() =>
@@ -86,9 +86,9 @@ namespace Transbank.Webpay.Oneclick
         public static MallRefundResponse Refund(string buyOrder, string childCommerceCode, string childBuyOrder,
             decimal amount, Options options)
         {
-            ValidationUtil.hasText(childCommerceCode, "childCommerceCode");
-            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
-            ValidationUtil.hasTextWithMaxLength(childBuyOrder, 26, "childBuyOrder");
+            ValidationUtil.hasTextWithMaxLength(childCommerceCode, ApiConstant.COMMERCE_CODE_LENGTH, "childCommerceCode");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(childBuyOrder, ApiConstant.BUY_ORDER_LENGTH, "childBuyOrder");
 
             return ExceptionHandler.Perform<MallRefundResponse, MallTransactionRefundException>(() =>
             {
@@ -105,7 +105,7 @@ namespace Transbank.Webpay.Oneclick
         
         public static MallStatusResponse Status(string buyOrder, Options options)
         {
-            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
 
             return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
             {

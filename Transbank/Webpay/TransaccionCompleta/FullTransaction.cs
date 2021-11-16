@@ -63,10 +63,10 @@ namespace Transbank.Webpay.TransaccionCompleta
             string cardExpirationDate,
             Options options)
         {
-            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
-            ValidationUtil.hasTextWithMaxLength(sessionId, 61, "sessionId");
-            ValidationUtil.hasTextWithMaxLength(cardNumber, 19, "cardNumber");
-            ValidationUtil.hasTextWithMaxLength(cardExpirationDate, 5, "cardExpirationDate");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(sessionId, ApiConstant.SESSION_ID_LENGTH, "sessionId");
+            ValidationUtil.hasTextWithMaxLength(cardNumber, ApiConstant.CARD_NUMBER_LENGTH, "cardNumber");
+            ValidationUtil.hasTextWithMaxLength(cardExpirationDate, ApiConstant.CARD_EXPIRATION_DATE_LENGTH, "cardExpirationDate");
 
             return ExceptionHandler.Perform<CreateResponse, TransactionCreateException>(() =>
             {
@@ -97,7 +97,7 @@ namespace Transbank.Webpay.TransaccionCompleta
             int installmentsNumber,
             Options options)
         {
-            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<InstallmentsResponse, TransactionInstallmentsException>(() =>
             {
@@ -133,7 +133,7 @@ namespace Transbank.Webpay.TransaccionCompleta
             bool gracePeriods,
             Options options)
         {
-            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<CommitResponse, TransactionCommitException>(() =>
             {
@@ -157,7 +157,7 @@ namespace Transbank.Webpay.TransaccionCompleta
             string token,
             Options options)
         {
-            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
             {
@@ -178,7 +178,7 @@ namespace Transbank.Webpay.TransaccionCompleta
         public static RefundResponse Refund(
             string token, int amount, Options options)
         {
-            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<RefundResponse, TransactionRefundException>(() =>
             {

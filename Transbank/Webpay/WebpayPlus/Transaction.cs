@@ -53,9 +53,9 @@ namespace Transbank.Webpay.WebpayPlus
             decimal amount, string returnUrl, Options options)
         {
 
-            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
-            ValidationUtil.hasTextWithMaxLength(sessionId, 61, "sessionId");
-            ValidationUtil.hasTextWithMaxLength(returnUrl, 255, "returnUrl");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(sessionId, ApiConstant.SESSION_ID_LENGTH, "sessionId");
+            ValidationUtil.hasTextWithMaxLength(returnUrl, ApiConstant.RETURN_URL_LENGTH, "returnUrl");
 
             return ExceptionHandler.Perform<CreateResponse, TransactionCreateException>(() =>
             {
@@ -74,7 +74,7 @@ namespace Transbank.Webpay.WebpayPlus
 
         public static CommitResponse Commit(string token, Options options)
         {
-            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<CommitResponse, TransactionCommitException>(() =>
             {
@@ -93,7 +93,7 @@ namespace Transbank.Webpay.WebpayPlus
 
         public static RefundResponse Refund(string token, decimal amount, Options options)
         {
-            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<RefundResponse, TransactionRefundException>(() =>
             {
@@ -112,7 +112,7 @@ namespace Transbank.Webpay.WebpayPlus
 
         public static StatusResponse Status(string token, Options options)
         {
-            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
             {
