@@ -8,60 +8,30 @@ using Transbank.Webpay.TransaccionCompleta.Responses;
 
 namespace Transbank.Webpay.TransaccionCompleta
 {
-    public static class FullTransaction
+    public class FullTransaction
     {
-        private static string _commerceCode = "597055555530";
-        private static string _apiKey = "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C";
+        public Options Options { get; private set; }
 
-        private static WebpayIntegrationType _integrationType = WebpayIntegrationType.Test;
+        public FullTransaction() : this(
+            new Options(
+                IntegrationCommerceCodes.WEBPAY_PLUS,
+                IntegrationApiKeys.WEBPAY,
+                WebpayIntegrationType.Test
+            )
+        )
+        { }
 
-        public static string CommerceCode
+        public FullTransaction(Options options)
         {
-            get => _commerceCode;
-            set => _commerceCode = value ?? throw new ArgumentNullException(
-                                       nameof(value), "Commerce code can't be null."
-                                   );
+            Options = options;
         }
-
-        public static string ApiKey
-        {
-            get => _apiKey;
-            set => _apiKey = value ?? throw new ArgumentNullException(
-                                 nameof(value), "Api Key can't be null."
-                             );
-        }
-
-        public static WebpayIntegrationType IntegrationType
-        {
-            get => _integrationType;
-            set => _integrationType = value ?? throw new ArgumentNullException(
-                                          nameof(value), "Integration type can't be null."
-                                      );
-        }
-
-        public static Options DefaultOptions()
-        {
-            return new Options(CommerceCode, ApiKey, IntegrationType);
-        }
-        public static CreateResponse Create(
+        public CreateResponse Create(
             string buyOrder,
             string sessionId,
             int amount,
             int cvv,
             string cardNumber,
             string cardExpirationDate)
-        {
-            return Create(buyOrder, sessionId, amount, cvv, cardNumber, cardExpirationDate, DefaultOptions());
-        }
-
-        public static CreateResponse Create(
-            string buyOrder,
-            string sessionId,
-            int amount,
-            int cvv,
-            string cardNumber,
-            string cardExpirationDate,
-            Options options)
         {
             ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
             ValidationUtil.hasTextWithMaxLength(sessionId, ApiConstant.SESSION_ID_LENGTH, "sessionId");
@@ -77,7 +47,7 @@ namespace Transbank.Webpay.TransaccionCompleta
                     cvv,
                     cardNumber,
                     cardExpirationDate);
-                var response = RequestService.Perform<TransactionCreateException>(createRequest, options);
+                var response = RequestService.Perform<TransactionCreateException>(createRequest, Options);
 
                 return JsonConvert.DeserializeObject<CreateResponse>(response);
 
@@ -85,108 +55,95 @@ namespace Transbank.Webpay.TransaccionCompleta
 
         }
 
-        public static InstallmentsResponse Installments(
+        public InstallmentsResponse Installments(
             string token,
             int installmentsNumber)
-        {
-            return Installments(token, installmentsNumber, DefaultOptions());
-        }
-
-        public static InstallmentsResponse Installments(
-            string token,
-            int installmentsNumber,
-            Options options)
         {
             ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<InstallmentsResponse, TransactionInstallmentsException>(() =>
             {
                 var installmentsRequest = new InstallmentsRequest(
-                    token, 
+                    token,
                     installmentsNumber);
-                var response = RequestService.Perform<TransactionInstallmentsException>(installmentsRequest, options);
+                var response = RequestService.Perform<TransactionInstallmentsException>(installmentsRequest, Options);
 
                 return JsonConvert.DeserializeObject<InstallmentsResponse>(response);
 
             });
-            
-        }
-        
-        public static CommitResponse Commit(
-            string token,
-            int idQueryInstallments,
-            int deferredPeriods,
-            bool gracePeriod)
-        {
-            return Commit(
-                token, 
-                idQueryInstallments, 
-                deferredPeriods, 
-                gracePeriod, 
-                DefaultOptions());
+
         }
 
-        public static CommitResponse Commit(
+        public CommitResponse Commit(
             string token,
             int idQueryInstallments,
             int deferredPeriodsIndex,
-            bool gracePeriods,
-            Options options)
+            bool gracePeriods)
         {
             ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<CommitResponse, TransactionCommitException>(() =>
             {
                 var commitRequest = new CommitRequest(
-                    token, 
-                    idQueryInstallments, 
-                    deferredPeriodsIndex, 
+                    token,
+                    idQueryInstallments,
+                    deferredPeriodsIndex,
                     gracePeriods);
-                var response = RequestService.Perform<TransactionCommitException>(commitRequest, options);
+                var response = RequestService.Perform<TransactionCommitException>(commitRequest, Options);
                 return JsonConvert.DeserializeObject<CommitResponse>(response);
             });
         }
 
-        public static StatusResponse Status(
-            string token)
-        {
-            return Status(token, DefaultOptions());
-        }
-
-        public static StatusResponse Status(
-            string token,
-            Options options)
+        public StatusResponse Status(string token)
         {
             ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
             {
                 var request = new StatusRequest(token);
-                var response = RequestService.Perform<TransactionStatusException>(request, options);
+                var response = RequestService.Perform<TransactionStatusException>(request, Options);
 
                 return JsonConvert.DeserializeObject<StatusResponse>(response);
             });
         }
 
-        public static RefundResponse Refund(
-            string token,
-            int amount)
-        {
-            return Refund(token, amount, DefaultOptions());
-        }
-
-        public static RefundResponse Refund(
-            string token, int amount, Options options)
+        public RefundResponse Refund(string token, int amount)
         {
             ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<RefundResponse, TransactionRefundException>(() =>
             {
                 var request = new RefundRequest(token, amount);
-                var response = RequestService.Perform<TransactionRefundException>(request, options);
+                var response = RequestService.Perform<TransactionRefundException>(request, Options);
 
                 return JsonConvert.DeserializeObject<RefundResponse>(response);
             });
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Environment Configuration
+        |--------------------------------------------------------------------------
+        */
+
+        public void ConfigureForIntegration(String commerceCode, String apiKey)
+        {
+            Options = new Options(commerceCode, apiKey, WebpayIntegrationType.Test);
+        }
+
+        public void ConfigureForProduction(String commerceCode, String apiKey)
+        {
+            Options = new Options(commerceCode, apiKey, WebpayIntegrationType.Live);
+        }
+
+        public void ConfigureForTesting()
+        {
+            ConfigureForIntegration(IntegrationCommerceCodes.TRANSACCION_COMPLETA, IntegrationApiKeys.WEBPAY);
+        }
+
+        public void ConfigureForTestingDeferred()
+        {
+            ConfigureForIntegration(IntegrationCommerceCodes.TRANSACCION_COMPLETA_DEFERRED, IntegrationApiKeys.WEBPAY);
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Transbank.Webpay.Common;
+using System.Collections.Generic;
 
 namespace Transbank.Webpay.Oneclick.Responses
 {

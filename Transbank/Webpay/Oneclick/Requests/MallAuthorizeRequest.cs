@@ -1,8 +1,8 @@
 ﻿using System.Net.Http;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Webpay.Common;
+using System.Collections.Generic;
 
 namespace Transbank.Webpay.Oneclick.Requests
 {

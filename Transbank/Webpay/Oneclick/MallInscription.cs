@@ -1,4 +1,3 @@
-using System;
 using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Exceptions;
@@ -8,38 +7,21 @@ using Transbank.Webpay.Oneclick.Responses;
 
 namespace Transbank.Webpay.Oneclick
 {
-    public static class MallInscription
+    public class MallInscription : OneclickOptions
     {
-        public static string CommerceCode
-        {
-            get => MallTransaction.CommerceCode;
-            set => MallTransaction.CommerceCode = value;
-        }
+        public MallInscription() : this(
+            new Options(
+                IntegrationCommerceCodes.WEBPAY_PLUS,
+                IntegrationApiKeys.WEBPAY,
+                WebpayIntegrationType.Test
+            )
+        )
+        { }
 
-        public static string ApiKey
-        {
-            get => MallTransaction.ApiKey;
-            set => MallTransaction.ApiKey = value;
-        }
+        public MallInscription(Options options) :base(options) { }
 
-        public static WebpayIntegrationType IntegrationType
-        {
-            get => MallTransaction.IntegrationType;
-            set => MallTransaction.IntegrationType = value;
-        }
-
-        public static Options DefaultOptions()
-        {
-            return new Options(CommerceCode, ApiKey, IntegrationType);
-        }
-
-        public static MallStartResponse Start(string userName, string email, string responseUrl)
-        {
-            return Start(userName, email, responseUrl, DefaultOptions());
-        }
-
-        public static MallStartResponse Start(string userName, string email,
-            string responseUrl, Options options)
+        public MallStartResponse Start(string userName, string email,
+            string responseUrl)
         {
             ValidationUtil.hasTextTrimWithMaxLength(userName, ApiConstant.USER_NAME_LENGTH, "userName");
             ValidationUtil.hasTextTrimWithMaxLength(email, ApiConstant.EMAIL_LENGTH, "email");
@@ -49,36 +31,26 @@ namespace Transbank.Webpay.Oneclick
             {
                 var startRequest = new MallStartRequest(userName, email, responseUrl);
                 var response = RequestService.Perform<InscriptionStartException>(
-                    startRequest, options);
+                    startRequest, Options);
 
                 return JsonConvert.DeserializeObject<MallStartResponse>(response);
             });
         }
 
-        public static MallFinishResponse Finish(string token)
-        {
-            return Finish(token, DefaultOptions());
-        }
-
-        public static MallFinishResponse Finish(string token, Options options)
+        public MallFinishResponse Finish(string token)
         {
             ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<MallFinishResponse, InscriptionFinishException>(() =>
             {
                 var finishRequest = new MallFinishRequest(token);
-                var response = RequestService.Perform<InscriptionFinishException>(finishRequest, options);
+                var response = RequestService.Perform<InscriptionFinishException>(finishRequest, Options);
 
                 return JsonConvert.DeserializeObject<MallFinishResponse>(response);
             });
         }
 
-        public static void Delete(string userName, string tbkUser)
-        {
-            Delete(userName, tbkUser, DefaultOptions());
-        }
-
-        public static void Delete(string userName, string tbkUser, Options options)
+        public void Delete(string userName, string tbkUser)
         {
 
             ValidationUtil.hasTextTrimWithMaxLength(userName, ApiConstant.USER_NAME_LENGTH, "userName");
@@ -87,7 +59,7 @@ namespace Transbank.Webpay.Oneclick
             ExceptionHandler.Perform<InscriptionDeleteException>(() =>
             {
                 var deleteRequest = new MallDeleteRequest(userName, tbkUser);
-                RequestService.Perform<InscriptionDeleteException>(deleteRequest, options);
+                RequestService.Perform<InscriptionDeleteException>(deleteRequest, Options);
             });
         }
     }

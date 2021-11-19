@@ -1,7 +1,7 @@
 using System.Net.Http;
 using Transbank.Common;
 
-namespace Transbank.WebpayRest.Oneclick.Requests
+namespace Transbank.Webpay.Oneclick.Requests
 {
     public class MallStatusRequest : BaseRequest
     {

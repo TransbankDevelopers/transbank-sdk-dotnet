@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Transbank.WebpayRest.Oneclick.Responses
+namespace Transbank.Webpay.Oneclick.Responses
 {
     public class MallCaptureResponse
     {

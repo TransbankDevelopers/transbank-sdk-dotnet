@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Transbank.Common;
 
-namespace Transbank.WebpayRest.WebpayPlus.Requests
+namespace Transbank.Webpay.WebpayPlus.Requests
 {
     public class MallCaptureRequest : BaseRequest
     {

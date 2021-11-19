@@ -1,10 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using Newtonsoft.Json;
+using System.ComponentModel;
 using Transbank.Webpay.Common;
+using System.Collections.Generic;
 
-namespace Transbank.WebpayRest.Oneclick.Responses
+namespace Transbank.Webpay.Oneclick.Responses
 {
     public class MallStatusResponse
     {
