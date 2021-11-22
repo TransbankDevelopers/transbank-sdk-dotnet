@@ -12,7 +12,7 @@ namespace Transbank.Webpay.Oneclick
     {
         public MallTransaction() : this(
             new Options(
-                IntegrationCommerceCodes.WEBPAY_PLUS,
+                IntegrationCommerceCodes.ONECLICK_MALL,
                 IntegrationApiKeys.WEBPAY,
                 WebpayIntegrationType.Test
             )

@@ -14,7 +14,7 @@ namespace Transbank.Patpass.PatpassByWebpay
 
         public Transaction() : this(
             new Options(
-                IntegrationCommerceCodes.WEBPAY_PLUS,
+                IntegrationCommerceCodes.PATPASS_BY_WEBPAY,
                 IntegrationApiKeys.WEBPAY,
                 PatpassByWebpayIntegrationType.Test
             )

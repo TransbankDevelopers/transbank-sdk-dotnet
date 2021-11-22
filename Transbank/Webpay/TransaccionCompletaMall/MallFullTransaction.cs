@@ -16,7 +16,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
 
         public MallFullTransaction() : this(
             new Options(
-                IntegrationCommerceCodes.WEBPAY_PLUS,
+                IntegrationCommerceCodes.TRANSACCION_COMPLETA_MALL,
                 IntegrationApiKeys.WEBPAY,
                 WebpayIntegrationType.Test
             )
@@ -192,9 +192,9 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             ConfigureForIntegration(IntegrationCommerceCodes.TRANSACCION_COMPLETA_MALL, IntegrationApiKeys.WEBPAY);
         }
 
-        public void ConfigureForTestingDeferred()
+/*         public void ConfigureForTestingDeferred()
         {
             ConfigureForIntegration(IntegrationCommerceCodes.TRANSACCION_COMPLETA_MALL_DEFERRED, IntegrationApiKeys.WEBPAY);
-        }
+        } */
     }
 }

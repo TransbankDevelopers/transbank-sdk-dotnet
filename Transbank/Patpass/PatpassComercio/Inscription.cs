@@ -21,8 +21,8 @@ namespace Transbank.Patpass.PatpassComercio
 
         public Inscription() : this(
             new Options(
-                IntegrationCommerceCodes.WEBPAY_PLUS,
-                IntegrationApiKeys.WEBPAY,
+                IntegrationCommerceCodes.PATPASS_COMERCIO,
+                IntegrationApiKeys.PATPASS_COMERCIO,
                 PatpassComercioIntegrationType.Test
             )
         )
