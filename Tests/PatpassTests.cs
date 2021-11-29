@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using Transbank.Common;
 using Transbank.Patpass.PatpassComercio;
 
 namespace Tests
@@ -9,14 +10,14 @@ namespace Tests
         [Fact]
         public void CorrectDefaultOptions()
         {
-            Assert.Equal("28299257", Inscription.CommerceCode);
-            Assert.Equal("cxxXQgGD9vrVe4M41FIt", Inscription.ApiKey);
+            Assert.Equal(IntegrationCommerceCodes.PATPASS_COMERCIO, (new Inscription()).Options.CommerceCode);
+            Assert.Equal(IntegrationApiKeys.PATPASS_COMERCIO, (new Inscription()).Options.ApiKey);
         }
 
         [Fact]
         public void CorrectIntegrationUrl()
         {
-            Assert.Equal("https://pagoautomaticocontarjetasint.transbank.cl/", Inscription.IntegrationType.ApiBase);
+            Assert.Equal("https://pagoautomaticocontarjetasint.transbank.cl/", (new Inscription()).Options.IntegrationType.ApiBase);
         }
     }
 }

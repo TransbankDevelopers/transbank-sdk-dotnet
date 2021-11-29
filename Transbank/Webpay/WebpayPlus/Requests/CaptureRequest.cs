@@ -18,7 +18,7 @@ namespace Transbank.Webpay.WebpayPlus.Requests
 
         internal CaptureRequest(string token, string buyOrder, string authorizationCode,
             decimal captureAmount) :
-            base($"{Constant.WEBPAY_METHOD}/transactions/{token}/capture", HttpMethod.Put)
+            base($"{ApiConstant.WEBPAY_METHOD}/transactions/{token}/capture", HttpMethod.Put)
         {
             BuyOrder = buyOrder;
             AuthorizationCode = authorizationCode;

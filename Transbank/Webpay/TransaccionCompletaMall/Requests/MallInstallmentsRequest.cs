@@ -21,7 +21,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Requests
             string commerceCode,
             string buyOrder,
             int installmentsNumber)
-            : base($"{Constant.WEBPAY_METHOD}/transactions/{token}/installments", HttpMethod.Post)
+            : base($"{ApiConstant.WEBPAY_METHOD}/transactions/{token}/installments", HttpMethod.Post)
         {
             CommerceCode = commerceCode;
             BuyOrder = buyOrder;

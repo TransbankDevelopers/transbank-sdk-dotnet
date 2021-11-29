@@ -1,67 +1,38 @@
-using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Webpay.Common;
+using System.Collections.Generic;
 using Transbank.Webpay.WebpayPlus.Exceptions;
 using Transbank.Webpay.WebpayPlus.Requests;
 using Transbank.Webpay.WebpayPlus.Responses;
 
 namespace Transbank.Webpay.WebpayPlus
 {
-    public static class MallTransaction
+    public class MallTransaction : WebpayOptions
     {
-        private static string _commerceCode = "597055555535";
-        private static string _apiKey = "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C";
-        private static WebpayIntegrationType _integrationType = WebpayIntegrationType.Test;
+        public MallTransaction() : this(
+            new Options(
+                IntegrationCommerceCodes.WEBPAY_PLUS_MALL,
+                IntegrationApiKeys.WEBPAY,
+                WebpayIntegrationType.Test
+            )
+        )
+        { }
 
-        public static string CommerceCode
-        {
-            get => _commerceCode;
-            set => _commerceCode = value ?? throw new ArgumentNullException(
-                nameof(value), "Commerce code can't be null."
-            );
-        }
+        public MallTransaction(Options options) : base(options) { }
 
-        public static string ApiKey
-        {
-            get => _apiKey;
-            set => _apiKey = value ?? throw new ArgumentNullException(
-                nameof(value), "Api Key can't be null."
-            );
-        }
-
-        public static WebpayIntegrationType IntegrationType
-        {
-            get => _integrationType;
-            set => _integrationType = value ?? throw new ArgumentNullException(
-                nameof(value), "Integration type can't be null."
-            );
-        }
-
-        public static Options DefaultOptions()
-        {
-            return new Options(CommerceCode, ApiKey, IntegrationType);
-        }
-
-        public static MallCreateResponse Create(string buyOrder, string sessionId,
+        public MallCreateResponse Create(string buyOrder, string sessionId,
             string returnUrl, List<TransactionDetail> transactions)
         {
-            return Create(buyOrder, sessionId, returnUrl, transactions, DefaultOptions());
-        }
-
-        public static MallCreateResponse Create(string buyOrder, string sessionId,
-            string returnUrl, List<TransactionDetail> transactions, Options options)
-        {
-            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
-            ValidationUtil.hasTextWithMaxLength(sessionId, 61, "sessionId");
-            ValidationUtil.hasTextWithMaxLength(returnUrl, 255, "returnUrl");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(sessionId, ApiConstant.SESSION_ID_LENGTH, "sessionId");
+            ValidationUtil.hasTextWithMaxLength(returnUrl, ApiConstant.RETURN_URL_LENGTH, "returnUrl");
             ValidationUtil.hasElements(transactions, "transactions");
 
             foreach (var item in transactions)
             {
-                ValidationUtil.hasText(item.CommerceCode, "transactions.commerceCode");
-                ValidationUtil.hasTextWithMaxLength(item.BuyOrder, 26, "transactions.buyOrder");
+                ValidationUtil.hasTextWithMaxLength(item.CommerceCode, ApiConstant.COMMERCE_CODE_LENGTH, "transactions.commerceCode");
+                ValidationUtil.hasTextWithMaxLength(item.BuyOrder, ApiConstant.BUY_ORDER_LENGTH, "transactions.buyOrder");
             }
 
             return ExceptionHandler.Perform<MallCreateResponse, MallTransactionCreateException>(() =>
@@ -69,71 +40,71 @@ namespace Transbank.Webpay.WebpayPlus
                 var mallCreateRequest = new MallCreateRequest(buyOrder, sessionId,
                     returnUrl, transactions);
                 var response = RequestService.Perform<MallTransactionCreateException>(
-                    mallCreateRequest, options);
+                    mallCreateRequest, Options);
 
                 return JsonConvert.DeserializeObject<MallCreateResponse>(response);
             });
         }
 
-        public static MallCommitResponse Commit(string token)
+        public MallCommitResponse Commit(string token)
         {
-            return Commit(token, DefaultOptions());
-        }
-
-        public static MallCommitResponse Commit(string token, Options options)
-        {
-            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<MallCommitResponse, MallTransactionCommitException>(() =>
             {
                 var mallCommitRequest = new MallCommitRequest(token);
                 var response = RequestService.Perform<MallTransactionCommitException>(
-                    mallCommitRequest, options);
+                    mallCommitRequest, Options);
 
                 return JsonConvert.DeserializeObject<MallCommitResponse>(response);
             });
         }
 
-        public static MallRefundResponse Refund(string token, string buyOrder,
+        public MallRefundResponse Refund(string token, string buyOrder,
             string commerceCode, decimal amount)
         {
-            return Refund(token, buyOrder, commerceCode, amount, DefaultOptions());
-        }
-
-        public static MallRefundResponse Refund(string token, string buyOrder,
-            string commerceCode, decimal amount, Options options)
-        {
-            ValidationUtil.hasText(token, "token");
-            ValidationUtil.hasText(commerceCode, "commerceCode");
-            ValidationUtil.hasTextWithMaxLength(buyOrder, 26, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
+            ValidationUtil.hasTextWithMaxLength(commerceCode, ApiConstant.COMMERCE_CODE_LENGTH, "commerceCode");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
 
             return ExceptionHandler.Perform<MallRefundResponse, MallTransactionRefundException>(() =>
             {
                 var mallRefundRequest = new MallRefundRequest(token, buyOrder,
                     commerceCode, amount);
                 var response = RequestService.Perform<MallTransactionRefundException>(
-                    mallRefundRequest, options);
+                    mallRefundRequest, Options);
 
                 return JsonConvert.DeserializeObject<MallRefundResponse>(response);
             });
         }
 
-        public static MallStatusResponse Status(string token)
+        public MallStatusResponse Status(string token)
         {
-            return Status(token, DefaultOptions());
-        }
-
-        public static MallStatusResponse Status(string token, Options options)
-        {
-            ValidationUtil.hasText(token, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
             {
                 var mallStatusRequest = new MallStatusRequest(token);
                 var response = RequestService.Perform<MallTransactionStatusException>(
-                    mallStatusRequest, options);
+                    mallStatusRequest, Options);
 
                 return JsonConvert.DeserializeObject<MallStatusResponse>(response);
+            });
+        }
+
+        public MallCaptureResponse Capture(string token, string commerceCode, string buyOrder,
+            string authorizationCode, decimal amount)
+        {
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
+            ValidationUtil.hasTextWithMaxLength(commerceCode, ApiConstant.COMMERCE_CODE_LENGTH, "commerceCode");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(authorizationCode, ApiConstant.AUTHORIZATION_CODE_LENGTH, "authorizationCode");
+
+            return ExceptionHandler.Perform<MallCaptureResponse, MallTransactionCaptureException>(() =>
+            {
+                var mallCaptureRequest = new MallCaptureRequest(token, commerceCode, buyOrder, authorizationCode, amount);
+                var response = RequestService.Perform<MallTransactionCaptureException>(mallCaptureRequest, Options);
+                return JsonConvert.DeserializeObject<MallCaptureResponse>(response);
             });
         }
     }

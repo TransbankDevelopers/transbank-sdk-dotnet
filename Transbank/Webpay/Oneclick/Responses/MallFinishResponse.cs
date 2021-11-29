@@ -1,5 +1,3 @@
-using System;
-using Transbank.Webpay.Common;
 using Newtonsoft.Json;
 
 namespace Transbank.Webpay.Oneclick.Responses

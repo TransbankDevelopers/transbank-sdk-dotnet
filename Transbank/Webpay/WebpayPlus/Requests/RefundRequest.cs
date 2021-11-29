@@ -16,7 +16,7 @@ namespace Transbank.Webpay.WebpayPlus.Requests
         }
 
         internal RefundRequest(string token, decimal amount)
-            : base($"{Constant.WEBPAY_METHOD}/transactions/{token}/refunds", HttpMethod.Post)
+            : base($"{ApiConstant.WEBPAY_METHOD}/transactions/{token}/refunds", HttpMethod.Post)
         {
             Amount = amount;
         }

@@ -1,8 +1,8 @@
 ﻿using System.Net.Http;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Webpay.Common;
+using System.Collections.Generic;
 
 namespace Transbank.Webpay.Oneclick.Requests
 {
@@ -21,7 +21,7 @@ namespace Transbank.Webpay.Oneclick.Requests
         internal List<PaymentRequest> Details { get; set; }
 
         internal MallAuthorizeRequest(string userName, string tbkUser, string buyOrder, List<PaymentRequest> details)
-            : base($"{Constant.ONECLICK_METHOD}/transactions", HttpMethod.Post)
+            : base($"{ApiConstant.ONECLICK_METHOD}/transactions", HttpMethod.Post)
         {
             UserName = userName;
             TbkUser = tbkUser;

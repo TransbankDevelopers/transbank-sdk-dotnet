@@ -1,6 +1,4 @@
-﻿using Transbank.Webpay.WebpayPlus.Responses;
-
-namespace Transbank.WebpayRest.WebpayPlus.Responses
+﻿namespace Transbank.Webpay.WebpayPlus.Responses
 {
     public class MallCaptureResponse : CaptureResponse
     {

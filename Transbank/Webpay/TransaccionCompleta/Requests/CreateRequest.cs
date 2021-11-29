@@ -31,7 +31,7 @@ namespace Transbank.Webpay.TransaccionCompleta.Requests
             int cvv,
             string cardNumber,
             string cardExpirationDate)
-            : base($"{Constant.WEBPAY_METHOD}/transactions", HttpMethod.Post)
+            : base($"{ApiConstant.WEBPAY_METHOD}/transactions", HttpMethod.Post)
         {
             BuyOrder = buyOrder;
             SessionId = sessionId;
