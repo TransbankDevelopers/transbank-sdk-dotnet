@@ -25,22 +25,22 @@ namespace Transbank.Webpay.WebpayPlus
             Options = new Options(commerceCode, apiKey, WebpayIntegrationType.Live);
         }
 
-        public void configureForTesting()
+        public void ConfigureForTesting()
         {
             ConfigureForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY);
         }
 
-        public void configureForTestingDeferred()
+        public void ConfigureForTestingDeferred()
         {
             ConfigureForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS_DEFERRED, IntegrationApiKeys.WEBPAY);
         }
 
-        public void configureForTestingMall()
+        public void ConfigureForTestingMall()
         {
             ConfigureForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS_MALL, IntegrationApiKeys.WEBPAY);
         }
 
-        public void configureForTestingMallDeferred()
+        public void ConfigureForTestingMallDeferred()
         {
             ConfigureForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS_MALL_DEFERRED, IntegrationApiKeys.WEBPAY);
         }

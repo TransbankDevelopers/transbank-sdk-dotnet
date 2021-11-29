@@ -25,12 +25,12 @@ namespace Transbank.Webpay.Oneclick
             Options = new Options(commerceCode, apiKey, WebpayIntegrationType.Live);
         }
 
-        public void configureForTesting()
+        public void ConfigureForTesting()
         {
             ConfigureForIntegration(IntegrationCommerceCodes.ONECLICK_MALL, IntegrationApiKeys.WEBPAY);
         }
 
-        public void configureForTestingDeferred()
+        public void ConfigureForTestingDeferred()
         {
             ConfigureForIntegration(IntegrationCommerceCodes.ONECLICK_MALL_DEFERRED, IntegrationApiKeys.WEBPAY);
         }
