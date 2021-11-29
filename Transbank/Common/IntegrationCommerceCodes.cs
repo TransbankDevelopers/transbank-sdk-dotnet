@@ -15,8 +15,8 @@ namespace Transbank.Common
         public const string ONECLICK_MALL_CHILD1 = "597055555542";
         public const string ONECLICK_MALL_CHILD2 = "597055555543";
         public const string ONECLICK_MALL_DEFERRED = "597055555547";
-        public const string ONECLICK_MALL_CHILD1_DEFERRED = "597055555548";
-        public const string ONECLICK_MALL_CHILD2_DEFERRED = "597055555549";
+        public const string ONECLICK_MALL_DEFERRED_CHILD1 = "597055555548";
+        public const string ONECLICK_MALL_DEFERRED_CHILD2 = "597055555549";
         public const string TRANSACCION_COMPLETA = "597055555530";
         public const string TRANSACCION_COMPLETA_SIN_CVV = "597055555557";
         public const string TRANSACCION_COMPLETA_DEFERRED = "597055555531";
