@@ -10,10 +10,8 @@ using Transbank.Webpay.TransaccionCompletaMall.Responses;
 
 namespace Transbank.Webpay.TransaccionCompletaMall
 {
-    public class MallFullTransaction
+    public class MallFullTransaction : WebpayOptions
     {
-        public Options Options { get; private set; }
-
         public MallFullTransaction() : this(
             new Options(
                 IntegrationCommerceCodes.TRANSACCION_COMPLETA_MALL,
@@ -23,10 +21,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
         )
         { }
 
-        public MallFullTransaction(Options options)
-        {
-            Options = options;
-        }
+        public MallFullTransaction(Options options) : base(options) {}
 
         public  MallCreateResponse Create(
             string buyOrder,
@@ -195,14 +190,6 @@ namespace Transbank.Webpay.TransaccionCompletaMall
         |--------------------------------------------------------------------------
         */
 
-        public void ConfigureForIntegration(String commerceCode, String apiKey)
-        {
-            Options = new Options(commerceCode, apiKey, WebpayIntegrationType.Test);
-        }
-        public void ConfigureForProduction(String commerceCode, String apiKey)
-        {
-            Options = new Options(commerceCode, apiKey, WebpayIntegrationType.Live);
-        }
         public void ConfigureForTesting()
         {
             ConfigureForIntegration(IntegrationCommerceCodes.TRANSACCION_COMPLETA_MALL, IntegrationApiKeys.WEBPAY);

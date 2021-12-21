@@ -1,4 +1,3 @@
-﻿using System;
 using Transbank.Common;
 
 namespace Transbank.Webpay.Common
