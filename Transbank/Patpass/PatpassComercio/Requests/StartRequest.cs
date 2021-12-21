@@ -72,7 +72,7 @@ namespace Transbank.Patpass.PatpassComercio.Requests
             string commerceEmail, 
             string address, 
             string city
-            ) : base("restpatpass/v1/services/patInscription", HttpMethod.Post)
+            ) : base($"{ApiConstants.PATPASS_COMERCIO_ENDPOINT}/patInscription", HttpMethod.Post)
         {
             Url = url;
             Name = name;

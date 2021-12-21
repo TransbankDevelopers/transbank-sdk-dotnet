@@ -6,7 +6,7 @@ namespace Transbank.Webpay.Oneclick.Requests
     public class MallStatusRequest : BaseRequest
     {
         public MallStatusRequest(string buyOrder)
-            : base($"{ApiConstant.ONECLICK_METHOD}/transactions/{buyOrder}", HttpMethod.Get)
+            : base($"{ApiConstants.ONECLICK_METHOD}/transactions/{buyOrder}", HttpMethod.Get)
         {
 
         }

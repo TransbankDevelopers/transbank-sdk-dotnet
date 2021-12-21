@@ -13,7 +13,7 @@ namespace Transbank.Webpay.Oneclick.Requests
         internal string TbkUser { get; set; }
 
         internal MallDeleteRequest(string userName, string tbkUser)
-            : base($"{ApiConstant.ONECLICK_METHOD}/inscriptions", HttpMethod.Delete)
+            : base($"{ApiConstants.ONECLICK_METHOD}/inscriptions", HttpMethod.Delete)
         {
             UserName = userName;
             TbkUser = tbkUser;

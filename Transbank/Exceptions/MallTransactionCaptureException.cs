@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using Transbank.Exceptions;
 
-namespace Transbank.Webpay.WebpayPlus.Exceptions
+namespace Transbank.Exceptions
 {
     public class MallTransactionCaptureException : TransbankException
     {

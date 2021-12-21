@@ -28,15 +28,15 @@ namespace Transbank.Webpay.TransaccionCompleta
         public CreateResponse Create(
             string buyOrder,
             string sessionId,
-            int amount,
+            decimal amount,
             int cvv,
             string cardNumber,
             string cardExpirationDate)
         {
-            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
-            ValidationUtil.hasTextWithMaxLength(sessionId, ApiConstant.SESSION_ID_LENGTH, "sessionId");
-            ValidationUtil.hasTextWithMaxLength(cardNumber, ApiConstant.CARD_NUMBER_LENGTH, "cardNumber");
-            ValidationUtil.hasTextWithMaxLength(cardExpirationDate, ApiConstant.CARD_EXPIRATION_DATE_LENGTH, "cardExpirationDate");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstants.BUY_ORDER_LENGTH, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(sessionId, ApiConstants.SESSION_ID_LENGTH, "sessionId");
+            ValidationUtil.hasTextWithMaxLength(cardNumber, ApiConstants.CARD_NUMBER_LENGTH, "cardNumber");
+            ValidationUtil.hasTextWithMaxLength(cardExpirationDate, ApiConstants.CARD_EXPIRATION_DATE_LENGTH, "cardExpirationDate");
 
             return ExceptionHandler.Perform<CreateResponse, TransactionCreateException>(() =>
             {
@@ -59,7 +59,7 @@ namespace Transbank.Webpay.TransaccionCompleta
             string token,
             int installmentsNumber)
         {
-            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstants.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<InstallmentsResponse, TransactionInstallmentsException>(() =>
             {
@@ -80,7 +80,7 @@ namespace Transbank.Webpay.TransaccionCompleta
             int deferredPeriodsIndex,
             bool gracePeriods)
         {
-            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstants.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<CommitResponse, TransactionCommitException>(() =>
             {
@@ -96,7 +96,7 @@ namespace Transbank.Webpay.TransaccionCompleta
 
         public StatusResponse Status(string token)
         {
-            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstants.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
             {
@@ -107,9 +107,9 @@ namespace Transbank.Webpay.TransaccionCompleta
             });
         }
 
-        public RefundResponse Refund(string token, int amount)
+        public RefundResponse Refund(string token, decimal amount)
         {
-            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstants.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<RefundResponse, TransactionRefundException>(() =>
             {
@@ -119,6 +119,26 @@ namespace Transbank.Webpay.TransaccionCompleta
                 return JsonConvert.DeserializeObject<RefundResponse>(response);
             });
         }
+
+        public CaptureResponse Capture(string token, string buyOrder, string authorizationCode,
+            decimal captureAmount)
+        {
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstants.TOKEN_LENGTH, "token");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstants.BUY_ORDER_LENGTH, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(authorizationCode, ApiConstants.AUTHORIZATION_CODE_LENGTH, "authorizationCode");
+
+            return ExceptionHandler.Perform<CaptureResponse, TransactionCaptureException>(() =>
+            {
+                var captureRequest = new CaptureRequest(token, buyOrder,
+                    authorizationCode, captureAmount);
+                var response = RequestService.Perform<TransactionCaptureException>(
+                    captureRequest, Options);
+
+                return JsonConvert.DeserializeObject<CaptureResponse>(response);
+            });
+        }
+
+
 
         /*
         |--------------------------------------------------------------------------
@@ -130,20 +150,17 @@ namespace Transbank.Webpay.TransaccionCompleta
         {
             Options = new Options(commerceCode, apiKey, WebpayIntegrationType.Test);
         }
-
         public void ConfigureForProduction(String commerceCode, String apiKey)
         {
             Options = new Options(commerceCode, apiKey, WebpayIntegrationType.Live);
         }
-
         public void ConfigureForTesting()
         {
             ConfigureForIntegration(IntegrationCommerceCodes.TRANSACCION_COMPLETA, IntegrationApiKeys.WEBPAY);
         }
-
-/*         public void ConfigureForTestingDeferred()
+        public void ConfigureForTestingDeferred()
         {
             ConfigureForIntegration(IntegrationCommerceCodes.TRANSACCION_COMPLETA_DEFERRED, IntegrationApiKeys.WEBPAY);
-        } */
+        }
     }
 }

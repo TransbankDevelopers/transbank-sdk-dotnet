@@ -7,6 +7,6 @@ namespace Transbank.Webpay.WebpayPlus.Requests
     public class MallCommitRequest : BaseRequest
     {
         public MallCommitRequest(string token) :
-            base($"{ApiConstant.WEBPAY_METHOD}/transactions/{token}", HttpMethod.Put) { }
+            base($"{ApiConstants.WEBPAY_METHOD}/transactions/{token}", HttpMethod.Put) { }
     }
 }

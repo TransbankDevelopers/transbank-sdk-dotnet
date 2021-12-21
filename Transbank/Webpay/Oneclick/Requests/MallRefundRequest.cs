@@ -16,7 +16,7 @@ namespace Transbank.Webpay.Oneclick.Requests
         internal decimal Amount { get; set; }
         
         public MallRefundRequest(string buyOrder, string childCommerceCode, string childBuyOrder, decimal amount)
-            : base($"{ApiConstant.ONECLICK_METHOD}/transactions/{buyOrder}/refunds", HttpMethod.Post)
+            : base($"{ApiConstants.ONECLICK_METHOD}/transactions/{buyOrder}/refunds", HttpMethod.Post)
         {
             CommerceCode = childCommerceCode;
             DetailBuyOrder = childBuyOrder;

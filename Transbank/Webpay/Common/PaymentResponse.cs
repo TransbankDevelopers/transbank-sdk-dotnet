@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace Transbank.Webpay.Common
 {
@@ -16,6 +16,9 @@ namespace Transbank.Webpay.Common
         [JsonProperty("installments_number")]
         public int InstallmentsNumber { get; private set; }
 
+        [JsonProperty("installments_amount")]
+        public decimal InstallmentsAmount { get; private set; }
+      
         [JsonProperty("status")]
         public string Status { get; private set; }
         

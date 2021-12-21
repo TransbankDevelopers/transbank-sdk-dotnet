@@ -3,7 +3,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Transbank.Common;
 
-namespace Transbank.Webpay.WebpayPlus.Requests
+namespace Transbank.Webpay.TransaccionCompleta.Requests
 {
     internal class CaptureRequest : BaseRequest
     {

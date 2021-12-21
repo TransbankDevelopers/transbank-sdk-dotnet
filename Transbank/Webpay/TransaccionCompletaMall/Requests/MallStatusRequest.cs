@@ -7,6 +7,6 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Requests
     public class MallStatusRequest : BaseRequest
     {
         internal MallStatusRequest(string token)
-            : base($"{ApiConstant.WEBPAY_METHOD}/transactions/{token}", HttpMethod.Get){}
+            : base($"{ApiConstants.WEBPAY_METHOD}/transactions/{token}", HttpMethod.Get){}
     }
 }

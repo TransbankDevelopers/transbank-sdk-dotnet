@@ -1,8 +1,8 @@
-﻿using System.Net.Http;
+using System.Net.Http;
 using Newtonsoft.Json;
 using Transbank.Common;
 
-namespace Transbank.Webpay.WebpayPlus.Requests
+namespace Transbank.Webpay.TransaccionCompletaMall.Requests
 {
     public class MallCaptureRequest : BaseRequest
     {

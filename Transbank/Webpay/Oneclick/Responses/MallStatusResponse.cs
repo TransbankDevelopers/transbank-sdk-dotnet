@@ -66,6 +66,10 @@ namespace Transbank.Webpay.Oneclick.Responses
             
             [JsonProperty("buy_order")]
             public string BuyOrder { get; set; }
+            [JsonProperty("installments_amount")]
+            public decimal InstallmentsAmount { get; set; }
+            [JsonProperty("balance")]
+            public decimal Balance { get; set; }
 
             public Detail(decimal amount, string status, string authorizationCode, string paymentTypeCode,
                 int responseCode, int installmentsNumber, string commerceCode, string buyOrder)
