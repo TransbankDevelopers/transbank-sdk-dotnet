@@ -26,7 +26,6 @@
     <Folder Include="Webpay\WebpayPlus\" />
     <Folder Include="Webpay\WebpayPlus\Requests\" />
     <Folder Include="Webpay\WebpayPlus\Responses\" />
-    <Folder Include="Webpay\Common\" />
     <Folder Include="Patpass\" />
     <Folder Include="Patpass\Common\" />
     <Folder Include="Patpass\PatpassByWebpay\" />

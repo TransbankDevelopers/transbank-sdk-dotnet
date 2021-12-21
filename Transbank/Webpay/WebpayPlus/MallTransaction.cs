@@ -113,17 +113,6 @@ namespace Transbank.Webpay.WebpayPlus
         | Environment Configuration
         |--------------------------------------------------------------------------
         */
-
-        public void ConfigureForIntegration(string commerceCode, string apiKey)
-        {
-            Options = new Options(commerceCode, apiKey, WebpayIntegrationType.Test);
-        }
-
-        public void ConfigureForProduction(string commerceCode, string apiKey)
-        {
-            Options = new Options(commerceCode, apiKey, WebpayIntegrationType.Live);
-        }
-
         public void ConfigureForTestingMall()
         {
             ConfigureForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS_MALL, IntegrationApiKeys.WEBPAY);

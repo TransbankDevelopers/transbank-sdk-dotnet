@@ -8,10 +8,8 @@ using Transbank.Webpay.TransaccionCompleta.Responses;
 
 namespace Transbank.Webpay.TransaccionCompleta
 {
-    public class FullTransaction
+    public class FullTransaction : WebpayOptions
     {
-        public Options Options { get; private set; }
-
         public FullTransaction() : this(
             new Options(
                 IntegrationCommerceCodes.TRANSACCION_COMPLETA,
@@ -21,10 +19,7 @@ namespace Transbank.Webpay.TransaccionCompleta
         )
         { }
 
-        public FullTransaction(Options options)
-        {
-            Options = options;
-        }
+        public FullTransaction(Options options) : base(options) {}
         public CreateResponse Create(
             string buyOrder,
             string sessionId,
@@ -145,15 +140,6 @@ namespace Transbank.Webpay.TransaccionCompleta
         | Environment Configuration
         |--------------------------------------------------------------------------
         */
-
-        public void ConfigureForIntegration(String commerceCode, String apiKey)
-        {
-            Options = new Options(commerceCode, apiKey, WebpayIntegrationType.Test);
-        }
-        public void ConfigureForProduction(String commerceCode, String apiKey)
-        {
-            Options = new Options(commerceCode, apiKey, WebpayIntegrationType.Live);
-        }
         public void ConfigureForTesting()
         {
             ConfigureForIntegration(IntegrationCommerceCodes.TRANSACCION_COMPLETA, IntegrationApiKeys.WEBPAY);
