@@ -22,19 +22,24 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Requests
         
         [JsonProperty("details")]
         public List<CreateDetails> Details { get; set; }
+        [JsonProperty("cvv")]
+        public short? Cvv { get; set; }
 
         internal MallCreateRequest(string buyOrder,
             string sessionId,
             string cardNumber,
             string cardExpirationDate,
-            List<CreateDetails> details)
-        : base($"{ApiConstant.WEBPAY_METHOD}/transactions", HttpMethod.Post)
+            List<CreateDetails> details,
+            short? cvv
+            )
+        : base($"{ApiConstants.WEBPAY_METHOD}/transactions", HttpMethod.Post)
         {
             BuyOrder = buyOrder;
             SessionId = sessionId;
             CardNumber = cardNumber;
             CardExpirationDate = cardExpirationDate;
             Details = details;
+            Cvv = cvv;
         }
     }
 }

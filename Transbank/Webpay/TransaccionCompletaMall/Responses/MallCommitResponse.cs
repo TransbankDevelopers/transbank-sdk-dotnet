@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
-using Transbank.Patpass.Common;
 using Transbank.Webpay.Common;
 using Transbank.Webpay.TransaccionCompletaMall.Common;
 
@@ -27,6 +26,8 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Responses
         
         [JsonProperty("transaction_date")]
         public string TransactionDate { get; set; }
+        [JsonProperty("prepaid_balance")]
+        public decimal prepaidBalance { get; set; }
 
         public MallCommitResponse(
             List<CommitResponseDetails> details,

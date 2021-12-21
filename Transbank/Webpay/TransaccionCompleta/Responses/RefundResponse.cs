@@ -22,6 +22,8 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
         
         [JsonProperty("response_code")]
         public int ResponseCode { get; set; }
+        [JsonProperty("prepaid_balance")]
+        public decimal prepaidBalance { get; set; }
 
         public RefundResponse(string type, string authorizationCode, string authorizationDate, double nullifiedAmount, double balance, int responseCode)
         {

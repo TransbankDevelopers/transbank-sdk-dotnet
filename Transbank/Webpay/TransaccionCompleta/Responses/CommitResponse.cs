@@ -40,6 +40,8 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
         
         [JsonProperty("installments_number")]
         public int InstallmentsNumber { get; private set; }
+        [JsonProperty("prepaid_balance")]
+        public decimal prepaidBalance { get; set; }
 
         public CommitResponse(int amount, string status, string buyOrder, string sessionId, CardDetail cardDetail, string accountingDate, string transactionDate, string authorizationCode, string paymentTypeCode, int responseCode, int installmentsAmount, int installmentsNumber)
         {

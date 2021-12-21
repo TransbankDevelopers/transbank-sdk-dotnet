@@ -2,7 +2,6 @@ using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Exceptions;
 using Transbank.Webpay.Common;
-using Transbank.Webpay.WebpayPlus.Exceptions;
 using Transbank.Webpay.WebpayPlus.Requests;
 using Transbank.Webpay.WebpayPlus.Responses;
 
@@ -24,9 +23,9 @@ namespace Transbank.Webpay.WebpayPlus
         public CreateResponse Create(string buyOrder, string sessionId,
             decimal amount, string returnUrl)
         {
-            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
-            ValidationUtil.hasTextWithMaxLength(sessionId, ApiConstant.SESSION_ID_LENGTH, "sessionId");
-            ValidationUtil.hasTextWithMaxLength(returnUrl, ApiConstant.RETURN_URL_LENGTH, "returnUrl");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstants.BUY_ORDER_LENGTH, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(sessionId, ApiConstants.SESSION_ID_LENGTH, "sessionId");
+            ValidationUtil.hasTextWithMaxLength(returnUrl, ApiConstants.RETURN_URL_LENGTH, "returnUrl");
 
             return ExceptionHandler.Perform<CreateResponse, TransactionCreateException>(() =>
             {
@@ -40,7 +39,7 @@ namespace Transbank.Webpay.WebpayPlus
 
         public CommitResponse Commit(string token)
         {
-            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstants.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<CommitResponse, TransactionCommitException>(() =>
             {
@@ -54,7 +53,7 @@ namespace Transbank.Webpay.WebpayPlus
 
         public RefundResponse Refund(string token, decimal amount)
         {
-            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstants.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<RefundResponse, TransactionRefundException>(() =>
             {
@@ -68,7 +67,7 @@ namespace Transbank.Webpay.WebpayPlus
 
         public StatusResponse Status(string token)
         {
-            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstants.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
             {
@@ -83,9 +82,9 @@ namespace Transbank.Webpay.WebpayPlus
         public CaptureResponse Capture(string token, string buyOrder, string authorizationCode,
             decimal captureAmount)
         {
-            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
-            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstant.BUY_ORDER_LENGTH, "buyOrder");
-            ValidationUtil.hasTextWithMaxLength(authorizationCode, ApiConstant.AUTHORIZATION_CODE_LENGTH, "authorizationCode");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstants.TOKEN_LENGTH, "token");
+            ValidationUtil.hasTextWithMaxLength(buyOrder, ApiConstants.BUY_ORDER_LENGTH, "buyOrder");
+            ValidationUtil.hasTextWithMaxLength(authorizationCode, ApiConstants.AUTHORIZATION_CODE_LENGTH, "authorizationCode");
 
             return ExceptionHandler.Perform<CaptureResponse, TransactionCaptureException>(() =>
             {
@@ -97,5 +96,33 @@ namespace Transbank.Webpay.WebpayPlus
                 return JsonConvert.DeserializeObject<CaptureResponse>(response);
             });
         }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Environment Configuration
+        |--------------------------------------------------------------------------
+        */
+
+        public void ConfigureForIntegration(string commerceCode, string apiKey)
+        {
+            Options = new Options(commerceCode, apiKey, WebpayIntegrationType.Test);
+        }
+
+        public void ConfigureForProduction(string commerceCode, string apiKey)
+        {
+            Options = new Options(commerceCode, apiKey, WebpayIntegrationType.Live);
+        }
+
+        public void ConfigureForTesting()
+        {
+            ConfigureForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY);
+        }
+
+        public void ConfigureForTestingDeferred()
+        {
+            ConfigureForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS_DEFERRED, IntegrationApiKeys.WEBPAY);
+        }
+
     }
 }

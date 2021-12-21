@@ -23,9 +23,9 @@ namespace Transbank.Webpay.Oneclick
         public MallStartResponse Start(string userName, string email,
             string responseUrl)
         {
-            ValidationUtil.hasTextTrimWithMaxLength(userName, ApiConstant.USER_NAME_LENGTH, "userName");
-            ValidationUtil.hasTextTrimWithMaxLength(email, ApiConstant.EMAIL_LENGTH, "email");
-            ValidationUtil.hasTextWithMaxLength(responseUrl, ApiConstant.RETURN_URL_LENGTH, "responseUrl");
+            ValidationUtil.hasTextTrimWithMaxLength(userName, ApiConstants.USER_NAME_LENGTH, "userName");
+            ValidationUtil.hasTextTrimWithMaxLength(email, ApiConstants.EMAIL_LENGTH, "email");
+            ValidationUtil.hasTextWithMaxLength(responseUrl, ApiConstants.RETURN_URL_LENGTH, "responseUrl");
 
             return ExceptionHandler.Perform<MallStartResponse, InscriptionStartException>(() =>
             {
@@ -39,7 +39,7 @@ namespace Transbank.Webpay.Oneclick
 
         public MallFinishResponse Finish(string token)
         {
-            ValidationUtil.hasTextWithMaxLength(token, ApiConstant.TOKEN_LENGTH, "token");
+            ValidationUtil.hasTextWithMaxLength(token, ApiConstants.TOKEN_LENGTH, "token");
 
             return ExceptionHandler.Perform<MallFinishResponse, InscriptionFinishException>(() =>
             {
@@ -50,11 +50,11 @@ namespace Transbank.Webpay.Oneclick
             });
         }
 
-        public void Delete(string userName, string tbkUser)
+        public void Delete(string tbkUser, string userName)
         {
 
-            ValidationUtil.hasTextTrimWithMaxLength(userName, ApiConstant.USER_NAME_LENGTH, "userName");
-            ValidationUtil.hasTextWithMaxLength(tbkUser, ApiConstant.TBK_USER_LENGTH, "tbkUser");
+            ValidationUtil.hasTextTrimWithMaxLength(userName, ApiConstants.USER_NAME_LENGTH, "userName");
+            ValidationUtil.hasTextWithMaxLength(tbkUser, ApiConstants.TBK_USER_LENGTH, "tbkUser");
 
             ExceptionHandler.Perform<InscriptionDeleteException>(() =>
             {

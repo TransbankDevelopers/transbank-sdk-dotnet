@@ -25,7 +25,7 @@ namespace Transbank.Patpass.PatpassByWebpay.Requests
         internal CreateRequest(string buyOrder, string sessionId, decimal amount, string returnUrl, string serviceId, string cardHolderId,
                 string cardHolderName, string cardHolderLastName1, string cardHolderLastName2, string cardHolderMail, string cellphoneNumber,
                 string expirationDate, string commerceMail, bool ufFlag)
-            : base($"{ApiConstant.WEBPAY_METHOD}/transactions", HttpMethod.Post)
+            : base($"{ApiConstants.WEBPAY_METHOD}/transactions", HttpMethod.Post)
         {
             BuyOrder = buyOrder;
             SessionId = sessionId;

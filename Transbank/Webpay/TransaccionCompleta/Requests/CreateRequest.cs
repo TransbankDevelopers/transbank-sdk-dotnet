@@ -13,7 +13,7 @@ namespace Transbank.Webpay.TransaccionCompleta.Requests
         public string SessionId { get; set; }
         
         [JsonProperty("amount")]
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
         
         [JsonProperty("cvv")]
         public int Cvv { get; set; }
@@ -27,11 +27,11 @@ namespace Transbank.Webpay.TransaccionCompleta.Requests
         internal CreateRequest(
             string buyOrder,
             string sessionId,
-            int amount,
+            decimal amount,
             int cvv,
             string cardNumber,
             string cardExpirationDate)
-            : base($"{ApiConstant.WEBPAY_METHOD}/transactions", HttpMethod.Post)
+            : base($"{ApiConstants.WEBPAY_METHOD}/transactions", HttpMethod.Post)
         {
             BuyOrder = buyOrder;
             SessionId = sessionId;

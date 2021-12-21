@@ -23,20 +23,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Webpay\" />
     <Folder Include="Webpay\WebpayPlus\" />
-    <Folder Include="Webpay\WebpayPlus\Exceptions\" />
     <Folder Include="Webpay\WebpayPlus\Requests\" />
     <Folder Include="Webpay\WebpayPlus\Responses\" />
-    <Folder Include="Common\" />
     <Folder Include="Webpay\Common\" />
     <Folder Include="Patpass\" />
     <Folder Include="Patpass\Common\" />
     <Folder Include="Patpass\PatpassByWebpay\" />
     <Folder Include="Patpass\PatpassComercio\" />
     <Folder Include="Webpay\Oneclick\" />
-    <Folder Include="Webpay\TransaccionCompleta\" />
-    <Folder Include="Webpay\TransaccionCompletaMall\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

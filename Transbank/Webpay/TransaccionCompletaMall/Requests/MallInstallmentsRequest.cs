@@ -1,7 +1,6 @@
 using Newtonsoft.Json;
 using Transbank.Common;
 using System.Net.Http;
-using Transbank.Webpay.TransaccionCompletaMall.Common;
 
 namespace Transbank.Webpay.TransaccionCompletaMall.Requests
 {
@@ -21,7 +20,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Requests
             string commerceCode,
             string buyOrder,
             int installmentsNumber)
-            : base($"{ApiConstant.WEBPAY_METHOD}/transactions/{token}/installments", HttpMethod.Post)
+            : base($"{ApiConstants.WEBPAY_METHOD}/transactions/{token}/installments", HttpMethod.Post)
         {
             CommerceCode = commerceCode;
             BuyOrder = buyOrder;

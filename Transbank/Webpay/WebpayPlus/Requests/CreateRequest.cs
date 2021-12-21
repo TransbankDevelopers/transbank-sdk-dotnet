@@ -25,7 +25,7 @@ namespace Transbank.Webpay.WebpayPlus.Requests
         }
 
         internal CreateRequest(string buyOrder, string sessionId, decimal amount, string returnUrl)
-            : base($"{ApiConstant.WEBPAY_METHOD}/transactions", HttpMethod.Post)
+            : base($"{ApiConstants.WEBPAY_METHOD}/transactions", HttpMethod.Post)
         {
             BuyOrder = buyOrder;
             SessionId = sessionId;

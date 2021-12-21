@@ -37,14 +37,14 @@ namespace Transbank.Patpass.PatpassComercio
         public StartResponse Start(
             string url,
             string name,
-            string fLastname,
-            string sLastname,
+            string lastName,
+            string secondLastName,
             string rut,
             string serviceId,
             string finalUrl,
             decimal maxAmount,
-            string phoneNumber,
-            string mobileNumber,
+            string phone,
+            string cellPhone,
             string patpassName,
             string personEmail,
             string commerceEmail,
@@ -58,8 +58,8 @@ namespace Transbank.Patpass.PatpassComercio
             return ExceptionHandler.Perform<StartResponse, InscriptionStartException>(() =>
             {
                 var request = new StartRequest(
-                    url, name, fLastname, sLastname, rut, serviceId, finalUrl,
-                    Options.CommerceCode, mAmount, phoneNumber, mobileNumber,
+                    url, name, lastName, secondLastName, rut, serviceId, finalUrl,
+                    Options.CommerceCode, mAmount, phone, cellPhone,
                     patpassName, personEmail, commerceEmail, address, city
                 );
                 var response = RequestService.Perform<InscriptionStartException>(request, Options, _headers);

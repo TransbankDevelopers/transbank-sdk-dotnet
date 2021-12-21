@@ -7,6 +7,6 @@ namespace Transbank.Patpass.PatpassByWebpay.Requests
     internal class CommitRequest : BaseRequest
     {
         internal CommitRequest(string token)
-            : base($"{ApiConstant.WEBPAY_METHOD}/transactions/{token}", HttpMethod.Put) {}
+            : base($"{ApiConstants.WEBPAY_METHOD}/transactions/{token}", HttpMethod.Put) {}
     }
 }

@@ -20,7 +20,7 @@ namespace Transbank.Common
         {
             ValidationUtil.hasText(value, valueName);
             if (value.Length > value.Trim().Length)
-                throw new ArgumentOutOfRangeException($"'{valueName}' has spaces at the begining or the end");
+                throw new ArgumentOutOfRangeException($"'{valueName}' has spaces at the beginning or the end");
             if (value.Length > length)
                 throw new ArgumentOutOfRangeException($"'{valueName}' is too long, the maximum length is {length}");
         }

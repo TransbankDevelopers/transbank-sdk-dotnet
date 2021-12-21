@@ -21,6 +21,8 @@ namespace Transbank.Webpay.Oneclick.Responses
         
         [JsonProperty("nullified_amount")]
         public decimal NullifiedAmount { get; set; }
+        [JsonProperty("prepaid_balance")]
+        public decimal prepaidBalance { get; set; }
 
         public MallRefundResponse(string type, decimal balance, string authorizationCode, int responseCode, string authorizationDate, decimal nullifiedAmount)
         {
