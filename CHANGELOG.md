@@ -5,6 +5,35 @@ Todos los cambios notables a este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 2021-12-22
+
+### Removed
+
+- Se elimina Onepay
+- Se elimina la libreria 'MQTTnet'
+
+### Changed
+
+- Se migra el api desde la versión 1.0 a la versión 1.2
+- Ahora el método de retorno al crear la transacción en WebPayPlus debe tener soporte GET (cuando es exitosa) y POST (cuando se retorna sin concluir el ingreso de la tarjeta)
+- Ahora el método de retorno al inscribirse en Oneclick debe tener soporte GET (cuando es exitosa) y POST (cuando se retorna sin concluir la inscripción)
+- Se refactoriza y migra todos los productos desde clases estáticas a clases instanciables
+- Se unifica 'Transaction' y 'DeferredTransaction' en WebpayPlus
+- Se unifica 'MallTransaction' y 'MallDeferredTransaction' en WebpayPlus y Oneclick
+- Se reordenan los parámetros del método capture de WebpayPlus Mall a 'Capture(string childCommerceCode, string token, string buyOrder, string authorizationCode, decimal captureAmount)'
+- Se reordenan los parámetros del método delete de Oneclick a 'Delete(string tbkUser, string userName)'
+- Se reordenan los parámetros del método capture de Oneclick a 'Capture(string childCommerceCode, string childBuyOrder, string authorizationCode, decimal captureAmount)'
+- Se reordenan los parámetros del método create de Transacción Completa Mall a 'Create(string buyOrder, string sessionId, string cardNumber, string cardExpirationDate, List<CreateDetails> details, short? cvv)'
+
+### Added
+
+- Se agrega soporte a Webpay Modal
+- Se agregan validaciones de obligatoriedad y tamaño de los parámetros a los métodos de WebpayPlus, Oneclick, Webpay Modal, Transacción Completa
+- Se agrega una clase de constantes con los códigos de comercio de integración: 'IntegrationCommerceCodes'
+- Se agrega una clase de constantes con las claves de comercio de integración: 'IntegrationApiKeys'
+- Se agrega el método Capture a Transacción Completa
+- Se agrega el método Capture a Transacción Completa Mall
+
 ## [3.0.1] - 2021-06-23
 
 ### Fixed
