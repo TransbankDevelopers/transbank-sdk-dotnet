@@ -15,7 +15,6 @@ debieran instalarse automáticamente.
 - [Newtonsoft 13.0.1](https://www.newtonsoft.com/json)
 - [System.Net.Http 4.3.4](https://dotnet.microsoft.com/)
 - [NETStandard.Library 2.0.3](https://dotnet.microsoft.com/)
-- [MQTTnet 3.0.16](https://github.com/chkr1011/MQTTnet)
 
 ## Instalación
 
@@ -54,31 +53,11 @@ Puedes encontrar toda la documentación de cómo usar este SDK en el sitio https
 La documentación relevante para usar este SDK es:
 
 - Documentación general sobre los productos y sus diferencias:
-  [Webpay](https://www.transbankdevelopers.cl/producto/webpay) y
-  [Onepay](https://www.transbankdevelopers.cl/producto/onepay).
+  [Webpay](https://www.transbankdevelopers.cl/producto/webpay).
 - Documentación sobre [ambientes, deberes del comercio, puesta en producción,
   etc](https://www.transbankdevelopers.cl/documentacion/como_empezar#ambientes).
-- Primeros pasos con [Webpay](https://www.transbankdevelopers.cl/documentacion/webpay) y [Onepay](https://www.transbankdevelopers.cl/documentacion/onepay).
-- Referencia detallada sobre [Webpay](https://www.transbankdevelopers.cl/referencia/webpay) y [Onepay](https://www.transbankdevelopers.cl/referencia/onepay).
-
-## Solución de problemas
-
-### CryptographicException: Invalid algorithm specified
-
-Si al intentar ejecutar el código en el que integras, se lanza una excepción similar a la siguiente:
-```
-System.Security.Cryptography.CryptographicException
-  HResult=0x80090008
-  Message=Invalid algorithm specified.
-  Source=<Cannot evaluate the exception source>
-  StackTrace:<Cannot evaluate the exception stack trace>
-```
-puedes solucionarlo agregando a tu código, antes de llamar a initTransaction, las siguientes líneas:
-
-```csharp
-AppContext.SetSwitch("Switch.System.Security.Cryptography.Xml.UseInsecureHashAlgorithms", true);
-AppContext.SetSwitch("Switch.System.Security.Cryptography.Pkcs.UseInsecureHashAlgorithms", true);
-```
+- Primeros pasos con [Webpay](https://www.transbankdevelopers.cl/documentacion/webpay).
+- Referencia detallada sobre [Webpay](https://www.transbankdevelopers.cl/referencia/webpay).
 
 ## Información para contribuir y desarrollar este SDK
 
