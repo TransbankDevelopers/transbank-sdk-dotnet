@@ -10,7 +10,7 @@ y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.ht
 ### Removed
 
 - Se elimina Onepay
-- Se elimina la libreria 'MQTTnet'
+- Se elimina la librería 'MQTTnet'
 
 ### Changed
 
