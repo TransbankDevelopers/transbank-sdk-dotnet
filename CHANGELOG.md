@@ -5,6 +5,14 @@ Todos los cambios notables a este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [4.0.1] - 2022-01-18
+
+### Changed
+
+- Se deprecan los atributos 'CardNumber' y 'SessionId' a la clase 'MallAuthorizeResponse' de Oneclick
+- Se agrega el atributo 'CardDetail' a la clase 'MallAuthorizeResponse' de Oneclick
+- Se agrega manejo de errores para Patpass Comercio
+
 ## [4.0.0] - 2021-12-22
 
 ### Removed
