@@ -10,11 +10,15 @@ namespace Transbank.Webpay.Oneclick.Responses
         [JsonProperty("buy_order")]
         public string BuyOrder { get; private set; }
 
+        [ObsoleteAttribute("This property is obsolete. ", false)]
         [JsonProperty("session_id")]
         public string SessionId { get; private set; }
 
-        [JsonProperty("card_number")]
+        [ObsoleteAttribute("This property is obsolete. Use CardDetail.CardNumber instead.", false)]
         public string CardNumber { get; private set; }
+
+        [JsonProperty("card_detail")]
+        public CardDetail CardDetail { get; set; }
 
         [JsonProperty("expiration_date")]
         [JsonConverter(typeof(DateFormatConverter), "yyyy-mm-ddd")]
@@ -29,25 +33,12 @@ namespace Transbank.Webpay.Oneclick.Responses
         [JsonProperty("details")]
         public List<PaymentResponse> Details{get; private set; }
 
-        public MallAuthorizeResponse(string buyOrder, string sessionId, string cardNumber, DateTime expirationDate,
-            string accountingDate, DateTime transactionDate, List<PaymentResponse> details)
-        {
-            BuyOrder = buyOrder;
-            SessionId = sessionId;
-            CardNumber = cardNumber;
-            ExpirationDate = expirationDate;
-            AccountingDate = accountingDate;
-            TransactionDate = transactionDate;
-            Details = details;
-        }
-
         public override string ToString()
         {
             var details = "";
             Details.ForEach(i => details += "{\n"+ i.ToString() + "\n}\n");
             return $"\"BuyOrder\": \"{BuyOrder}\"\n" +
-                   $"\"SessionId\": \"{SessionId}\"\n" +
-                   $"\"CardNumber\": \"{CardNumber}\"\n" +
+                   $"\"CardNumber\": \"{CardDetail?.CardNumber}\"\n" +
                    $"\"ExpirationDate\": \"{ExpirationDate}\"\n" +
                    $"\"AccountingDate\": \"{AccountingDate}\"\n" +
                    $"\"TransactionDate\": \"{TransactionDate}\"\n" +

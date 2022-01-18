@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -38,9 +38,19 @@ namespace Transbank.Common
                     .ConfigureAwait(false).GetAwaiter().GetResult();
                 if (!response.IsSuccessStatusCode)
                 {
+                    String errorMessage = "";
                     var jsonObject = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+                    if (jsonObject != null && jsonObject.ContainsKey("error_message")){
+                        errorMessage = $"Error message: {jsonObject.Value<string>("error_message")}";
+                    }
+                    else if (jsonObject != null && jsonObject.ContainsKey("description")){
+                        errorMessage = $"Error message: {jsonObject.Value<string>("code")} - {jsonObject.Value<string>("description")}";
+                    }
+                    else{
+                        errorMessage = $"Error message: {jsonResponse}";
+                    }
                     throw (T)Activator.CreateInstance(typeof(T), new object[] {
-                        (int)response.StatusCode, $"Error message: {jsonObject?.Value<string>("error_message")}"
+                        (int)response.StatusCode, errorMessage
                     });
                 }
                 return jsonResponse;
