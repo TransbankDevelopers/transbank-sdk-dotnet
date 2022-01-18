@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
+    <ApplicationIcon />
+    <Win32Resource />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageId>TransbankSDK</PackageId>
+    <Description>This is the .Net SDK for Transbank Integration.</Description>
+    <PackageLicense>https://raw.githubusercontent.com/TransbankDevelopers/transbank-sdk-dotnet/master/LICENSE</PackageLicense>
+    <PackageProjectUrl>http://www.transbankdevelopers.cl/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TransbankDevelopers/transbank-sdk-dotnet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageTags>payments, cl, chile, transbank</PackageTags>
+    <PackageIconUrl>https://www.transbankdevelopers.cl/favicon.ico</PackageIconUrl>
+    <VersionPrefix>4.0.1</VersionPrefix>
+    <VersionSuffix>$(VersionSuffix)</VersionSuffix>
+    <Product>TransbankSDK</Product>
+    <Copyright>2020 - Transbank</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Webpay\WebpayPlus\" />
+    <Folder Include="Webpay\WebpayPlus\Requests\" />
+    <Folder Include="Webpay\WebpayPlus\Responses\" />
+    <Folder Include="Patpass\" />
+    <Folder Include="Patpass\Common\" />
+    <Folder Include="Patpass\PatpassByWebpay\" />
+    <Folder Include="Patpass\PatpassComercio\" />
+    <Folder Include="Webpay\Oneclick\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  </ItemGroup>
+</Project>

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <ApplicationIcon />
     <Win32Resource />
     <OutputType>Library</OutputType>
@@ -16,24 +16,30 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageTags>payments, cl, chile, transbank</PackageTags>
     <PackageIconUrl>https://www.transbankdevelopers.cl/favicon.ico</PackageIconUrl>
-    <VersionPrefix>4.0.1</VersionPrefix>
+    <VersionPrefix>3.0.2</VersionPrefix>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <Product>TransbankSDK</Product>
     <Copyright>2020 - Transbank</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Webpay\" />
     <Folder Include="Webpay\WebpayPlus\" />
+    <Folder Include="Webpay\WebpayPlus\Exceptions\" />
     <Folder Include="Webpay\WebpayPlus\Requests\" />
     <Folder Include="Webpay\WebpayPlus\Responses\" />
+    <Folder Include="Common\" />
+    <Folder Include="Webpay\Common\" />
     <Folder Include="Patpass\" />
     <Folder Include="Patpass\Common\" />
     <Folder Include="Patpass\PatpassByWebpay\" />
     <Folder Include="Patpass\PatpassComercio\" />
     <Folder Include="Webpay\Oneclick\" />
+    <Folder Include="Webpay\TransaccionCompleta\" />
+    <Folder Include="Webpay\TransaccionCompletaMall\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="MQTTnet" Version="3.0.15" />
   </ItemGroup>
 </Project>
