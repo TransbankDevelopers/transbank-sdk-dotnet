@@ -30,7 +30,6 @@
     <Folder Include="Patpass\Common\" />
     <Folder Include="Patpass\PatpassByWebpay\" />
     <Folder Include="Patpass\PatpassComercio\" />
-    <Folder Include="Webpay\Oneclick\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

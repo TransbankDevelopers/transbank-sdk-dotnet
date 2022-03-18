@@ -30,10 +30,8 @@ namespace Transbank.Webpay.Oneclick
             return ExceptionHandler.Perform<MallStartResponse, InscriptionStartException>(() =>
             {
                 var startRequest = new MallStartRequest(userName, email, responseUrl);
-                var response = RequestService.Perform<InscriptionStartException>(
+                return RequestService.Perform<MallStartResponse, InscriptionStartException>(
                     startRequest, Options);
-
-                return JsonConvert.DeserializeObject<MallStartResponse>(response);
             });
         }
 
@@ -44,22 +42,20 @@ namespace Transbank.Webpay.Oneclick
             return ExceptionHandler.Perform<MallFinishResponse, InscriptionFinishException>(() =>
             {
                 var finishRequest = new MallFinishRequest(token);
-                var response = RequestService.Perform<InscriptionFinishException>(finishRequest, Options);
-
-                return JsonConvert.DeserializeObject<MallFinishResponse>(response);
+                return RequestService.Perform<MallFinishResponse, InscriptionFinishException>(finishRequest, Options);
             });
         }
 
-        public void Delete(string tbkUser, string userName)
+        public DeleteResponse Delete(string tbkUser, string userName)
         {
 
             ValidationUtil.hasTextTrimWithMaxLength(userName, ApiConstants.USER_NAME_LENGTH, "userName");
             ValidationUtil.hasTextWithMaxLength(tbkUser, ApiConstants.TBK_USER_LENGTH, "tbkUser");
 
-            ExceptionHandler.Perform<InscriptionDeleteException>(() =>
+            return ExceptionHandler.Perform<DeleteResponse, InscriptionDeleteException>(() =>
             {
                 var deleteRequest = new MallDeleteRequest(userName, tbkUser);
-                RequestService.Perform<InscriptionDeleteException>(deleteRequest, Options);
+                return RequestService.Perform<DeleteResponse, InscriptionDeleteException>(deleteRequest, Options);
             });
         }
     }

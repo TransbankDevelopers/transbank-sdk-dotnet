@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Exceptions;
@@ -30,12 +30,13 @@ namespace Transbank.Patpass.PatpassByWebpay
                 string cardHolderName, string cardHolderLastName1, string cardHolderLastName2, string cardHolderMail, string cellphoneNumber,
                 string expirationDate, string commerceMail, bool ufFlag)
         {
-            var createRequest = new CreateRequest(buyOrder, sessionId, amount, returnUrl, serviceId, cardHolderId,
+            return ExceptionHandler.Perform<CreateResponse, TransactionCreateException>(() =>
+            {
+                var createRequest = new CreateRequest(buyOrder, sessionId, amount, returnUrl, serviceId, cardHolderId,
                 cardHolderName, cardHolderLastName1, cardHolderLastName2, cardHolderMail, cellphoneNumber,
                 expirationDate, commerceMail, ufFlag);
-            var response = RequestService.Perform<TransactionCreateException>(createRequest, Options);
-
-            return JsonConvert.DeserializeObject<CreateResponse>(response);
+                return RequestService.Perform<CreateResponse, TransactionCreateException>(createRequest, Options);
+            });
         }
 
         public CommitResponse Commit(string token)
@@ -43,10 +44,8 @@ namespace Transbank.Patpass.PatpassByWebpay
             return ExceptionHandler.Perform<CommitResponse, TransactionCommitException>(() =>
             {
                 var commitRequest = new CommitRequest(token);
-                var response = RequestService.Perform<TransactionCommitException>(
+                return RequestService.Perform<CommitResponse, TransactionCommitException>(
                     commitRequest, Options);
-
-                return JsonConvert.DeserializeObject<CommitResponse>(response);
             });
         }
 
@@ -55,10 +54,8 @@ namespace Transbank.Patpass.PatpassByWebpay
             return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
             {
                 var statusRequest = new StatusRequest(token);
-                var response = RequestService.Perform<TransactionStatusException>(
+                return RequestService.Perform<StatusResponse, TransactionStatusException>(
                     statusRequest, Options);
-
-                return JsonConvert.DeserializeObject<StatusResponse>(response);
             });
         }
 

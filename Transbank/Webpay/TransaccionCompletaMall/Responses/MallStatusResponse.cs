@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
+using Transbank.Common;
 using Transbank.Patpass.Common;
 using Transbank.Webpay.Common;
 using Transbank.Webpay.TransaccionCompletaMall.Common;
 
 namespace Transbank.Webpay.TransaccionCompletaMall.Responses
 {
-    public class MallStatusResponse
+    public class MallStatusResponse : BaseResponse
     {
         [JsonProperty("details")]
         public List<CommitResponseDetails> Details { get; set; }
@@ -26,7 +27,9 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Responses
         public string AccountingDate { get; set; }
         
         [JsonProperty("transaction_date")]
-        public string TransactionDate { get; set; }
+        public DateTime? TransactionDate { get; set; }
+        [JsonProperty("prepaid_balance")]
+        public decimal? PrepaidBalance { get; set; }
 
         public MallStatusResponse(
             List<CommitResponseDetails> details,
@@ -34,7 +37,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Responses
             string sessionId,
             CardDetail cardDetail,
             string accountingDate,
-            string transactionDate
+            DateTime transactionDate
         )
         {
             Details = details;

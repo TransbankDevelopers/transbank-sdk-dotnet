@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
+using Transbank.Common;
 using Transbank.Webpay.Common;
 using Transbank.Webpay.TransaccionCompletaMall.Common;
 
 namespace Transbank.Webpay.TransaccionCompletaMall.Responses
 {
-    public class MallCommitResponse
+    public class MallCommitResponse : BaseResponse
     {
         [JsonProperty("details")]
         public List<CommitResponseDetails> Details { get; set; }
@@ -25,26 +26,10 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Responses
         public string AccountingDate { get; set; }
         
         [JsonProperty("transaction_date")]
-        public string TransactionDate { get; set; }
+        public DateTime? TransactionDate { get; set; }
         [JsonProperty("prepaid_balance")]
-        public decimal prepaidBalance { get; set; }
+        public decimal? PrepaidBalance { get; set; }
 
-        public MallCommitResponse(
-            List<CommitResponseDetails> details,
-            string buyOrder,
-            string sessionId,
-            CardDetail cardDetail,
-            string accountingDate,
-            string transactionDate
-        )
-        {
-            Details = details;
-            BuyOrder = buyOrder;
-            SessionId = sessionId;
-            CardDetail = cardDetail;
-            AccountingDate = accountingDate;
-            TransactionDate = transactionDate;
-        }
 
         public override string ToString()
         {

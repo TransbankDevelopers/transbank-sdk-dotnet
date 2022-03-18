@@ -1,4 +1,3 @@
-using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Webpay.Common;
 using System.Collections.Generic;
@@ -39,10 +38,8 @@ namespace Transbank.Webpay.WebpayPlus
             {
                 var mallCreateRequest = new MallCreateRequest(buyOrder, sessionId,
                     returnUrl, details);
-                var response = RequestService.Perform<MallTransactionCreateException>(
+                return RequestService.Perform<MallCreateResponse, MallTransactionCreateException>(
                     mallCreateRequest, Options);
-
-                return JsonConvert.DeserializeObject<MallCreateResponse>(response);
             });
         }
 
@@ -53,10 +50,8 @@ namespace Transbank.Webpay.WebpayPlus
             return ExceptionHandler.Perform<MallCommitResponse, MallTransactionCommitException>(() =>
             {
                 var mallCommitRequest = new MallCommitRequest(token);
-                var response = RequestService.Perform<MallTransactionCommitException>(
+                return RequestService.Perform<MallCommitResponse, MallTransactionCommitException>(
                     mallCommitRequest, Options);
-
-                return JsonConvert.DeserializeObject<MallCommitResponse>(response);
             });
         }
 
@@ -71,10 +66,8 @@ namespace Transbank.Webpay.WebpayPlus
             {
                 var mallRefundRequest = new MallRefundRequest(token, buyOrder,
                     childCommerceCode, amount);
-                var response = RequestService.Perform<MallTransactionRefundException>(
+                return RequestService.Perform<MallRefundResponse, MallTransactionRefundException>(
                     mallRefundRequest, Options);
-
-                return JsonConvert.DeserializeObject<MallRefundResponse>(response);
             });
         }
 
@@ -85,10 +78,8 @@ namespace Transbank.Webpay.WebpayPlus
             return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
             {
                 var mallStatusRequest = new MallStatusRequest(token);
-                var response = RequestService.Perform<MallTransactionStatusException>(
+                return RequestService.Perform<MallStatusResponse, MallTransactionStatusException>(
                     mallStatusRequest, Options);
-
-                return JsonConvert.DeserializeObject<MallStatusResponse>(response);
             });
         }
 
@@ -103,8 +94,7 @@ namespace Transbank.Webpay.WebpayPlus
             return ExceptionHandler.Perform<MallCaptureResponse, MallTransactionCaptureException>(() =>
             {
                 var mallCaptureRequest = new MallCaptureRequest(token, childCommerceCode, buyOrder, authorizationCode, captureAmount);
-                var response = RequestService.Perform<MallTransactionCaptureException>(mallCaptureRequest, Options);
-                return JsonConvert.DeserializeObject<MallCaptureResponse>(response);
+                return RequestService.Perform<MallCaptureResponse, MallTransactionCaptureException>(mallCaptureRequest, Options);
             });
         }
 

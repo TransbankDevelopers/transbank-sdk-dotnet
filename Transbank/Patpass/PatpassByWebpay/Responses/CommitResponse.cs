@@ -1,17 +1,18 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
+using Transbank.Common;
 using Transbank.Webpay.Common;
 
 namespace Transbank.Patpass.PatpassByWebpay.Responses
 {
-    public class CommitResponse
+    public class CommitResponse : BaseResponse
     {
         [JsonProperty("vci")]
         public string Vci { get; set; }
         [JsonProperty("amount")]
-        public decimal Amount { get; set; }
+        public decimal? Amount { get; set; }
         [JsonProperty("status")]
         public string Status { get; set; }
         [JsonProperty("buy_order")]
@@ -23,19 +24,19 @@ namespace Transbank.Patpass.PatpassByWebpay.Responses
         [JsonProperty("accounting_date")]
         public string AccountingDate { get; set; }
         [JsonProperty("transaction_date")]
-        public DateTime TransactionDate { get; set; }
+        public DateTime? TransactionDate { get; set; }
         [JsonProperty("authorization_code")]
         public string AuthorizationCode { get; set; }
         [JsonProperty("payment_type_code")]
         public string PaymentTypeCode { get; set; }
         [JsonProperty("response_code")]
-        public int ResponseCode { get; set; }
+        public int? ResponseCode { get; set; }
         [JsonProperty("installments_amount")]
-        public int InstallmentsAmount { get; set; }
+        public decimal? InstallmentsAmount { get; set; }
         [JsonProperty("installments_number")]
-        public int InstallmentsNumber { get; set; }
+        public int? InstallmentsNumber { get; set; }
         [JsonProperty("balance")]
-        public decimal Balance { get; set; }
+        public decimal? Balance { get; set; }
 
         public override string ToString()
         {

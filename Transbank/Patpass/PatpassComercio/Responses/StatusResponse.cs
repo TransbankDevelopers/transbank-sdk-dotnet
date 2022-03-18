@@ -1,8 +1,9 @@
 using Newtonsoft.Json;
+using Transbank.Common;
 
 namespace Transbank.Patpass.PatpassComercio.Responses
 {
-    public class StatusResponse
+    public class StatusResponse : BaseResponse
     {
         [JsonProperty("authorized")]
         public string Status { get; set; }

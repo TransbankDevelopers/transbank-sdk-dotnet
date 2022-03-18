@@ -5,7 +5,7 @@ namespace Transbank.Webpay.TransaccionCompleta.Common
     public class Detail
     {
         [JsonProperty("amount")]
-        internal int Amount { get; }
+        internal decimal Amount { get; }
         
         [JsonProperty("commerce_code")]
         internal int CommerceCode { get; }
@@ -14,7 +14,7 @@ namespace Transbank.Webpay.TransaccionCompleta.Common
         internal string BuyOrder { get; }
 
         public Detail(
-            int amount,
+            decimal amount,
             int commerceCode,
             string buyOrder)
         {

@@ -1,17 +1,12 @@
 using Newtonsoft.Json;
+using Transbank.Common;
 
 namespace Transbank.Webpay.TransaccionCompletaMall.Responses
 {
-    public class MallCreateResponse
+    public class MallCreateResponse : BaseResponse
     {
         [JsonProperty("token")]
         public string Token { get; set; }
-
-        public MallCreateResponse(
-            string token)
-        {
-            Token = token;
-        }
 
         public override string ToString()
         {

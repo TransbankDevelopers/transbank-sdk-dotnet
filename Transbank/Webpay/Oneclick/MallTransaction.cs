@@ -39,9 +39,7 @@ namespace Transbank.Webpay.Oneclick
             {
                 var authorizeRequest = new MallAuthorizeRequest(userName, tbkUser, parentBuyOrder,
                     details);
-                var response = RequestService.Perform<MallTransactionAuthorizeException>(authorizeRequest, Options);
-
-                return JsonConvert.DeserializeObject<MallAuthorizeResponse>(response);
+                return RequestService.Perform<MallAuthorizeResponse, MallTransactionAuthorizeException>(authorizeRequest, Options);
             });
         }
 
@@ -55,8 +53,7 @@ namespace Transbank.Webpay.Oneclick
             return ExceptionHandler.Perform<MallRefundResponse, MallTransactionRefundException>(() =>
             {
                 var mallRefundRequest = new MallRefundRequest(buyOrder, childCommerceCode, childBuyOrder, amount);
-                var response = RequestService.Perform<MallTransactionRefundException>(mallRefundRequest, Options);
-                return JsonConvert.DeserializeObject<MallRefundResponse>(response);
+                return RequestService.Perform<MallRefundResponse, MallTransactionRefundException>(mallRefundRequest, Options);
             });
         }
 
@@ -67,8 +64,7 @@ namespace Transbank.Webpay.Oneclick
             return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
             {
                 var mallStatusRequest = new MallStatusRequest(buyOrder);
-                var response = RequestService.Perform<MallTransactionStatusException>(mallStatusRequest, Options);
-                return JsonConvert.DeserializeObject<MallStatusResponse>(response);
+                return RequestService.Perform<MallStatusResponse, MallTransactionStatusException>(mallStatusRequest, Options);
             });
         }
 
@@ -82,8 +78,7 @@ namespace Transbank.Webpay.Oneclick
             {
                 long.TryParse(childCommerceCode, out long ccode);
                 var mallCaptureRequest = new MallCaptureRequest(ccode, childBuyOrder, captureAmount, authorizationCode);
-                var response = RequestService.Perform<MallCaptureException>(mallCaptureRequest, Options);
-                return JsonConvert.DeserializeObject<MallCaptureResponse>(response);
+                return RequestService.Perform<MallCaptureResponse, MallCaptureException>(mallCaptureRequest, Options);
             });
         }
     }

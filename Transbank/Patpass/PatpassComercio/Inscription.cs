@@ -62,9 +62,7 @@ namespace Transbank.Patpass.PatpassComercio
                     Options.CommerceCode, mAmount, phone, cellPhone,
                     patpassName, personEmail, commerceEmail, address, city
                 );
-                var response = RequestService.Perform<InscriptionStartException>(request, Options, _headers);
-
-                return JsonConvert.DeserializeObject<StartResponse>(response);
+                return RequestService.Perform<StartResponse, InscriptionStartException>(request, Options, _headers);
             });
 
         }
@@ -74,10 +72,8 @@ namespace Transbank.Patpass.PatpassComercio
             return ExceptionHandler.Perform<StatusResponse, InscriptionStatusException>(() =>
             {
                 var statusRequest = new StatusRequest(token);
-                var response = RequestService.Perform<InscriptionStatusException>(
+                return RequestService.Perform<StatusResponse, InscriptionStatusException>(
                     statusRequest, Options, _headers);
-
-                return JsonConvert.DeserializeObject<StatusResponse>(response);
             });
         }
 

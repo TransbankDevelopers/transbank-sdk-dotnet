@@ -1,12 +1,14 @@
+using System;
 using Newtonsoft.Json;
+using Transbank.Common;
 using Transbank.Webpay.TransaccionCompleta.Common;
 
 namespace Transbank.Webpay.TransaccionCompleta.Responses
 {
-    public class StatusResponse
+    public class StatusResponse : BaseResponse
     {
         [JsonProperty("amount")]
-        public int Amount { get; set; }
+        public decimal? Amount { get; set; }
         
         [JsonProperty("status")]
         public string Status { get; set; }
@@ -24,7 +26,7 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
         public string AccountingDate { get; set; }
         
         [JsonProperty("transaction_date")]
-        public string TransactionDate { get; set; }
+        public DateTime? TransactionDate { get; set; }
         
         [JsonProperty("authorization_code")]
         public string AuthorizationCode { get; set; }
@@ -33,29 +35,15 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
         public string PaymentTypeCode { get; set; }
         
         [JsonProperty("response_code")]
-        public int ResponseCode { get; set; }
+        public int? ResponseCode { get; set; }
         
         [JsonProperty("installments_amount")]
-        public int InstallmentsAmount { get; set; }
+        public decimal? InstallmentsAmount { get; set; }
         
         [JsonProperty("installments_number")]
-        public int InstallmentsNumber { get; set; }
-
-        public StatusResponse(int amount, string status, string buyOrder, string sessionId, CardDetail cardDetail, string accountingDate, string transactionDate, string authorizationCode, string paymentTypeCode, int responseCode, int installmentsAmount, int installmentsNumber)
-        {
-            Amount = amount;
-            Status = status;
-            BuyOrder = buyOrder;
-            SessionId = sessionId;
-            CardDetail = cardDetail;
-            AccountingDate = accountingDate;
-            TransactionDate = transactionDate;
-            AuthorizationCode = authorizationCode;
-            PaymentTypeCode = paymentTypeCode;
-            ResponseCode = responseCode;
-            InstallmentsAmount = installmentsAmount;
-            InstallmentsNumber = installmentsNumber;
-        }
+        public int? InstallmentsNumber { get; set; }
+        [JsonProperty("balance")]
+        public decimal? Balance { get; set; }
 
         public override string ToString()
         {

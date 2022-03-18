@@ -54,9 +54,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                     details,
                     cvv
                 );
-                var response = RequestService.Perform<MallTransactionCreateException>(mallCreateRequest, Options);
-
-                return JsonConvert.DeserializeObject<MallCreateResponse>(response);
+                return RequestService.Perform<MallCreateResponse, MallTransactionCreateException>(mallCreateRequest, Options);
             });
         }
 
@@ -78,9 +76,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                     commerceCode,
                     buyOrder,
                     installmentsNumber);
-                var response = RequestService.Perform<MallTransactionInstallmentsExceptions>(mallInstallmentsResponse, Options);
-
-                return JsonConvert.DeserializeObject<MallInstallmentsResponse>(response);
+                return RequestService.Perform<MallInstallmentsResponse, MallTransactionInstallmentsExceptions>(mallInstallmentsResponse, Options);
             });
         }
 
@@ -102,13 +98,9 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                         req.BuyOrder,
                         req.InstallmentsNumber);
 
-                    var response = RequestService.Perform<MallTransactionInstallmentsExceptions>(request, Options);
-                    var json = JsonConvert.DeserializeObject<MallInstallmentsResponse>(response);
-
-                    det.Add(new MallInstallmentsResponse(json.InstallmentsAmount, json.IdQueryInstallments, json.DeferredPeriods));
-
+                    var resp = RequestService.Perform<MallInstallmentsResponse, MallTransactionInstallmentsExceptions>(request, Options);
+                    det.Add(new MallInstallmentsResponse(resp.InstallmentsAmount, resp.IdQueryInstallments, resp.DeferredPeriods));
                 }
-
                 return JsonConvert.DeserializeObject<MallInstallmentsDetailsResponse>(det.ToString());
             });
         }
@@ -124,9 +116,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                 var mallCommitRequest = new MallCommitRequest(
                     token,
                     details);
-                var response = RequestService.Perform<MallTransactionCommitException>(mallCommitRequest, Options);
-
-                return JsonConvert.DeserializeObject<MallCommitResponse>(response);
+                return RequestService.Perform<MallCommitResponse, MallTransactionCommitException>(mallCommitRequest, Options);
             });
         }
 
@@ -147,10 +137,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                     buyOrder,
                     childCommerceCode,
                     amount);
-                var response = RequestService.Perform<MallTransactionRefundException>(mallRefundRequest, Options);
-
-                return JsonConvert.DeserializeObject<MallRefundResponse>(response);
-
+                return RequestService.Perform<MallRefundResponse, MallTransactionRefundException>(mallRefundRequest, Options);
             });
         }
 
@@ -160,11 +147,8 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             ValidationUtil.hasTextWithMaxLength(token, ApiConstants.TOKEN_LENGTH, "token");
             return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
             {
-                var mallStatusRequest = new MallStatusRequest(
-                    token);
-                var response = RequestService.Perform<MallTransactionStatusException>(mallStatusRequest, Options);
-
-                return JsonConvert.DeserializeObject<MallStatusResponse>(response);
+                var mallStatusRequest = new MallStatusRequest(token);
+                return RequestService.Perform<MallStatusResponse, MallTransactionStatusException>(mallStatusRequest, Options);
             });
         }
 
@@ -179,8 +163,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             return ExceptionHandler.Perform<MallCaptureResponse, MallTransactionCaptureException>(() =>
             {
                 var mallCaptureRequest = new MallCaptureRequest(token, childCommerceCode, buyOrder, authorizationCode, captureAmount);
-                var response = RequestService.Perform<MallTransactionCaptureException>(mallCaptureRequest, Options);
-                return JsonConvert.DeserializeObject<MallCaptureResponse>(response);
+                return RequestService.Perform<MallCaptureResponse, MallTransactionCaptureException>(mallCaptureRequest, Options);
             });
         }
 

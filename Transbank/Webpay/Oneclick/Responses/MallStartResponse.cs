@@ -1,20 +1,15 @@
-﻿using Transbank.Webpay.Common;
+using Transbank.Webpay.Common;
 using Newtonsoft.Json;
+using Transbank.Common;
 
 namespace Transbank.Webpay.Oneclick.Responses
 {
-    public class MallStartResponse
+    public class MallStartResponse : BaseResponse
     {
         [JsonProperty("token")]
         public string Token { get; private set; }
         [JsonProperty("url_webpay")]
         public string Url { get; private set; }
-
-        public MallStartResponse(string token, string url)
-        {
-            Token = token;
-            Url = url;
-        }
 
         public override string ToString()
         {

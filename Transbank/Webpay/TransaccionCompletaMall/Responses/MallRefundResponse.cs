@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
+using Transbank.Common;
 
 namespace Transbank.Webpay.TransaccionCompletaMall.Responses
 {
-    public class MallRefundResponse
+    public class MallRefundResponse : BaseResponse
     {
         [JsonProperty("type")]
         public string Type { get; set; }
@@ -14,26 +15,27 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Responses
         public string AuthorizationCode { get; set; }
         
         [JsonProperty("authorization_date")]
-        public string AuthorizationDate { get; set; }
+        public DateTime? AuthorizationDate { get; set; }
         
         [JsonProperty("nullified_amount")]
-        public double NullifiedAmount { get; set; }
+        public decimal? NullifiedAmount { get; set; }
         
         [JsonProperty("balance")]
-        public double Balance { get; set; }
+        public decimal? Balance { get; set; }
         
         [JsonProperty("response_code")]
-        public int ResponseCode { get; set; }
+        public int? ResponseCode { get; set; }
         [JsonProperty("prepaid_balance")]
-        public decimal prepaidBalance { get; set; }
+        public decimal? PrepaidBalance { get; set; }
 
         public MallRefundResponse(
             string type,
             string authorizationCode,
-            string authorizationDate,
-            double nullifiedAmount,
-            double balance,
-            int responseCode)
+            DateTime authorizationDate,
+            decimal nullifiedAmount,
+            decimal balance,
+            int responseCode,
+            decimal prepaidBalance)
         {
             Type = type;
             AuthorizationCode = authorizationCode;
@@ -41,6 +43,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Responses
             NullifiedAmount = nullifiedAmount;
             Balance = balance;
             ResponseCode = responseCode;
+            PrepaidBalance = prepaidBalance;
         }
 
         public override string ToString()

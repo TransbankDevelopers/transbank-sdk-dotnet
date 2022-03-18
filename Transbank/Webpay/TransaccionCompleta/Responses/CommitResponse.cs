@@ -1,62 +1,50 @@
+using System;
 using Newtonsoft.Json;
+using Transbank.Common;
 using Transbank.Webpay.TransaccionCompleta.Common;
 
 namespace Transbank.Webpay.TransaccionCompleta.Responses
 {
-    public class CommitResponse
+    public class CommitResponse : BaseResponse
     {
         [JsonProperty("amount")]
-        public int Amount { get; private set; }
+        public decimal? Amount { get; set; }
         
         [JsonProperty("status")]
-        public string Status { get; private set; }
+        public string Status { get; set; }
         
         [JsonProperty("buy_order")]
-        public string BuyOrder { get; private set; }
+        public string BuyOrder { get; set; }
         
         [JsonProperty("session_id")]
-        public string SessionId { get; private set; }
+        public string SessionId { get; set; }
         
         [JsonProperty("card_detail")]
-        public CardDetail CardDetail { get; private set; }
+        public CardDetail CardDetail { get; set; }
         
         [JsonProperty("accounting_date")]
-        public string AccountingDate { get; private set; }
+        public string AccountingDate { get; set; }
         
         [JsonProperty("transaction_date")]
-        public string TransactionDate { get; private set; }
+        public DateTime? TransactionDate { get; set; }
         
         [JsonProperty("authorization_code")]
-        public string AuthorizationCode { get; private set; }
+        public string AuthorizationCode { get; set; }
         
         [JsonProperty("payment_type_code")]
-        public string PaymentTypeCode { get; private set; }
+        public string PaymentTypeCode { get; set; }
         
         [JsonProperty("response_code")]
-        public int ResponseCode { get; private set; }
+        public int? ResponseCode { get; set; }
         
         [JsonProperty("installments_amount")]
-        public int InstallmentsAmount { get; private set; }
+        public decimal? InstallmentsAmount { get; set; }
         
         [JsonProperty("installments_number")]
-        public int InstallmentsNumber { get; private set; }
+        public int? InstallmentsNumber { get; set; }
         [JsonProperty("prepaid_balance")]
-        public decimal prepaidBalance { get; set; }
+        public decimal? PrepaidBalance { get; set; }
 
-        public CommitResponse(int amount, string status, string buyOrder, string sessionId, CardDetail cardDetail, string accountingDate, string transactionDate, string authorizationCode, string paymentTypeCode, int responseCode, int installmentsAmount, int installmentsNumber)
-        {
-            Amount = amount;
-            Status = status;
-            BuyOrder = buyOrder;
-            SessionId = sessionId;
-            CardDetail = cardDetail;
-            AccountingDate = accountingDate;
-            TransactionDate = transactionDate;
-            AuthorizationCode = authorizationCode;
-            PaymentTypeCode = paymentTypeCode;
-            ResponseCode = responseCode;
-            InstallmentsAmount = installmentsAmount;
-        }
 
         public override string ToString()
         {
