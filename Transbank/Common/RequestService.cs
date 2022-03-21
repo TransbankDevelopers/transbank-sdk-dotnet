@@ -9,15 +9,19 @@ using Transbank.Exceptions;
 
 namespace Transbank.Common
 {
-    internal static class RequestService
+    public class RequestService
     {
-        private static HttpClient _httpClient;
+        private static HttpClient _staticHttpClient;
+        private HttpClient _httpClient;
         private static readonly string CONTENT_TYPE = "application/json";
-        private static HttpClient GetHttpClient()
+        public RequestService(HttpClient httpClient = null) { _httpClient = httpClient;  }
+        private HttpClient GetHttpClient()
         {
-            if (_httpClient == null)
-                _httpClient = new HttpClient();
-            return _httpClient;
+            if (_httpClient != null)
+                return _httpClient;
+            if (_staticHttpClient == null)
+                _staticHttpClient = new HttpClient();
+            return _staticHttpClient;
         }
         private static void AddRequiredHeaders(HttpRequestMessage request, string commerceCode, string apiKey, RequestServiceHeaders headers)
         {
@@ -33,7 +37,7 @@ namespace Transbank.Common
             AddRequiredHeaders(message, options.CommerceCode, options.ApiKey, requestServiceHeaders);
             return message;
         }
-        private static string Perform<T>(HttpRequestMessage message) where T : TransbankException
+        private string Perform<T>(HttpRequestMessage message) where T : TransbankException
         {
             var client = GetHttpClient();
             var response = client.SendAsync(message).ConfigureAwait(false)
@@ -59,7 +63,7 @@ namespace Transbank.Common
             }
             return jsonResponse;
         }
-        public static ReturnType Perform<ReturnType, ExceptionType>(BaseRequest request, Options options)
+        public ReturnType Perform<ReturnType, ExceptionType>(BaseRequest request, Options options)
             where ExceptionType : TransbankException
             where ReturnType : BaseResponse
         {
@@ -67,7 +71,7 @@ namespace Transbank.Common
             return Perform<ReturnType, ExceptionType>(request, options, new RequestServiceHeaders());
         }
 
-        public static ReturnType Perform<ReturnType, ExceptionType>(BaseRequest request, Options options, RequestServiceHeaders requestServiceHeaders) 
+        public ReturnType Perform<ReturnType, ExceptionType>(BaseRequest request, Options options, RequestServiceHeaders requestServiceHeaders) 
             where ExceptionType : TransbankException
             where ReturnType : BaseResponse
         {

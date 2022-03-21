@@ -4,21 +4,16 @@ using System.Collections.Generic;
 using Transbank.Webpay.WebpayPlus.Requests;
 using Transbank.Webpay.WebpayPlus.Responses;
 using Transbank.Exceptions;
+using System.Net.Http;
 
 namespace Transbank.Webpay.WebpayPlus
 {
     public class MallTransaction : WebpayOptions
     {
-        public MallTransaction() : this(
-            new Options(
-                IntegrationCommerceCodes.WEBPAY_PLUS_MALL,
-                IntegrationApiKeys.WEBPAY,
-                WebpayIntegrationType.Test
-            )
-        )
-        { }
-
-        public MallTransaction(Options options) : base(options) { }
+        public MallTransaction() { ConfigureForTesting(); }
+        public MallTransaction(Options options, HttpClient httpClient = null) : base(options, httpClient) { }
+        public MallTransaction(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
+            : base(commerceCode, apiKey, integrationType, httpClient) { }
 
         public MallCreateResponse Create(string buyOrder, string sessionId,
             string returnUrl, List<TransactionDetail> details)
@@ -38,7 +33,7 @@ namespace Transbank.Webpay.WebpayPlus
             {
                 var mallCreateRequest = new MallCreateRequest(buyOrder, sessionId,
                     returnUrl, details);
-                return RequestService.Perform<MallCreateResponse, MallTransactionCreateException>(
+                return _requestService.Perform<MallCreateResponse, MallTransactionCreateException>(
                     mallCreateRequest, Options);
             });
         }
@@ -50,7 +45,7 @@ namespace Transbank.Webpay.WebpayPlus
             return ExceptionHandler.Perform<MallCommitResponse, MallTransactionCommitException>(() =>
             {
                 var mallCommitRequest = new MallCommitRequest(token);
-                return RequestService.Perform<MallCommitResponse, MallTransactionCommitException>(
+                return _requestService.Perform<MallCommitResponse, MallTransactionCommitException>(
                     mallCommitRequest, Options);
             });
         }
@@ -66,7 +61,7 @@ namespace Transbank.Webpay.WebpayPlus
             {
                 var mallRefundRequest = new MallRefundRequest(token, buyOrder,
                     childCommerceCode, amount);
-                return RequestService.Perform<MallRefundResponse, MallTransactionRefundException>(
+                return _requestService.Perform<MallRefundResponse, MallTransactionRefundException>(
                     mallRefundRequest, Options);
             });
         }
@@ -78,7 +73,7 @@ namespace Transbank.Webpay.WebpayPlus
             return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
             {
                 var mallStatusRequest = new MallStatusRequest(token);
-                return RequestService.Perform<MallStatusResponse, MallTransactionStatusException>(
+                return _requestService.Perform<MallStatusResponse, MallTransactionStatusException>(
                     mallStatusRequest, Options);
             });
         }
@@ -94,7 +89,7 @@ namespace Transbank.Webpay.WebpayPlus
             return ExceptionHandler.Perform<MallCaptureResponse, MallTransactionCaptureException>(() =>
             {
                 var mallCaptureRequest = new MallCaptureRequest(token, childCommerceCode, buyOrder, authorizationCode, captureAmount);
-                return RequestService.Perform<MallCaptureResponse, MallTransactionCaptureException>(mallCaptureRequest, Options);
+                return _requestService.Perform<MallCaptureResponse, MallTransactionCaptureException>(mallCaptureRequest, Options);
             });
         }
 
@@ -103,12 +98,12 @@ namespace Transbank.Webpay.WebpayPlus
         | Environment Configuration
         |--------------------------------------------------------------------------
         */
-        public void ConfigureForTestingMall()
+        public void ConfigureForTesting()
         {
             ConfigureForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS_MALL, IntegrationApiKeys.WEBPAY);
         }
 
-        public void ConfigureForTestingMallDeferred()
+        public void ConfigureForTestingDeferred()
         {
             ConfigureForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS_MALL_DEFERRED, IntegrationApiKeys.WEBPAY);
         }
