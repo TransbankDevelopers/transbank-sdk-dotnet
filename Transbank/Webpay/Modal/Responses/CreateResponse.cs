@@ -1,9 +1,10 @@
 using System;
 using Newtonsoft.Json;
+using Transbank.Common;
 
 namespace Transbank.Webpay.Modal.Responses
 {
-    public class CreateResponse
+    public class CreateResponse : BaseResponse
     {
         [JsonProperty("token")]
         public string Token { get; private set; }

@@ -5,19 +5,19 @@ namespace Transbank.Webpay.Common
     public class PaymentResponse
     {
         [JsonProperty("authorization_code")]
-        public int AuthorizationCode { get; private set; }
+        public string AuthorizationCode { get; private set; }
 
         [JsonProperty("payment_type_code")]
         public string PaymentTypeCode { get; private set; }
 
         [JsonProperty("response_code")]
-        public int ResponseCode { get; private set; }
+        public int? ResponseCode { get; private set; }
 
         [JsonProperty("installments_number")]
-        public int InstallmentsNumber { get; private set; }
+        public int? InstallmentsNumber { get; private set; }
 
         [JsonProperty("installments_amount")]
-        public decimal InstallmentsAmount { get; private set; }
+        public decimal? InstallmentsAmount { get; private set; }
       
         [JsonProperty("status")]
         public string Status { get; private set; }
@@ -29,20 +29,7 @@ namespace Transbank.Webpay.Common
         public string BuyOrder { get; private set; }
         
         [JsonProperty("amount")]
-        public decimal Amount { get; private set; }
-
-        public PaymentResponse (string commerceCode, string buyOrder, int amount, int authorizationCode,
-            string paymentTypeCode, int responseCode, int installmentsNumber, string status)
-        {
-            AuthorizationCode = authorizationCode;
-            PaymentTypeCode = paymentTypeCode;
-            ResponseCode = responseCode;
-            InstallmentsNumber = installmentsNumber;
-            Status = status;
-            CommerceCode = commerceCode;
-            BuyOrder = buyOrder;
-            Amount = amount;
-        }
+        public decimal? Amount { get; private set; }
 
         public override string ToString()
         {

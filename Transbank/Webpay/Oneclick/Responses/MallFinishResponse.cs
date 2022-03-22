@@ -1,11 +1,12 @@
 using Newtonsoft.Json;
+using Transbank.Common;
 
 namespace Transbank.Webpay.Oneclick.Responses
 {
-    public class MallFinishResponse
+    public class MallFinishResponse : BaseResponse
     {
         [JsonProperty("response_code")]
-        public int ResponseCode { get; private set; }
+        public int? ResponseCode { get; private set; }
         [JsonProperty("tbk_user")]
         public string TbkUser { get; private set; }
         [JsonProperty("authorization_code")]
@@ -14,16 +15,6 @@ namespace Transbank.Webpay.Oneclick.Responses
         public string CardType { get; private set; }
         [JsonProperty("card_number")]
         public string CardNumber { get; private set; }
-
-        public MallFinishResponse(int responseCode, string transbankUser,
-            string authorizationCode, string cardType, string cardNumber)
-        {
-            ResponseCode = responseCode;
-            TbkUser = transbankUser;
-            AuthorizationCode = authorizationCode;
-            CardType = cardType;
-            CardNumber = cardNumber;
-        }
 
         public override string ToString()
         {

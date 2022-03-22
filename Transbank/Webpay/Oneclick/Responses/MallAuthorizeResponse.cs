@@ -2,10 +2,11 @@ using System;
 using Newtonsoft.Json;
 using Transbank.Webpay.Common;
 using System.Collections.Generic;
+using Transbank.Common;
 
 namespace Transbank.Webpay.Oneclick.Responses
 {
-    public class MallAuthorizeResponse
+    public class MallAuthorizeResponse : BaseResponse
     {
         [JsonProperty("buy_order")]
         public string BuyOrder { get; private set; }
@@ -22,13 +23,13 @@ namespace Transbank.Webpay.Oneclick.Responses
 
         [JsonProperty("expiration_date")]
         [JsonConverter(typeof(DateFormatConverter), "yyyy-mm-ddd")]
-        public DateTime ExpirationDate { get; private set; }
+        public DateTime? ExpirationDate { get; private set; }
 
         [JsonProperty("accounting_date")]
         public string AccountingDate { get; private set; }
 
         [JsonProperty("transaction_date")]
-        public DateTime TransactionDate { get; private set; }
+        public DateTime? TransactionDate { get; private set; }
 
         [JsonProperty("details")]
         public List<PaymentResponse> Details{get; private set; }

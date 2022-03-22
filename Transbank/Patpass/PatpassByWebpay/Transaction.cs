@@ -1,5 +1,5 @@
-﻿using System;
-using Newtonsoft.Json;
+using System;
+using System.Net.Http;
 using Transbank.Common;
 using Transbank.Exceptions;
 using Transbank.Patpass.Common;
@@ -8,34 +8,25 @@ using Transbank.Patpass.PatpassByWebpay.Responses;
 
 namespace Transbank.Patpass.PatpassByWebpay
 {
-    public class Transaction
+    public class Transaction : BaseOptions
     {
-        public Options Options { get; private set; }
+        public Transaction() { ConfigureForTesting(); }
 
-        public Transaction() : this(
-            new Options(
-                IntegrationCommerceCodes.PATPASS_BY_WEBPAY,
-                IntegrationApiKeys.WEBPAY,
-                PatpassByWebpayIntegrationType.Test
-            )
-        )
-        { }
-
-        public Transaction(Options options)
-        {
-            Options = options;
-        }
+        public Transaction(Options options, HttpClient httpClient = null) : base(options, httpClient) { }
+        public Transaction(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
+            : base(commerceCode, apiKey, integrationType, httpClient) { }
 
         public CreateResponse Create(string buyOrder, string sessionId, decimal amount, string returnUrl, string serviceId, string cardHolderId,
                 string cardHolderName, string cardHolderLastName1, string cardHolderLastName2, string cardHolderMail, string cellphoneNumber,
                 string expirationDate, string commerceMail, bool ufFlag)
         {
-            var createRequest = new CreateRequest(buyOrder, sessionId, amount, returnUrl, serviceId, cardHolderId,
+            return ExceptionHandler.Perform<CreateResponse, TransactionCreateException>(() =>
+            {
+                var createRequest = new CreateRequest(buyOrder, sessionId, amount, returnUrl, serviceId, cardHolderId,
                 cardHolderName, cardHolderLastName1, cardHolderLastName2, cardHolderMail, cellphoneNumber,
                 expirationDate, commerceMail, ufFlag);
-            var response = RequestService.Perform<TransactionCreateException>(createRequest, Options);
-
-            return JsonConvert.DeserializeObject<CreateResponse>(response);
+                return _requestService.Perform<CreateResponse, TransactionCreateException>(createRequest, Options);
+            });
         }
 
         public CommitResponse Commit(string token)
@@ -43,10 +34,8 @@ namespace Transbank.Patpass.PatpassByWebpay
             return ExceptionHandler.Perform<CommitResponse, TransactionCommitException>(() =>
             {
                 var commitRequest = new CommitRequest(token);
-                var response = RequestService.Perform<TransactionCommitException>(
+                return _requestService.Perform<CommitResponse, TransactionCommitException>(
                     commitRequest, Options);
-
-                return JsonConvert.DeserializeObject<CommitResponse>(response);
             });
         }
 
@@ -55,10 +44,8 @@ namespace Transbank.Patpass.PatpassByWebpay
             return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
             {
                 var statusRequest = new StatusRequest(token);
-                var response = RequestService.Perform<TransactionStatusException>(
+                return _requestService.Perform<StatusResponse, TransactionStatusException>(
                     statusRequest, Options);
-
-                return JsonConvert.DeserializeObject<StatusResponse>(response);
             });
         }
 
@@ -70,14 +57,13 @@ namespace Transbank.Patpass.PatpassByWebpay
 
         public void ConfigureForIntegration(String commerceCode, String apiKey)
         {
-            Options = new Options(commerceCode, apiKey, PatpassByWebpayIntegrationType.Test);
+            Configure(commerceCode, apiKey, PatpassByWebpayIntegrationType.Test);
         }
 
         public void ConfigureForProduction(String commerceCode, String apiKey)
         {
-            Options = new Options(commerceCode, apiKey, PatpassByWebpayIntegrationType.Live);
+            Configure(commerceCode, apiKey, PatpassByWebpayIntegrationType.Live);
         }
-
         public void ConfigureForTesting()
         {
             ConfigureForIntegration(IntegrationCommerceCodes.PATPASS_BY_WEBPAY, IntegrationApiKeys.WEBPAY);

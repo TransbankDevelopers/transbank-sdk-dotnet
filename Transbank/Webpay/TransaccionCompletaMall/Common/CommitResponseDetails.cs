@@ -8,7 +8,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Common
     public class CommitResponseDetails
     {
         [JsonProperty("amount")]
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
         
         [JsonProperty("status")]
         public string Status { get; set; }
@@ -23,7 +23,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Common
         public int ResponseCode { get; set; }
         
         [JsonProperty("installments_amount")]
-        public int InstallmentsAmount { get; set; }
+        public decimal InstallmentsAmount { get; set; }
         
         [JsonProperty("installments_number")]
         public int InstallmentsNumber { get; set; }
@@ -33,28 +33,10 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Common
         
         [JsonProperty("buy_order")]
         public string BuyOrder { get; set; }
+        [JsonProperty("balance")]
+        public decimal Balance { get; set; }
 
-        public CommitResponseDetails(
-            int amount,
-            string status,
-            string authorizationCode,
-            string paymentTypeCode,
-            int responseCode,
-            int installmentsAmount,
-            int installmentsNumber,
-            string commerceCode,
-            string buyOrder)
-        {
-            Amount = amount;
-            Status = status;
-            AuthorizationCode = authorizationCode;
-            PaymentTypeCode = paymentTypeCode;
-            ResponseCode = responseCode;
-            InstallmentsAmount = installmentsAmount;
-            InstallmentsNumber = installmentsNumber;
-            CommerceCode = commerceCode;
-            BuyOrder = buyOrder;
-        }
+        
 
         public override string ToString()
         {

@@ -8,7 +8,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Common
     public class CreateDetails
     {
         [JsonProperty("amount")]
-        public int Amount { get; }
+        public decimal Amount { get; }
         
         [JsonProperty("commerce_code")]
         public string CommerceCode { get; }
@@ -17,7 +17,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Common
         public string BuyOrder { get; }
 
         public CreateDetails(
-            int amount,
+            decimal amount,
             string commerceCode,
             string buyOrder)
         {

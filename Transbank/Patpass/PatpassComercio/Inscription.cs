@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Net.Http;
 using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Exceptions;
@@ -9,7 +10,7 @@ using Transbank.Patpass.PatpassComercio.Responses;
 
 namespace Transbank.Patpass.PatpassComercio
 {
-    public class Inscription
+    public class Inscription : BaseOptions
     {
         // The authentication headers for this product are different, these have
         // to be used. You can put them in the Perform method of the RequestService
@@ -17,16 +18,18 @@ namespace Transbank.Patpass.PatpassComercio
         private string _commerceCodeHeaderName = "commerceCode";
 
         private RequestServiceHeaders _headers;
-        public Options Options { get; private set; }
 
-        public Inscription() : this(
-            new Options(
-                IntegrationCommerceCodes.PATPASS_COMERCIO,
-                IntegrationApiKeys.PATPASS_COMERCIO,
-                PatpassComercioIntegrationType.Test
-            )
-        )
-        { }
+        public Inscription() {
+            _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
+            ConfigureForTesting(); 
+        }
+        public Inscription(Options options, HttpClient httpClient = null) : base(options, httpClient) {
+            _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
+        }
+        public Inscription(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
+            : base(commerceCode, apiKey, integrationType, httpClient) {
+            _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
+        }
 
         public Inscription(Options options)
         {
@@ -62,9 +65,7 @@ namespace Transbank.Patpass.PatpassComercio
                     Options.CommerceCode, mAmount, phone, cellPhone,
                     patpassName, personEmail, commerceEmail, address, city
                 );
-                var response = RequestService.Perform<InscriptionStartException>(request, Options, _headers);
-
-                return JsonConvert.DeserializeObject<StartResponse>(response);
+                return _requestService.Perform<StartResponse, InscriptionStartException>(request, Options, _headers);
             });
 
         }
@@ -74,10 +75,8 @@ namespace Transbank.Patpass.PatpassComercio
             return ExceptionHandler.Perform<StatusResponse, InscriptionStatusException>(() =>
             {
                 var statusRequest = new StatusRequest(token);
-                var response = RequestService.Perform<InscriptionStatusException>(
+                return _requestService.Perform<StatusResponse, InscriptionStatusException>(
                     statusRequest, Options, _headers);
-
-                return JsonConvert.DeserializeObject<StatusResponse>(response);
             });
         }
 
@@ -89,12 +88,12 @@ namespace Transbank.Patpass.PatpassComercio
 
         public void ConfigureForIntegration(String commerceCode, String apiKey)
         {
-            Options = new Options(commerceCode, apiKey, PatpassComercioIntegrationType.Test);
+            Configure(commerceCode, apiKey, PatpassComercioIntegrationType.Test);
         }
 
         public void ConfigureForProduction(String commerceCode, String apiKey)
         {
-            Options = new Options(commerceCode, apiKey, PatpassComercioIntegrationType.Live);
+            Configure(commerceCode, apiKey, PatpassComercioIntegrationType.Live);
         }
 
         public void ConfigureForTesting()

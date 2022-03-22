@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
+using Transbank.Common;
 
 namespace Transbank.Patpass.PatpassByWebpay.Responses
 {
-    public class CreateResponse
+    public class CreateResponse : BaseResponse
     {
         [JsonProperty("token")]
         public string Token { get; private set; }

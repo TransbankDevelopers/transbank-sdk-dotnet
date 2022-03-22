@@ -1,22 +1,24 @@
+using System;
 using Newtonsoft.Json;
+using Transbank.Common;
 
 namespace Transbank.Webpay.Oneclick.Responses
 {
-    public class MallCaptureResponse
+    public class MallCaptureResponse : BaseResponse
     {
         [JsonProperty("authorization_code")]
         public string AuthorizationCode { get; set; }
         
         [JsonProperty("authorization_date")]
-        public string AuthorizationDate { get; set; }
+        public DateTime? AuthorizationDate { get; set; }
         
         [JsonProperty("captured_amount")]
-        public double CapturedAmount { get; set; }
+        public decimal? CapturedAmount { get; set; }
         
         [JsonProperty("response_code")]
-        public byte ResponseCode { get; set; }
+        public byte? ResponseCode { get; set; }
 
-        public MallCaptureResponse(string authorizationCode, string authorizationDate, double capturedAmount, byte responseCode)
+        public MallCaptureResponse(string authorizationCode, DateTime authorizationDate, decimal capturedAmount, byte responseCode)
         {
             AuthorizationCode = authorizationCode;
             AuthorizationDate = authorizationDate;

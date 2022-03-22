@@ -1,19 +1,23 @@
+using System.Net.Http;
 using Transbank.Common;
 
 namespace Transbank.Webpay.Common
 {
-    public class WebpayOptions
+    public class WebpayOptions : BaseOptions
     {
-        public Options Options { get; protected set; }
-        public WebpayOptions(Options options) { Options = options; }
+        public WebpayOptions() { }
+        public WebpayOptions(Options options, HttpClient httpClient = null) : base(options, httpClient) { }
+        public WebpayOptions(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
+            : base(commerceCode, apiKey, integrationType, httpClient) { }
         public void ConfigureForIntegration(string commerceCode, string apiKey)
         {
-            Options = new Options(commerceCode, apiKey, WebpayIntegrationType.Test);
+            Configure(commerceCode, apiKey, WebpayIntegrationType.Test);
         }
         public void ConfigureForProduction(string commerceCode, string apiKey)
         {
-            Options = new Options(commerceCode, apiKey, WebpayIntegrationType.Live);
+            Configure(commerceCode, apiKey, WebpayIntegrationType.Live);
         }
-
     }
 }
+
+

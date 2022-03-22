@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Exceptions;
@@ -10,16 +11,10 @@ namespace Transbank.Webpay.TransaccionCompleta
 {
     public class FullTransaction : WebpayOptions
     {
-        public FullTransaction() : this(
-            new Options(
-                IntegrationCommerceCodes.TRANSACCION_COMPLETA,
-                IntegrationApiKeys.WEBPAY,
-                WebpayIntegrationType.Test
-            )
-        )
-        { }
-
-        public FullTransaction(Options options) : base(options) {}
+        public FullTransaction() { ConfigureForTesting(); }
+        public FullTransaction(Options options, HttpClient httpClient = null) : base(options, httpClient) { }
+        public FullTransaction(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
+            : base(commerceCode, apiKey, integrationType, httpClient) { }
         public CreateResponse Create(
             string buyOrder,
             string sessionId,
@@ -42,10 +37,7 @@ namespace Transbank.Webpay.TransaccionCompleta
                     cvv,
                     cardNumber,
                     cardExpirationDate);
-                var response = RequestService.Perform<TransactionCreateException>(createRequest, Options);
-
-                return JsonConvert.DeserializeObject<CreateResponse>(response);
-
+                return _requestService.Perform<CreateResponse, TransactionCreateException>(createRequest, Options);
             });
 
         }
@@ -61,10 +53,7 @@ namespace Transbank.Webpay.TransaccionCompleta
                 var installmentsRequest = new InstallmentsRequest(
                     token,
                     installmentsNumber);
-                var response = RequestService.Perform<TransactionInstallmentsException>(installmentsRequest, Options);
-
-                return JsonConvert.DeserializeObject<InstallmentsResponse>(response);
-
+                return _requestService.Perform<InstallmentsResponse, TransactionInstallmentsException>(installmentsRequest, Options);
             });
 
         }
@@ -84,8 +73,7 @@ namespace Transbank.Webpay.TransaccionCompleta
                     idQueryInstallments,
                     deferredPeriodsIndex,
                     gracePeriods);
-                var response = RequestService.Perform<TransactionCommitException>(commitRequest, Options);
-                return JsonConvert.DeserializeObject<CommitResponse>(response);
+                return _requestService.Perform<CommitResponse, TransactionCommitException>(commitRequest, Options);
             });
         }
 
@@ -96,9 +84,7 @@ namespace Transbank.Webpay.TransaccionCompleta
             return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
             {
                 var request = new StatusRequest(token);
-                var response = RequestService.Perform<TransactionStatusException>(request, Options);
-
-                return JsonConvert.DeserializeObject<StatusResponse>(response);
+                return _requestService.Perform<StatusResponse, TransactionStatusException>(request, Options);
             });
         }
 
@@ -109,9 +95,7 @@ namespace Transbank.Webpay.TransaccionCompleta
             return ExceptionHandler.Perform<RefundResponse, TransactionRefundException>(() =>
             {
                 var request = new RefundRequest(token, amount);
-                var response = RequestService.Perform<TransactionRefundException>(request, Options);
-
-                return JsonConvert.DeserializeObject<RefundResponse>(response);
+                return _requestService.Perform<RefundResponse, TransactionRefundException>(request, Options);
             });
         }
 
@@ -126,14 +110,10 @@ namespace Transbank.Webpay.TransaccionCompleta
             {
                 var captureRequest = new CaptureRequest(token, buyOrder,
                     authorizationCode, captureAmount);
-                var response = RequestService.Perform<TransactionCaptureException>(
+                return _requestService.Perform<CaptureResponse, TransactionCaptureException>(
                     captureRequest, Options);
-
-                return JsonConvert.DeserializeObject<CaptureResponse>(response);
             });
         }
-
-
 
         /*
         |--------------------------------------------------------------------------

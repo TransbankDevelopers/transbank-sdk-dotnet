@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Transbank.Common;
 using Transbank.Webpay.TransaccionCompletaMall.Responses;
 
 namespace Transbank.Webpay.TransaccionCompletaMall.Common
 {
-    public class MallInstallmentsDetailsResponse
+    public class MallInstallmentsDetailsResponse : BaseResponse
     {
         [JsonProperty("details")]
         public List<MallInstallmentsResponse> Details { get; set; }

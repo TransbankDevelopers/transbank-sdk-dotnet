@@ -26,11 +26,8 @@
     <Folder Include="Webpay\WebpayPlus\" />
     <Folder Include="Webpay\WebpayPlus\Requests\" />
     <Folder Include="Webpay\WebpayPlus\Responses\" />
-    <Folder Include="Patpass\" />
     <Folder Include="Patpass\Common\" />
-    <Folder Include="Patpass\PatpassByWebpay\" />
     <Folder Include="Patpass\PatpassComercio\" />
-    <Folder Include="Webpay\Oneclick\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

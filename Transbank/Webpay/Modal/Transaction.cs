@@ -1,3 +1,4 @@
+using System.Net.Http;
 using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Exceptions;
@@ -9,16 +10,10 @@ namespace Transbank.Webpay.Modal
 {
     public class Transaction :  WebpayOptions
     {
-        public Transaction() : this(
-            new Options(
-                IntegrationCommerceCodes.WEBPAY_PLUS_MODAL,
-                IntegrationApiKeys.WEBPAY,
-                WebpayIntegrationType.Test
-            )
-        )
-        { }
-
-        public Transaction(Options options) : base(options) { }
+        public Transaction() { ConfigureForTesting(); }
+        public Transaction(Options options, HttpClient httpClient = null) : base(options, httpClient) { }
+        public Transaction(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
+            : base(commerceCode, apiKey, integrationType, httpClient) { }
 
         public CreateResponse Create(string buyOrder, string sessionId,
             decimal amount)
@@ -29,10 +24,8 @@ namespace Transbank.Webpay.Modal
             return ExceptionHandler.Perform<CreateResponse, TransactionCreateException>(() =>
             {
                 var createRequest = new CreateRequest(buyOrder, sessionId, amount);
-                var response = RequestService.Perform<TransactionCreateException>(
+                return _requestService.Perform<CreateResponse, TransactionCreateException>(
                     createRequest, Options);
-
-                return JsonConvert.DeserializeObject<CreateResponse>(response);
             });
         }
 
@@ -43,10 +36,8 @@ namespace Transbank.Webpay.Modal
             return ExceptionHandler.Perform<CommitResponse, TransactionCommitException>(() =>
             {
                 var commitRequest = new CommitRequest(token);
-                var response = RequestService.Perform<TransactionCommitException>(
+                return _requestService.Perform<CommitResponse, TransactionCommitException>(
                     commitRequest, Options);
-
-                return JsonConvert.DeserializeObject<CommitResponse>(response);
             });
         }
 
@@ -57,10 +48,8 @@ namespace Transbank.Webpay.Modal
             return ExceptionHandler.Perform<RefundResponse, TransactionRefundException>(() =>
             {
                 var refundRequest = new RefundRequest(token, amount);
-                var response = RequestService.Perform<TransactionRefundException>(
+                return _requestService.Perform<RefundResponse, TransactionRefundException>(
                     refundRequest, Options);
-
-                return JsonConvert.DeserializeObject<RefundResponse>(response);
             });
         }
 
@@ -71,10 +60,8 @@ namespace Transbank.Webpay.Modal
             return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
             {
                 var statusRequest = new StatusRequest(token);
-                var response = RequestService.Perform<TransactionStatusException>(
+                return _requestService.Perform<StatusResponse, TransactionStatusException>(
                     statusRequest, Options);
-
-                return JsonConvert.DeserializeObject<StatusResponse>(response);
             });
         }
 

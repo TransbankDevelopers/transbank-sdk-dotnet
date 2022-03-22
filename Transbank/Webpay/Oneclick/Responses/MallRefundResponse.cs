@@ -1,38 +1,31 @@
+using System;
 using Newtonsoft.Json;
+using Transbank.Common;
 
 namespace Transbank.Webpay.Oneclick.Responses
 {
-    public class MallRefundResponse
+    public class MallRefundResponse : BaseResponse
     {
         [JsonProperty("type")]
         public string Type { get; set; }
         
         [JsonProperty("balance")]
-        public decimal Balance { get; set; }
+        public decimal? Balance { get; set; }
         
         [JsonProperty("authorization_code")]
         public string AuthorizationCode { get; set; }
         
         [JsonProperty("response_code")]
-        public int ResponseCode { get; set; }
+        public int? ResponseCode { get; set; }
         
         [JsonProperty("authorization_date")]
-        public string AuthorizationDate { get; set; }
+        public DateTime? AuthorizationDate { get; set; }
         
         [JsonProperty("nullified_amount")]
-        public decimal NullifiedAmount { get; set; }
+        public decimal? NullifiedAmount { get; set; }
         [JsonProperty("prepaid_balance")]
-        public decimal prepaidBalance { get; set; }
+        public decimal? PrepaidBalance { get; set; }
 
-        public MallRefundResponse(string type, decimal balance, string authorizationCode, int responseCode, string authorizationDate, decimal nullifiedAmount)
-        {
-            Type = type;
-            Balance = balance;
-            AuthorizationCode = authorizationCode;
-            ResponseCode = responseCode;
-            AuthorizationDate = authorizationDate;
-            NullifiedAmount = nullifiedAmount;
-        }
         public override string ToString()
         {
             return $"\"Type\": \"{Type}\"\n" +

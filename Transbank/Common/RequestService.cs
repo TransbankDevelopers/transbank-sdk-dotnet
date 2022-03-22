@@ -6,61 +6,82 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Transbank.Exceptions;
-using Transbank.Common;
 
 namespace Transbank.Common
 {
-    internal static class RequestService
+    public class RequestService
     {
+        private static HttpClient _staticHttpClient;
+        private HttpClient _httpClient;
         private static readonly string CONTENT_TYPE = "application/json";
-
-        private static void AddRequiredHeaders(HttpClient client, string commerceCode, string apiKey, RequestServiceHeaders headers)
+        public RequestService(HttpClient httpClient = null) { _httpClient = httpClient;  }
+        private HttpClient GetHttpClient()
         {
-            var header = new MediaTypeWithQualityHeaderValue(CONTENT_TYPE);
-            client.DefaultRequestHeaders.Accept.Add(header);
-            client.DefaultRequestHeaders.Add(headers.CommerceCodeHeader, commerceCode);
-            client.DefaultRequestHeaders.Add(headers.ApiKeyHeader, apiKey);
+            if (_httpClient != null)
+                return _httpClient;
+            if (_staticHttpClient == null)
+                _staticHttpClient = new HttpClient();
+            return _staticHttpClient;
         }
-
-        public static string Perform<T>(BaseRequest request, Options options, RequestServiceHeaders requestServiceHeaders) where T : TransbankException
+        private static void AddRequiredHeaders(HttpRequestMessage request, string commerceCode, string apiKey, RequestServiceHeaders headers)
+        {
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(CONTENT_TYPE));
+            request.Headers.Add(headers.CommerceCodeHeader, commerceCode);
+            request.Headers.Add(headers.ApiKeyHeader, apiKey);
+        }
+        private static HttpRequestMessage CreateHttpRequestMessage(BaseRequest request, String jsonRequest, Options options, RequestServiceHeaders requestServiceHeaders)
         {
             var message = new HttpRequestMessage(request.Method, new Uri(options.IntegrationType.ApiBase + request.Endpoint));
             if (request.Method != HttpMethod.Get)
-                message.Content = new StringContent(JsonConvert.SerializeObject(request),
-                    Encoding.UTF8, CONTENT_TYPE);
-
-            using (var client = new HttpClient())
-            {
-                AddRequiredHeaders(client, options.CommerceCode, options.ApiKey, requestServiceHeaders);
-                var response = client.SendAsync(message).ConfigureAwait(false)
-                    .GetAwaiter().GetResult();
-                var jsonResponse = response.Content.ReadAsStringAsync()
-                    .ConfigureAwait(false).GetAwaiter().GetResult();
-                if (!response.IsSuccessStatusCode)
-                {
-                    String errorMessage = "";
-                    var jsonObject = (JObject)JsonConvert.DeserializeObject(jsonResponse);
-                    if (jsonObject != null && jsonObject.ContainsKey("error_message")){
-                        errorMessage = $"Error message: {jsonObject.Value<string>("error_message")}";
-                    }
-                    else if (jsonObject != null && jsonObject.ContainsKey("description")){
-                        errorMessage = $"Error message: {jsonObject.Value<string>("code")} - {jsonObject.Value<string>("description")}";
-                    }
-                    else{
-                        errorMessage = $"Error message: {jsonResponse}";
-                    }
-                    throw (T)Activator.CreateInstance(typeof(T), new object[] {
-                        (int)response.StatusCode, errorMessage
-                    });
-                }
-                return jsonResponse;
-            }
+                message.Content = new StringContent(jsonRequest, Encoding.UTF8, CONTENT_TYPE);
+            AddRequiredHeaders(message, options.CommerceCode, options.ApiKey, requestServiceHeaders);
+            return message;
         }
-
-        public static string Perform<T>(BaseRequest request, Options options) where T : TransbankException
+        private string Perform<T>(HttpRequestMessage message) where T : TransbankException
+        {
+            var client = GetHttpClient();
+            var response = client.SendAsync(message).ConfigureAwait(false)
+                .GetAwaiter().GetResult();
+            var jsonResponse = response.Content.ReadAsStringAsync()
+                .ConfigureAwait(false).GetAwaiter().GetResult();
+            if (!response.IsSuccessStatusCode)
+            {
+                String errorMessage = "";
+                var jsonObject = (JObject)JsonConvert.DeserializeObject(jsonResponse);
+                if (jsonObject != null && jsonObject.ContainsKey("error_message")){
+                    errorMessage = $"Error message: {jsonObject.Value<string>("error_message")}";
+                }
+                else if (jsonObject != null && jsonObject.ContainsKey("description")){
+                    errorMessage = $"Error message: {jsonObject.Value<string>("code")} - {jsonObject.Value<string>("description")}";
+                }
+                else{
+                    errorMessage = $"Error message: {jsonResponse}";
+                }
+                throw (T)Activator.CreateInstance(typeof(T), new object[] {
+                    (int)response.StatusCode, errorMessage
+                });
+            }
+            return jsonResponse;
+        }
+        public ReturnType Perform<ReturnType, ExceptionType>(BaseRequest request, Options options)
+            where ExceptionType : TransbankException
+            where ReturnType : BaseResponse
         {
             // Call perform with default headers
-            return Perform<T>(request, options, new RequestServiceHeaders());
+            return Perform<ReturnType, ExceptionType>(request, options, new RequestServiceHeaders());
         }
+
+        public ReturnType Perform<ReturnType, ExceptionType>(BaseRequest request, Options options, RequestServiceHeaders requestServiceHeaders) 
+            where ExceptionType : TransbankException
+            where ReturnType : BaseResponse
+        {
+            var jsonRequest = JsonConvert.SerializeObject(request);
+            var resp = Perform<ExceptionType>(CreateHttpRequestMessage(request, jsonRequest, options, requestServiceHeaders));
+            var result = JsonConvert.DeserializeObject<ReturnType>(String.IsNullOrWhiteSpace(resp) ? "{}" : resp );
+            result.OriginalRequest = jsonRequest;
+            result.OriginalResponse = resp;
+            return result;
+        }
+
     }
 }

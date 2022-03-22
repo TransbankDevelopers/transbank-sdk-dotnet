@@ -13,13 +13,13 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Requests
         public string CommerceCode { get; set; }
         
         [JsonProperty("amount")]
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
 
         internal MallRefundRequest(
             string token,
             string buyOrder,
             string commerceCode,
-            int amount)
+            decimal amount)
             : base($"{ApiConstants.WEBPAY_METHOD}/transactions/{token}/refunds", HttpMethod.Post)
         {
             BuyOrder = buyOrder;

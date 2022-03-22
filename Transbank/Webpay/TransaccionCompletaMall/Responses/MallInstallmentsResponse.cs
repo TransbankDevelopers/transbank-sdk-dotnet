@@ -2,29 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
+using Transbank.Common;
 using Transbank.Webpay.TransaccionCompletaMall.Common;
     
 namespace Transbank.Webpay.TransaccionCompletaMall.Responses
 {
-    public class MallInstallmentsResponse
+    public class MallInstallmentsResponse : BaseResponse
     {
         [JsonProperty("installments_amount")]
-        public int InstallmentsAmount { get; set; }
+        public decimal? InstallmentsAmount { get; set; }
         
         [JsonProperty("id_query_installments")]
-        public int IdQueryInstallments { get; set; }
+        public int? IdQueryInstallments { get; set; }
 
         [JsonProperty("deferred_periods")]
         public List<DeferredPeriods> DeferredPeriods { get; set; }
-        
-
-        public MallInstallmentsResponse(int installmentsAmount, int idQueryInstallments, List<DeferredPeriods> deferredPeriods)
+        public MallInstallmentsResponse(decimal? installmentsAmount, int? idQueryInstallments, List<DeferredPeriods> deferredPeriods)
         {
             InstallmentsAmount = installmentsAmount;
             IdQueryInstallments = idQueryInstallments;
             DeferredPeriods = deferredPeriods;
         }
-
         public override string ToString()
         {
             var properties = new List<string>();

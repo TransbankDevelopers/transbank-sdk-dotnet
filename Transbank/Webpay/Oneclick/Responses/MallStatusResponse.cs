@@ -3,10 +3,11 @@ using Newtonsoft.Json;
 using System.ComponentModel;
 using Transbank.Webpay.Common;
 using System.Collections.Generic;
+using Transbank.Common;
 
 namespace Transbank.Webpay.Oneclick.Responses
 {
-    public class MallStatusResponse
+    public class MallStatusResponse : BaseResponse
     {
         [JsonProperty("buy_order")]
         public string BuyOrder { get; set; }
@@ -18,18 +19,10 @@ namespace Transbank.Webpay.Oneclick.Responses
         public string AccountingDate { get; set; }
         
         [JsonProperty("transaction_date")]
-        public string TransactionDate { get; set; }
+        public DateTime? TransactionDate { get; set; }
 
         [JsonProperty("details")]
-        public List<PaymentResponse> Details { get; private set; }
-
-        public MallStatusResponse(string buyOrder, CardDetail cardDetail, string accountingDate, string transactionDate)
-        {
-            BuyOrder = buyOrder;
-            CardDetail = cardDetail;
-            AccountingDate = accountingDate;
-            TransactionDate = transactionDate;
-        }
+        public List<PaymentResponse> Details { get; set; }
 
         public override string ToString()
         {
@@ -44,7 +37,7 @@ namespace Transbank.Webpay.Oneclick.Responses
         public class Detail
         {
             [JsonProperty("amount")]
-            public decimal Amount { get; set; }
+            public decimal? Amount { get; set; }
             
             [JsonProperty("status")]
             public string Status { get; set; }
@@ -56,10 +49,10 @@ namespace Transbank.Webpay.Oneclick.Responses
             public string PaymentTypeCode { get; set; }
             
             [JsonProperty("response_code")]
-            public int ResponseCode { get; set; }
+            public int? ResponseCode { get; set; }
             
             [JsonProperty("installments_number")]
-            public int InstallmentsNumber { get; set; }
+            public int? InstallmentsNumber { get; set; }
             
             [JsonProperty("commerce_code")]
             public string CommerceCode { get; set; }
@@ -67,22 +60,9 @@ namespace Transbank.Webpay.Oneclick.Responses
             [JsonProperty("buy_order")]
             public string BuyOrder { get; set; }
             [JsonProperty("installments_amount")]
-            public decimal InstallmentsAmount { get; set; }
+            public decimal? InstallmentsAmount { get; set; }
             [JsonProperty("balance")]
-            public decimal Balance { get; set; }
-
-            public Detail(decimal amount, string status, string authorizationCode, string paymentTypeCode,
-                int responseCode, int installmentsNumber, string commerceCode, string buyOrder)
-            {
-                Amount = amount;
-                Status = status;
-                AuthorizationCode = authorizationCode;
-                PaymentTypeCode = paymentTypeCode;
-                ResponseCode = responseCode;
-                InstallmentsNumber = installmentsNumber;
-                CommerceCode = commerceCode;
-                BuyOrder = buyOrder;
-            }
+            public decimal? Balance { get; set; }
 
             public override string ToString()
             {

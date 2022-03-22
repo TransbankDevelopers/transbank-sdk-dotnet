@@ -1,9 +1,11 @@
+using System;
 using Newtonsoft.Json;
+using Transbank.Common;
 using Transbank.Webpay.TransaccionCompleta.Common;
 
 namespace Transbank.Webpay.TransaccionCompleta.Responses
 {
-    public class RefundResponse
+    public class RefundResponse : BaseResponse
     {
         [JsonProperty("type")]
         public string Type { get; set; }
@@ -12,28 +14,18 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
         public string AuthorizationCode { get; set; }
         
         [JsonProperty("authorization_date")]
-        public string AuthorizationDate { get; set; }
+        public DateTime? AuthorizationDate { get; set; }
         
         [JsonProperty("nullified_amount")]
-        public double NullifiedAmount { get; set; }
+        public decimal? NullifiedAmount { get; set; }
         
         [JsonProperty("balance")]
-        public double Balance { get; set; }
+        public decimal? Balance { get; set; }
         
         [JsonProperty("response_code")]
-        public int ResponseCode { get; set; }
+        public int? ResponseCode { get; set; }
         [JsonProperty("prepaid_balance")]
-        public decimal prepaidBalance { get; set; }
-
-        public RefundResponse(string type, string authorizationCode, string authorizationDate, double nullifiedAmount, double balance, int responseCode)
-        {
-            Type = type;
-            AuthorizationCode = authorizationCode;
-            AuthorizationDate = authorizationDate;
-            NullifiedAmount = nullifiedAmount;
-            Balance = balance;
-            ResponseCode = responseCode;
-        }
+        public decimal? PrepaidBalance { get; set; }
 
         public override string ToString()
         {
