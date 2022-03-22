@@ -1,8 +1,6 @@
 using System.Net.Http;
-using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Exceptions;
-using Transbank.Webpay.Common;
 using Transbank.Webpay.Oneclick.Requests;
 using Transbank.Webpay.Oneclick.Responses;
 

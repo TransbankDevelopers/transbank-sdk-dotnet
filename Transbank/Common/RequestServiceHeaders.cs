@@ -1,6 +1,3 @@
-using System.ComponentModel;
-using Newtonsoft.Json;
-
 namespace Transbank.Common
 {
     public class RequestServiceHeaders

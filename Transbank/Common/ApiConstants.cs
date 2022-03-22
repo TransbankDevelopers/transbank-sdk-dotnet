@@ -1,4 +1,3 @@
-using System;
 
 namespace Transbank.Common
 {

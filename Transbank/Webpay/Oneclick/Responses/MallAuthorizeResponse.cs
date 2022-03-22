@@ -11,13 +11,6 @@ namespace Transbank.Webpay.Oneclick.Responses
         [JsonProperty("buy_order")]
         public string BuyOrder { get; private set; }
 
-        [ObsoleteAttribute("This property is obsolete. ", false)]
-        [JsonProperty("session_id")]
-        public string SessionId { get; private set; }
-
-        [ObsoleteAttribute("This property is obsolete. Use CardDetail.CardNumber instead.", false)]
-        public string CardNumber { get; private set; }
-
         [JsonProperty("card_detail")]
         public CardDetail CardDetail { get; set; }
 

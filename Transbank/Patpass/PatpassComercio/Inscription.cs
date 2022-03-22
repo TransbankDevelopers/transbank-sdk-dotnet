@@ -1,7 +1,6 @@
 using System;
 using System.Globalization;
 using System.Net.Http;
-using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Exceptions;
 using Transbank.Patpass.Common;
