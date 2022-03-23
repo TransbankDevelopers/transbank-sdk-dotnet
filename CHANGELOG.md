@@ -5,6 +5,25 @@ Todos los cambios notables a este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [5.0.0] - 2022-03-23
+
+### Changed
+
+- Se mejora el uso de las conexiones http permitiendo dos modos: a. Reutilizando una única instancia estática de 'HttpClient' y b. Permitiendo a los constructores recibir una instancia del 'HttpClient' administrada externamente 
+- Se agrega el atributo 'OriginalRequest' en todos los responses, que retornara el payload en json de la petición enviada a Transbank
+- Se agrega el atributo 'OriginalResponse' en todos los responses, que retornará la respuesta original en json entregada por Transbank
+- Todos los atributos ahora permiten valores nulos (ahora son decimal?, DateTime?, byte?, int?) esto permite preservar los valores entregados por Transbank
+- Se cambia el tipo de dato de todos los campos 'AuthorizationCode' a 'string' 
+- Se cambia el tipo de dato de todos los campos monto (Amount, InstallmentsAmount, PrepaidBalance, Balance, NullifiedAmount) a 'decimal?' 
+- Se cambia el tipo de dato de todos los campos date (TransactionDate) a 'DateTime?' 
+- Se corrije el nombramiento en el campo 'prepaidBalance' hacia 'PrepaidBalance'
+- Se modifica el constructor de parámetro 'Options options' a los parámetros 'Options options, HttpClient httpClient' a todas las clases 
+- Se agrega un constructor con los parámetros 'string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient'  a todas las clases 
+
+### Removed
+
+- Se elimina los atributos 'CardNumber' y 'SessionId' a la clase 'MallAuthorizeResponse' de Oneclick
+
 ## [4.0.1] - 2022-01-18
 
 ### Changed
