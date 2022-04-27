@@ -12,7 +12,7 @@ namespace Transbank.Patpass.PatpassComercio.Requests
 
         internal StatusRequest(
             string token
-            ) : base($"{ApiConstants.PATPASS_COMERCIO_ENDPOINT}//status",
+            ) : base($"{ApiConstants.PATPASS_COMERCIO_ENDPOINT}/status",
                 HttpMethod.Post)
         {
             Token = token;
