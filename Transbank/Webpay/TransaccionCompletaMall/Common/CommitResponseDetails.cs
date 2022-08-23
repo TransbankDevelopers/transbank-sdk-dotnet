@@ -35,8 +35,9 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Common
         public string BuyOrder { get; set; }
         [JsonProperty("balance")]
         public decimal Balance { get; set; }
+        [JsonProperty("capture_expiration_date")]
+        public DateTime? CaptureExpirationDate;
 
-        
 
         public override string ToString()
         {

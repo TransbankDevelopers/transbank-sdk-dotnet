@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using Newtonsoft.Json;
 using Transbank.Common;
 using Transbank.Webpay.TransaccionCompleta.Common;
@@ -44,21 +46,18 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
         public int? InstallmentsNumber { get; set; }
         [JsonProperty("balance")]
         public decimal? Balance { get; set; }
-
+        [JsonProperty("capture_expiration_date")]
+        public DateTime? CaptureExpirationDate;
         public override string ToString()
         {
-            return $"\"Amount\":\"{Amount}\"\n" +
-                   $"\"Status\":\"{Status}\"\n" +
-                   $"\"BuyOrder\":\"{BuyOrder}\"\n" +
-                   $"\"SessionId\":\"{SessionId}\"\n" +
-                   $"\"CardDetail\":\"{CardDetail}\"\n" +
-                   $"\"AccountingDate\":\"{AccountingDate}\"\n" +
-                   $"\"TransactionDate\":\"{TransactionDate}\"\n" +
-                   $"\"AuthorizationCode\":\"{AuthorizationCode}\"\n" +
-                   $"\"PaymentTypeCode\":\"{PaymentTypeCode}\"\n" +
-                   $"\"ResponseCode\":\"{ResponseCode}\"\n" +
-                   $"\"InstallmentsAmount\":\"{InstallmentsAmount}\"\n" +
-                   $"\"InstallmentsAmount\":\"{InstallmentsAmount}\"\n";
+            var properties = new List<string>();
+            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(this))
+            {
+                string name = descriptor.Name;
+                object value = descriptor.GetValue(this);
+                properties.Add($"{name}={value}");
+            }
+            return String.Join(",\n", properties);
         }
     }
 }

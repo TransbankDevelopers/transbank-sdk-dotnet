@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Transbank.Webpay.Common
@@ -31,16 +34,22 @@ namespace Transbank.Webpay.Common
         [JsonProperty("amount")]
         public decimal? Amount { get; private set; }
 
+        [JsonProperty("capture_expiration_date")]
+        public DateTime? CaptureExpirationDate;
+
+        [JsonProperty("balance")]
+        public decimal? Balance { get; set; }
+
         public override string ToString()
         {
-            return $"InstallmentsNumber= {InstallmentsNumber}\n" +
-                   $"AuthorizationCode= {AuthorizationCode}\n" +
-                   $"PaymentTypeCode= {PaymentTypeCode}\n" +
-                   $"ResponseCode= {ResponseCode}\n" +
-                   $"Status= {Status}\n" +
-                   $"CommerceCode= {CommerceCode}\n" +
-                   $"BuyOrder= {BuyOrder}\n" +
-                   $"Amount= {Amount}\n";
+            var properties = new List<string>();
+            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(this))
+            {
+                string name = descriptor.Name;
+                object value = descriptor.GetValue(this);
+                properties.Add($"{name}={value}");
+            }
+            return String.Join(",\n", properties);
         }
     }
 }

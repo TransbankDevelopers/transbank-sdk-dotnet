@@ -31,23 +31,6 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Responses
         [JsonProperty("prepaid_balance")]
         public decimal? PrepaidBalance { get; set; }
 
-        public MallStatusResponse(
-            List<CommitResponseDetails> details,
-            string buyOrder,
-            string sessionId,
-            CardDetail cardDetail,
-            string accountingDate,
-            DateTime transactionDate
-        )
-        {
-            Details = details;
-            BuyOrder = buyOrder;
-            SessionId = sessionId;
-            CardDetail = cardDetail;
-            AccountingDate = accountingDate;
-            TransactionDate = transactionDate;
-        }
-
         public override string ToString()
         {
             var properties = new List<string>();
