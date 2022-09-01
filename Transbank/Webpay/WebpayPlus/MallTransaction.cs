@@ -134,16 +134,15 @@ namespace Transbank.Webpay.WebpayPlus
                 return _requestService.Perform<ReversePreAuthorizedAmountResponse, ReversePreAuthorizedAmountException>(req, Options);
             });
         }
-        public List<DeferredCaptureHistoryResponse> DeferredCaptureHistory(string token, string childCommerceCode, string childBuyOrder, string authorizationCode)
+        public List<DeferredCaptureHistoryResponse> DeferredCaptureHistory(string token, string childCommerceCode, string childBuyOrder)
         {
             ValidationUtil.hasTextWithMaxLength(token, ApiConstants.TOKEN_LENGTH, "token");
             ValidationUtil.hasTextWithMaxLength(childCommerceCode, ApiConstants.COMMERCE_CODE_LENGTH, "childCommerceCode");
             ValidationUtil.hasTextWithMaxLength(childBuyOrder, ApiConstants.BUY_ORDER_LENGTH, "childBuyOrder");
-            ValidationUtil.hasTextWithMaxLength(authorizationCode, ApiConstants.AUTHORIZATION_CODE_LENGTH, "authorizationCode");
 
             return ExceptionHandler.Perform<List<DeferredCaptureHistoryResponse>, DeferredCaptureHistoryException>(() =>
             {
-                var req = new DeferredCaptureHistoryRequest($"{ApiConstants.WEBPAY_METHOD}/transactions/{token}/details", childCommerceCode, childBuyOrder, authorizationCode);
+                var req = new DeferredCaptureHistoryRequest($"{ApiConstants.WEBPAY_METHOD}/transactions/{token}/details", childCommerceCode, childBuyOrder);
                 return _requestService.PerformToList<DeferredCaptureHistoryResponse, DeferredCaptureHistoryException>(req, Options);
             });
         }

@@ -61,8 +61,8 @@ namespace Transbank.Webpay.TransaccionCompleta
 
         public CommitResponse Commit(
             string token,
-            int idQueryInstallments,
-            int deferredPeriodsIndex,
+            int? idQueryInstallments,
+            int? deferredPeriodsIndex,
             bool gracePeriods)
         {
             ValidationUtil.hasTextWithMaxLength(token, ApiConstants.TOKEN_LENGTH, "token");

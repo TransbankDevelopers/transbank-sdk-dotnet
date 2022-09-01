@@ -13,7 +13,7 @@ namespace Transbank.Webpay.Requests
         [JsonProperty("authorization_code", NullValueHandling = NullValueHandling.Ignore)]
         internal string AuthorizationCode { get; set; }
         internal DeferredCaptureHistoryRequest(string endpoint, string commerceCode, string buyOrder, string authorizationCode = null) :
-            base(endpoint, HttpMethod.Put)
+            base(endpoint, HttpMethod.Post)
         {
             BuyOrder = buyOrder;
             AuthorizationCode = authorizationCode;
