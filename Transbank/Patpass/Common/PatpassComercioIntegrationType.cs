@@ -15,8 +15,8 @@ namespace Transbank.Patpass.Common
         }
         
         public static readonly PatpassComercioIntegrationType Live =
-            new PatpassComercioIntegrationType("LIVE", "https://www.pagoautomaticocontarjetas.cl/");
+            new PatpassComercioIntegrationType("LIVE", "https://www.pagoautomaticocontarjetas.cl");
         public static readonly PatpassComercioIntegrationType Test =
-            new PatpassComercioIntegrationType("TEST", "https://pagoautomaticocontarjetasint.transbank.cl/");
+            new PatpassComercioIntegrationType("TEST", "https://pagoautomaticocontarjetasint.transbank.cl");
     }
 }
