@@ -5,6 +5,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Transbank.Exceptions;
+using System.Collections.Generic;
 
 namespace Transbank.Common
 {
@@ -80,6 +81,21 @@ namespace Transbank.Common
             result.OriginalRequest = jsonRequest;
             result.OriginalResponse = resp;
             return result;
+        }
+        public List<ReturnType> PerformToList<ReturnType, ExceptionType>(BaseRequest request, Options options)
+            where ExceptionType : TransbankException
+            where ReturnType : BaseResponse
+        {
+            // Call perform with default headers
+            return PerformToList<ReturnType, ExceptionType>(request, options, new RequestServiceHeaders());
+        }
+        public List<ReturnType> PerformToList<ReturnType, ExceptionType>(BaseRequest request, Options options, RequestServiceHeaders requestServiceHeaders)
+            where ExceptionType : TransbankException
+            where ReturnType : BaseResponse
+        {
+            var jsonRequest = JsonConvert.SerializeObject(request);
+            var resp = Perform<ExceptionType>(CreateHttpRequestMessage(request, jsonRequest, options, requestServiceHeaders));
+            return JsonConvert.DeserializeObject<List<ReturnType>>(String.IsNullOrWhiteSpace(resp) ? "[]" : resp);
         }
 
     }

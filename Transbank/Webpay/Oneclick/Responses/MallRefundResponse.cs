@@ -33,6 +33,7 @@ namespace Transbank.Webpay.Oneclick.Responses
                    $"\"AuthorizationCode\": \"{AuthorizationCode}\"\n" +
                    $"\"ResponseCode\": \"{ResponseCode}\"\n" +
                    $"\"AuthorizationDate\": \"{AuthorizationDate}\"\n" +
+                   $"\"PrepaidBalance\": \"{PrepaidBalance}\"\n" +
                    $"\"NullifiedAmount\": \"{NullifiedAmount}\"\n" ;
         }
     }

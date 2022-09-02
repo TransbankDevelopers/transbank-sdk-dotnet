@@ -14,10 +14,10 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Common
         public string BuyOrder { get; set; }
         
         [JsonProperty("id_query_installments")]
-        public int IdQueryInstallments { get; set; }
+        public int? IdQueryInstallments { get; set; }
         
         [JsonProperty("deferred_period_index")]
-        public int DeferredPeriodIndex { get; set; }
+        public int? DeferredPeriodIndex { get; set; }
         
         [JsonProperty("grace_period")]
         public bool GracePeriod { get; set; }
@@ -25,8 +25,8 @@ namespace Transbank.Webpay.TransaccionCompletaMall.Common
         public MallCommitDetails(
             string commerceCode,
             string buyOrder,
-            int idQueryInstallments,
-            int deferredPeriodIndex,
+            int? idQueryInstallments,
+            int? deferredPeriodIndex,
             bool gracePeriod)
         {
             CommerceCode = commerceCode;

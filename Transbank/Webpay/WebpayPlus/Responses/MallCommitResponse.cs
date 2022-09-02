@@ -67,6 +67,8 @@ namespace Transbank.Webpay.WebpayPlus.Responses
             public decimal? InstallmentsAmount { get; set; }
             [JsonProperty("balance")]
             public decimal? Balance { get; set; }
+            [JsonProperty("capture_expiration_date")]
+            public DateTime? CaptureExpirationDate;
 
             public override string ToString()
             {

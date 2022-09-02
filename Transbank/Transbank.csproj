@@ -23,6 +23,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Webpay\Responses\" />
+    <Folder Include="Webpay\Requests\" />
     <Folder Include="Webpay\WebpayPlus\" />
     <Folder Include="Webpay\WebpayPlus\Requests\" />
     <Folder Include="Webpay\WebpayPlus\Responses\" />
