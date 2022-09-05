@@ -17,7 +17,7 @@ namespace Tests
         [Fact]
         public void CorrectIntegrationUrl()
         {
-            Assert.Equal("https://pagoautomaticocontarjetasint.transbank.cl/", (new Inscription()).Options.IntegrationType.ApiBase);
+            Assert.Equal("https://pagoautomaticocontarjetasint.transbank.cl", (new Inscription()).Options.IntegrationType.ApiBase);
         }
     }
 }
