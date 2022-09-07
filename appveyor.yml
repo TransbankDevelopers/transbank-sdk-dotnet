@@ -13,14 +13,14 @@ before_deploy:
 deploy:
 - provider: NuGet
   api_key:
-    secure: f/o5pkxDmXo6mIQqQx8iV6MTfbSPSXxZ8K84l4D8IxgbM8EQs2KAd8h4vjpjW9P0
+    secure: FQPohV+undUCWurlpnxhdArwKIHRjV/T0yuSSzUGFsvJixa28ShHkAT+Y45haicI
   on:
     branch: master
 
 notifications:
 - provider: Slack
   incoming_webhook:
-    secure: FQPohV+undUCWurlpnxhdArwKIHRjV/T0yuSSzUGFsvJixa28ShHkAT+Y45haicI
+    secure: FpjGXF6JUredzPLfH9xCxDsNFfC8RFIO5oKnRhVYydsWwQY6CaUaqCwSQJ9ZnANteb74/yaMt8BnXiLFn73NX9EhKr3AIjHZT2cJqEE1OKI=
   channel: transbank-github
   on_build_success: false
   on_build_failure: false
