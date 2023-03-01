@@ -5,6 +5,18 @@ Todos los cambios notables a este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.6.2] - 2023-03-01
+
+### Fixed
+
+- Se actualiza certificado Público de Transbank
+- Se actualiza por seguridad la librería Newtonsoft hacia la versión 13.0.2
+- Se actualiza por seguridad la librería MQTTnet hacia la versión 3.1.2
+
+### Changed
+
+- Se eliminan test deprecados
+
 ## [2.6.1] - 2021-08-25
 
 ### Fixed
