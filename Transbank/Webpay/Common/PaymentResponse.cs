@@ -34,9 +34,6 @@ namespace Transbank.Webpay.Common
         [JsonProperty("amount")]
         public decimal? Amount { get; private set; }
 
-        [JsonProperty("capture_expiration_date")]
-        public DateTime? CaptureExpirationDate;
-
         [JsonProperty("balance")]
         public decimal? Balance { get; set; }
 

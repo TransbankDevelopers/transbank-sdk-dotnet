@@ -3,9 +3,9 @@ namespace Transbank.Common
 {
     public static class ApiConstants
     {
-        public const string WEBPAY_METHOD = "/rswebpaytransaction/api/webpay/v1.3";
-        public const string ONECLICK_METHOD = "/rswebpaytransaction/api/oneclick/v1.3";
-        public static string PATPASS_COMERCIO_ENDPOINT = "/restpatpass/v1/services";
+        public const string WEBPAY_METHOD = "/rswebpaytransaction/api/webpay/v1.2";
+        public const string ONECLICK_METHOD = "/rswebpaytransaction/api/oneclick/v1.2";
+        public const string PATPASS_COMERCIO_ENDPOINT = "/restpatpass/v1/services";
         public const byte BUY_ORDER_LENGTH = 26;
         public const byte SESSION_ID_LENGTH = 61;
         public const byte RETURN_URL_LENGTH = 255;
