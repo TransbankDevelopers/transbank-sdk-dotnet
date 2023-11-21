@@ -46,8 +46,6 @@ namespace Transbank.Webpay.TransaccionCompleta.Responses
         public int? InstallmentsNumber { get; set; }
         [JsonProperty("prepaid_balance")]
         public decimal? PrepaidBalance { get; set; }
-        [JsonProperty("capture_expiration_date")]
-        public DateTime? CaptureExpirationDate;
 
         public override string ToString()
         {
