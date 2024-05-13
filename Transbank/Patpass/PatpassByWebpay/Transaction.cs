@@ -10,11 +10,25 @@ namespace Transbank.Patpass.PatpassByWebpay
 {
     public class Transaction : BaseOptions
     {
-        public Transaction() { ConfigureForTesting(); }
+        private Transaction() {  }
 
         public Transaction(Options options, HttpClient httpClient = null) : base(options, httpClient) { }
         public Transaction(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
             : base(commerceCode, apiKey, integrationType, httpClient) { }
+
+        public static Transaction buildForProduction(string commerceCode, string apiKey)
+        {
+            Transaction transaction = new Transaction();
+            transaction.ConfigureForProduction(commerceCode, apiKey);
+            return transaction;
+        }
+        
+        public static Transaction buildForIntegration(string commerceCode, string apiKey)
+        {
+            Transaction transaction = new Transaction();
+            transaction.ConfigureForIntegration(commerceCode, apiKey);
+            return transaction;
+        }
 
         public CreateResponse Create(string buyOrder, string sessionId, decimal amount, string returnUrl, string serviceId, string cardHolderId,
                 string cardHolderName, string cardHolderLastName1, string cardHolderLastName2, string cardHolderMail, string cellphoneNumber,
