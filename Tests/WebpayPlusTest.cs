@@ -7,19 +7,23 @@ namespace Tests
     public class WebpayPlusTests
     {
         [Fact]
-        public void CorrectDefaultOptions()
+        public void CorrectOptions()
         {
-            Assert.Equal(IntegrationCommerceCodes.WEBPAY_PLUS, (new Transaction()).Options.CommerceCode);
-            Assert.Equal(IntegrationCommerceCodes.WEBPAY_PLUS_MALL, (new MallTransaction()).Options.CommerceCode);
-            Assert.Equal(IntegrationApiKeys.WEBPAY, (new Transaction()).Options.ApiKey);
-            Assert.Equal(IntegrationApiKeys.WEBPAY, (new MallTransaction()).Options.ApiKey);
+            Transaction transaction = Transaction.buildForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY);
+            MallTransaction mallTransaction = MallTransaction.buildForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS_MALL, IntegrationApiKeys.WEBPAY);
+            Assert.Equal(IntegrationCommerceCodes.WEBPAY_PLUS, transaction.Options.CommerceCode);
+            Assert.Equal(IntegrationCommerceCodes.WEBPAY_PLUS_MALL, mallTransaction.Options.CommerceCode);
+            Assert.Equal(IntegrationApiKeys.WEBPAY, transaction.Options.ApiKey);
+            Assert.Equal(IntegrationApiKeys.WEBPAY, mallTransaction.Options.ApiKey);
         }
 
         [Fact]
         public void CorrectIntegrationUrl()
         {
-            Assert.Equal("https://webpay3gint.transbank.cl", (new Transaction()).Options.IntegrationType.ApiBase);
-            Assert.Equal("https://webpay3gint.transbank.cl", (new MallTransaction()).Options.IntegrationType.ApiBase);
+            Transaction transaction = Transaction.buildForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY);
+            MallTransaction mallTransaction = MallTransaction.buildForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS_MALL, IntegrationApiKeys.WEBPAY);
+            Assert.Equal("https://webpay3gint.transbank.cl", transaction.Options.IntegrationType.ApiBase);
+            Assert.Equal("https://webpay3gint.transbank.cl", mallTransaction.Options.IntegrationType.ApiBase);
         }
     }
 }

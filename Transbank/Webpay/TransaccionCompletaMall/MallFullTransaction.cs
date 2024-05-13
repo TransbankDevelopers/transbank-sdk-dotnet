@@ -13,10 +13,26 @@ namespace Transbank.Webpay.TransaccionCompletaMall
 {
     public class MallFullTransaction : WebpayOptions
     {
-        public MallFullTransaction() { ConfigureForTesting(); }
+        private MallFullTransaction() { }
         public MallFullTransaction(Options options, HttpClient httpClient = null) : base(options, httpClient) { }
         public MallFullTransaction(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
             : base(commerceCode, apiKey, integrationType, httpClient) { }
+        
+        public static MallFullTransaction buildForProduction(string commerceCode, string apiKey)
+        {
+            MallFullTransaction mallFullTransaction = new MallFullTransaction();
+            mallFullTransaction.ConfigureForProduction(commerceCode, apiKey);
+
+            return mallFullTransaction;
+        }
+
+        public static MallFullTransaction buildForIntegration(string commerceCode, string apiKey)
+        {
+            MallFullTransaction mallFullTransaction = new MallFullTransaction();
+            mallFullTransaction.ConfigureForIntegration(commerceCode, apiKey);
+            
+            return mallFullTransaction;
+        }
 
         public  MallCreateResponse Create(
             string buyOrder,

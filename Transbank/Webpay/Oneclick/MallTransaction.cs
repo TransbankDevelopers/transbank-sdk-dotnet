@@ -10,10 +10,26 @@ namespace Transbank.Webpay.Oneclick
 {
     public class MallTransaction : OneclickOptions
     {
-        public MallTransaction(){ ConfigureForTesting(); }
+        private MallTransaction(){ }
         public MallTransaction(Options options, HttpClient httpClient = null) : base(options, httpClient) { }
         public MallTransaction(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
             : base(commerceCode, apiKey, integrationType, httpClient) { }
+        
+        public static MallTransaction buildForProduction(string commerceCode, string apiKey)
+        {
+            MallTransaction mallTransaction = new MallTransaction();
+            mallTransaction.ConfigureForProduction(commerceCode, apiKey);
+
+            return mallTransaction;
+        }
+
+        public static MallTransaction buildForIntegration(string commerceCode, string apiKey)
+        {
+            MallTransaction mallTransaction = new MallTransaction();
+            mallTransaction.ConfigureForIntegration(commerceCode, apiKey);
+            
+            return mallTransaction;
+        }
 
         public MallAuthorizeResponse Authorize(string userName, string tbkUser, string parentBuyOrder,
             List<PaymentRequest> details)

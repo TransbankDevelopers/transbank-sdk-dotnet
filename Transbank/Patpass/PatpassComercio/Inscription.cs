@@ -18,9 +18,8 @@ namespace Transbank.Patpass.PatpassComercio
 
         private RequestServiceHeaders _headers;
 
-        public Inscription() {
+        private Inscription() {
             _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
-            ConfigureForTesting(); 
         }
         public Inscription(Options options, HttpClient httpClient = null) : base(options, httpClient) {
             _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
@@ -34,6 +33,22 @@ namespace Transbank.Patpass.PatpassComercio
         {
             Options = options;
             _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
+        }
+
+        public static Inscription buildForProduction(string commerceCode, string apiKey)
+        {
+            Inscription inscription = new Inscription();
+            inscription.ConfigureForIntegration(commerceCode, apiKey);
+
+            return inscription;
+        }
+
+        public static Inscription buildForIntegration(string commerceCode, string apiKey)
+        {
+            Inscription inscription = new Inscription();
+            inscription.ConfigureForIntegration(commerceCode, apiKey);
+
+            return inscription;
         }
 
         public StartResponse Start(

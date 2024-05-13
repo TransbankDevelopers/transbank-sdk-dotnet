@@ -10,10 +10,27 @@ namespace Transbank.Webpay.TransaccionCompleta
 {
     public class FullTransaction : WebpayOptions
     {
-        public FullTransaction() { ConfigureForTesting(); }
+        private FullTransaction() { }
         public FullTransaction(Options options, HttpClient httpClient = null) : base(options, httpClient) { }
         public FullTransaction(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
             : base(commerceCode, apiKey, integrationType, httpClient) { }
+        
+        public static FullTransaction buildForProduction(string commerceCode, string apiKey)
+        {
+            FullTransaction fullTransaction = new FullTransaction();
+            fullTransaction.ConfigureForProduction(commerceCode, apiKey);
+
+            return fullTransaction;
+        }
+
+        public static FullTransaction buildForIntegration(string commerceCode, string apiKey)
+        {
+            FullTransaction fullTransaction = new FullTransaction();
+            fullTransaction.ConfigureForIntegration(commerceCode, apiKey);
+
+            return fullTransaction;
+        }
+        
         public CreateResponse Create(
             string buyOrder,
             string sessionId,

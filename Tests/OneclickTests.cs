@@ -7,16 +7,29 @@ namespace Tests
     public class OneclickTests
     {
         [Fact]
-        public void CorrectDefaultOptions()
+        public void CorrectOptions()
         {
-            Assert.Equal(IntegrationCommerceCodes.ONECLICK_MALL, (new MallTransaction()).Options.CommerceCode);
-            Assert.Equal(IntegrationApiKeys.WEBPAY, (new MallTransaction()).Options.ApiKey);
+            MallTransaction mallTransaction = MallTransaction.buildForIntegration(IntegrationCommerceCodes.ONECLICK_MALL, IntegrationApiKeys.WEBPAY);
+            MallInscription mallInscription = MallInscription.buildForIntegration(IntegrationCommerceCodes.ONECLICK_MALL, IntegrationApiKeys.WEBPAY);
+            Assert.Equal(IntegrationCommerceCodes.ONECLICK_MALL,
+                mallInscription.Options.CommerceCode);
+            Assert.Equal(IntegrationApiKeys.WEBPAY,
+                mallInscription.Options.ApiKey);
+            Assert.Equal(IntegrationCommerceCodes.ONECLICK_MALL,
+                mallTransaction.Options.CommerceCode);
+            Assert.Equal(IntegrationApiKeys.WEBPAY,
+                mallTransaction.Options.ApiKey);
         }
 
         [Fact]
         public void CorrectIntegrationUrl()
         {
-            Assert.Equal("https://webpay3gint.transbank.cl", (new MallTransaction()).Options.IntegrationType.ApiBase);
+            MallTransaction mallTransaction = MallTransaction.buildForIntegration(IntegrationCommerceCodes.ONECLICK_MALL, IntegrationApiKeys.WEBPAY);
+            MallInscription mallInscription = MallInscription.buildForIntegration(IntegrationCommerceCodes.ONECLICK_MALL, IntegrationApiKeys.WEBPAY);
+            Assert.Equal("https://webpay3gint.transbank.cl", 
+                mallTransaction.Options.IntegrationType.ApiBase);
+            Assert.Equal("https://webpay3gint.transbank.cl",
+                mallInscription.Options.IntegrationType.ApiBase);
         }
     }
 }
