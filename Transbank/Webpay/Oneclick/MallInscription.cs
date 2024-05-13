@@ -8,10 +8,26 @@ namespace Transbank.Webpay.Oneclick
 {
     public class MallInscription : OneclickOptions
     {
-        public MallInscription() { ConfigureForTesting(); }
+        private MallInscription() { }
         public MallInscription(Options options, HttpClient httpClient = null) : base(options, httpClient) { }
         public MallInscription(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
             : base(commerceCode, apiKey, integrationType, httpClient) { }
+
+        public static MallInscription buildForProduction(string commerceCode, string apiKey)
+        {
+            MallInscription mallInscription = new MallInscription();
+            mallInscription.ConfigureForProduction(commerceCode, apiKey);
+
+            return mallInscription;
+        }
+
+        public static MallInscription buildForIntegration(string commerceCode, string apiKey)
+        {
+            MallInscription mallInscription = new MallInscription();
+            mallInscription.ConfigureForIntegration(commerceCode, apiKey);
+            
+            return mallInscription;
+        }
 
         public MallStartResponse Start(string userName, string email,
             string responseUrl)
