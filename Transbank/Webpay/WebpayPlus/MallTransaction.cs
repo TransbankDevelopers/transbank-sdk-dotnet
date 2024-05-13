@@ -10,11 +10,27 @@ namespace Transbank.Webpay.WebpayPlus
 {
     public class MallTransaction : WebpayOptions
     {
-        public MallTransaction() { ConfigureForTesting(); }
+        private MallTransaction() { }
         public MallTransaction(Options options, HttpClient httpClient = null) : base(options, httpClient) { }
         public MallTransaction(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
             : base(commerceCode, apiKey, integrationType, httpClient) { }
 
+        public static MallTransaction buildForProduction (string commerceCode, string apiKey)
+        {
+            MallTransaction mallTransaction = new MallTransaction();
+            mallTransaction.ConfigureForProduction(commerceCode, apiKey);
+
+            return mallTransaction;
+        }
+
+        public static MallTransaction buildForIntegration(string commerceCode, string apiKey)
+        {
+            MallTransaction mallTransaction = new MallTransaction();
+            mallTransaction.ConfigureForIntegration(commerceCode, apiKey);
+
+            return mallTransaction;
+        }
+        
         public MallCreateResponse Create(string buyOrder, string sessionId,
             string returnUrl, List<TransactionDetail> details)
         {
