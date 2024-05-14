@@ -3,20 +3,19 @@ using System.Globalization;
 using System.Net.Http;
 using Transbank.Common;
 using Transbank.Exceptions;
-using Transbank.Patpass.Common;
-using Transbank.Patpass.PatpassComercio.Requests;
-using Transbank.Patpass.PatpassComercio.Responses;
+using Transbank.PatpassComercio.Requests;
+using Transbank.PatpassComercio.Responses;
 
-namespace Transbank.Patpass.PatpassComercio
+namespace Transbank.PatpassComercio
 {
     public class Inscription : BaseOptions
     {
         // The authentication headers for this product are different, these have
         // to be used. You can put them in the Perform method of the RequestService
-        private string _apiKeyHeaderName = "Authorization";
-        private string _commerceCodeHeaderName = "commerceCode";
+        private readonly string _apiKeyHeaderName = "Authorization";
+        private readonly string _commerceCodeHeaderName = "commerceCode";
 
-        private RequestServiceHeaders _headers;
+        private readonly RequestServiceHeaders _headers;
 
         private Inscription() {
             _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
@@ -38,17 +37,18 @@ namespace Transbank.Patpass.PatpassComercio
         public static Inscription buildForProduction(string commerceCode, string apiKey)
         {
             Inscription inscription = new Inscription();
-            inscription.ConfigureForIntegration(commerceCode, apiKey);
-
+            inscription.ConfigureForProduction(commerceCode, apiKey);
             return inscription;
         }
 
         public static Inscription buildForIntegration(string commerceCode, string apiKey)
         {
+
             Inscription inscription = new Inscription();
             inscription.ConfigureForIntegration(commerceCode, apiKey);
-
+           
             return inscription;
+
         }
 
         public StartResponse Start(

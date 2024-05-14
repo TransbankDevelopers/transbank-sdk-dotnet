@@ -1,6 +1,6 @@
 using Xunit;
 using Transbank.Common;
-using Transbank.Patpass.PatpassComercio;
+using Transbank.PatpassComercio;
 
 namespace Tests
 {
