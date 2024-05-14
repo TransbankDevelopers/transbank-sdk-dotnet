@@ -12,10 +12,10 @@ namespace Transbank.PatpassComercio
     {
         // The authentication headers for this product are different, these have
         // to be used. You can put them in the Perform method of the RequestService
-        private string _apiKeyHeaderName = "Authorization";
-        private string _commerceCodeHeaderName = "commerceCode";
+        private readonly string _apiKeyHeaderName = "Authorization";
+        private readonly string _commerceCodeHeaderName = "commerceCode";
 
-        private RequestServiceHeaders _headers;
+        private readonly RequestServiceHeaders _headers;
 
         private Inscription() {
             _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
