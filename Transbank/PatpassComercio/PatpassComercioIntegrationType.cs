@@ -1,7 +1,6 @@
-using System;
 using Transbank.Common;
 
-namespace Transbank.Patpass.Common
+namespace Transbank.PatpassComercio
 {
     public class PatpassComercioIntegrationType : IIntegrationType
     {

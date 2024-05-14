@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using Transbank.Common;
 
-namespace Transbank.Patpass.PatpassComercio.Responses
+namespace Transbank.PatpassComercio.Responses
 {
     public class StartResponse : BaseResponse
     {

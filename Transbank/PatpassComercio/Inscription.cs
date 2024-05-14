@@ -3,11 +3,10 @@ using System.Globalization;
 using System.Net.Http;
 using Transbank.Common;
 using Transbank.Exceptions;
-using Transbank.Patpass.Common;
-using Transbank.Patpass.PatpassComercio.Requests;
-using Transbank.Patpass.PatpassComercio.Responses;
+using Transbank.PatpassComercio.Requests;
+using Transbank.PatpassComercio.Responses;
 
-namespace Transbank.Patpass.PatpassComercio
+namespace Transbank.PatpassComercio
 {
     public class Inscription : BaseOptions
     {
@@ -38,17 +37,18 @@ namespace Transbank.Patpass.PatpassComercio
         public static Inscription buildForProduction(string commerceCode, string apiKey)
         {
             Inscription inscription = new Inscription();
-            inscription.ConfigureForIntegration(commerceCode, apiKey);
-
+            inscription.ConfigureForProduction(commerceCode, apiKey);
             return inscription;
         }
 
         public static Inscription buildForIntegration(string commerceCode, string apiKey)
         {
+
             Inscription inscription = new Inscription();
             inscription.ConfigureForIntegration(commerceCode, apiKey);
-
+           
             return inscription;
+
         }
 
         public StartResponse Start(
