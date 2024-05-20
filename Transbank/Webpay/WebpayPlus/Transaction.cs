@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Net.Http;
 using Transbank.Common;
 using Transbank.Exceptions;
 using Transbank.Webpay.Common;
@@ -8,26 +6,25 @@ using Transbank.Webpay.WebpayPlus.Responses;
 
 namespace Transbank.Webpay.WebpayPlus
 {
-    public class Transaction : WebpayOptions
+    public class Transaction
     {
-        private Transaction() { }
-        public Transaction(Options options, HttpClient httpClient = null) : base(options, httpClient) { }
-        public Transaction(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null) 
-            : base(commerceCode, apiKey, integrationType, httpClient) { }
-
-        public static Transaction buildForProduction(string commerceCode, string apiKey) 
+        public Options options;
+        public Transaction(Options options) 
         {
-            Transaction transaction = new Transaction();
-            transaction.ConfigureForProduction(commerceCode, apiKey);
-
-            return transaction;
+            this.options = options;
         }
 
         public static Transaction buildForIntegration(string commerceCode, string apiKey)
         {
-            Transaction transaction = new Transaction();
-            transaction.ConfigureForIntegration(commerceCode, apiKey);
-            
+            Transaction transaction = new Transaction(new Options(commerceCode, apiKey, WebpayIntegrationType.Test));
+
+            return transaction;
+        }
+
+        public static Transaction buildForProduction(string commerceCode, string apiKey)
+        {
+            Transaction transaction = new Transaction(new Options(commerceCode, apiKey, WebpayIntegrationType.Live));
+
             return transaction;
         }
 
@@ -41,8 +38,8 @@ namespace Transbank.Webpay.WebpayPlus
             return ExceptionHandler.Perform<CreateResponse, TransactionCreateException>(() =>
             {
                 var createRequest = new CreateRequest(buyOrder, sessionId, amount, returnUrl);
-                return _requestService.Perform<CreateResponse, TransactionCreateException>(
-                    createRequest, Options);
+                return options.RequestService.Perform<CreateResponse, TransactionCreateException>(
+                    createRequest, options);
             });
         }
 
@@ -53,8 +50,8 @@ namespace Transbank.Webpay.WebpayPlus
             return ExceptionHandler.Perform<CommitResponse, TransactionCommitException>(() =>
             {
                 var commitRequest = new CommitRequest(token);
-                return _requestService.Perform<CommitResponse, TransactionCommitException>(
-                    commitRequest, Options);
+                return options.RequestService.Perform<CommitResponse, TransactionCommitException>(
+                    commitRequest, options);
             });
         }
 
@@ -65,8 +62,8 @@ namespace Transbank.Webpay.WebpayPlus
             return ExceptionHandler.Perform<RefundResponse, TransactionRefundException>(() =>
             {
                 var refundRequest = new RefundRequest(token, amount);
-                return _requestService.Perform<RefundResponse, TransactionRefundException>(
-                    refundRequest, Options);
+                return options.RequestService.Perform<RefundResponse, TransactionRefundException>(
+                    refundRequest, options);
             });
         }
 
@@ -77,8 +74,8 @@ namespace Transbank.Webpay.WebpayPlus
             return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
             {
                 var statusRequest = new StatusRequest(token);
-                return _requestService.Perform<StatusResponse, TransactionStatusException>(
-                    statusRequest, Options);
+                return options.RequestService.Perform<StatusResponse, TransactionStatusException>(
+                    statusRequest, options);
             });
         }
 
@@ -93,26 +90,9 @@ namespace Transbank.Webpay.WebpayPlus
             {
                 var captureRequest = new CaptureRequest(token, buyOrder,
                     authorizationCode, captureAmount);
-                return _requestService.Perform<CaptureResponse, TransactionCaptureException>(
-                    captureRequest, Options);
+                return options.RequestService.Perform<CaptureResponse, TransactionCaptureException>(
+                    captureRequest, options);
             });
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Environment Configuration
-        |--------------------------------------------------------------------------
-        */
-
-        public void ConfigureForTesting()
-        {
-            ConfigureForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY);
-        }
-
-        public void ConfigureForTestingDeferred()
-        {
-            ConfigureForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS_DEFERRED, IntegrationApiKeys.WEBPAY);
         }
 
     }
