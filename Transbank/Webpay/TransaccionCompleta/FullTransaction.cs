@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Net.Http;
 using Transbank.Common;
 using Transbank.Exceptions;
 using Transbank.Webpay.Common;
@@ -8,29 +6,28 @@ using Transbank.Webpay.TransaccionCompleta.Responses;
 
 namespace Transbank.Webpay.TransaccionCompleta
 {
-    public class FullTransaction : WebpayOptions
+    public class FullTransaction
     {
-        private FullTransaction() { }
-        public FullTransaction(Options options, HttpClient httpClient = null) : base(options, httpClient) { }
-        public FullTransaction(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
-            : base(commerceCode, apiKey, integrationType, httpClient) { }
-        
-        public static FullTransaction buildForProduction(string commerceCode, string apiKey)
+        public Options options;
+        public FullTransaction(Options options)
         {
-            FullTransaction fullTransaction = new FullTransaction();
-            fullTransaction.ConfigureForProduction(commerceCode, apiKey);
-
-            return fullTransaction;
+            this.options = options;
         }
 
         public static FullTransaction buildForIntegration(string commerceCode, string apiKey)
         {
-            FullTransaction fullTransaction = new FullTransaction();
-            fullTransaction.ConfigureForIntegration(commerceCode, apiKey);
+            FullTransaction fullTransaction = new FullTransaction(new Options(commerceCode, apiKey, WebpayIntegrationType.Test));
 
             return fullTransaction;
         }
-        
+
+        public static FullTransaction buildForProduction(string commerceCode, string apiKey)
+        {
+            FullTransaction fullTransaction = new FullTransaction(new Options(commerceCode, apiKey, WebpayIntegrationType.Live));
+
+            return fullTransaction;
+        }
+
         public CreateResponse Create(
             string buyOrder,
             string sessionId,
@@ -53,7 +50,7 @@ namespace Transbank.Webpay.TransaccionCompleta
                     cvv,
                     cardNumber,
                     cardExpirationDate);
-                return _requestService.Perform<CreateResponse, TransactionCreateException>(createRequest, Options);
+                return options.RequestService.Perform<CreateResponse, TransactionCreateException>(createRequest, options);
             });
 
         }
@@ -69,7 +66,7 @@ namespace Transbank.Webpay.TransaccionCompleta
                 var installmentsRequest = new InstallmentsRequest(
                     token,
                     installmentsNumber);
-                return _requestService.Perform<InstallmentsResponse, TransactionInstallmentsException>(installmentsRequest, Options);
+                return options.RequestService.Perform<InstallmentsResponse, TransactionInstallmentsException>(installmentsRequest, options);
             });
 
         }
@@ -89,7 +86,7 @@ namespace Transbank.Webpay.TransaccionCompleta
                     idQueryInstallments,
                     deferredPeriodsIndex,
                     gracePeriods);
-                return _requestService.Perform<CommitResponse, TransactionCommitException>(commitRequest, Options);
+                return options.RequestService.Perform<CommitResponse, TransactionCommitException>(commitRequest, options);
             });
         }
 
@@ -100,7 +97,7 @@ namespace Transbank.Webpay.TransaccionCompleta
             return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
             {
                 var request = new StatusRequest(token);
-                return _requestService.Perform<StatusResponse, TransactionStatusException>(request, Options);
+                return options.RequestService.Perform<StatusResponse, TransactionStatusException>(request, options);
             });
         }
 
@@ -111,7 +108,7 @@ namespace Transbank.Webpay.TransaccionCompleta
             return ExceptionHandler.Perform<RefundResponse, TransactionRefundException>(() =>
             {
                 var request = new RefundRequest(token, amount);
-                return _requestService.Perform<RefundResponse, TransactionRefundException>(request, Options);
+                return options.RequestService.Perform<RefundResponse, TransactionRefundException>(request, options);
             });
         }
 
@@ -126,23 +123,9 @@ namespace Transbank.Webpay.TransaccionCompleta
             {
                 var captureRequest = new CaptureRequest(token, buyOrder,
                     authorizationCode, captureAmount);
-                return _requestService.Perform<CaptureResponse, TransactionCaptureException>(
-                    captureRequest, Options);
+                return options.RequestService.Perform<CaptureResponse, TransactionCaptureException>(
+                    captureRequest, options);
             });
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | Environment Configuration
-        |--------------------------------------------------------------------------
-        */
-        public void ConfigureForTesting()
-        {
-            ConfigureForIntegration(IntegrationCommerceCodes.TRANSACCION_COMPLETA, IntegrationApiKeys.WEBPAY);
-        }
-        public void ConfigureForTestingDeferred()
-        {
-            ConfigureForIntegration(IntegrationCommerceCodes.TRANSACCION_COMPLETA_DEFERRED, IntegrationApiKeys.WEBPAY);
         }
     }
 }
