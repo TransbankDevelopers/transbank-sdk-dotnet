@@ -4,31 +4,31 @@ using Transbank.Exceptions;
 using Transbank.Webpay.Common;
 using Transbank.Webpay.Oneclick.Requests;
 using Transbank.Webpay.Oneclick.Responses;
-using System.Net.Http;
 
 namespace Transbank.Webpay.Oneclick
 {
-    public class MallTransaction : OneclickOptions
+    public class MallTransaction
     {
-        private MallTransaction(){ }
-        public MallTransaction(Options options, HttpClient httpClient = null) : base(options, httpClient) { }
-        public MallTransaction(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
-            : base(commerceCode, apiKey, integrationType, httpClient) { }
-        
-        public static MallTransaction buildForProduction(string commerceCode, string apiKey)
-        {
-            MallTransaction mallTransaction = new MallTransaction();
-            mallTransaction.ConfigureForProduction(commerceCode, apiKey);
 
-            return mallTransaction;
+        public Options options;
+
+        public MallTransaction(Options options)
+        {
+            this.options = options;
         }
 
         public static MallTransaction buildForIntegration(string commerceCode, string apiKey)
         {
-            MallTransaction mallTransaction = new MallTransaction();
-            mallTransaction.ConfigureForIntegration(commerceCode, apiKey);
-            
+            MallTransaction mallTransaction = new MallTransaction(new Options(commerceCode, apiKey, WebpayIntegrationType.Test));
+
             return mallTransaction;
+        }
+
+        public static MallTransaction buildForProduction(string commerceCode, string apiKey)
+        {
+            MallTransaction transaction = new MallTransaction(new Options(commerceCode, apiKey, WebpayIntegrationType.Live));
+
+            return transaction;
         }
 
         public MallAuthorizeResponse Authorize(string userName, string tbkUser, string parentBuyOrder,
@@ -49,7 +49,7 @@ namespace Transbank.Webpay.Oneclick
             {
                 var authorizeRequest = new MallAuthorizeRequest(userName, tbkUser, parentBuyOrder,
                     details);
-                return _requestService.Perform<MallAuthorizeResponse, MallTransactionAuthorizeException>(authorizeRequest, Options);
+                return options.RequestService.Perform<MallAuthorizeResponse, MallTransactionAuthorizeException>(authorizeRequest, options);
             });
         }
 
@@ -63,7 +63,7 @@ namespace Transbank.Webpay.Oneclick
             return ExceptionHandler.Perform<MallRefundResponse, MallTransactionRefundException>(() =>
             {
                 var mallRefundRequest = new MallRefundRequest(buyOrder, childCommerceCode, childBuyOrder, amount);
-                return _requestService.Perform<MallRefundResponse, MallTransactionRefundException>(mallRefundRequest, Options);
+                return options.RequestService.Perform<MallRefundResponse, MallTransactionRefundException>(mallRefundRequest, options);
             });
         }
 
@@ -74,7 +74,7 @@ namespace Transbank.Webpay.Oneclick
             return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
             {
                 var mallStatusRequest = new MallStatusRequest(buyOrder);
-                return _requestService.Perform<MallStatusResponse, MallTransactionStatusException>(mallStatusRequest, Options);
+                return options.RequestService.Perform<MallStatusResponse, MallTransactionStatusException>(mallStatusRequest, options);
             });
         }
 
@@ -88,9 +88,8 @@ namespace Transbank.Webpay.Oneclick
             {
                 long.TryParse(childCommerceCode, out long ccode);
                 var mallCaptureRequest = new MallCaptureRequest(ccode, childBuyOrder, captureAmount, authorizationCode);
-                return _requestService.Perform<MallCaptureResponse, MallCaptureException>(mallCaptureRequest, Options);
+                return options.RequestService.Perform<MallCaptureResponse, MallCaptureException>(mallCaptureRequest, options);
             });
         }
-
     }
 }
