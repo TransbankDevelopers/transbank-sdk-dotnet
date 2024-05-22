@@ -13,10 +13,10 @@ namespace Tests
         {
             MallFullTransaction mallFullTransaction = MallFullTransaction.buildForIntegration(IntegrationCommerceCodes.TRANSACCION_COMPLETA_MALL, IntegrationApiKeys.WEBPAY);
             Assert.Equal(IntegrationCommerceCodes.TRANSACCION_COMPLETA_MALL,
-                mallFullTransaction.options.CommerceCode);
+                mallFullTransaction.Options.CommerceCode);
             Assert.Equal(IntegrationApiKeys.WEBPAY,
-                mallFullTransaction.options.ApiKey);
-            Assert.Equal("https://webpay3gint.transbank.cl", mallFullTransaction.options.IntegrationType.ApiBase);
+                mallFullTransaction.Options.ApiKey);
+            Assert.Equal("https://webpay3gint.transbank.cl", mallFullTransaction.Options.IntegrationType.ApiBase);
         }
 
     }
