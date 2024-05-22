@@ -11,11 +11,11 @@ namespace Tests
         {
             MallTransaction mallTransaction = MallTransaction.buildForIntegration(IntegrationCommerceCodes.ONECLICK_MALL, IntegrationApiKeys.WEBPAY);
             Assert.Equal(IntegrationCommerceCodes.ONECLICK_MALL,
-                mallTransaction.options.CommerceCode);
+                mallTransaction.Options.CommerceCode);
             Assert.Equal(IntegrationApiKeys.WEBPAY,
-                mallTransaction.options.ApiKey);
+                mallTransaction.Options.ApiKey);
             Assert.Equal("https://webpay3gint.transbank.cl",
-                mallTransaction.options.IntegrationType.ApiBase);
+                mallTransaction.Options.IntegrationType.ApiBase);
         }
     }
 }
