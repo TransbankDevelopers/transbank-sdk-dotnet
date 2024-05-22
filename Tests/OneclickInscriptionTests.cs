@@ -12,11 +12,11 @@ namespace Tests
         {
             MallInscription mallInscription = MallInscription.buildForIntegration(IntegrationCommerceCodes.ONECLICK_MALL, IntegrationApiKeys.WEBPAY);
             Assert.Equal(IntegrationCommerceCodes.ONECLICK_MALL,
-                mallInscription.options.CommerceCode);
+                mallInscription.Options.CommerceCode);
             Assert.Equal(IntegrationApiKeys.WEBPAY,
-                mallInscription.options.ApiKey);
+                mallInscription.Options.ApiKey);
             Assert.Equal("https://webpay3gint.transbank.cl",
-                mallInscription.options.IntegrationType.ApiBase);
+                mallInscription.Options.IntegrationType.ApiBase);
         }
 
         [Fact]
