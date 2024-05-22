@@ -12,9 +12,9 @@ namespace Tests
         public void CorrectOptions()
         {
             MallTransaction mallTransaction = MallTransaction.buildForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS_MALL, IntegrationApiKeys.WEBPAY);
-            Assert.Equal(IntegrationCommerceCodes.WEBPAY_PLUS_MALL, mallTransaction.options.CommerceCode);
-            Assert.Equal(IntegrationApiKeys.WEBPAY, mallTransaction.options.ApiKey);
-            Assert.Equal("https://webpay3gint.transbank.cl", mallTransaction.options.IntegrationType.ApiBase);
+            Assert.Equal(IntegrationCommerceCodes.WEBPAY_PLUS_MALL, mallTransaction.Options.CommerceCode);
+            Assert.Equal(IntegrationApiKeys.WEBPAY, mallTransaction.Options.ApiKey);
+            Assert.Equal("https://webpay3gint.transbank.cl", mallTransaction.Options.IntegrationType.ApiBase);
         }
 
         [Fact]
