@@ -11,9 +11,9 @@ namespace Tests
         public void CorrectOptions()
         {
             Transaction transaction = Transaction.buildForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY);
-            Assert.Equal(IntegrationCommerceCodes.WEBPAY_PLUS, transaction.options.CommerceCode);
-            Assert.Equal(IntegrationApiKeys.WEBPAY, transaction.options.ApiKey);
-            Assert.Equal("https://webpay3gint.transbank.cl", transaction.options.IntegrationType.ApiBase);
+            Assert.Equal(IntegrationCommerceCodes.WEBPAY_PLUS, transaction.Options.CommerceCode);
+            Assert.Equal(IntegrationApiKeys.WEBPAY, transaction.Options.ApiKey);
+            Assert.Equal("https://webpay3gint.transbank.cl", transaction.Options.IntegrationType.ApiBase);
         }
 
         [Fact]
