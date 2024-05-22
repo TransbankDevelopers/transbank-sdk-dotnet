@@ -1,5 +1,6 @@
-using Transbank.Common;
+using System;
 using System.Collections.Generic;
+using Transbank.Common;
 using Transbank.Exceptions;
 using Transbank.Webpay.Common;
 using Transbank.Webpay.Oneclick.Requests;
@@ -10,11 +11,19 @@ namespace Transbank.Webpay.Oneclick
     public class MallTransaction
     {
 
-        public Options options;
+        private Options _options;
+
+        public Options Options
+        {
+            get => _options;
+            private set => _options = value ?? throw new ArgumentNullException(
+                nameof(value), "Options can't be null."
+            );
+        }
 
         public MallTransaction(Options options)
         {
-            this.options = options;
+            Options = options;
         }
 
         public static MallTransaction buildForIntegration(string commerceCode, string apiKey)
@@ -49,7 +58,7 @@ namespace Transbank.Webpay.Oneclick
             {
                 var authorizeRequest = new MallAuthorizeRequest(userName, tbkUser, parentBuyOrder,
                     details);
-                return options.RequestService.Perform<MallAuthorizeResponse, MallTransactionAuthorizeException>(authorizeRequest, options);
+                return Options.RequestService.Perform<MallAuthorizeResponse, MallTransactionAuthorizeException>(authorizeRequest, Options);
             });
         }
 
@@ -63,7 +72,7 @@ namespace Transbank.Webpay.Oneclick
             return ExceptionHandler.Perform<MallRefundResponse, MallTransactionRefundException>(() =>
             {
                 var mallRefundRequest = new MallRefundRequest(buyOrder, childCommerceCode, childBuyOrder, amount);
-                return options.RequestService.Perform<MallRefundResponse, MallTransactionRefundException>(mallRefundRequest, options);
+                return Options.RequestService.Perform<MallRefundResponse, MallTransactionRefundException>(mallRefundRequest, Options);
             });
         }
 
@@ -74,7 +83,7 @@ namespace Transbank.Webpay.Oneclick
             return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
             {
                 var mallStatusRequest = new MallStatusRequest(buyOrder);
-                return options.RequestService.Perform<MallStatusResponse, MallTransactionStatusException>(mallStatusRequest, options);
+                return Options.RequestService.Perform<MallStatusResponse, MallTransactionStatusException>(mallStatusRequest, Options);
             });
         }
 
@@ -88,7 +97,7 @@ namespace Transbank.Webpay.Oneclick
             {
                 long.TryParse(childCommerceCode, out long ccode);
                 var mallCaptureRequest = new MallCaptureRequest(ccode, childBuyOrder, captureAmount, authorizationCode);
-                return options.RequestService.Perform<MallCaptureResponse, MallCaptureException>(mallCaptureRequest, options);
+                return Options.RequestService.Perform<MallCaptureResponse, MallCaptureException>(mallCaptureRequest, Options);
             });
         }
     }

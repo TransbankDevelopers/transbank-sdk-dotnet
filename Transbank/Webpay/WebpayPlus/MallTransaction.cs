@@ -1,6 +1,7 @@
+using System;
+using System.Collections.Generic;
 using Transbank.Common;
 using Transbank.Webpay.Common;
-using System.Collections.Generic;
 using Transbank.Webpay.WebpayPlus.Requests;
 using Transbank.Webpay.WebpayPlus.Responses;
 using Transbank.Exceptions;
@@ -9,10 +10,18 @@ namespace Transbank.Webpay.WebpayPlus
 {
     public class MallTransaction
     {
-        public Options options;
+        private Options _options;
+
+        public Options Options
+        {
+            get => _options;
+            private set => _options = value ?? throw new ArgumentNullException(
+                nameof(value), "Options can't be null."
+            );
+        }
         public MallTransaction(Options options)
         {
-            this.options = options;
+            Options = options;
         }
 
 
@@ -48,8 +57,8 @@ namespace Transbank.Webpay.WebpayPlus
             {
                 var mallCreateRequest = new MallCreateRequest(buyOrder, sessionId,
                     returnUrl, details);
-                return options.RequestService.Perform<MallCreateResponse, MallTransactionCreateException>(
-                    mallCreateRequest, options);
+                return Options.RequestService.Perform<MallCreateResponse, MallTransactionCreateException>(
+                    mallCreateRequest, Options);
             });
         }
 
@@ -60,8 +69,8 @@ namespace Transbank.Webpay.WebpayPlus
             return ExceptionHandler.Perform<MallCommitResponse, MallTransactionCommitException>(() =>
             {
                 var mallCommitRequest = new MallCommitRequest(token);
-                return options.RequestService.Perform<MallCommitResponse, MallTransactionCommitException>(
-                    mallCommitRequest, options);
+                return Options.RequestService.Perform<MallCommitResponse, MallTransactionCommitException>(
+                    mallCommitRequest, Options);
             });
         }
 
@@ -76,8 +85,8 @@ namespace Transbank.Webpay.WebpayPlus
             {
                 var mallRefundRequest = new MallRefundRequest(token, buyOrder,
                     childCommerceCode, amount);
-                return options.RequestService.Perform<MallRefundResponse, MallTransactionRefundException>(
-                    mallRefundRequest, options);
+                return Options.RequestService.Perform<MallRefundResponse, MallTransactionRefundException>(
+                    mallRefundRequest, Options);
             });
         }
 
@@ -88,8 +97,8 @@ namespace Transbank.Webpay.WebpayPlus
             return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
             {
                 var mallStatusRequest = new MallStatusRequest(token);
-                return options.RequestService.Perform<MallStatusResponse, MallTransactionStatusException>(
-                    mallStatusRequest, options);
+                return Options.RequestService.Perform<MallStatusResponse, MallTransactionStatusException>(
+                    mallStatusRequest, Options);
             });
         }
 
@@ -104,7 +113,7 @@ namespace Transbank.Webpay.WebpayPlus
             return ExceptionHandler.Perform<MallCaptureResponse, MallTransactionCaptureException>(() =>
             {
                 var mallCaptureRequest = new MallCaptureRequest(token, childCommerceCode, buyOrder, authorizationCode, captureAmount);
-                return options.RequestService.Perform<MallCaptureResponse, MallTransactionCaptureException>(mallCaptureRequest, options);
+                return Options.RequestService.Perform<MallCaptureResponse, MallTransactionCaptureException>(mallCaptureRequest, Options);
             });
         }
     }

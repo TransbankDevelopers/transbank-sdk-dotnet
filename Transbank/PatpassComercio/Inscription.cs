@@ -17,9 +17,17 @@ namespace Transbank.PatpassComercio
 
         private readonly RequestServiceHeaders _headers;
 
-        public Options options;
+        private Options _options;
+
+        public Options Options
+        {
+            get => _options;
+            private set => _options = value ?? throw new ArgumentNullException(
+                nameof(value), "Options can't be null."
+            );
+        }
         public Inscription(Options options) {
-            this.options = options;
+            Options = options;
             _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
         }
 
@@ -62,10 +70,10 @@ namespace Transbank.PatpassComercio
             {
                 var request = new StartRequest(
                     url, name, lastName, secondLastName, rut, serviceId, finalUrl,
-                    options.CommerceCode, mAmount, phone, cellPhone,
+                    Options.CommerceCode, mAmount, phone, cellPhone,
                     patpassName, personEmail, commerceEmail, address, city
                 );
-                return options.RequestService.Perform<StartResponse, InscriptionStartException>(request, options, _headers);
+                return Options.RequestService.Perform<StartResponse, InscriptionStartException>(request, Options, _headers);
             });
 
         }
@@ -75,8 +83,8 @@ namespace Transbank.PatpassComercio
             return ExceptionHandler.Perform<StatusResponse, InscriptionStatusException>(() =>
             {
                 var statusRequest = new StatusRequest(token);
-                return options.RequestService.Perform<StatusResponse, InscriptionStatusException>(
-                    statusRequest, options, _headers);
+                return Options.RequestService.Perform<StatusResponse, InscriptionStatusException>(
+                    statusRequest, Options, _headers);
             });
         }
     }

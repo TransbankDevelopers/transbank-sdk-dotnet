@@ -1,3 +1,4 @@
+using System;
 using Transbank.Common;
 using Transbank.Exceptions;
 using Transbank.Webpay.Common;
@@ -8,10 +9,18 @@ namespace Transbank.Webpay.TransaccionCompleta
 {
     public class FullTransaction
     {
-        public Options options;
+        private Options _options;
+
+        public Options Options
+        {
+            get => _options;
+            private set => _options = value ?? throw new ArgumentNullException(
+                nameof(value), "Options can't be null."
+            );
+        }
         public FullTransaction(Options options)
         {
-            this.options = options;
+            Options = options;
         }
 
         public static FullTransaction buildForIntegration(string commerceCode, string apiKey)
@@ -50,7 +59,7 @@ namespace Transbank.Webpay.TransaccionCompleta
                     cvv,
                     cardNumber,
                     cardExpirationDate);
-                return options.RequestService.Perform<CreateResponse, TransactionCreateException>(createRequest, options);
+                return Options.RequestService.Perform<CreateResponse, TransactionCreateException>(createRequest, Options);
             });
 
         }
@@ -66,7 +75,7 @@ namespace Transbank.Webpay.TransaccionCompleta
                 var installmentsRequest = new InstallmentsRequest(
                     token,
                     installmentsNumber);
-                return options.RequestService.Perform<InstallmentsResponse, TransactionInstallmentsException>(installmentsRequest, options);
+                return Options.RequestService.Perform<InstallmentsResponse, TransactionInstallmentsException>(installmentsRequest, Options);
             });
 
         }
@@ -86,7 +95,7 @@ namespace Transbank.Webpay.TransaccionCompleta
                     idQueryInstallments,
                     deferredPeriodsIndex,
                     gracePeriods);
-                return options.RequestService.Perform<CommitResponse, TransactionCommitException>(commitRequest, options);
+                return Options.RequestService.Perform<CommitResponse, TransactionCommitException>(commitRequest, Options);
             });
         }
 
@@ -97,7 +106,7 @@ namespace Transbank.Webpay.TransaccionCompleta
             return ExceptionHandler.Perform<StatusResponse, TransactionStatusException>(() =>
             {
                 var request = new StatusRequest(token);
-                return options.RequestService.Perform<StatusResponse, TransactionStatusException>(request, options);
+                return Options.RequestService.Perform<StatusResponse, TransactionStatusException>(request, Options);
             });
         }
 
@@ -108,7 +117,7 @@ namespace Transbank.Webpay.TransaccionCompleta
             return ExceptionHandler.Perform<RefundResponse, TransactionRefundException>(() =>
             {
                 var request = new RefundRequest(token, amount);
-                return options.RequestService.Perform<RefundResponse, TransactionRefundException>(request, options);
+                return Options.RequestService.Perform<RefundResponse, TransactionRefundException>(request, Options);
             });
         }
 
@@ -123,8 +132,8 @@ namespace Transbank.Webpay.TransaccionCompleta
             {
                 var captureRequest = new CaptureRequest(token, buyOrder,
                     authorizationCode, captureAmount);
-                return options.RequestService.Perform<CaptureResponse, TransactionCaptureException>(
-                    captureRequest, options);
+                return Options.RequestService.Perform<CaptureResponse, TransactionCaptureException>(
+                    captureRequest, Options);
             });
         }
     }

@@ -1,7 +1,8 @@
+using System;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using Transbank.Common;
 using Transbank.Exceptions;
-using System.Collections.Generic;
 using Transbank.Webpay.TransaccionCompletaMall.Common;
 using Transbank.Webpay.TransaccionCompletaMall.Requests;
 using Transbank.Webpay.TransaccionCompletaMall.Responses;
@@ -11,10 +12,18 @@ namespace Transbank.Webpay.TransaccionCompletaMall
 {
     public class MallFullTransaction
     {
-        public Options options;
+        private Options _options;
+
+        public Options Options
+        {
+            get => _options;
+            private set => _options = value ?? throw new ArgumentNullException(
+                nameof(value), "Options can't be null."
+            );
+        }
         public MallFullTransaction(Options options)
         {
-            this.options = options;
+            Options = options;
         }
 
         public static MallFullTransaction buildForIntegration(string commerceCode, string apiKey)
@@ -62,7 +71,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                     details,
                     cvv
                 );
-                return options.RequestService.Perform<MallCreateResponse, MallTransactionCreateException>(mallCreateRequest, options);
+                return Options.RequestService.Perform<MallCreateResponse, MallTransactionCreateException>(mallCreateRequest, Options);
             });
         }
 
@@ -84,7 +93,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                     commerceCode,
                     buyOrder,
                     installmentsNumber);
-                return options.RequestService.Perform<MallInstallmentsResponse, MallTransactionInstallmentsExceptions>(mallInstallmentsResponse, options);
+                return Options.RequestService.Perform<MallInstallmentsResponse, MallTransactionInstallmentsExceptions>(mallInstallmentsResponse, Options);
             });
         }
 
@@ -106,7 +115,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                         req.BuyOrder,
                         req.InstallmentsNumber);
 
-                    var resp = options.RequestService.Perform<MallInstallmentsResponse, MallTransactionInstallmentsExceptions>(request, options);
+                    var resp = Options.RequestService.Perform<MallInstallmentsResponse, MallTransactionInstallmentsExceptions>(request, Options);
                     det.Add(new MallInstallmentsResponse(resp.InstallmentsAmount, resp.IdQueryInstallments, resp.DeferredPeriods));
                 }
                 return JsonConvert.DeserializeObject<MallInstallmentsDetailsResponse>(det.ToString());
@@ -124,7 +133,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                 var mallCommitRequest = new MallCommitRequest(
                     token,
                     details);
-                return options.RequestService.Perform<MallCommitResponse, MallTransactionCommitException>(mallCommitRequest, options);
+                return Options.RequestService.Perform<MallCommitResponse, MallTransactionCommitException>(mallCommitRequest, Options);
             });
         }
 
@@ -145,7 +154,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                     buyOrder,
                     childCommerceCode,
                     amount);
-                return options.RequestService.Perform<MallRefundResponse, MallTransactionRefundException>(mallRefundRequest, options);
+                return Options.RequestService.Perform<MallRefundResponse, MallTransactionRefundException>(mallRefundRequest, Options);
             });
         }
 
@@ -156,7 +165,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
             {
                 var mallStatusRequest = new MallStatusRequest(token);
-                return options.RequestService.Perform<MallStatusResponse, MallTransactionStatusException>(mallStatusRequest, options);
+                return Options.RequestService.Perform<MallStatusResponse, MallTransactionStatusException>(mallStatusRequest, Options);
             });
         }
 
@@ -171,7 +180,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             return ExceptionHandler.Perform<MallCaptureResponse, MallTransactionCaptureException>(() =>
             {
                 var mallCaptureRequest = new MallCaptureRequest(token, childCommerceCode, buyOrder, authorizationCode, captureAmount);
-                return options.RequestService.Perform<MallCaptureResponse, MallTransactionCaptureException>(mallCaptureRequest, options);
+                return Options.RequestService.Perform<MallCaptureResponse, MallTransactionCaptureException>(mallCaptureRequest, Options);
             });
         }
     }

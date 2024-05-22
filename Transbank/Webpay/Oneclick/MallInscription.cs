@@ -1,3 +1,4 @@
+using System;
 using Transbank.Common;
 using Transbank.Exceptions;
 using Transbank.Webpay.Oneclick.Requests;
@@ -9,10 +10,18 @@ namespace Transbank.Webpay.Oneclick
     public class MallInscription
     {
 
-        public Options options;
+        private Options _options;
+
+        public Options Options
+        {
+            get => _options;
+            private set => _options = value ?? throw new ArgumentNullException(
+                nameof(value), "Options can't be null."
+            );
+        }
         public MallInscription(Options options)
         {
-            this.options = options;
+            Options = options;
         }
 
         public static MallInscription buildForIntegration(string commerceCode, string apiKey)
@@ -39,8 +48,8 @@ namespace Transbank.Webpay.Oneclick
             return ExceptionHandler.Perform<MallStartResponse, InscriptionStartException>(() =>
             {
                 var startRequest = new MallStartRequest(userName, email, responseUrl);
-                return options.RequestService.Perform<MallStartResponse, InscriptionStartException>(
-                    startRequest, options);
+                return Options.RequestService.Perform<MallStartResponse, InscriptionStartException>(
+                    startRequest, Options);
             });
         }
 
@@ -51,7 +60,7 @@ namespace Transbank.Webpay.Oneclick
             return ExceptionHandler.Perform<MallFinishResponse, InscriptionFinishException>(() =>
             {
                 var finishRequest = new MallFinishRequest(token);
-                return options.RequestService.Perform<MallFinishResponse, InscriptionFinishException>(finishRequest, options);
+                return Options.RequestService.Perform<MallFinishResponse, InscriptionFinishException>(finishRequest, Options);
             });
         }
 
@@ -64,7 +73,7 @@ namespace Transbank.Webpay.Oneclick
             return ExceptionHandler.Perform<DeleteResponse, InscriptionDeleteException>(() =>
             {
                 var deleteRequest = new MallDeleteRequest(userName, tbkUser);
-                return options.RequestService.Perform<DeleteResponse, InscriptionDeleteException>(deleteRequest, options);
+                return Options.RequestService.Perform<DeleteResponse, InscriptionDeleteException>(deleteRequest, Options);
             });
         }
     }
