@@ -8,7 +8,7 @@ using Transbank.PatpassComercio.Responses;
 
 namespace Transbank.PatpassComercio
 {
-    public class Inscription : BaseOptions
+    public class Inscription
     {
         // The authentication headers for this product are different, these have
         // to be used. You can put them in the Perform method of the RequestService
@@ -17,38 +17,32 @@ namespace Transbank.PatpassComercio
 
         private readonly RequestServiceHeaders _headers;
 
-        private Inscription() {
-            _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
-        }
-        public Inscription(Options options, HttpClient httpClient = null) : base(options, httpClient) {
-            _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
-        }
-        public Inscription(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
-            : base(commerceCode, apiKey, integrationType, httpClient) {
-            _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
-        }
+        private Options _options;
 
-        public Inscription(Options options)
+        public Options Options
         {
+            get => _options;
+            private set => _options = value ?? throw new ArgumentNullException(
+                nameof(value), "Options can't be null."
+            );
+        }
+        public Inscription(Options options) {
             Options = options;
             _headers = new RequestServiceHeaders(_apiKeyHeaderName, _commerceCodeHeaderName);
         }
 
-        public static Inscription buildForProduction(string commerceCode, string apiKey)
+        public static Inscription buildForIntegration(string commerceCode, string apiKey)
         {
-            Inscription inscription = new Inscription();
-            inscription.ConfigureForProduction(commerceCode, apiKey);
+            Inscription inscription = new Inscription(new Options(commerceCode, apiKey, PatpassComercioIntegrationType.Test));
+
             return inscription;
         }
 
-        public static Inscription buildForIntegration(string commerceCode, string apiKey)
+        public static Inscription buildForProduction(string commerceCode, string apiKey)
         {
+            Inscription inscription = new Inscription(new Options(commerceCode, apiKey, PatpassComercioIntegrationType.Live));
 
-            Inscription inscription = new Inscription();
-            inscription.ConfigureForIntegration(commerceCode, apiKey);
-           
             return inscription;
-
         }
 
         public StartResponse Start(
@@ -79,7 +73,7 @@ namespace Transbank.PatpassComercio
                     Options.CommerceCode, mAmount, phone, cellPhone,
                     patpassName, personEmail, commerceEmail, address, city
                 );
-                return _requestService.Perform<StartResponse, InscriptionStartException>(request, Options, _headers);
+                return Options.RequestService.Perform<StartResponse, InscriptionStartException>(request, Options, _headers);
             });
 
         }
@@ -89,30 +83,9 @@ namespace Transbank.PatpassComercio
             return ExceptionHandler.Perform<StatusResponse, InscriptionStatusException>(() =>
             {
                 var statusRequest = new StatusRequest(token);
-                return _requestService.Perform<StatusResponse, InscriptionStatusException>(
+                return Options.RequestService.Perform<StatusResponse, InscriptionStatusException>(
                     statusRequest, Options, _headers);
             });
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | Environment Configuration
-        |--------------------------------------------------------------------------
-        */
-
-        public void ConfigureForIntegration(String commerceCode, String apiKey)
-        {
-            Configure(commerceCode, apiKey, PatpassComercioIntegrationType.Test);
-        }
-
-        public void ConfigureForProduction(String commerceCode, String apiKey)
-        {
-            Configure(commerceCode, apiKey, PatpassComercioIntegrationType.Live);
-        }
-
-        public void ConfigureForTesting()
-        {
-            ConfigureForIntegration(IntegrationCommerceCodes.PATPASS_COMERCIO, IntegrationApiKeys.PATPASS_COMERCIO);
         }
     }
 
