@@ -64,16 +64,17 @@ namespace Transbank.Webpay.Oneclick
             });
         }
 
-        public DeleteResponse Delete(string tbkUser, string userName)
+        public bool Delete(string tbkUser, string userName)
         {
 
             ValidationUtil.hasTextTrimWithMaxLength(userName, ApiConstants.USER_NAME_LENGTH, "userName");
             ValidationUtil.hasTextWithMaxLength(tbkUser, ApiConstants.TBK_USER_LENGTH, "tbkUser");
 
-            return ExceptionHandler.Perform<DeleteResponse, InscriptionDeleteException>(() =>
+            return ExceptionHandler.Perform<bool, InscriptionDeleteException>(() =>
             {
                 var deleteRequest = new MallDeleteRequest(userName, tbkUser);
-                return Options.RequestService.Perform<DeleteResponse, InscriptionDeleteException>(deleteRequest, Options);
+                Options.RequestService.Perform<DeleteResponse, InscriptionDeleteException>(deleteRequest, Options);
+                return true;
             });
         }
     }
