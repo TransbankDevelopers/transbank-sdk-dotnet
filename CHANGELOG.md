@@ -5,6 +5,25 @@ Todos los cambios notables a este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [7.0.0] - 2024-05-27
+
+### Added
+
+- Ahora los productos se pueden instanciar de 3 maneras: pasando en el constructor un objeto `Options` con la configuración que corresponda, o utilizando uno de los dos métodos de configuración según el ambiente que quieras utilizar. Por ejemplo: *producto*.`buildForIntegration(CC, apiKey)` o *producto*.`buildForProduction(CC, apiKey)`
+
+### Changed
+
+- Se cambia la versión de API de Transbank de 1.3 a 1.2
+- Se actualiza el retorno del método `Delete` para las inscripciones de Oneclick. Ahora retorna un booleano en `true` si la inscripción se eliminó correctamente, de lo contrario lanzará una excepción.
+- Se actualiza la ruta para importar Patpass Comercio. Ahora se debe importar de esta forma: `using Transbank.PatpassComercio;`
+
+### Removed
+
+- Se elimina la configuración por defecto para el ambiente de integración para todos los productos, ahora es necesario utilizar siempre las credenciales en la creación del objeto.
+- Se quitan los métodos 'increaseAmount', 'increaseAuthorizationDate', 'reversePreAuthorizedAmount', 'deferredCaptureHistory' a las versiones diferidas de WebpayPlus, WebpayPlus Mall, Oneclick Mall, Transaccion Completa y Transaccion Completa Mall
+- Se quita el campo 'captureExpirationDate' de todos los productos
+- Se eliminan los productos `Patpass by Webpay` y `Webpay Modal`
+
 ## [6.0.0] - 2022-09-01
 
 ### Changed

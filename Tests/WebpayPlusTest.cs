@@ -1,25 +1,27 @@
 using Xunit;
 using Transbank.Common;
 using Transbank.Webpay.WebpayPlus;
+using Transbank.Webpay.Common;
 
 namespace Tests
 {
     public class WebpayPlusTests
     {
         [Fact]
-        public void CorrectDefaultOptions()
+        public void CorrectOptions()
         {
-            Assert.Equal(IntegrationCommerceCodes.WEBPAY_PLUS, (new Transaction()).Options.CommerceCode);
-            Assert.Equal(IntegrationCommerceCodes.WEBPAY_PLUS_MALL, (new MallTransaction()).Options.CommerceCode);
-            Assert.Equal(IntegrationApiKeys.WEBPAY, (new Transaction()).Options.ApiKey);
-            Assert.Equal(IntegrationApiKeys.WEBPAY, (new MallTransaction()).Options.ApiKey);
+            Transaction transaction = Transaction.buildForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY);
+            Assert.Equal(IntegrationCommerceCodes.WEBPAY_PLUS, transaction.Options.CommerceCode);
+            Assert.Equal(IntegrationApiKeys.WEBPAY, transaction.Options.ApiKey);
+            Assert.Equal("https://webpay3gint.transbank.cl", transaction.Options.IntegrationType.ApiBase);
         }
 
         [Fact]
         public void CorrectIntegrationUrl()
         {
-            Assert.Equal("https://webpay3gint.transbank.cl", (new Transaction()).Options.IntegrationType.ApiBase);
-            Assert.Equal("https://webpay3gint.transbank.cl", (new MallTransaction()).Options.IntegrationType.ApiBase);
+            Transaction transaction = Transaction.buildForIntegration(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY);
+            var response = transaction.Create("buy123", "sess123", 1900, "https://www.test.cl");
+            Assert.Contains(WebpayIntegrationType.Test.ApiBase, response.Url);
         }
     }
 }

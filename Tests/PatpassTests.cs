@@ -1,23 +1,20 @@
-using System;
 using Xunit;
 using Transbank.Common;
-using Transbank.Patpass.PatpassComercio;
+using Transbank.PatpassComercio;
 
 namespace Tests
 {
     public class PatpassTests
     {
+        
         [Fact]
-        public void CorrectDefaultOptions()
+        public void CorrectOptions()
         {
-            Assert.Equal(IntegrationCommerceCodes.PATPASS_COMERCIO, (new Inscription()).Options.CommerceCode);
-            Assert.Equal(IntegrationApiKeys.PATPASS_COMERCIO, (new Inscription()).Options.ApiKey);
+            Inscription inscription = Inscription.buildForIntegration(IntegrationCommerceCodes.PATPASS_COMERCIO, IntegrationApiKeys.PATPASS_COMERCIO);
+            Assert.Equal(IntegrationCommerceCodes.PATPASS_COMERCIO, inscription.Options.CommerceCode);
+            Assert.Equal(IntegrationApiKeys.PATPASS_COMERCIO, inscription.Options.ApiKey);
+            Assert.Equal("https://pagoautomaticocontarjetasint.transbank.cl", inscription.Options.IntegrationType.ApiBase);
         }
 
-        [Fact]
-        public void CorrectIntegrationUrl()
-        {
-            Assert.Equal("https://pagoautomaticocontarjetasint.transbank.cl", (new Inscription()).Options.IntegrationType.ApiBase);
-        }
     }
 }

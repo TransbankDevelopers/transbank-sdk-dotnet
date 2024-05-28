@@ -1,22 +1,44 @@
 using System;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using Transbank.Common;
 using Transbank.Exceptions;
-using Transbank.Webpay.Common;
-using System.Collections.Generic;
 using Transbank.Webpay.TransaccionCompletaMall.Common;
 using Transbank.Webpay.TransaccionCompletaMall.Requests;
 using Transbank.Webpay.TransaccionCompletaMall.Responses;
-using System.Net.Http;
+using Transbank.Webpay.Common;
 
 namespace Transbank.Webpay.TransaccionCompletaMall
 {
-    public class MallFullTransaction : WebpayOptions
+    public class MallFullTransaction
     {
-        public MallFullTransaction() { ConfigureForTesting(); }
-        public MallFullTransaction(Options options, HttpClient httpClient = null) : base(options, httpClient) { }
-        public MallFullTransaction(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
-            : base(commerceCode, apiKey, integrationType, httpClient) { }
+        private Options _options;
+
+        public Options Options
+        {
+            get => _options;
+            private set => _options = value ?? throw new ArgumentNullException(
+                nameof(value), "Options can't be null."
+            );
+        }
+        public MallFullTransaction(Options options)
+        {
+            Options = options;
+        }
+
+        public static MallFullTransaction buildForIntegration(string commerceCode, string apiKey)
+        {
+            MallFullTransaction mallFullTransaction = new MallFullTransaction(new Options(commerceCode, apiKey, WebpayIntegrationType.Test));
+
+            return mallFullTransaction;
+        }
+
+        public static MallFullTransaction buildForProduction(string commerceCode, string apiKey)
+        {
+            MallFullTransaction mallFullTransaction = new MallFullTransaction(new Options(commerceCode, apiKey, WebpayIntegrationType.Live));
+
+            return mallFullTransaction;
+        }
 
         public  MallCreateResponse Create(
             string buyOrder,
@@ -49,7 +71,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                     details,
                     cvv
                 );
-                return _requestService.Perform<MallCreateResponse, MallTransactionCreateException>(mallCreateRequest, Options);
+                return Options.RequestService.Perform<MallCreateResponse, MallTransactionCreateException>(mallCreateRequest, Options);
             });
         }
 
@@ -71,7 +93,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                     commerceCode,
                     buyOrder,
                     installmentsNumber);
-                return _requestService.Perform<MallInstallmentsResponse, MallTransactionInstallmentsExceptions>(mallInstallmentsResponse, Options);
+                return Options.RequestService.Perform<MallInstallmentsResponse, MallTransactionInstallmentsExceptions>(mallInstallmentsResponse, Options);
             });
         }
 
@@ -93,7 +115,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                         req.BuyOrder,
                         req.InstallmentsNumber);
 
-                    var resp = _requestService.Perform<MallInstallmentsResponse, MallTransactionInstallmentsExceptions>(request, Options);
+                    var resp = Options.RequestService.Perform<MallInstallmentsResponse, MallTransactionInstallmentsExceptions>(request, Options);
                     det.Add(new MallInstallmentsResponse(resp.InstallmentsAmount, resp.IdQueryInstallments, resp.DeferredPeriods));
                 }
                 return JsonConvert.DeserializeObject<MallInstallmentsDetailsResponse>(det.ToString());
@@ -111,7 +133,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                 var mallCommitRequest = new MallCommitRequest(
                     token,
                     details);
-                return _requestService.Perform<MallCommitResponse, MallTransactionCommitException>(mallCommitRequest, Options);
+                return Options.RequestService.Perform<MallCommitResponse, MallTransactionCommitException>(mallCommitRequest, Options);
             });
         }
 
@@ -132,7 +154,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                     buyOrder,
                     childCommerceCode,
                     amount);
-                return _requestService.Perform<MallRefundResponse, MallTransactionRefundException>(mallRefundRequest, Options);
+                return Options.RequestService.Perform<MallRefundResponse, MallTransactionRefundException>(mallRefundRequest, Options);
             });
         }
 
@@ -143,7 +165,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             return ExceptionHandler.Perform<MallStatusResponse, MallTransactionStatusException>(() =>
             {
                 var mallStatusRequest = new MallStatusRequest(token);
-                return _requestService.Perform<MallStatusResponse, MallTransactionStatusException>(mallStatusRequest, Options);
+                return Options.RequestService.Perform<MallStatusResponse, MallTransactionStatusException>(mallStatusRequest, Options);
             });
         }
 
@@ -158,24 +180,8 @@ namespace Transbank.Webpay.TransaccionCompletaMall
             return ExceptionHandler.Perform<MallCaptureResponse, MallTransactionCaptureException>(() =>
             {
                 var mallCaptureRequest = new MallCaptureRequest(token, childCommerceCode, buyOrder, authorizationCode, captureAmount);
-                return _requestService.Perform<MallCaptureResponse, MallTransactionCaptureException>(mallCaptureRequest, Options);
+                return Options.RequestService.Perform<MallCaptureResponse, MallTransactionCaptureException>(mallCaptureRequest, Options);
             });
         }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Environment Configuration
-        |--------------------------------------------------------------------------
-        */
-
-        public void ConfigureForTesting()
-        {
-            ConfigureForIntegration(IntegrationCommerceCodes.TRANSACCION_COMPLETA_MALL, IntegrationApiKeys.WEBPAY);
-        }
-        public void ConfigureForTestingDeferred()
-        {
-            ConfigureForIntegration(IntegrationCommerceCodes.TRANSACCION_COMPLETA_MALL_DEFERRED, IntegrationApiKeys.WEBPAY);
-        } 
     }
 }

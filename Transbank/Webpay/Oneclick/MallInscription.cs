@@ -1,17 +1,42 @@
-using System.Net.Http;
+using System;
 using Transbank.Common;
 using Transbank.Exceptions;
 using Transbank.Webpay.Oneclick.Requests;
 using Transbank.Webpay.Oneclick.Responses;
+using Transbank.Webpay.Common;
 
 namespace Transbank.Webpay.Oneclick
 {
-    public class MallInscription : OneclickOptions
+    public class MallInscription
     {
-        public MallInscription() { ConfigureForTesting(); }
-        public MallInscription(Options options, HttpClient httpClient = null) : base(options, httpClient) { }
-        public MallInscription(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
-            : base(commerceCode, apiKey, integrationType, httpClient) { }
+
+        private Options _options;
+
+        public Options Options
+        {
+            get => _options;
+            private set => _options = value ?? throw new ArgumentNullException(
+                nameof(value), "Options can't be null."
+            );
+        }
+        public MallInscription(Options options)
+        {
+            Options = options;
+        }
+
+        public static MallInscription buildForIntegration(string commerceCode, string apiKey)
+        {
+            MallInscription mallInscription = new MallInscription(new Options(commerceCode, apiKey, WebpayIntegrationType.Test));
+
+            return mallInscription;
+        }
+
+        public static MallInscription buildForProduction(string commerceCode, string apiKey)
+        {
+            MallInscription mallInscription = new MallInscription(new Options(commerceCode, apiKey, WebpayIntegrationType.Live));
+
+            return mallInscription;
+        }
 
         public MallStartResponse Start(string userName, string email,
             string responseUrl)
@@ -23,7 +48,7 @@ namespace Transbank.Webpay.Oneclick
             return ExceptionHandler.Perform<MallStartResponse, InscriptionStartException>(() =>
             {
                 var startRequest = new MallStartRequest(userName, email, responseUrl);
-                return _requestService.Perform<MallStartResponse, InscriptionStartException>(
+                return Options.RequestService.Perform<MallStartResponse, InscriptionStartException>(
                     startRequest, Options);
             });
         }
@@ -35,20 +60,21 @@ namespace Transbank.Webpay.Oneclick
             return ExceptionHandler.Perform<MallFinishResponse, InscriptionFinishException>(() =>
             {
                 var finishRequest = new MallFinishRequest(token);
-                return _requestService.Perform<MallFinishResponse, InscriptionFinishException>(finishRequest, Options);
+                return Options.RequestService.Perform<MallFinishResponse, InscriptionFinishException>(finishRequest, Options);
             });
         }
 
-        public DeleteResponse Delete(string tbkUser, string userName)
+        public bool Delete(string tbkUser, string userName)
         {
 
             ValidationUtil.hasTextTrimWithMaxLength(userName, ApiConstants.USER_NAME_LENGTH, "userName");
             ValidationUtil.hasTextWithMaxLength(tbkUser, ApiConstants.TBK_USER_LENGTH, "tbkUser");
 
-            return ExceptionHandler.Perform<DeleteResponse, InscriptionDeleteException>(() =>
+            return ExceptionHandler.Perform<bool, InscriptionDeleteException>(() =>
             {
                 var deleteRequest = new MallDeleteRequest(userName, tbkUser);
-                return _requestService.Perform<DeleteResponse, InscriptionDeleteException>(deleteRequest, Options);
+                Options.RequestService.Perform<DeleteResponse, InscriptionDeleteException>(deleteRequest, Options);
+                return true;
             });
         }
     }

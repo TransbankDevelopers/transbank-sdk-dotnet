@@ -2,7 +2,7 @@ using System.Net.Http;
 using Transbank.Common;
 using Newtonsoft.Json;
 
-namespace Transbank.Patpass.PatpassComercio.Requests
+namespace Transbank.PatpassComercio.Requests
 {
     internal class StatusRequest : BaseRequest
     {

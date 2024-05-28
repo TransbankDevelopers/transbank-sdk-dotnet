@@ -1,9 +1,8 @@
-using System;
 using Newtonsoft.Json;
 using Transbank.Common;
 using System.Net.Http;
 
-namespace Transbank.Patpass.PatpassComercio.Requests
+namespace Transbank.PatpassComercio.Requests
 {
     internal class StartRequest : BaseRequest
     {
