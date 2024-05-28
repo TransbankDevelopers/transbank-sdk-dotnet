@@ -37,7 +37,7 @@ namespace Transbank.Common
         private static ExceptionType RiseTransbankException<ExceptionType>(Exception e)
             where ExceptionType : TransbankException
         {
-            int code = e.GetType().Equals(typeof(TransbankException)) ?
+            int code = e is TransbankException ?
                 ((TransbankException)e).Code : -1;
 
             return (ExceptionType)Activator.CreateInstance(
