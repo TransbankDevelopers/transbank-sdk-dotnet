@@ -15,11 +15,11 @@ y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.ht
 
 - Se cambia la versión de API de Transbank de 1.3 a 1.2
 - Se actualiza el retorno del método `Delete` para las inscripciones de Oneclick. Ahora retorna un booleano en `true` si la inscripción se eliminó correctamente, de lo contrario lanzará una excepción.
-- Se elimina la configuración por defecto para el ambiente de integración para todos los productos, ahora es necesario utilizar siempre las credenciales en la creación del objeto.
 - Se actualiza la ruta para importar Patpass Comercio. Ahora se debe importar de esta forma: `using Transbank.PatpassComercio;`
 
 ### Removed
 
+- Se elimina la configuración por defecto para el ambiente de integración para todos los productos, ahora es necesario utilizar siempre las credenciales en la creación del objeto.
 - Se quitan los métodos 'increaseAmount', 'increaseAuthorizationDate', 'reversePreAuthorizedAmount', 'deferredCaptureHistory' a las versiones diferidas de WebpayPlus, WebpayPlus Mall, Oneclick Mall, Transaccion Completa y Transaccion Completa Mall
 - Se quita el campo 'captureExpirationDate' de todos los productos
 - Se eliminan los productos `Patpass by Webpay` y `Webpay Modal`
