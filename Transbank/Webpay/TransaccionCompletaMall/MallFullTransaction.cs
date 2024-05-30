@@ -105,7 +105,7 @@ namespace Transbank.Webpay.TransaccionCompletaMall
 
             return ExceptionHandler.Perform<MallInstallmentsDetailsResponse, MallTransactionInstallmentsExceptions>(() =>
             {
-                List<MallInstallmentsResponse> det = new List<MallInstallmentsResponse>();
+                List<MallInstallmentsResponse> mallInstallmentsResponsesList = new List<MallInstallmentsResponse>();
 
                 foreach (MallInstallmentsDetails req in details)
                 {
@@ -115,10 +115,10 @@ namespace Transbank.Webpay.TransaccionCompletaMall
                         req.BuyOrder,
                         req.InstallmentsNumber);
 
-                    var resp = Options.RequestService.Perform<MallInstallmentsResponse, MallTransactionInstallmentsExceptions>(request, Options);
-                    det.Add(new MallInstallmentsResponse(resp.InstallmentsAmount, resp.IdQueryInstallments, resp.DeferredPeriods));
+                    var mallInstallmentsResponse = Options.RequestService.Perform<MallInstallmentsResponse, MallTransactionInstallmentsExceptions>(request, Options);
+                    mallInstallmentsResponsesList.Add(mallInstallmentsResponse);
                 }
-                return JsonConvert.DeserializeObject<MallInstallmentsDetailsResponse>(det.ToString());
+                return new MallInstallmentsDetailsResponse(mallInstallmentsResponsesList);
             });
         }
 
