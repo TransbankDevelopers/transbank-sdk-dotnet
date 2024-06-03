@@ -5,7 +5,7 @@ using Transbank.Webpay.TransaccionCompletaMall.Responses;
 
 namespace Transbank.Webpay.TransaccionCompletaMall.Common
 {
-    public class MallInstallmentsDetailsResponse : BaseResponse
+    public class MallInstallmentsDetailsResponse
     {
         [JsonProperty("details")]
         public List<MallInstallmentsResponse> Details { get; set; }
