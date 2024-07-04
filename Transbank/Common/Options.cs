@@ -48,6 +48,18 @@ namespace Transbank.Common
             );
 
         }
+        public int GetTimeout()
+        {
+            return _totalTimeout;
+        }
+        public void SetTimeout(int value)
+        {
+            if (value < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(value), "Timeout must be a non-negative integer.");
+            }
+            _totalTimeout = value;
+        }
 
         public Options(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null, int totalTimeout = DefaultTotalTimeout)
         {
