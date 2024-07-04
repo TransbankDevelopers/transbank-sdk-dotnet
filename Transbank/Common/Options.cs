@@ -72,7 +72,7 @@ namespace Transbank.Common
 
         public override string ToString()
         {
-            return $"{nameof(CommerceCode)}: {CommerceCode}, {nameof(ApiKey)}: {ApiKey}, {nameof(IntegrationType)}: {IntegrationType}";
+            return $"{nameof(CommerceCode)}: {CommerceCode}, {nameof(ApiKey)}: {ApiKey}, {nameof(IntegrationType)}: {IntegrationType}, {nameof(_totalTimeout)}: {_totalTimeout}";
         }
     }
 }
