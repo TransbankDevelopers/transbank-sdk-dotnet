@@ -9,6 +9,8 @@ namespace Transbank.Common
         private string _apiKey;
         private IIntegrationType _integrationType;
         private RequestService _requestService;
+        private const int DefaultTotalTimeout = 60 * 10;
+        private int _totalTimeout;
 
         public string CommerceCode
         {
@@ -47,12 +49,13 @@ namespace Transbank.Common
 
         }
 
-        public Options(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
+        public Options(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null, int totalTimeout = DefaultTotalTimeout)
         {
             CommerceCode = commerceCode;
             ApiKey = apiKey;
             IntegrationType = integrationType;
             RequestService = new RequestService(httpClient);
+            _totalTimeout = totalTimeout;
         }
 
         public override string ToString()
