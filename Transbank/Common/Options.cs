@@ -69,6 +69,14 @@ namespace Transbank.Common
             RequestService = new RequestService(httpClient);
             _totalTimeout = totalTimeout;
         }
+        public Options(string commerceCode, string apiKey, int totalTimeout, IIntegrationType integrationType, HttpClient httpClient = null)
+        {
+            CommerceCode = commerceCode;
+            ApiKey = apiKey;
+            IntegrationType = integrationType;
+            RequestService = new RequestService(httpClient);
+            _totalTimeout = totalTimeout;
+        }
 
         public override string ToString()
         {
