@@ -15,13 +15,14 @@ namespace Transbank.Common
         private HttpClient _httpClient;
         private static readonly string CONTENT_TYPE = "application/json";
         public RequestService(HttpClient httpClient = null) { _httpClient = httpClient;  }
-        private HttpClient GetHttpClient()
+        private HttpClient GetHttpClient(int requestTimeoutInSeconds)
         {
-            if (_httpClient != null)
-                return _httpClient;
-            if (_staticHttpClient == null)
-                _staticHttpClient = new HttpClient();
-            return _staticHttpClient;
+            _httpClient = new HttpClient
+            {
+                Timeout = TimeSpan.FromSeconds(requestTimeoutInSeconds)
+            };
+
+            return _httpClient;
         }
         private static void AddRequiredHeaders(HttpRequestMessage request, string commerceCode, string apiKey, RequestServiceHeaders headers)
         {
