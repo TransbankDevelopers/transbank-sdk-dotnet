@@ -48,17 +48,17 @@ namespace Transbank.Common
             );
 
         }
-        public int GetTimeout()
+        public int Timeout
         {
-            return _timeout;
-        }
-        public void SetTimeout(int value)
-        {
-            if (value < 0)
+            get => _timeout;
+            set
             {
-                throw new ArgumentOutOfRangeException(nameof(value), "Timeout must be a non-negative integer.");
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), "Timeout must be a non-negative integer.");
+                }
+                _timeout = value;
             }
-            _timeout = value;
         }
 
         public Options(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null, int totalTimeout = DefaultTotalTimeout)
@@ -67,7 +67,7 @@ namespace Transbank.Common
             ApiKey = apiKey;
             IntegrationType = integrationType;
             RequestService = new RequestService(httpClient);
-            _timeout = totalTimeout;
+            Timeout = totalTimeout;
         }
         public Options(string commerceCode, string apiKey, int totalTimeout, IIntegrationType integrationType, HttpClient httpClient = null)
         {
@@ -75,7 +75,7 @@ namespace Transbank.Common
             ApiKey = apiKey;
             IntegrationType = integrationType;
             RequestService = new RequestService(httpClient);
-            _timeout = totalTimeout;
+            Timeout = totalTimeout;
         }
 
         public override string ToString()
