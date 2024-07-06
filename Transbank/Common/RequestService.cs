@@ -17,12 +17,15 @@ namespace Transbank.Common
         public RequestService(HttpClient httpClient = null) { _httpClient = httpClient;  }
         private HttpClient GetHttpClient(int requestTimeoutInSeconds)
         {
-            _httpClient = new HttpClient
-            {
-                Timeout = TimeSpan.FromSeconds(requestTimeoutInSeconds)
-            };
-
-            return _httpClient;
+            if (_httpClient != null)
+                return _httpClient;
+            if (_staticHttpClient == null)
+                _staticHttpClient = new HttpClient
+                {
+                    Timeout = TimeSpan.FromSeconds(requestTimeoutInSeconds)
+                };
+            return _staticHttpClient;
+           
         }
         private static void AddRequiredHeaders(HttpRequestMessage request, string commerceCode, string apiKey, RequestServiceHeaders headers)
         {
