@@ -61,7 +61,7 @@ namespace Transbank.Common
             }
         }
 
-        public Options(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null, int totalTimeout = DefaultTotalTimeout)
+        public Options(string commerceCode, string apiKey, IIntegrationType integrationType, int totalTimeout = DefaultTotalTimeout, HttpClient httpClient = null)
         {
             CommerceCode = commerceCode;
             ApiKey = apiKey;
