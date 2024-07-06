@@ -77,7 +77,7 @@ namespace Transbank.Common
             where ReturnType : BaseResponse
         {
             var jsonRequest = JsonConvert.SerializeObject(request);
-            var resp = Perform<ExceptionType>(CreateHttpRequestMessage(request, jsonRequest, options, requestServiceHeaders), options.GetTimeout());
+            var resp = Perform<ExceptionType>(CreateHttpRequestMessage(request, jsonRequest, options, requestServiceHeaders), options.Timeout);
             var result = JsonConvert.DeserializeObject<ReturnType>(String.IsNullOrWhiteSpace(resp) ? "{}" : resp );
             result.OriginalRequest = jsonRequest;
             result.OriginalResponse = resp;
@@ -95,7 +95,7 @@ namespace Transbank.Common
             where ReturnType : BaseResponse
         {
             var jsonRequest = JsonConvert.SerializeObject(request);
-            var resp = Perform<ExceptionType>(CreateHttpRequestMessage(request, jsonRequest, options, requestServiceHeaders), options.GetTimeout());
+            var resp = Perform<ExceptionType>(CreateHttpRequestMessage(request, jsonRequest, options, requestServiceHeaders), options.Timeout);
             return JsonConvert.DeserializeObject<List<ReturnType>>(String.IsNullOrWhiteSpace(resp) ? "[]" : resp);
         }
 
