@@ -10,7 +10,7 @@ namespace Transbank.Common
         private IIntegrationType _integrationType;
         private RequestService _requestService;
         private const int DefaultTotalTimeout = 60 * 10;
-        private int _totalTimeout;
+        private int _timeout;
 
         public string CommerceCode
         {
@@ -50,7 +50,7 @@ namespace Transbank.Common
         }
         public int GetTimeout()
         {
-            return _totalTimeout;
+            return _timeout;
         }
         public void SetTimeout(int value)
         {
@@ -58,7 +58,7 @@ namespace Transbank.Common
             {
                 throw new ArgumentOutOfRangeException(nameof(value), "Timeout must be a non-negative integer.");
             }
-            _totalTimeout = value;
+            _timeout = value;
         }
 
         public Options(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null, int totalTimeout = DefaultTotalTimeout)
@@ -67,7 +67,7 @@ namespace Transbank.Common
             ApiKey = apiKey;
             IntegrationType = integrationType;
             RequestService = new RequestService(httpClient);
-            _totalTimeout = totalTimeout;
+            _timeout = totalTimeout;
         }
         public Options(string commerceCode, string apiKey, int totalTimeout, IIntegrationType integrationType, HttpClient httpClient = null)
         {
@@ -75,12 +75,12 @@ namespace Transbank.Common
             ApiKey = apiKey;
             IntegrationType = integrationType;
             RequestService = new RequestService(httpClient);
-            _totalTimeout = totalTimeout;
+            _timeout = totalTimeout;
         }
 
         public override string ToString()
         {
-            return $"{nameof(CommerceCode)}: {CommerceCode}, {nameof(ApiKey)}: {ApiKey}, {nameof(IntegrationType)}: {IntegrationType}, {nameof(_totalTimeout)}: {_totalTimeout}";
+            return $"{nameof(CommerceCode)}: {CommerceCode}, {nameof(ApiKey)}: {ApiKey}, {nameof(IntegrationType)}: {IntegrationType}, {nameof(_timeout)}: {_timeout}";
         }
     }
 }
