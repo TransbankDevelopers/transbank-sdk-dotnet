@@ -15,13 +15,17 @@ namespace Transbank.Common
         private HttpClient _httpClient;
         private static readonly string CONTENT_TYPE = "application/json";
         public RequestService(HttpClient httpClient = null) { _httpClient = httpClient;  }
-        private HttpClient GetHttpClient()
+        private HttpClient GetHttpClient(int requestTimeoutInSeconds)
         {
             if (_httpClient != null)
                 return _httpClient;
             if (_staticHttpClient == null)
-                _staticHttpClient = new HttpClient();
+                _staticHttpClient = new HttpClient
+                {
+                    Timeout = TimeSpan.FromSeconds(requestTimeoutInSeconds)
+                };
             return _staticHttpClient;
+           
         }
         private static void AddRequiredHeaders(HttpRequestMessage request, string commerceCode, string apiKey, RequestServiceHeaders headers)
         {
@@ -37,9 +41,9 @@ namespace Transbank.Common
             AddRequiredHeaders(message, options.CommerceCode, options.ApiKey, requestServiceHeaders);
             return message;
         }
-        private string Perform<T>(HttpRequestMessage message) where T : TransbankException
+        private string Perform<T>(HttpRequestMessage message, int requestTimeoutInSeconds) where T : TransbankException
         {
-            var client = GetHttpClient();
+            var client = GetHttpClient(requestTimeoutInSeconds);
             var response = client.SendAsync(message).ConfigureAwait(false)
                 .GetAwaiter().GetResult();
             var jsonResponse = response.Content.ReadAsStringAsync()
@@ -76,7 +80,7 @@ namespace Transbank.Common
             where ReturnType : BaseResponse
         {
             var jsonRequest = JsonConvert.SerializeObject(request);
-            var resp = Perform<ExceptionType>(CreateHttpRequestMessage(request, jsonRequest, options, requestServiceHeaders));
+            var resp = Perform<ExceptionType>(CreateHttpRequestMessage(request, jsonRequest, options, requestServiceHeaders), options.Timeout);
             var result = JsonConvert.DeserializeObject<ReturnType>(String.IsNullOrWhiteSpace(resp) ? "{}" : resp );
             result.OriginalRequest = jsonRequest;
             result.OriginalResponse = resp;
@@ -94,7 +98,7 @@ namespace Transbank.Common
             where ReturnType : BaseResponse
         {
             var jsonRequest = JsonConvert.SerializeObject(request);
-            var resp = Perform<ExceptionType>(CreateHttpRequestMessage(request, jsonRequest, options, requestServiceHeaders));
+            var resp = Perform<ExceptionType>(CreateHttpRequestMessage(request, jsonRequest, options, requestServiceHeaders), options.Timeout);
             return JsonConvert.DeserializeObject<List<ReturnType>>(String.IsNullOrWhiteSpace(resp) ? "[]" : resp);
         }
 
