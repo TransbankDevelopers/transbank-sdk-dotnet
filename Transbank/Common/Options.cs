@@ -9,7 +9,7 @@ namespace Transbank.Common
         private string _apiKey;
         private IIntegrationType _integrationType;
         private RequestService _requestService;
-        private const int DefaultTotalTimeout = 60 * 10;
+        private const int _defaultTimeout = 60 * 10;
         private int _timeout;
 
         public string CommerceCode
@@ -61,7 +61,7 @@ namespace Transbank.Common
             }
         }
 
-        public Options(string commerceCode, string apiKey, IIntegrationType integrationType, int  timeout = DefaultTotalTimeout, HttpClient httpClient = null)
+        public Options(string commerceCode, string apiKey, IIntegrationType integrationType, int  timeout = _defaultTimeout, HttpClient httpClient = null)
         {
             CommerceCode = commerceCode;
             ApiKey = apiKey;
