@@ -12,8 +12,7 @@ before_deploy:
 - ps: '.\scripts\appveyor-before-deploy.ps1'
 deploy:
 - provider: NuGet
-  api_key:
-    secure: xKHD+d8N8yuimk8KRQd78yJRsg6SAkdTnpNIMiaj5WjxVcTetr5DBEeqs/EpBxok
+  api_key: $(NUGET_API_KEY)
   on:
     branch: master
 
