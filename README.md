@@ -16,6 +16,18 @@ debieran instalarse automáticamente.
 - [System.Net.Http 4.3.4](https://dotnet.microsoft.com/)
 - [NETStandard.Library 2.0.3](https://dotnet.microsoft.com/)
 
+## Administrar Paquete NuGet
+
+### 1. Generar una nueva API Key de despliegue
+
+Crea una nueva API Key desde NuGet.org: [https://www.nuget.org/account/apikeys](https://www.nuget.org/account/apikeys)
+
+### 2. Actualizar la API Key en AppVeyor
+
+Una vez generada, actualiza el valor en las variables de entorno del proyecto en AppVeyor:  [https://ci.appveyor.com/project/TransbankDevelopers/transbank-sdk-dotnet/settings/environment](https://ci.appveyor.com/project/TransbankDevelopers/transbank-sdk-dotnet/settings/environment).
+Reemplaza el valor de la variable `NUGET_API_KEY` (asegúrate de marcarla como secreta).
+
+
 ## Instalación
 
 ### Instalar con NuGet
