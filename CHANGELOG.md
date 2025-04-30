@@ -5,6 +5,15 @@ Todos los cambios notables a este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [8.0.0] - 2025-05-05
+
+### Added
+- Se agrega el parámetro `timeout` para que pueda modificarse en todos los productos.
+
+### Changed
+- Se establece por defecto el timeout a 600 segundos para todas las peticiones.
+- Se actualizan las dependencias necesarias para construir el proyecto.
+
 ## [7.0.0] - 2024-05-27
 
 ### Added
