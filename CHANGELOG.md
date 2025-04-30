@@ -14,6 +14,12 @@ y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.ht
 - Se establece por defecto el timeout a 600 segundos para todas las peticiones.
 - Se actualizan las dependencias necesarias para construir el proyecto.
 
+## [7.0.1] - 2024-06-03
+
+### Added
+
+- Se corrige un bug en la respuesta del método `Installments` para el producto Transacción Completa Mall.
+
 ## [7.0.0] - 2024-05-27
 
 ### Added
