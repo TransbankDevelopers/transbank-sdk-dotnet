@@ -9,10 +9,10 @@ y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.ht
 
 Esta versión no tiene cambios en el comportamiento de las funcionalidades de la API.
 
-### Added
+### Agrega
 - Se agrega el parámetro timeout para que pueda modificarse en todos los productos.
 
-### Changed
+### Actualiza
 - Se establece por defecto el timeout a 600 segundos para todas las peticiones.
 - Se actualizan las dependencias necesarias para construir el proyecto.
 
