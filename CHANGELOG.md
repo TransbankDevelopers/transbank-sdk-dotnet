@@ -5,6 +5,17 @@ Todos los cambios notables a este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [7.1.0] - 2025-05-05
+
+Esta versión no tiene cambios en el comportamiento de las funcionalidades de la API.
+
+### Agrega
+- Se agrega el parámetro timeout para que pueda modificarse en todos los productos.
+
+### Actualiza
+- Se establece por defecto el timeout a 600 segundos para todas las peticiones.
+- Se actualizan las dependencias necesarias para construir el proyecto.
+
 ## [7.0.1] - 2024-06-03
 
 ### Added

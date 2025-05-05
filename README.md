@@ -12,7 +12,7 @@ SDK Oficial de Transbank
 Al realizar la instalación con NuGet las dependencias
 debieran instalarse automáticamente.
 
-- [Newtonsoft 13.0.1](https://www.newtonsoft.com/json)
+- [Newtonsoft 13.0.3](https://www.newtonsoft.com/json)
 - [System.Net.Http 4.3.4](https://dotnet.microsoft.com/)
 - [NETStandard.Library 2.0.3](https://dotnet.microsoft.com/)
 
@@ -104,7 +104,7 @@ La documentación relevante para usar este SDK es:
 
 2. Si estas usando tu propio editor
     ```bash
-    dotnet test TransbankTest
+    dotnet test 
     ```
 ## Generar una nueva versión (con deploy automático a NuGet)
 

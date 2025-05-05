@@ -9,6 +9,8 @@ namespace Transbank.Common
         private string _apiKey;
         private IIntegrationType _integrationType;
         private RequestService _requestService;
+        private const int _defaultTimeout = 60 * 10;
+        private int _timeout;
 
         public string CommerceCode
         {
@@ -46,18 +48,31 @@ namespace Transbank.Common
             );
 
         }
+        public int Timeout
+        {
+            get => _timeout;
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), "Timeout must be a non-negative integer.");
+                }
+                _timeout = value;
+            }
+        }
 
-        public Options(string commerceCode, string apiKey, IIntegrationType integrationType, HttpClient httpClient = null)
+        public Options(string commerceCode, string apiKey, IIntegrationType integrationType, int  timeout = _defaultTimeout, HttpClient httpClient = null)
         {
             CommerceCode = commerceCode;
             ApiKey = apiKey;
             IntegrationType = integrationType;
             RequestService = new RequestService(httpClient);
+            Timeout = timeout;
         }
 
         public override string ToString()
         {
-            return $"{nameof(CommerceCode)}: {CommerceCode}, {nameof(ApiKey)}: {ApiKey}, {nameof(IntegrationType)}: {IntegrationType}";
+            return $"{nameof(CommerceCode)}: {CommerceCode}, {nameof(ApiKey)}: {ApiKey}, {nameof(IntegrationType)}: {IntegrationType}, {nameof(_timeout)}: {_timeout}";
         }
     }
 }
