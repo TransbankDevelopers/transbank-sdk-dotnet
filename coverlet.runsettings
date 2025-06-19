@@ -6,6 +6,7 @@
         <Configuration>
           <Format>cobertura</Format>
           <UseRelativePaths>true</UseRelativePaths>
+          <IncludeSourceDirectories>$(MSBuildThisFileDirectory)</IncludeSourceDirectories>
         </Configuration>
       </DataCollector>
     </DataCollectors>
