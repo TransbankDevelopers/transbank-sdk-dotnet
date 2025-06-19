@@ -28,5 +28,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.cs.opencover.reportsPaths=Tests/TestResults/**/coverage.cobertura.xml
             -Dsonar.branch.name=${{ github.head_ref }}
