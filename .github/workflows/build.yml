@@ -24,13 +24,13 @@ jobs:
         run: dotnet restore
 
       - name: Begin SonarCloud analysis
-        run: dotnet sonarscanner begin /k:"TransbankDevelopers_transbank-sdk-dotnet" /o:"transbankdevelopers" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.cobertura.reportsPaths="Tests/TestResults/**/coverage.cobertura.xml"
+        run: dotnet sonarscanner begin /k:"TransbankDevelopers_transbank-sdk-dotnet" /o:"transbankdevelopers" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths="Tests/TestResults/**/coverage.opencover.xml" /d:sonar.scanner.scanAll=false
 
       - name: Build (required by SonarCloud)
         run: dotnet build --no-restore --configuration Release
 
       - name: Test with coverage
-        run: dotnet test Tests/Tests.csproj --no-build --configuration Release --collect:"XPlat Code Coverage" /p:CoverletOutputRelativePath=true
+        run: dotnet test Tests/Tests.csproj --no-build --configuration Release --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover /p:CoverletOutputRelativePath=true
 
       - name: End SonarCloud analysis
         run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
@@ -39,4 +39,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
-          path: Tests/TestResults/**/coverage.cobertura.xml
+          path: Tests/TestResults/**/coverage.opencover.xml
