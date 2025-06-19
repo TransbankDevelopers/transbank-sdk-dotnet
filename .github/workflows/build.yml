@@ -30,7 +30,7 @@ jobs:
         run: dotnet build --no-restore --configuration Release
 
       - name: Test with coverage
-        run: dotnet test Tests/Tests.csproj --no-build --configuration Release --collect:"XPlat Code Coverage"
+        run: dotnet test Tests/Tests.csproj --no-build --configuration Release --collect:"XPlat Code Coverage" --DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.UseRelativePaths=true
 
       - name: Find coverage file
         run: find Tests/TestResults -name "coverage.cobertura.xml"
