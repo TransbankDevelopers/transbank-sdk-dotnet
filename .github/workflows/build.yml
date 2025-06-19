@@ -24,7 +24,7 @@ jobs:
         run: dotnet restore
 
       - name: Begin SonarCloud analysis
-        run: dotnet sonarscanner begin /k:"TransbankDevelopers_transbank-sdk-dotnet" /o:"transbankdevelopers" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.coverageReportPaths="Tests/TestResults/**/coverage.cobertura.xml" /d:sonar.scanner.scanAll=false
+        run: dotnet sonarscanner begin /k:"TransbankDevelopers_transbank-sdk-dotnet" /o:"transbankdevelopers" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.coverageReportPaths="Tests/TestResults/**/coverage.cobertura.xml" /d:sonar.projectBaseDir="${{ github.workspace }}" /d:sonar.scanner.scanAll=false
 
       - name: Build (required by SonarCloud)
         run: dotnet build --no-restore --configuration Release
