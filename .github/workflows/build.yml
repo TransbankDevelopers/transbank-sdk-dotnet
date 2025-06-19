@@ -30,8 +30,11 @@ jobs:
         run: dotnet build --no-restore --configuration Release
 
       - name: Test with coverage
-        run: dotnet test Tests/Tests.csproj --no-build --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=TestResults/coverage.opencover.xml /p:CoverletOutputRelativePath=true
-
+        run: dotnet test Tests/Tests.csproj --no-build --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=$(pwd)/Tests/TestResults/coverage.opencover.xml /p:CoverletOutputRelativePath=true
+      
+      - name: List coverage files
+        run: ls -lR Tests/TestResults
+      
       - name: End SonarCloud analysis
         run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
