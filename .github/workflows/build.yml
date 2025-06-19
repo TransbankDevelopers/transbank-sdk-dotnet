@@ -31,6 +31,7 @@ jobs:
 
       - name: Test with coverage
         run: dotnet test Tests/Tests.csproj --no-build --configuration Release --collect:"XPlat Code Coverage" --settings coverlet.runsettings
+        working-directory: ${{ github.workspace }}
 
       - name: Find coverage file
         run: find Tests/TestResults -name "coverage.cobertura.xml"
