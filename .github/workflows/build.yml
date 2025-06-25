@@ -26,12 +26,15 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-
       - name: Build
         run: dotnet build --no-restore
 
-      - name: Test
-        run: dotnet test --no-build --logger trx
+      - name: Test with coverage
+        run: |
+          dotnet test --no-build --logger "trx" --results-directory "TestResults" `
+            /p:CollectCoverage=true `
+            /p:CoverletOutputFormat=opencover `
+            /p:CoverletOutput=./TestResults/coverage.opencover.xml
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@master
@@ -39,5 +42,3 @@ jobs:
           projectBaseDir: .  
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-
