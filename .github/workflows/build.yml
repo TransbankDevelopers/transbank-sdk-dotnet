@@ -1,4 +1,4 @@
-name: SonarQube Scan (.NET)
+name: .NET CI
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  build-and-scan:
+  sonar-cloud-check:
     name: Build and Analyze
     runs-on: ubuntu-latest
 
@@ -18,19 +18,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup .NET
+      - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: "8.0.x"
 
-      - name: Restore dependencies
+      - name: Install dependencies
         run: dotnet restore
 
       - name: Build
         run: dotnet build --no-restore
 
-      - name: Test with coverage
-        run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput='../TestResults/'
+      - name: Run tests with coverage
+        run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput="../TestResults/"
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@master
