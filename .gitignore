@@ -340,4 +340,4 @@ opencover.xml
 .leu
 
 # Test results
-results/*.*
+TestResults/*.*

@@ -11,7 +11,7 @@ on:
 jobs:
   build-and-scan:
     name: Build and Analyze
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
 
@@ -30,7 +30,7 @@ jobs:
         run: dotnet build --no-restore
 
       - name: Test with coverage
-        run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput='../results/'
+        run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput='../TestResults/'
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@master
