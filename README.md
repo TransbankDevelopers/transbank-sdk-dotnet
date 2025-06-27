@@ -38,13 +38,19 @@ Con .Net CLI:
 dotnet add package TransbankSDK
 ```
 
-Desde Visual Studio:
+### Desde Visual Studio:
 
 1. Abrir el explorador de soluciones.
 2. Clic derecho en un proyecto dentro de tu solución.
 3. Clic en Administrar paquetes NuGet.
 4. Clic en la pestaña Examinar y busque `TransbankSDK`
 5. Clic en el paquete `TransbankSDK`, seleccione la versión que desea utilizar y finalmente selecciones instalar.
+
+## Ejecutar Test
+
+```bash
+dotnet test
+```
 
 ## Documentación 
 
@@ -59,10 +65,8 @@ La documentación relevante para usar este SDK es:
 - Primeros pasos con [Webpay](https://www.transbankdevelopers.cl/documentacion/webpay).
 - Referencia detallada sobre [Webpay](https://www.transbankdevelopers.cl/referencia/webpay).
 
-## Información para contribuir a este proyecto
 
-### Windows
-- VisualStudio (2017 o superior)
+## Información para contribuir a este proyecto
 
 ### Forma de trabajo
 
@@ -122,26 +126,6 @@ La documentación relevante para usar este SDK es:
 
 ![gitflow](https://wac-cdn.atlassian.com/dam/jcr:cc0b526e-adb7-4d45-874e-9bcea9898b4a/04%20Hotfix%20branches.svg?cdnVersion=1324)
 
-### Construir el proyecto localmente
-1. Si estas usando VisualStudio: (**F6**) o :
-    - Click derecho sobre la solución en el explorador de soluciones.
-    - Compilar
-
-2. Si estas usando tu propio editor
-    ```bash
-    dotnet build
-    ```
-
-### Correr test localmente
-1. Si estas usando VisualStudio (**CTR** + **R**, **CTR** + **A**) o:
-    - Abrir el explorador de Test
-    - Click derecho sobre el proyecto de test
-    - Ejecutar todos los test
-
-2. Si estas usando tu propio editor
-    ```bash
-    dotnet test 
-    ```
 ## Generar una nueva versión
 
 Para generar una nueva versión, se debe crear un PR (con un título "release: prepare release X.Y.Z" con los valores que correspondan para `X`, `Y` y `Z`). Se debe seguir el estándar [SemVer](https://semver.org/lang/es/) para determinar si se incrementa el valor de `X` (si hay cambios no retrocompatibles), `Y` (para mejoras retrocompatibles) o `Z` (si sólo hubo correcciones a bugs).
@@ -149,8 +133,10 @@ Para generar una nueva versión, se debe crear un PR (con un título "release: p
 En ese PR deben incluirse los siguientes cambios:
 
 1. Modificar el archivo `CHANGELOG.md` para incluir una nueva entrada (al comienzo) para `X.Y.Z` que explique en español los cambios.
-2. Modificar el archivo `Transbank.csproj` y modificar la versión.
+2. Modificar el archivo [Transbank.csproj](./Transbank/Transbank.csproj) y modificar la versión.
 
 Luego de obtener aprobación del PR, debe mezclarse a master e inmediatamente generar un release en GitHub con el tag `vX.Y.Z`. En la descripción del release debes poner lo mismo que agregaste al changelog.
+
+Con eso Github Actions generará automáticamente una nueva versión de la librería y la publicará en [Nuget](https://www.nuget.org/).
 
 Posterior a la liberación debes mezclar la rama release en develop, finalmente realizar un rebase de la rama develop utilizando como base la rama main.
