@@ -82,24 +82,16 @@ namespace Transbank.Tests.Webpay.Oneclick
         [Fact]
         public void QueryBin_ShouldThrowMallQueryBinException_WhenHttpFails()
         {
-            var mockHandler = new Mock<HttpMessageHandler>();
-            mockHandler
-                .Protected()
-                .Setup<Task<HttpResponseMessage>>("SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
+            var mockHttpClient = new Mock<IHttpClient>();
+            mockHttpClient
+                .Setup(x => x.SendAsync(It.IsAny<HttpRequestMessage>()))
                 .ReturnsAsync(new HttpResponseMessage
                 {
                     StatusCode = HttpStatusCode.InternalServerError,
                     Content = new StringContent("{ \"error\": \"internal error\" }")
                 });
 
-            var httpClient = new HttpClient(mockHandler.Object)
-            {
-                BaseAddress = new Uri("https://webpay3gint.transbank.cl")
-            };
-
-            var options = new Options("999", "secret", WebpayIntegrationType.Test, 600, httpClient);
+            var options = new Options("999", "secret", WebpayIntegrationType.Test, 600, mockHttpClient.Object);
             var instance = new MallInfoBin(options);
 
             Assert.Throws<MallQueryBinException>(() => instance.queryBin("userWithError"));
@@ -114,24 +106,16 @@ namespace Transbank.Tests.Webpay.Oneclick
                 ""bin_brand"": ""VISA""
             }";
 
-            var mockHandler = new Mock<HttpMessageHandler>();
-            mockHandler
-                .Protected()
-                .Setup<Task<HttpResponseMessage>>("SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
+            var mockHttpClient = new Mock<IHttpClient>();
+            mockHttpClient
+                .Setup(x => x.SendAsync(It.IsAny<HttpRequestMessage>()))
                 .ReturnsAsync(new HttpResponseMessage
                 {
                     StatusCode = HttpStatusCode.OK,
                     Content = new StringContent(expectedJson)
                 });
 
-            var httpClient = new HttpClient(mockHandler.Object)
-            {
-                BaseAddress = new Uri("https://webpay3gint.transbank.cl")
-            };
-
-            var options = new Options("999", "secret", WebpayIntegrationType.Test, 600, httpClient);
+            var options = new Options("999", "secret", WebpayIntegrationType.Test, 600, mockHttpClient.Object);
             var instance = new MallInfoBin(options);
             var response = instance.queryBin("tbkUser123");
 

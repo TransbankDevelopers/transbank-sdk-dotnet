@@ -11,21 +11,17 @@ namespace Transbank.Common
 {
     public class RequestService
     {
-        private static HttpClient _staticHttpClient;
-        private HttpClient _httpClient;
+        private static IHttpClient _staticHttpClient;
+        private IHttpClient _httpClient;
         private static readonly string CONTENT_TYPE = "application/json";
-        public RequestService(HttpClient httpClient = null) { _httpClient = httpClient;  }
-        private HttpClient GetHttpClient(int requestTimeoutInSeconds)
+        public RequestService(IHttpClient httpClient = null) { _httpClient = httpClient; }
+        private IHttpClient GetHttpClient(int requestTimeoutInSeconds)
         {
             if (_httpClient != null)
                 return _httpClient;
             if (_staticHttpClient == null)
-                _staticHttpClient = new HttpClient
-                {
-                    Timeout = TimeSpan.FromSeconds(requestTimeoutInSeconds)
-                };
+                _staticHttpClient = new DefaultHttpClient(requestTimeoutInSeconds);
             return _staticHttpClient;
-           
         }
         private static void AddRequiredHeaders(HttpRequestMessage request, string commerceCode, string apiKey, RequestServiceHeaders headers)
         {
@@ -52,13 +48,16 @@ namespace Transbank.Common
             {
                 String errorMessage = "";
                 var jsonObject = (JObject)JsonConvert.DeserializeObject(jsonResponse);
-                if (jsonObject != null && jsonObject.ContainsKey("error_message")){
+                if (jsonObject != null && jsonObject.ContainsKey("error_message"))
+                {
                     errorMessage = $"Error message: {jsonObject.Value<string>("error_message")}";
                 }
-                else if (jsonObject != null && jsonObject.ContainsKey("description")){
+                else if (jsonObject != null && jsonObject.ContainsKey("description"))
+                {
                     errorMessage = $"Error message: {jsonObject.Value<string>("code")} - {jsonObject.Value<string>("description")}";
                 }
-                else{
+                else
+                {
                     errorMessage = $"Error message: {jsonResponse}";
                 }
                 throw (T)Activator.CreateInstance(typeof(T), new object[] {
@@ -75,13 +74,13 @@ namespace Transbank.Common
             return Perform<ReturnType, ExceptionType>(request, options, new RequestServiceHeaders());
         }
 
-        public ReturnType Perform<ReturnType, ExceptionType>(BaseRequest request, Options options, RequestServiceHeaders requestServiceHeaders) 
+        public ReturnType Perform<ReturnType, ExceptionType>(BaseRequest request, Options options, RequestServiceHeaders requestServiceHeaders)
             where ExceptionType : TransbankException
             where ReturnType : BaseResponse
         {
             var jsonRequest = JsonConvert.SerializeObject(request);
             var resp = Perform<ExceptionType>(CreateHttpRequestMessage(request, jsonRequest, options, requestServiceHeaders), options.Timeout);
-            var result = JsonConvert.DeserializeObject<ReturnType>(String.IsNullOrWhiteSpace(resp) ? "{}" : resp );
+            var result = JsonConvert.DeserializeObject<ReturnType>(String.IsNullOrWhiteSpace(resp) ? "{}" : resp);
             result.OriginalRequest = jsonRequest;
             result.OriginalResponse = resp;
             return result;
