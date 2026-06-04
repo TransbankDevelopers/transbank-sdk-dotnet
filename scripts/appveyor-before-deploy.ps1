@@ -1,13 +1,13 @@
 Write-Host "Before Deploy Script"
 Set-Location Transbank
-if ($env:APPVEYOR_REPO_TAG_NAME -Match "^v[0-9]+\.[0-9]+\.[0-9]+" ){
+if ($env:APPVEYOR_REPO_TAG_NAME -match "^v[0-9]+\.[0-9]+\.[0-9]+" ){
     Write-Host "Version Tag Found Deploy new Nuget Release"
     $VERSION_NUMBER=$env:APPVEYOR_REPO_TAG_NAME.substring(1)
     dotnet.exe pack Transbank.csproj -c release  -p:Version=$VERSION_NUMBER --output nupkgs
     Push-AppveyorArtifact '.\nupkgs\*.nupkg'
     Write-Host "Done"
 }
-elseif ($env:APPVEYOR_FORCED_BUILD -Match "true") {
+elseif ($env:APPVEYOR_FORCED_BUILD -match "true") {
     Write-Host "New build button presed and no version Tag Found deploy prerelease to Nuget"
     dotnet.exe pack Transbank.csproj -c release --version-suffix ci-$env:APPVEYOR_BUILD_ID --output nupkgs
     Push-AppveyorArtifact '.\nupkgs\*.nupkg'
